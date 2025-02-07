@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>Untitled</title>
+<style>
+@import '../web/kxygk.css';
+
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+font: 14px/20px italic Times, sans-serif;
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+.listingblock,pre.src {
+margin-left:  -5vw;
+margin-right: -5vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: solid;
+border-left-width: 4px;
+border-left-color: grey;
+font: 14px/20px italic Times, serif;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+/*.org-svg {
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}*/
+
+img {
+    display:flex;
+max-width: 100%;
+height: 100%;
+max-height: 33vh;
+vertical-align: middle;
+width: auto;
+margin: auto;
+}
+ul {
+list-style-type: circle;
+padding-left: 1.5em;
+border-left: solid;
+border-left-width: 1px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {
+    color: black;
+font-style: italic;
+    padding-top: 0.5em;
+    border-bottom: 4px solid  #aaaaaa;}
+h3 {color: black;
+border-bottom: 2px dotted  #aaaaaa;}
+b, i{
+font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+font-size: 0.8em;
+line-height: 0;
+position: relative;
+vertical-align: baseline;
+top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+.title {
+font-weight: bold;
+}
+dt {
+font-weight: bold;
+}
+td p, dd p, li p{
+    margin: 0;
+}
+ul, p{
+    margin-top: 0;
+}
+.sidebarblock{
+    background:#f3f3f2;
+}
+.float-group::before,.float-group::after{content:" ";display:table}
+.left{float:left!important}
+.right{float:right!important}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+.scrollbox{
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+.scrollbox img{
+    height:auto;
+    width:auto;
+    max-width: 70vw;
+    max-height: 60vh;
+    vertical-align: bottom;
+    scroll-snap-align: start;
+}
+video{
+    height:auto;
+    width:auto;
+    max-width: 30vw;
+    max-height: 30vh;
+}
+.content{
+    height: 100%;
+}
+.imageblock{
+    height: 100%;
+}
+.flexbox > .content{
+    display: flex;
+    justify-content: center;
+    height: 33vh;
+}
+
+</style>
+</head>
+<body class="article">
+<div id="header">
+</div>
+<div id="content">
+<div class="paragraph">
+<p>Dear Professor,</p>
+</div>
+<div class="paragraph">
+<p>This is George Kontsevich, your Linear Algebra student from years ago. I&#8217;m finally studying for a PhD (in Geology) and I&#8217;ve gotten the chance to apply some of the more advanced things I learned in your class.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;m writing to ask for your advice as I&#8217;m a bit stuck. I think my problem is relatively uncomplicated and there is likely some turn key solution. For some context, I&#8217;m working with some rain data in the South of Thailand (the skinny part of the Malaysian peninsula). On the annual scale there are two major rain patterns - the summer and winter monsoons. An example year looks something like this:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/maps/krabi/monthly/two-seas-monsoon.svg" alt="two seas monsoon"></span></p>
+</div>
+<div class="paragraph">
+<p>(the data actually is on an hourly granularity, but I bin it into months for convenience)</p>
+</div>
+<div class="paragraph">
+<p>The summer rains come from the Indian Ocean to the West and the winter rains come from the East - producing two fairly consistent patterns. In short, using about ten years of data I&#8217;ve managed to extract these two patterns using the SVD. But there are complications. Most basically the singular vectors are not aligned with the original signals. I played around with this using synthetic data, and looking more closely it seems this is a consequence of the way a two norm weighs the data (the addition in quadriture). So the induced matrix 2-norm make the first singular vector a mix of the two dominant signal, and the second singular vector gives a different mix.</p>
+</div>
+<div class="paragraph">
+<div class="title">first SV</div>
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/sv-0.svg" alt="sv 0"></span></p>
+</div>
+<div class="paragraph">
+<div class="title">second SV</div>
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/sv-1.svg" alt="sv 1"></span></p>
+</div>
+<div class="paragraph">
+<p>However the subspace of these two singular vectors contains the two original monsoon signals. If I project the original data on to the singular vectors and plot in 2D then the data primarily lies along two axis - with an additional cluster near zero for the Jan-Feb dry season.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/sv-projections.svg" alt="sv projections"></span></p>
+</div>
+<div class="paragraph">
+<p>Here it&#8217;s also obvious that underlying signals/patterns are also non-orthogonal. It should be noted that the summer months very bizarrely lie on a line that doesn&#8217;t seem to go through the origin. I have no clear explanation for this - though I suspect it&#8217;s related so what&#8217;s effectively a "DC offset". The dry season is less rain than the global average amount of rain - and hence is a 3rd component/signal itself.</p>
+</div>
+<div class="paragraph">
+<p>At this point I can just manually pick out the two axis by drawing two vectors by eye and I get a very pretty result!</p>
+</div>
+<div class="paragraph">
+<div class="title">"summer"</div>
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/bottom-pattern.svg" alt="bottom pattern"></span></p>
+</div>
+<div class="paragraph">
+<div class="title">"winter"</div>
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/top-pattern.svg" alt="top pattern"></span></p>
+</div>
+<div class="paragraph">
+<p>I can now reproject all my data on tho these two vectors and build a summer/winter monsoon index of sorts - and then look at how the monsoons change year to year.</p>
+</div>
+<div class="paragraph">
+<p>In the original 2D SV plot there are a few purple points in between the two axis - this is October/November when the monsoon switches from its summer direction to its winter direction. Probably one could do a second pass over the data and re-bin it so these are eliminated entirely.</p>
+</div>
+<div class="paragraph">
+<p>But I don&#8217;t like this manually axis selection step. Not only does it limit me to 2/3 dimensions, but I would like to be able to do this in a more objective "hands off" way. I&#8217;ve been hunting for an suitable method, but it leads me down a rabbit hole of questionable math. There is the ICA - but this seems more appropriate for signals that are mixing (cocktail party problem). Here two the signals are distinct (either one or the other). I tried it in both Java and MATLAB and it&#8217;s given me terrible results - though it&#8217;s very possible I made some mistake running it. It was also unclear if I should run it on original data or the reduced 2D data.</p>
+</div>
+<div class="paragraph">
+<p>There are also methods used in the fringes of meteorology (where this is called a EOF rotation). But they seem to mostly do orthogonal rotations, and the methods are numerous and dubious. Oblique rotations are mentioned but hardly every used. Since they reinvented the SVD/wheel with this "EOF" all the proofs and terminology they use are different and it&#8217;s been challenging to really assess them.</p>
+</div>
+<div class="paragraph">
+<p>Since I know I have two axes/processes, my current gut feeling is split the space in half in a way that minimizes the variance of each half. So that data near-zero dry-season data points don&#8217;t swamp the result, each half&#8217;s mean should probably be calculated by weighting the data by its norm.</p>
+</div>
+<div class="paragraph">
+<p>I was wondering if you had any suggestions as to how to approach this problem. My inuition tells me that this is likely a solved problem with well developed solutions.</p>
+</div>
+<div class="paragraph">
+<p>I should thank you again for your wonderful class and everything you taught me. A lot of it has stayed with me over the years and comes up in my career at critical moments.</p>
+</div>
+<div class="paragraph">
+<p>Yours,
+George</p>
+</div>
+</div>
+</body>
+</html>

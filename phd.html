@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>PhD Trajectory: Finding monsoons underground</title>
+<style>
+@import '../web/kxygk.css';
+
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+font: 14px/20px italic Times, sans-serif;
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+.listingblock,pre.src {
+margin-left:  -5vw;
+margin-right: -5vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: solid;
+border-left-width: 4px;
+border-left-color: grey;
+font: 14px/20px italic Times, serif;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+/*.org-svg {
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}*/
+
+img {
+    display:flex;
+max-width: 100%;
+height: 100%;
+max-height: 33vh;
+vertical-align: middle;
+width: auto;
+margin: auto;
+}
+ul {
+list-style-type: circle;
+padding-left: 1.5em;
+border-left: solid;
+border-left-width: 1px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {
+    color: black;
+font-style: italic;
+    padding-top: 0.5em;
+    border-bottom: 4px solid  #aaaaaa;}
+h3 {color: black;
+border-bottom: 2px dotted  #aaaaaa;}
+b, i{
+font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+font-size: 0.8em;
+line-height: 0;
+position: relative;
+vertical-align: baseline;
+top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+.title {
+font-weight: bold;
+}
+dt {
+font-weight: bold;
+}
+td p, dd p, li p{
+    margin: 0;
+}
+ul, p{
+    margin-top: 0;
+}
+.sidebarblock{
+    background:#f3f3f2;
+}
+.float-group::before,.float-group::after{content:" ";display:table}
+.left{float:left!important}
+.right{float:right!important}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+.scrollbox{
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+.scrollbox img{
+    height:auto;
+    width:auto;
+    max-width: 70vw;
+    max-height: 60vh;
+    vertical-align: bottom;
+    scroll-snap-align: start;
+}
+video{
+    height:auto;
+    width:auto;
+    max-width: 30vw;
+    max-height: 30vh;
+}
+.content{
+    height: 100%;
+}
+.imageblock{
+    height: 100%;
+}
+.flexbox > .content{
+    display: flex;
+    justify-content: center;
+    height: 33vh;
+}
+
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>PhD Trajectory: Finding monsoons underground</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_preamble">Preamble</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a top level document describing the motivations, background and goals of my PhD. This is supposed to function as a broad overview using language that can be understood by everyone.</p>
+</div>
+<div class="paragraph">
+<p>The focus of my research will be on calcium carbonate stalagmites and their ability to reconstruct the asian monsoon in the distant past. The goal of this document is provide a brief introduction to the state of the art of our understanding on the stalagmite-monsoon connection and to then present my PhD research plans for expanding of this.</p>
+</div>
+<div class="paragraph">
+<p>Details of the study location, references, indepth technical background information on geochemistry and hydrology will live on separate pages (to be maybe uploaded over time)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_what_are_stalagmites">What are stalagmites?</h3>
+<div class="paragraph">
+<p>My focus will be on cave <strong>stalagmites</strong> which are a type of <strong>speleothem</strong>. Speleothems are all rock formations that form in caves. Stalagmites are the rocks that growing vertically from the cave floor. Because of how the water drips down on them, they grow vertically in even layered. They generally grow along a central axis and have a predicable shape and pattern. Hence they are easier to study than other speleothems/cave-features (TODO: Find some authoritative source on why we only look at stalagmites)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_stalagmites">Why stalagmites?</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Relatively Young Field</dt>
+<dd>
+<p>While people have been studying caves for a while, substantive progress has been made in the past decade. My impression so far has been that there are still many unanswered questions, many poorly understood phenomena and plenty of accessible avenues of research.</p>
+</dd>
+<dt class="hdlist1">Matching Skillset</dt>
+<dd>
+<p>When compared to other climate records, such as those from the ocean floor or lake sediments - the climate record we can see in caves is unusually "clean" with very small errors. To me this indicates that it has the potential to be a bit more quantitative than other climate proxies. The hope is that this will allow me to use my past experience in physics/programming to find new ways forward. A lot of outstanding climate questions are about cause and effect and the timings between closely spaced changes in climate records. Accurate high resolutions records such as those from stalagmites may prove to be the key to unlocking these questions. That said, as we will see, the link between our proxies and climate is a bit limited and we can&#8217;t infer as much as from other records.</p>
+</dd>
+<dt class="hdlist1">Team Synergy</dt>
+<dd>
+<p>Professor&#8217;s Lowemark&#8217;s paleoclimate team brings in expertise from a wide variety of different areas - from lake records to arctic deep sea cores. Hopefully my work will be complementary and we can work together, learn from each other and combine our different experiences to find new unexplored areas of research at the boundaries. Since the cave record is limited in what it can reconstruct - corroborating results/theories with other lower resolution paleoclimate records would help validate results and build a cohesive climate picture.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_do_speleothems_tell_us">What do speleothems tell us?</h3>
+<div class="paragraph">
+<p>Speleothems primarily form in caves made of limestone. They form due to water flowing through the limestone in a complicated system called <strong>karst</strong> - where the water is both dissolving rock, creating caves, and simultaneously creating new rock elsewhere - ie the speleothems.</p>
+</div>
+<div class="paragraph">
+<p>The main record we look at in limestone caves is the ratio of <em>­<sup>18</sup>O</em> to <em>­<sup>16</sup>O</em> atoms trapped in the cave&#8217;s stalagmites. <em>­<sup>18</sup>O</em> is a relatively rare form of oxygen which is about <em>12%</em> heavier than the more common oxygen <em>­<sup>16</sup>O</em>. It represents about <em>0.2%</em> of all the oxygen available on Earth. If we look at the water molecules in the oceans we will occassionally see an <em>H<sub>2</sub>O</em> with a <em>­<sup>18</sup>O</em> oxygen. Since these water molecule will be a bit heavier than the others, they will have more trouble evaporating. Hence compared to the oceans, you will find less <em>­<sup>18</sup>O</em> in the rain, rivers and polar ice. The heavier water molecules that do manage to evaporate will also be the ones that tend to fall out with the first rains.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/diagram/karst-light-rain.svg" alt="karst light rain"></span></p>
+</div>
+<div class="paragraph">
+<p>When it rains above a limestone cave system all the <em>H<sub>2</sub>O</em>, both heavy and light, will initially soak into the soil above. Within the soil decomposition and plant respiration through the root system is constantly producing <em>CO<sub>2</sub></em> gas. The deeper you go down in the soil the more difficult it is for this <em>CO<sub>2</sub></em> to exchange with the atmosphere above. So as the rain water flows down it comes in contact with <em>CO<sub>2</sub></em> at higher and higher concentrations - and this <em>CO<sub>2</sub></em> will start to dissolve into the water in larger amounts. Once dissolved, part of the <em>CO<sub>2</sub></em> will produces a weak acid <em>H<sub>2</sub>CO<sub>3</sub></em> (carbonic acid). The now mildly acidic rain water continues to flow down till it reaches the underlying limestone rock below.</p>
+</div>
+<div class="paragraph">
+<p>When the acidic rain water makes contact with this rock layer it dissolves a small amount of the limestone (mostly calcium-carbonate <em>CaCO<sub>3</sub></em>) into calcium bicarbonate <em>Ca(HCO<sub>3</sub>)</em>. This mixture of water, calcium bicarbonate and some remaining dissolved <em>CO<sub>2</sub></em> gas will then continue to slowly flow downward through the limestone from where it will typically continue down to a river and eventually back to the sea. The flow downward can take a while and water will sit in the rock due to capillary action.</p>
+</div>
+<div class="paragraph">
+<p>If this mixture of water, bicarbonate and <em>CO<sub>2</sub></em> enters an empty space on its way down - and this empty space can exchange with the outside air - then the mixture suddenly finds itself in an environment with very little <em>CO<sub>2</sub></em>. This will cause the <em>CO<sub>2</sub></em> to start leaving the water immediately - just like when you opened a bottle of soda (but on a much smaller and less dramatic scale). This pretty quickly makes the water stop being acidic and the limestone that was previously dissolved will start to recrystalize. So at the point where the water enters the cave you will start to immediately form new limestone rock. If this point is on the ceiling of the cave then at that spot you will form a stalatite that grows downward. Once the water reaches the end of the stalagtite it will fall off as a droplet and splash on the floor of the cave where crystals will continue to grow. These crystals on the floor will accumulate over time into a vertically stalagmite tower. The <em>CO<sub>2</sub></em> leaving the water and the limestone recrystalizing all happens within the space of about a minute and once the <em>CO<sub>2</sub></em> is gone the process will stop. So by the time the water has soaked into the floor of the cave the process is mostly complete. Notice how the water never has to evaporate!</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s important to look at the cave&#8217;s chemistry from the broader picture. In all these chemical reaction there is a lot of water, <em>H<sub>2</sub>O</em>, and very tiny amounts of dissolved limstone <em>CaCO<sub>3</sub></em> and <em>CO<sub>2</sub></em>. So while all the molecules mentioned come with their own oxygens, in the final analysis the oxygens in the mixture are almost entirely coming from the original rain water. Therefore the oxygens that end up in the calcium carbonate <em>CaCO<sub>3</sub></em> of the stalagmites are almost entirely coming from the rain water. So when we look at the <em>­<sup>18</sup>O</em> that ended up in the speleothem what we can actually see is the <em>­<sup>18</sup>O</em> that was in ancient rains.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_can_the_18o_tell_us">What can the <em>­<sup>18</sup>O</em> tell us?</h3>
+<div class="paragraph">
+<p>One of the drawbacks of studying speleothems is that connecting the rain&#8217;s <em>­<sup>18</sup>O</em> to climate is challenging.</p>
+</div>
+<div class="paragraph">
+<p>As previously mentioned, because water with <em>­<sup>18</sup>O</em> is heavier it will generally rain out earlier than water molecules with <em>­<sup>16</sup>O</em>. Very large cloud/weather systems that transport lots of water, when compared with more local systems, will rain many times over the course of their lives and will travel larger distances before they run out moisture. Each rain event will leave less and less <em>­<sup>18</sup>O</em> in the clouds and hence larger rain-systems that have traveled further will produce unusually light rains with very little <em>­<sup>18</sup>O</em>. Some of the largest weather systems found in the world are the summer monsoons in Asia. These are continent-scale systems that can travel very large distances before they reach land, often starting from the middle of the Indian Ocean. We expect that by the time they rain out over land they will have much lower amounts of <em>­<sup>18</sup>O</em> when compared to more local/regional rains.</p>
+</div>
+<div class="paragraph">
+<p>When we look at the rains above a cave we can think of them as either being part of some local weather, or being part of a monsoon sytem. If we assume local rains doesn&#8217;t change too much in intensity, then as the strength of the monsoon changes over time, the resulting <em>­<sup>18</sup>O</em> caught in our caves will also change. As the monsoon gets stronger more of the water in the cave is "monsoon water" and the amount of <em>­<sup>18</sup>O</em> will drop. And as the monsoon weakens more of the water in the cave is "local water" and the fraction of <em>­<sup>18</sup>O</em> will increase.</p>
+</div>
+<div class="paragraph">
+<p>Assuming a stable unchanging local rain system seems a bit risky, however, the overall method of using <em>­<sup>18</sup>O</em> as a metric for monsoon strength has been confirmed through other climate records (ex: lake sediments) - and <em>­<sup>18</sup>O</em> based monsoon records have been used successfully in other regions outside of Asia as well. However it is an assumption that one has to bare in mind</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/plot/haicheng-all.svg" alt="haicheng all"></span></p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Most people agree on this <em>­<sup>18</sup>O</em>-monsoon connection, but there are exceptions. see:</p>
+</div>
+<div class="paragraph">
+<p><em>Oxygen isotopes from Chinese caves: records not of monsoon rainfall but of circulation regime</em><br>
+by B. Maher &amp; Roy Thompson<br>
+2012, Environmental Science, Journal of Quaternary Science<br></p>
+</div>
+</blockquote>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_advantages_do_these_speleothems_have">What advantages do these speleothems have?</h3>
+<div class="paragraph">
+<p>While we&#8217;ve established there is a likely monsoon record in our caves, a record on its own is not very useful if the same information can be obtained elsewhere. However these <em>­<sup>18</sup>O</em> records has some very unique advantages that set them apart. I highlight these here because I feel it&#8217;s important to keep these advantages in mind. This is where new inferances can be made - ones that wouldn&#8217;t have been possible from other climate records - as well as hints at where improvements can have the largest impact</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">High resolution <em>­<sup>18</sup>O</em></dt>
+<dd>
+<p>As we saw previously, almost every molecule of the limestone has an oxygen (<em>CaCO<sub>3</sub></em>) so measuring oxygen in never a problem. And while the rain does have less <em>­<sup>18</sup>O</em> than the oceans, it&#8217;s still present in sufficient concentrations that even with a very small amount of limestone we can measured its concentration to with a very high accuracy. As a result there is very little data noise to worry about. There are also very few processes which can change this <em>­<sup>18</sup>O</em> concentration between the time it rains and the time the stalagmite forms.</p>
+</dd>
+<dt class="hdlist1">Accurate time keeping</dt>
+<dd>
+<p>The date of each layer in a stalgmite is determines using <a href="https://en.wikipedia.org/wiki/Uranium%E2%80%93thorium_dating">Uranium-Thorium dating</a>. Small amounts of uranium are present in limestone and it will dissolve (in very small amounts) into the rain water that flows through the rock. If the rain water forms a stalagmite then some of it will also get trapped in the stalagmite crystal. Uranium is radioactive and so it will eventually decay into Thorium. Thorium, unlike Uranium, does not dissolve in water which means that we can know for certain that a freshly formed stalagtite crystal will have no trace of Thorium. Any Thorium you find subsequently must form over time from the decay of Uranium. The ratio of Thorium to Uranium naturally increases over time and it can very accurately tell you the time when the rock containing our <em>­<sup>18</sup>O</em> actually formed. (<a href="https://www.semanticscholar.org/paper/A-novel-approach-for-construction-of-chronologies-Lechleitner-Fohlmeister/011f21309573ec81f26824f80d4f8fec80a8a863">somtimes this can go wrong though</a>)</p>
+</dd>
+</dl>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+There is the issue of Thorium contamination in some speleothems. A bit unclear how this happens.. I think some soils have a lot of Thorium and this clay material can get washed into the cave and contaminate the growing speleothem. I think for instance .. Australian speleothems are not suitable for U/Th dating (TODO: Get references for this..)
+</td>
+</tr>
+</table>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Finding climate drivers</dt>
+<dd>
+<p>Accurate time keeping turns out to be particularly important when looking at past climate. A lot of changes in the Earth&#8217;s climate as quite sudden and many things in the Earth&#8217;s climate can shift over the course of a very short amount of time. It can be critical to know which things shifted first and which shifted later. Sometimes this allows us to infer that an earlier event caused a later event and at othe times it just leaves us with more questions to explore. For instance careful measurements have shown that <em>CO<sub>2</sub></em> levels will increase sharply just a couple thousand years before the collapse of the glaciers. This goes against our previous intuition about the carbon cycle and gives researches an important phenomena to try to explain. With Uranium Thorium dating being one of the best dating methods we have available the stalagmite record gives us a unique window into these difficult climate-response questions.</p>
+</dd>
+<dt class="hdlist1">Several important geologic time scales</dt>
+<dd>
+<p>The <a href="https://en.wikipedia.org/wiki/Uranium%E2%80%93thorium_dating">Uranium-Thorium dating</a> method allows us to calculate ages going back about 600k years. This creates a high-accuracy bridge between recent deglacial climate records, which are abundant, and past glacial/interglacial periods about which we understand much less. One can build and test climate theories on the more recent data-rich time periods and then re-apply those theories on to periods where we have much less information.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The main drawbacks are that the stalagmite doesn&#8217;t easily yield any other signal other than <em>­<sup>18</sup>O</em>, and as it&#8217;s been illustrated, the connection between <em>­<sup>18</sup>O</em> and the climate is for the moment limited to looking at monsoons.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_research">Research</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Going forward we need to try to develop other climate records from the caves so that we can say more about the changes we are seeing</p>
+</div>
+<div class="sect2">
+<h3 id="_objective_establishing_18o_bounds">Objective: Establishing <em><sup>18</sup>O</em> bounds</h3>
+<div class="paragraph">
+<p>The first step to understanding the paleclimate record is to understand the current climate configuration. In particular we want to have a clear understanding of the drivers of <em><sup>18</sup>O</em> in our study region. If we assume the monsoon hypothesis is correct, then we would like to know:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>what is the isotopic signature of the summer and winter monsoons?</p>
+</li>
+<li>
+<p>what is the isotopic signature of the "background" tropical rain in the region?</p>
+</li>
+<li>
+<p>what is the variability in these signatures?</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The final concentration we find in the cave will correspond to the mixing ration of these sources and hence the final measured value must lie somewhere within the bounds of these signatures.</p>
+</div>
+<div class="paragraph">
+<p>To quantify the modern climate configuration and isotopic bounds we need to start with two things:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A modern <strong><em><sup>18</sup>O</em> record</strong></p>
+</li>
+<li>
+<p>A modern <strong>monsoon record</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the <strong><em><sup>18</sup>O</em> record</strong> we have a daily record from the Krabi airport. The airport is near the study site and should generally exhibit similar <em><sup>18</sup>O</em> variability. But the part that is missing is a mesoscale <strong>monsoon record</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_a_mesoscale_monsoon_index">A Mesoscale monsoon index</h3>
+<div class="paragraph">
+<p>I can estimate the presence of the monsoon based on high resolution precipitation records. The IMERG data set as provided by NASA give us an extremely fine grain record over the last decade or two. It provides us a 1-degree resolution as well as precipitation down to the half-hour timescale. I use a simple pattern extraction algorithm based on a simplified variant of a EOF/PCA rotation. This allows me to identify the winter and summer monsoon precipitation patterns on which I reconstruct a index. It also allows me to estimate the background precipitation amounts and hopefully will allow me to quantify the overall variability (this part is a bit trickier!)</p>
+</div>
+<div class="paragraph">
+<p>Once we have a clear metric of the  <em><sup>18</sup>O</em> and monsoons we can then start quantitatively tackle the core questions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Under an unchanging climate, given the climate signatures and their intrinsic <em><sup>18</sup>O</em> variability, how many years would you need to average to get an acceptable error?</p>
+</li>
+<li>
+<p>Given an ideal error-free <em><sup>18</sup>O</em> value, can we decompose it into its summer/winter/background fractions?</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The answer to the first question establishes the minimal resolution at which one can drill stalagmites. We currently see that at the annual scale, the amount weighted average of <em><sup>18</sup>O</em> for the year does not reflect the ratio of summer monsoon to background rain. When averaging over a decade starts to provide a more distinct trend. Finding and quantifying this limit will simply be a numerical exercise once all the parameters are quantified</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_stalagmite_record_is_underconstrained">The stalagmite record is underconstrained</h3>
+<div class="paragraph">
+<p>The second question is more of a numeric challenge. The summer/winter/background configuration in Thailand is not a system with two simple bounds. In places like China the  <em><sup>18</sup>O</em> concentration is pulled down by the monsoon and pulled up by the background rain. In my study site there is a third element resides in the middle and is not immediately destinguishable from a corresponding mixture of the other two.</p>
+</div>
+<div class="paragraph">
+<p>When looking at their isotopic signatures I expect that the summer monsoon is isotopically "very light", the local background precipitation is "very heavy" and hence the winter monsoon will likely be somewhere in between. As a result a fundamental issue is that any measured value of <em><sup>18</sup>O</em> could correspond to different fractions of those three climate phenomena and I have no direct way to distinguish which fraction is correct. Stated more plainly - this is effectively an issue of too many degrees of freedom.</p>
+</div>
+<div class="paragraph">
+<p>In fact a similar issue affects the simpler Chinese-style 2-bound systems. While these simpler systems are more constrained and a fixed monsoon/background ratio can be identified - there is no direct way to say distinguish if the monsoon is increasing/decreasing or the background rain is decreasing/increasing.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_using_differences_in_stalagmite_flow_paths">Using differences in stalagmite flow paths</h3>
+<div class="paragraph">
+<p>To constrain the problem and to find a fixed solution I need to construct additional constraints. The goal is to build these based on total precipitation volume by comparing different speleothems in the same cave. The crux is that each stalagmite in a cave seems to exhibit different responses to the amount of precipitation happening outside the cave. Generally speaking, monsoon rains are heavy rains, while background rains are typically light rains. And hence the ratio of summer/winter/background rain that reaches each stalagmite should in effect be different. By collecting a series of speleothems with different rain responses I can see the differences in their isotopic records and infer whether there were more high monsoon rains or light background rains. This allows me to contrain which ratios are valid.</p>
+</div>
+<div class="paragraph">
+<p>The reason for the difference is that the path of the rain water to the cave is actually a more complicated process than previously described. The water is flowing down many different small channels in the limestone, and the flow through these channels will often change depending on how much rain water is coming down from above. The added pressure from large amounts can also produce a "piston effect" which pushes exponentially more water into the cave.</p>
+</div>
+<div class="paragraph">
+<p>Previous research has shown that as water builds up during a long rain it will often find new channels to flow down into the cave. Just like when you fill your hands with water, as the water level rises it finds new gaps between your fingers to go through. This can lead to a stalagmite which has little flow and growth when rains are small, but once the rains pass some threshold level, a new channel is reached and there is a drastic increase in the flow/growth. Or you can have the opposite situation, where past a certain point the water finds some other way down - past the stalagmite - and the flow rate stops increasing.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/diag/karst-conduit-heavy.svg" alt="karst conduit heavy"></span></p>
+</div>
+<div class="paragraph">
+<p>The net result is that each stalagmite in a cave has a fingerprint of sorts with its own set of flow paths - each stalagmite will respond slightly differently to changes in the rain. If we look at the simple scenario of a two-state summer/background system - any given value of <em><sup>18</sup>O</em> may represent different volumes of precipitation. The only constraint is that the fraction of summer monsoon rain to background rain remains the same.</p>
+</div>
+<div class="paragraph">
+<p>However if we have stalagmite that are more and less sensitive to high (summer monsoon) precipitation, then a change in absolute precipitation volume would result in different fractions of summer/background  <em><sup>18</sup>O</em> being deposited in the stalagmite. The two records would not match and one could say something about actual summer/background rain volumes.</p>
+</div>
+<div class="paragraph">
+<p>In our three state system we would need three or four speleothems to constrain the problem and achieve the same result. Comparing different stalagmites would allow us to move from a one dimensional view of <em>­<sup>18</sup>O</em> to something more nuanced.</p>
+</div>
+<div class="paragraph">
+<p>A potential pitfall is that if the rain volume response in the cave is particularly complicated then it might prove difficult if not impossible to combine the records. The hope is that the responses are generally linear. Furthermore, this kind of analysis may require some simplifying assumptions, like a static dry season length, or a fixed duration for the monsoon (each additional variable would have a diminishing impact, but would require more and more speleothems to be analysed)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusions_and_timeline">Conclusions and timeline</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The general research is split along 3 semi-independent threads</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">climate index</dt>
+<dd>
+<p>The climate index generator is coming together and seems to present very promising results (2023-08-30). It&#8217;s a bit unknown how it will be received in the meteorological community. I hope to present it at AGU to get concrete feedback. I think at the end of the day it should yield at least something new and interesting - though the scope is a bit unclear at the moment</p>
+</dd>
+<dt class="hdlist1">flowthrough characterization</dt>
+<dd>
+<p>Equipment was unsuccessfully tested in Krabi. The second set of loggers will be installed by the end of 2023-09 hopefully. And hopefully things will go more smoothly this time around. Meanwhile water samples are still being collected both outside and in the cave.</p>
+</dd>
+<dt class="hdlist1">paleoclimate resonstruction</dt>
+<dd>
+<p>This would involve actually taking speleothems from the cave and doing the labwork to get oxygen isotope values. This work would hopefully start in the spring. Since it looks like I need to sample 3-4 speleothems, I may just want to focus on the near-present time period (where there are hopefully other records to compare to)</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_side_projects">Side Projects</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here I list some potential side projects that are at the back of my mind</p>
+</div>
+<div class="sect2">
+<h3 id="_using_rain_shadows_to_infer_spatial_information">Using rain shadows to infer spatial information</h3>
+<div class="paragraph">
+<p>If we don&#8217;t limit ourselves to just one cave and we look at a slightly larger scale, we can start to compare caves in a particular area. As long as the caves are near each other they will all be under the influence of the same monsoons and local weather systems. Likely caves spaced further apart would exhibit more climate variations (say different sides of a peninsula), but would also presumably have start to exhibit different mesoscale climate configuration with more potential biases due to external factors</p>
+</div>
+<div class="paragraph">
+<p>If we were to carefully select nearby caves that were separated by some small mountains then while the local climate would be the same everywhere, the different caves could end up recieving different amount of rain due to the mountains' rain shadow. Hence the record of <em>­<sup>18</sup>O</em> will differ a bit from cave to cave. The rain shadow ensures that, all else being equal, rains coming towards a cave from the direction of a mountain will produce less rain than ones coming from any other direction.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/diag/multicave-simple.svg" alt="multicave simple"></span></p>
+</div>
+<div class="paragraph">
+<p>If one could find several closely situated caves with suitable stalagmites in a similar configuration then one could use the biases and small differences in the <em>­<sup>18</sup>O</em> record in each of these caves to start talking spatially about the changes in the local monsoons. One could in theory start to say which direction the monsoon had increased/decreased from and if the direction of the monsoon had changed (<strong>Note</strong> this mathematically requires a nonelinear response to the rain amount in each cave. Fortunately the piston effect is exponential). If this could be replicated over a whole region then one could start to reconstruct the dynamic of the whole monsoon system.</p>
+</div>
+<div class="paragraph">
+<p>Naturally if this could be done in cojunction with the flow-path analysis from the previous section, then one could in theory recreate a very detailed understanding of the regional climate over the last hundreds of thousands of years. One that goes far beyond the one dimensional anaylsis that&#8217;s been possible so far.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Nearby caves have been compared before to see changes in the amount of local rain</p>
+</div>
+<div class="paragraph">
+<p>Hu, C., Henderson, G. M., Huang, J. H., Xie, S. C., Johnson, K. R. (2008). Quantification of Holocene Asian monsoon rainfall from spatially separated cave records. Earth and Planetary Science Letters, 266, 221-232.</p>
+</div>
+<div class="paragraph">
+<p>However it doesn&#8217;t seem that anyone has yet tried to deduce a direction.</p>
+</div>
+</blockquote>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_insolation_driver">Insolation driver</h3>
+<div class="paragraph">
+<p>The monsoons have been shown to be very sensitive to changes in the Earth&#8217;s Orbit. They seem to very closely follow the amount of sunlight recieve at the 65° latitude.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/plot/haicheng-all.svg" alt="haicheng all"></span></p>
+</div>
+<div class="paragraph">
+<p>However as is apparant there is a bit of a "lag" in the response. It&#8217;s an open question if this is some delay in the climate system (the oceans need time to warm up?) or if it&#8217;s actually responding to a change in sunlight during late summer. Both possibilities has their supporting theories, and while both alternatives give a signal that looks quite similar they are actually mathematically distinct. Using the latest monsoon records it might be possible to distinguish which mechanism is at play</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>This project probably requires a bit of external consolation b/c it&#8217;s quite "mathy" and outside out normal comfort zone</p>
+</div>
+</blockquote>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_looking_at_the_carbon_in_the_sepeleothems">Looking at the Carbon in the sepeleothems</h3>
+<div class="paragraph">
+<p>Another element to potentially look at is <em>­<sup>13</sup>C</em>. This is a rarer form of carbon (~ 1%) that is found in both rocks as well as the <em>CO<sub>2</sub></em> in the atmosphere. Plants that form the soil generally prefer to not take up this form of carbon from the air - so the <em>CO<sub>2</sub></em> in the soil is <em>­<sup>13</sup>C</em> poor relative to the carbon that is in the limestone. The longer the acidic bicarbonate water sits in the limestone the more it will exchange its carbon with the surrounding rock - leading to "rock aging". This carbon will also then get deposited in the stalagmite.</p>
+</div>
+<div class="paragraph">
+<p>In theory this could provide us with a way to measure how long the rain sat in the rock before it reaches the cave - and one could observe that change over time. Presumably if it rains more, and the water pressure is higher, then the water will flow through the rock quicker and it will pick up less <em>­<sup>13</sup>C</em> from the limestone.</p>
+</div>
+<div class="paragraph">
+<p>This is an area that has had very little research done. Maybe there is a good reason, but I haven&#8217;t found one</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>This project needs more literature review.. and maybe some advice from a hydrogeologist/geochemist</p>
+</div>
+<div class="paragraph">
+<p>One of the ladies teaching at the paleocamp seems to do stuff related to this: <a href="https://sites.uci.edu/johnsonlab/publications-2/" class="bare">https://sites.uci.edu/johnsonlab/publications-2/</a></p>
+</div>
+<div class="paragraph">
+<p>Noronha, A. L.*, Johnson, K. R., Southon, J. R., Hu, C., Ruan, J., McCabe-Glynn, S. (2015). Radiocarbon evidence for decomposition of aged organic matter in the vadose zone as the main source of speleothem carbon. Quaternary Science Reviews, 127, 37-47.</p>
+</div>
+<div class="paragraph">
+<p>Noronha, A. L.*, Johnson, K. R., Hu, C., Ruan, J., Southon, J., Ferguson, J. E. (2014). Assessing influences on speleothem dead carbon variability over the Holocene: implications for speleothem-based radiocarbon calibration. Earth and Planetary Science Letters, 394, 20-29.</p>
+</div>
+<div class="paragraph">
+<p>Griffiths, M. L., Fohlmeister, J., Drysdale, R. N., Hua, Q., Johnson, K. R., Hellstrom, J. C., Gagan, M., Zhao, J. (2012). Hydrological control of the dead carbon fraction in a Holocene tropical speleothem. Quaternary Geochronology, 14, 81-93.</p>
+</div>
+<div class="paragraph">
+<p>Hu, C. Y., Henderson, G. M., Huang, J. H., Chen, Z. H., Johnson, K. R. (2008). Report of a three-year monitoring programme at Heshang Cave, Central China. International Journal of Speleology, 37(3), 143-151.</p>
+</div>
+</blockquote>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rain_amount_through_stalagmite_thickness">Rain amount through stalagmite thickness</h3>
+<div class="paragraph">
+<p>One quite obvious record to potentially explore is to look at the stalagmite thickness. The more water flows through the soil, rock and cave, the faster the stalagmite will grow. If one could somehow measure the growth rate .. then this could act as a measure of "rain amount" above the cave site.</p>
+</div>
+<div class="paragraph">
+<p>Here there are basically three not entirely independent methods:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Since rain is generally seasonal, each year ends up building up a faintly visible band on the stalagmite. If one could reliably extract the bands (using computer vision) then one could not only count the layers like tree rings, but one could estimate their thickness and observe changes in the amount of annual rain</p>
+</li>
+<li>
+<p>The actual shape of the layers also reflects the amount of water than dropped on the stalagmite - as has been demonstrated in simulation. When there is more water the layer is not only thicker but it also becomes elongated. By looking at how the layers fold on each other one could also build another metric for the amount of water that dripped on the stalagmite</p>
+</li>
+<li>
+<p>If the layers could be reliably segmented then one could then set up a computer controlled mill to cut away each layer one at a time for sampling. Layers could be of arbitrary thickness and the resulting sample size would be significantly bigger than the current dental drilling hole-punch method used. Furthermore the data point would be much better localized as the dental drill method inevitably extracts and mixes multiple layers.</p>
+</li>
+</ul>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>I think these projects are interesting b/c they could corroborate the flow-path work. However there are some potential issues:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>I suspect the result will be not of the same accuracy as the <em>­<sup>18</sup>O</em> record</p>
+</li>
+<li>
+<p>I think this could potentially be a "rabbit hole" and take much longer than anticipated</p>
+</li>
+<li>
+<p>I would only move forward on this if I came across some existing suitable algorithms that did most of the work</p>
+</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_trace_elements">Trace elements</h3>
+<div class="paragraph">
+<p>While we only really look at <em>­<sup>18</sup>O</em> there are actually other elements being trapped in the limestone. These impurities also change over time and may reflect changes in the above-ground environment (though finding some general trends is a bit difficult).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>These impurities are what give the different colors to the rock and are what can lead to visible layering</p>
+</li>
+<li>
+<p>These impurities could maybe be measured through methods like Xray florenscence, or Raman spectroscopy</p>
+</li>
+<li>
+<p>The impurities lead to notibly different crystal growth structure. This is also what makes some of the layers look visibly different. These two may be identifiable through computer vision or other methods</p>
+</li>
+</ul>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>This project is a bit too geochemistry for me.. I think it&#8217;s an interesting area to look into but it&#8217;d require a big investment of time to appreciate better - and I&#8217;m not really sure if the final result would be interesting because it&#8217;s unclear if the trace elements would even tell you anything clearly</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

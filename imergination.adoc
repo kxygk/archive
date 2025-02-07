@@ -1,0 +1,230 @@
+:!webfonts:
+:imagesdir: fig/
+:svg-type: inline
+
+= Title
+- Automatic pseudoindex generation for bistable climate phenomena by the bifurcation of the SVD subspace of mesoscale preciptiation
+- Automatic pseudoindex generation for bistable climate phenomena by SVD subspace bisection
+
+== Abstract
+As communities observe recurring regional weather patterns they will often ascribe colloquial
+names to them such as the Meiyu in East Asia or the Santa Ana winds of California.
+However, attaching quantitative characterizations to these same names often proves challenging.
+Heuristics have been developed for particular locations and particular weather phenomena, but their inherent subjectivity undermine the robustness of any subsequent quantitative analysis.
+To develop a neutral universal metric we start by observing that the spatial distribution of rain in a given region is in large part controlled by the complex interplay between the climate and the Earth’s topography.
+Consequently each individual recurring weather pattern should  exhibit a unique regional signature/distribution.
+Leveraging these signatures and pattern extraction algorithms we’ve developed a generic method for constructing regional climatic indices which allow us to objectively gauge the presence of recurring weather phenomena.
+As a case study we use gridded precipitation data
+from NASA’s Global Precipitation Measurement (GPM) mission (compiled in to the IMERG
+dataset) to look at diurnal, annual and interannual cycles in several regions of particular interest
+
+== Introduction
+
+The extraction of recurring climate phenomena from long term climate observations has presented a long standing challenge for meteorological data analysis with results that are often muddled and unsatisfactory.
+We revisit the common method of the Singular Value Decomposition (SVD), explore its inherent issues and present a comprehensive solution for climate systems that are bistable.
+
+== Data
+
+To demonstrate the utility of the method, we work with NASA’s Global Precipitation Measurement (GPM) mission data as compiled in the IMERG dataset.
+When we think of different climate phenomena, we often think it terms of their effects on precipitation.
+The spatial distribution of precipitation over a given area is the complex interplay of the local orography with different atmospheric parameters (such as pressure, moisture, wind etc.).
+The final distribution of rain over a given area provides us an indirect proxy to the climate processes at play.
+Recurring and persistent patterns generally acquire colloquial names from local communities affected.
+
+The IMERG data set provides us a view at an incredibly high resolution both in time  (at 30 minute increments) and space (a 0.1 degree grid that covers most of the globe).
+The temporal resolution allows us to see patterns at the interannual, seasonal and diurnal scale.
+The spatial resolution allows us to look at mesoscale regions and avoid some of the common issues wtih synoptic-scale EOF analysis.
+
+== Rain as noise + signal
+
+To look at precipitation patterns numerically we need to characterize what we see in terms of a basic mathematically amenable model.
+into a system The easiest precipitation patterns to extract are ones that occur in isolation.
+Looking at the total amount of rain over different time slices, we see a reoccuring structure.
+On a purely visual inspection, the precipitation "system" looks like some pattern(s) with some noise.
+The noise seems to come in two flavors.
+The first dominant source of noise seems to occur independent of the climatic pattern.
+This is noise caused by things such as local convection and other chaotic elements of the local weather.
+At a first approximation this seems to behave like a uniform additive noise.
+The second source of noise is in the pattern itself.
+At shorter time scales the prevailing climatic pattern may simply not manifest everywhere in an even manner.
+This source of noise is more challenging to characterize as it behaves in a more multiplicative manner. It will be randomly attentuating the pattern where it is present.
+However as long of this source of noise is relatively uniform, it should have little bearing on the final extracted climatic pattern.
+An inability to differentiate between these two sources of noise does compromise our ability to analyze what fraction of the precipation is attributable to the climatic phenomena and how much is due to random processes.
+
+== Pattern extraction in single pattern systems
+
+Limiting ourselves to looking at additive noise, our simplified climate system desciption becomes the sum of some climate pattern signal and a uniform noise.
+Pattern extraction from such "signal + noise" systems is typically done using the singular value decomposition (SVD)
+
+The SVD acts as an iterative method which at every step combines input data vectors to maximize the signal strength of the resulting sum.
+We represent this as the induces matrix norm
+
+INDUCED MATRIX NORM EQUATION
+
+Here our input data is arranged as columns in the matrix M.
+x is our combination vector - designating the combination of columns we will sum.
+This acts akin to a weighted sum.
+The final condition is that ||x|| = 1 - ie. the Pythagorean length of the combination vector must be equal to one.
+This acts as the limiting factor on the weights that can be chosen. So in effect if you add a bit more of one column, you must add a bit less of the others.
+
+The SVD algorithm selects the vector x which maximizes the length of the resulting sum.
+When there is only one pattern present, then it will select those data points where the pattern is most prominent.
+In this way the signals add up constructively, while the noise does not not.
+Note how the final vector x computed by the SVD is better than a straight average of all the data. It has de-prioritize data columns which are noise dominated and it has given weight to those where the signal is strongest.
+
+However, while this provides a good intuitive framework to reason about the SVD, a consequence of the Pythagorean length of x having to equal one is that the weights are preferrentially more uniform.
+This is because a more uniform distribution causes the sum of the weights to increase.
+For instance given two vectors x, [1 0 0] and [1/sqrt(3) 1/sqrt(3) 1/sqrt(3)] we can immediately see that both have length 1. However note how the weights sum up to 1 and 3/sqrt(3) [~= 1.73].
+This bias will come back prominently when looking at multi-pattern sytems
+
+== Case Study: Hector the Convector
+
+To see the SVD in action we start by looking at a simple one pattern system - the diurnal thundercloud off of the Tiwi Islands in Australia colloquially know as Hector the Convector.
+
+== Case Study: Catatumbo lightning
+
+== Case Study: South East China
+
+When we repeat the process at a larger scale, such as South East China, we start to see suboptimal results.
+The dominant precipitation pattern that we expect is that of the Asian Summer Monsoon (ASM).
+However the result has a lot of smearing at the edges.
+This is due the non-stationary pattern of the ASM at the synoptic scale.
+The monsoon system generally starts near the equator and moves poleward - hence more equatorial regions have an earlier onset of the pattern than those that are further north.
+As a result the SVD can't construct an optimal sum where a substantial fraction of the data is in a half formed semi-pattern and the signals can't be summed constructively.
+This illustrated the danger in using the SVD at large scales as the result has a bias that is hard to interpret.
+This is often seen in results where selecting different regions of interest returns different inconsistent patterns.
+
+The avoid this issue, one simply has to analysis a smaller region.
+For instance in the case of the monsoon, at the mesoscale the onset of the monsoon happens so quickly that over the course of a year one would expect only about one week of a semi-pattern.
+The pattern extracted at the mesoscale can still give you insight as to the synoptic climate phenomena in effect.
+
+== Case Study: Zoomed in SEC
+
+== Bistable systems
+
+Of more interest to climatologists are bistable system.
+These occur at all time scales: diurnal rains in Hawaii, annual monsoons in Asia and Africa, interannual El Nino/La Nina and the North Atlantic Oscillation.
+These all have their own associated precipitation patterns which can be viewed at both the synoptic of mesoscale.
+A key property of these systems, inherent in the name, is that the two patterns in question can not co-occur. This extra condition on the signals will be central to our ability to analyze the underlying climate phenomena.
+
+Prior research using the SVD has had mixed results when dealing with these systems.
+The appeal of the method is that is gives a sense of objectivity and allows researchers to avoid heuristics.
+As a result it has been central to some more modern climate indices.
+
+The observed issues stem primarily from two factors.
+First are the aforementioned non-stationary patterns in synoptics scale regions.
+The second set of issues stem directly from properties of the SVD's singular vectors when dealing with two pattern systems.
+As previously mentioned, the SVD constructs an optimal combination of the data columns - with a bias towards a more uniform set of weights.
+In the presence of two different signals the SVD in-effect returns a combination that actually includes both signals.
+However the resulting sum is heavily  weighted towards the signal that is strongest.
+Since many bistable climate phenomena are strongly biased towards one state, the result is that the combination will look quite similar to the dominant signal.
+In practice we see researchers often leaning heavily on the first EOF mode.
+
+As the SVD is iterative, after constructing a singular vector (ie. the first EOF mode) it then can carry on constructing subsequent ones.
+This is done by removing all components of the first singular vector from the input data, and then recalculating a new singular vector as before.
+In our two-pattern system when we remove our first sigular vector from the data we are left with a different new combination of signal + noise.
+One where the dominant pattern is mostly removed, and the second pattern is more present.
+
+Because all components of the data in direction of the first singular vector were removed, when the next singular vector (ie. combination of our data) is constructed the resulting vector must come out orthogonal (ie. it has no component in the direction of the first).
+You can carry on repeating this process building additional mutually-orthogonal singular vectors.
+However, if the original data had two signals present, once the second vector is removed you will only be left with noise.
+This comes as a consequence of the original degrees of freedom of the system.
+
+This is best illustrated by a synthetic example
+
+== Synthetic Example: Bistable
+
+Here the first singular vector
+
+== Synethetic Example: Weighted
+
+== Case Study Southern Thailand
+
+When this method is applied directly to a bistable system that is biased towards one state the resulting modes can be so biased towards one state that is gives the illusion that the original signal has been extracted.
+Here we apply the SVD directly to monthly precipitation over ten years (2010-2020) in Southern Thailand.
+
+IMAGES OF SVD
+
+As we can see, the resulting modes look very similar to what we expect the summer and winter monsoons to look like.
+The first mode being the dominant summer monsoon, it exhibits a dominant south-west coast precipitation.
+And the second mode looks generally like a north-east coast winter monsoon pattern.
+However the synthetic example has shown us that this is not true.
+Both modes exhibit a mixture of the two signals.
+Furthermore, we know from the iterative construction of the singular vectors that the vectors are orthogonal - but no such constraint exists in nature.
+The original two monsoon generated signals have no reason to be orthogonal
+
+== The singular vector subspace
+
+.GUI inputs
+* coastline file
+* data files folder
+* data file resolutions
+* data file start coordinate
+* region of interest - 4 coordinates
+* selected file
+
+ ------------------------------
+               | /path to data/
+    GLOBE      | -------
+    	       | ../file1.tiff
+	       | ../file2.tiff
+start: lat/lon | ...
+ended: lat/lon | -------
+ ------------------------------
+ [12 MON] [24 HRS] [ROW X COL]
+       CYCLE LENGTH: ##
+
+
+
+     MAP OF DATA IN REGION
+           AS A GRID
+
+
+  [---------|----------------]
+ ------------------------------
+  Singular Values
+  Ii;.........................
+  #% #% #% #% .. [SV energy %]
+ ------------------------------
+               |             
+               |             
+	       |             
+       SV1     |     SV2     
+               |             
+	       |             
+               |             
+ ------------------------------
+ |	|      |      |      |
+ |	|      |      |      |
+ |  SV  |  SV  |  SV  |  SV  |
+ |	|      |      |      |
+ |	|      |      |      |
+  [---------|----------------]
+ ------------------------------
+     o   o     |SV2             
+           o   |             
+	o o    |             
+           o  o|     
+ SV1 ----------------------
+               |             
+	       |             
+               |
+               |
+   [promax] [oblimax] [bisect]
+ ------------------------------
+               |             
+               |             
+	       |             
+    PATTERN1   |   PATTERN2     
+               |             
+	       |             
+               |             
+
+
+
+
+
+
+
+
+

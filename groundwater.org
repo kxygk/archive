@@ -1,0 +1,758 @@
+#+TITLE: Karst Tower hydrology
+#+DESCRIPTION:
+#+OPTIONS: toc:nil 
+
+#+INCLUDE: "../web/config.org"
+#+HTML_HEAD_EXTRA: <meta name="robots" content="noindex">
+
+
+* Hydrogeology
+
+** Force
+ - Mass :: resistance to being accelerated
+ - Weight :: gravitation force of an object
+ - Momentum :: mass * velocity
+ - 1 Newton :: force to accelerate /1 kg/ by /1 m/s^2/
+
+*** Newton's First Law
+#+BEGIN_QUOTE
+In the absense of forces - a point mass moves with constant velocity *v* (= zero acceleration)
+#+END_QUOTE
+
+*** Newton's Second Law
+#+BEGIN_QUOTE
+The net force on a particle is *F=ma* \\
+Where *a = dv/dt = d^{2}r/dt^{2}* \\
+In other words, force is a change in momentum *p*. ie. *F= dp/dt*
+#+END_QUOTE
+
+*** Newton's Third Law
+ #+BEGIN_QUOTE
+ If =Object1= exerts a force *F_{21}* on =Object2=\\
+ Then =Object2= always exerts an opposite force *F_{12}* \\
+ Such that *F_{12} = -F_{21}*
+ #+END_QUOTE
+
+*** Conservation of momentum
+ - Momentum :: mass * velocity
+Givens:
+- If you have a system with many particles *\alpha{} = [1,2 ... N]*
+- They extert an influence on each other particle *F_{\alpha{} \beta{}}*
+- They are under some external force *F^{ext}_{\alpha{}}*
+
+** Gravity
+The most basic force on every object. Depends on the masses of two particles and the distance btwn them
+#+BEGIN_QUOTE
+F_{gravity} = [ -GmM/r^{2} ] r^{^} \\
+#+END_QUOTE
+on earth, the mass of the earth is constant and the distance is the radius of the earth. So we simplify to one value  *g* = -GM/r^{2} /approx{} = 9.8 m/s/
+#+BEGIN_QUOTE
+F_{gravity} = -mgr^{^}
+#+END_QUOTE
+
+
+** Energy
+A parallel concept is the idea of Energy. Though it looks like momentum, it's actually a separate constraint. Energy is also often (though not always) conserved. Generally speaking, water flows from an area of high energy to an area of low energy.
+*** Work Energy
+When a *Force* applies onto a particle over a *distance* it imparts an energy
+Also known as the *Work-KE theorem*
+#+BEGIN_QUOTE
+\Delta{}T = T_{2}-T_{1} = \int{}_{1\rightarrow{}2} F\cdot{} /d/ r
+#+END_QUOTE
+Notice that this has no relation to the /time/!
+
+*** Gravitation potential energy
+When an object/particle is allowed to drop a height /h/, the force of gravity /F_{gravity}/ moves an object a distance /h/
+#+BEGIN_QUOTE
+F_{gravity} = -mgr^{^}
+#+END_QUOTE
+It drops a height *h* so it's simply /force \times{} height/
+#+BEGIN_QUOTE
+T_{potential} = F_{gravity} \times{} h = -mgh
+#+END_QUOTE
+
+*** Kinectic Energy
+Once the particle has dropped to /height = 0/ then the potential energy goes to zero. The energy is all turned into *kinetic energy* - a function of the particle's final velocity. We integrate and solve for the equivalent velocity.
+#+BEGIN_QUOTE
+F = ma = mg \\
+\int{}F = \int{}ma = \int{}mg \\
+\int{}m d^{2}x(t)/dt^{2} = \int{}mg \\
+m dx(t)/dt = mv_{0} + mgt \\
+dx(t)/dt = v_{0} + gt \\
+#+END_QUOTE
+This final velocity is naturally a function of time /t/. So we need to solve for the travel time to the ground. We integrate once again.
+#+BEGIN_QUOTE
+m dx(t)/dt = v_{0} + mgt \\
+\int{} m dx(t)/dt = \int{} v_{0} + mgt \\
+mx(t) = x_{0} + v_{0}t + mgt^{2}/2 \\
+#+END_QUOTE
+The distance traveled /x(t) = h/. For simplicity we assume the initial position and velocity are zero. /x_{0} = 0/ and /v_{0} = 0/. We solve for /t/
+#+BEGIN_QUOTE
+mx(t) = x_{0} + v_{0}t + mgt^{2}/2 \\
+mh = mgt^{2}/2 \\
+t = \radic{} 2h/g \\
+#+END_QUOTE
+We put this back into our equation for the final velocity and solve
+#+BEGIN_QUOTE
+dx(t)/dt = v_{0} + gt /...(v_{0} = 0)/\\
+dx(t)/dt = g(\radic{} 2h/g) = (\radic{} 2hg)\\
+#+END_QUOTE
+Now we construct the equation for the famous Kinetic Energy
+#+BEGIN_QUOTE
+T_{kinetic} = (1/2)mv^{2}
+#+END_QUOTE
+Notice how when we input the equation for the speed of an object that's falled a distance /h/ - we get back the potential energy
+#+BEGIN_QUOTE
+T_{kinetic} = (1/2)m(\radic{} 2hg)^{2} \\
+T_{kinetic} = mgh
+#+END_QUOTE
+While we assumed no initial velocity /v_{0}=0/ - this is not a necessary condition. If a particle is shot towards the ground with some starting velocity it will be under the influence of gravity for a shorter amount of time but it will  nonetheless aquire the same amount of energy (TODO: Prove this...)
+
+** Bernoulli's Equation
+Now we can describe the energy of particles in a fluid as a fluid flows through a medium. In a static system, if we assume the fluid conserves energy then the fluid's energy state at any point in it's flow path must conform to the following sum
+#+BEGIN_QUOTE
+T_{total} = T_{potential} + T_{kinetic} + T_{p-V Work} \\
+T_{potential} = ghm \\
+T_{kinetic} = mv^{2]/2 \\
+T_{p-V Work} = m \int{} dp/\rho{}
+#+END_QUOTE
+The first two terms have already been introduced, while the last term represents the work done on the fluid by any difference in pressure along the flow line. If the fluid flows from an area of low pressure to one of high pressure then it need to expend energy (ie. "climb up hill") against the force of pressure pushing it back
+- p :: pressure (Force / Area - Newtons / m^{2})
+- \rho{} :: density (mass / Volume - kg / m^{3})
+If the fluid is incomprehisible (such as in the case of liquids) then /\rho{}/ is not a function of pressure /p/ and the integral is of the most basic type
+#+BEGIN_QUOTE
+T_{p-V Work} = m \int{} dp/\rho{} = m (p_{i} - p_{start}) / \rho{}
+#+END_QUOTE
+Where there is a starting pressure /p_{start}/ and /p_{i}/ is the pressure at a particular point along the flow path. The resulting total energy can be written as
+#+BEGIN_QUOTE
+T_{total} = ghm + mv^{2]/2 + m (p_{i} - p_{start}) / \rho{}
+#+END_QUOTE
+However instead of reasoning about the energy of a bit of fluid at some point /i/ of mass /m/ we instead find it easier to discuss it in terms of *fluid potential* /\Phi{}/ - which is the /energy per unit mass/
+#+BEGIN_QUOTE
+\Phi{} = gh + v^{2}/2 + (p_{i} - p_{start}) / \rho{}
+#+END_QUOTE
+For flow in ground water the velocity is generally quite small, so the kinetic term is normally dropped
+#+BEGIN_QUOTE
+\Phi{} = gh + (p_{i} - p_{start}) / \rho{}
+#+END_QUOTE
+
+** Hydraulic Head
+As a fluid flows downward the pressure it experiences will typically increase under the weight of the water above, however the fluid potential will remain the same.
+
+The fluid potential at its starting point will be:
+#+BEGIN_QUOTE
+\Phi{}_{start} = gh + (p_{start} - p_{start})/\rho{} = gh \\
+/If this is water then this will be at the water's surface and/ p_{start} = p_{atmosphere}
+#+END_QUOTE
+It then flows down some distance /\psi{}/ and we recalculate the fluid potential:
+#+BEGIN_QUOTE
+\Phi{}_{\psi{}} = g(h-\psi{}) + (p_{\psi{}} - p_{start})/\rho{}
+#+END_QUOTE
+/p_{\psi{}}/ is the pressure at the new location. This pressure has increased by the added weight above. This is the density of the fluid times the height: /\rho{}g(h-\psi{})/. Looking at the units it's clear this gives a Pressure: /kg/m^3 \times{} m = kg/m^{2}/. The total pressure is just the sum of the previous pressure and the increase
+#+BEGIN_QUOTE
+p_{i} = p_{start} + \rho{}g\psi{}
+#+END_QUOTE
+We recalculate the fluid potential
+#+BEGIN_QUOTE
+\Phi{}_{\psi{}} = g(h-\psi{}) + (p_{start} + \rho{}g\psi{} - p_{start})/\rho{} = g(h-\psi{}) + g\psi{} = gh
+#+END_QUOTE
+And we see that the resulting energy remains /gh/.
+
+However it's often useful to keep thinking of the fluid potential as consistenting of these two parts.
+#+BEGIN_QUOTE
+\Phi{}_{d} = \Phi{}_{elevation} + \Phi{}_{pressure}\\
+gh = g(h-\psi{}) + g\psi{}
+#+END_QUOTE
+The two factors are called the /\psi{}/ *pressure head* and the /h-\psi{}/ *elevation head*.
+
+The result tells us that the total /fluid potential/ anywhere in a slow stream always remains a function of the height of the very top of the fluid. This top starting point is not an arbitrarily chosen point and must be where the fluid flow begins (in our case, the water's surface). This starting height /h/ is the *hydraulic head*.
+
+A more complete notation of the *total head* for fluids at velocity is
+#+BEGIN_QUOTE
+h_{T} = h_{z} + h_{p} + h_{v}\\
+h_{z} - /elevation head/ \\
+h_{p} - /pressure head/ \\
+h_{v} - /velocity head/ \\
+#+END_QUOTE
+
+** Darcy's Law
+What induces a fluid to start flowing in a dynamic difference in energy between two points. Particles move from an area of high energy to an area of low energy. In other words from an area of high head to low head. The higher the energy gradient (change in energy per unit distance) the higher the fluid's velocity
+
+#+BEGIN_QUOTE
+v = -K dh/dl
+#+END_QUOTE
+- /v/ :: the *specific discharge*. This to fluid's cumulative macro-level velocity. On the micro inter-grain level the particles of fluid have much longer/torturous flow paths and their velocity can be much higher.
+- /h/ :: the /hydraulic head/
+- /l/ :: distance
+- /K/ :: the *hydraulic conductivity* is a property of the medium and the fluid traveling through it
+The parameter /K/ can be further broken up into properties of the just the medium and those of just the fluid.
+#+BEGIN_QUOTE
+K = k\rho{}g/\mu{}
+#+END_QUOTE
+- /\rho{}g/ :: weight per unit volume of the fluid
+- /\mu{}/ :: dynamic viscocity of the fluid
+- /k/ :: *(specific/intrinsic) permiability* (in meters^{2}) of the medium
+
+Both /K/ and /k/ are used... where the permiability /k/ is useful because it remains the same regardless of if you have water or some mixture of gas/oil/water flowing. /K/ values are implied to be about water. Values vary in 13 orders of magnitutde - so values are no very sensitive. 
+
+If /K/ is constant in a geological formation then we say it's *homogenous* - otherwise *heterogenous*. Most common is layers of different rock/sediment - called /layered heterogeneity/. Other forms are fault induced /discontinuous heterogeneity/ and gradually changing /trending heterogeneity/ (deltas, alluvial fans, glacial outwash). Normally even relatively homogenous geological formations will typically have internal variations in /K/ on the order of 1-2 orders of magnitude (formations with monomodal variation are called *uniform*) p31-32 [fn:Freeze]
+
+/K/ can also vary based on the flow direction if the medium is *anisotropic* (as opposite to unform flow in all directions - *isotropic*). Interestingly enough, /layered heterogeneity/ will lead to *anisotropy*.
+
+*** Layered heterogeneity
+Using Darcy's law, we can look at water flowing vertically and horizontally through N homogenous layers of different conductivity K_{i}.
+
+We summarize the *vertical flow* in one global conductivity term. Each layer is of depth /d_{i}}/, has a conductivity /K_{i}/ and an associated change in hydraulic head /\Delta{}h_{i}/ (it can be measured with a /piezometer/ - ie. drilling a shaft to the layer and see how high the water rises). The velocity across all the layers must remain the same if this is a constant ongoing process (otherwise fluid will pool indefinitely in some middle layer - which doesn't make physical sense). Hence
+
+#+BEGIN_QUOTE
+v = K_{1}\Delta{}h_{1}/d_{1} = K_{2}\Delta{}h_{2}/d_{2} = .. = K_{n}\Delta{}h_{n}/d_{n} = K_{z}\Delta{}h_{z}/d_{z}
+#+END_QUOTE
+
+The global depth and change in head is /d/ and /\Delta{}h/. And we wish to solve for a global vertical conductivity /K_{z}/. (/z/ being the vertical direction here)
+
+#+BEGIN_QUOTE
+K_{z} = vd/\Delta{}h \\ 
+ = vd/[\Delta{}h_{1}+\Delta{}h_{2}+..+\Delta{}h_{n}] \\
+ = vd/[vd_{1}/K_{1} + vd_{2}/K_{2} + ... + vd_{n}/K_{n}]
+#+END_QUOTE
+
+by contrast the *horizontal flow* through the same layers exhibits an effective conductivity that is simply a weighted sum based on how much space each layer takes up
+#+BEGIN_QUOTE
+K_{x} = \sum{} K_{i}d_{i} / d 
+#+END_QUOTE
+
+The net effect is that multiple homogenous isotropic layers produce a nonhomogenous anisotropic whole.
+
+*** 3D Darcy
+Because the conductivity K varies in direction, you end up with a second rank symmetric tensor known as the *hydraulic conductivity tensor*
+#+BEGIN_QUOTE
+v_{x} = - K_{xx} \partial{}h/\partial{}x - K_{xy} \partial{}h/\partial{}y - K_{xz} \partial{}h/\partial{}z \\
+v_{y} = - K_{yx} \partial{}h/\partial{}x - K_{yy} \partial{}h/\partial{}y - K_{yz} \partial{}h/\partial{}z \\
+v_{z} = - K_{zx} \partial{}h/\partial{}x - K_{zy} \partial{}h/\partial{}y - K_{zz} \partial{}h/\partial{}z \\
+#+END_QUOTE
+then things get complicated... p36 [fn:Freeze]
+*TODO* Look into further if it's relevant 
+
+** Unsaturated Flow
+- V_{T} :: total unit volume
+- V_{s} :: solid volume
+- V_{s} :: void volume
+*** Porosity
+#+BEGIN_QUOTE
+n = V_{v}/V_{T}\\
+/generally expressed as a percentage../
+#+END_QUOTE
+Where *primary porosity* is due to the soil/rock matrix and *secondary porosity* is due to dissolving or fracturing.
+However this is unfortunately only vaguely related to /hydraulic conductivity..
+*** Void Ratio
+Is an alternative way of looking at the same thing
+#+BEGIN_QUOTE
+e = V_{v}/V_{s}\\
+\therefore{}\\
+e = n/(1-n)
+#+END_QUOTE
+*** Moisture Content
+Once water has entered the soil we add a new term
+- V_{w} :: the volume of water
+the *moisture content* is ratio of water to the total volume
+#+BEGIN_QUOTE
+\theta{} = V_{w}/V_{T}
+#+END_QUOTE
+When water fills all the voids (/V_{w}/ -> /V_{v}/)this term goes to /n/
+*** Water table
+Is defined to start where:
+- /\psi{} = 0/ 
+- the fluid pressure /p = p_{atmosphere}/ or /p=0/ (if using gauge pressure)
+- the surface of a small open well
+*** Capilary Fringe
+Above this (where /\psi{}<0/) the capillary action creates a /negative pressure head \psi{}/ called the *tension head* or *suction head*. For part of this (in fine-grained soils) the negative pressure is enough to keep the soil saturated (/\theta{} = n/) in a *capillary fringe*. The effect amount /\psi{}_{a}/ is known as the *air entry pressure* or *bubbling pressure* p41 [fn:Freeze]
+
+Because the pressure head is negative, the fluid pressure is below atmosphere. So while the water can move within the fringe (and the subsequent unsaturated zone) it can never flow out to the atomosphere through anything like a borehole, seepage face or spring. It can only leave by evaporation or transpiration.
+*** Unsaturated zone
+Above the capillary fringe as the negative pressure head /\psi{}/ keeps decreasing the moisture content keeps falls as well. This has two effect. First it makes the conductivity of the soil decrease as  water has more trouble flowing from grain to grain. And second, the less moisture the smaller the miniscus around the grains and the higher the surface tension. This exaserbates the negative pressure head.
+
+Further complicating the issue, the /\theta{} vs \psi{}/ relationship is also hysteretic. A drying soil will in effect extend out further. At a given negative pressure head (ie. distance above water table) a wetting soil will have much less moisture content than for a drying soil. Similarly, the drying soil will have a much high conductivity than a wetting one. p42 [fn:Freeze] (This needs double checking if important)
+
+Thus, in the unsaturated zone where /\psi{} < \psi{}_{a}/ the conductivity and moisture, /K/ and /\theta{}/ are functions the head /\psi{}/ (as well as some time component). This has implications for water flowing from areas of higher head to lower head and hence Darcy's Law is modified
+#+BEGIN_QUOTE
+v_{x} = K(\psi{}) d{}h/\d{}l
+#+END_QUOTE
+We already know that since the partial pressure /\psi{}/ is a function of the head /h/, as the head changes the partial pressure changes as well. Now we also see that the conductivity and moisture content will change as well
+
+Note that if you have a highly dynamic system and you have air pressure that builds up in the soil, then you may need to consider a more complex mutliphase flow model that takes in to account the movement of the air in the soil as well.
+
+*TODO*: This part is a bit muddled..
+
+- aquifer :: saturated permeable geological unit that can transmit significant amounts of water -- unconsolidated sand/gravel | permiable sedimentary rock (sandstone/limestome) | fractures volcanic/crystalline rock
+- aquiclude :: an aquifer that can't transmit significant amounts of water
+- aquitard :: somewhere in between... -- clay | shale |  dense crystalline rock
+These things can ofcourse intermix..
+
+*** Compressability of water
+is a property of material (both the liquid and soil) and it is the ratio of the change in volume, *strain*, under an applied *stress*. The stress on water is the pressure and a change in pressure (/dp/) induces a fraction change in volume (/dV_{w{/V_{w}/) ... p52 [fn:Freeze]
+#+BEGIN_QUOTE
+\beta{}_{water} = -(dV_{w}/V_{w})/dp
+#+END_QUOTE
+So /\beta{}/ is the slope of the line relating strain/pressure to stress/change-in-volume. We assume it's mostly constant in the rages of interest at \sim{} 4.4 \times{} 10^{-10} m^{2}/N
+
+You can also express this in terms of a change in the water's density /\rho{}/
+#+BEGIN_QUOTE
+\beta{}_{water} = (d\rho{}/\rho{})/dp
+#+END_QUOTE
+Which we can integrate to solve for the current density. This is the *equation of state* (think intro thermo /pV = nRT/)
+#+BEGIN_QUOTE
+\rho{} = \rho{}_{0}e^{\beta{}(p-p_{0})}
+#+END_QUOTE
+where /\rho{}_{0}/ is the a priori known density at pressure /p_{0}/. If /p_{0}/ is atmospheric pressure and we work with gauge pressures then the term can be dropped
+#+BEGIN_QUOTE
+\rho{} = \rho{}_{0}e^{\beta{}p}
+#+END_QUOTE
+So if /\beta{} = 0/ then /\rho{}=\rho{}_{0}/ and the fluid is called *incompressible*
+
+*** Effective Stress
+We want to similarly look at the compressability of the soil. However the stress needs to be observed indirectly. When we look at the total stress at a certain depth of our porous medium. There is the stress downward from the overlaying soil and then push back up (canceling out the force downward) is the pressure of the water as well as the *effective stress* of the material.
+#+BEGIN_QUOTE
+\sigma{}_{T} = \sigma{}_{e} + p
+#+END_QUOTE
+Here the total stress /\simga{}_{T}/ is near-constant b/c the overlaying mass of soil and water remains mostly constant in mass
+#+BEGIN_QUOTE
+d\sigma{}_{T} = d\sigma{}_{e} + dp \\
+0 = d\sigma{}_{e} + dp \\
+d\sigma{}_{e} = -dp \\
+#+END_QUOTE
+Which tells us that the stress on the material is proportional to the decrease in the pressure of the water. This conclusion is intuitive. Remember that /p=\rho{}g\psi{}/ and /\psi{}/ is relative to the hydraulic head /h/. So at the head changes the stress changes
+#+BEGIN_QUOTE
+d\sigma{}_{e} = -dp = -\rho{} g d\psi{} = - p g dh
+#+END_QUOTE
+
+*** Compressability of soil
+Now that we have the stress on the soil characterized we can write out the compressability
+#+BEGIN_QUOTE
+\alpha{} = (-dV_{T}/V_{T})/d\sigma_{e}
+#+END_QUOTE
+Note that here we are looking at the medium's total volume  /V_{T}/, and it's composed of solid volume /V_{s}/ and a void volume /V_{v}/. The solid material mostly does not change. However under stress the material can rearrange itself to decrease it's void ratio /e/. So bearing in mind that /V_{T} =  V_{s} + V_{v}/ we can rewrite in terms of /e/
+#+BEGIN_QUOTE
+\alpha{} = (-de/(1+e_{0})/d\sigma_{e}
+#+END_QUOTE
+This is called *consolidation* it is often irreversibly or partially irreversibly. Furthermore, /alpha{}/ is nonlinear though we can sometimes approximate it with a linear term (see Table 2.5 p55) [fn:Freeze]
+
+Furthermore these relationships do not hold in the unsaturated zone where the relationship is further complicated as you need to consider the moisture content and negative pressure heads
+** Other
+
+So in the simple case, pressures are simply the weight of water above a point (at some height  + atomospheric pressure
+#+BEGIN_QUOTE
+p = \rho{}(i - \phi{} + p_{atmosphere}
+#+END_QUOTE
+#+BEGIN_QUOTE
+\Delta{}U = Heat - Work \\
+\Delta{}U = \delta{}Q - PdV
+- Q :: heat is in Joules (like Energy) or Newton-meters
+- P :: Pressure external to the system - Force/Area .. Newtons per m^{2}
+- dV :: Change in Volume - m^{3}
+- PdV :: .. also in Newton meters
+#+END_QUOTE
+The *PdV* relationship is hard to reason about. Generally energy is by definition:
+#+BEGIN_QUOTE
+T = 1/2 mv^{2}
+#+END_QUOTE
+The change in energy in a small incriment of time as .. (using the product rule)
+#+BEGIN_QUOTE
+dT/dt = (1/2)m(dv/dt\cdot{}v + v\cdot{}dv/dt) = m dv/dt \cdot{} v
+#+END_QUOTE
+Since /F=ma = mdv/dt/ we can write out a small change in energy as a function of small distance /dr/
+#+BEGIN_QUOTE
+dT/dt = F\cdot{}v \\
+dT= F\cdot{}dr
+#+END_QUOTE
+So /Energy/ is /Force/ \times{} /distance/ \\
+An easy way to visualize it is to imagine a cylinder at constant pressure, like a bicyle pump. If gass is added and the pump moves against the external /Pressure/ of the surrounding air, then the top end of the cylinder moves a distance  proportional to the change in /Volume/ - hence the resulting /Work/.
+
+* Water's journey through the rock
+
+** Rain
+What we try to measure. *\shy{}^{18}O* is based on weather "events". Primarily the monsoon..
+
+For every 75cm of rainfall:
+- 55cm evaporates back to the atmosphere
+- 20cm goes into the rivers
+
+Water that is in ice/snow/puddles is in *depression storage* - otherwise it goes into streams
+
+Land sloping to a discharge point - *catchment* / *drainage baisin*. The equivalent in the subsurface is the *ground water basin* which is surrounded by *ground water divides*.
+
+*** Canopy
+
+- The vegitation canopy will have a storage capacity which catches 8-30% of the rain
+- A wet canopy reduces evapotranspiration (by about 10%)
+- The interception rate will decrease as the rain progresses (as the canopy becomes water-logged)
+
+
+*** Transpiration
+*Transpiration* vegitation pulls water from the soil up by osmosis and makes it available for evaporation. This accounts for most of the vapor loss of a drainage basin. Hence a pond qith aquatic plants will loose water at a similar rate as an uncovered pond.
+
+- wilting point :: when the surface tension of the water in the soil > osmotic pressure
+- Phreatophytes :: plants that grow roots to the water table (ex: in the desert)
+
+*** Evaporation
+- absolute humidity :: grams of water / cubic meter of air
+- saturation humidity :: max amount of humidity (function of temperature)
+- relative humidity :: ratio of absolute/saturation humidity ( at 100% evaporation ceases
+- dew point :: the temp at which at a given relative humidity you will start to get condensation (ie. 100% relative humidity)
+
+evaporation cools a surface while condensation heats it [590 cal/gram]
+
+*** Evapotranspiration
+We lump transpiration and evaporation together b/c they're difficult to decouple
+
+*** EUD - Effective uniform depth of precipitation
+Ways of estimating the average rainfall in a drainage basin...
+
+In the case of a karst tower this is greatly simplified and can be estimated with one rain gauge
+
+*** Thornthwaite 1944
+an estimate of the potential evapotranspiration (how much could evaporate)
+
+- Latent heat of vaporization :: *H_{v}* = 597.3 - 0.564T calories/gram (of water) (T = temp in Celcius)
+- Latent heat of fusion :: 79.7 cal/gram
+- Sublimation :: 597.3 + 79.7 = 677 cal/gram
+
+TODO
+
+*** Infiltration
+Once rain reaches the ground it starts to infiltrate
+- up to a *infiltration capacity* (cm/hr)
+- this capacity drops over time b/c capillary actions drops and the soil swells up
+- It eventually reaches a steady state
+Horton 1933 1940
+
+Once the infiltration capacity has been exceeded, the water starts to flow on the surface by *Horton overland flow*
+
+** Vadose
+- water flowing here is called *interflow* and goes down under *gravity drainage* (flows towards a stream normally)
+- If the water comes out before a stream then it's called *throughflow* and the remaining surface flow to the steam is the *return flow*
+- has both bound water and air
+
+*** Soil (Vadose)
+- soil is about 40% porous
+**** Dissolved CO_2
+- CO_2 accumulates b/c diffusion is retarded by friction of torturous path ways p50 [fn:Ford2007] (so it's a semi-open system..)
+- 17-31% volume available for gas storage [fn:Drake1984]
+- plants respire approximately 40% of the CO_2 they extract in their roots. roots = CO_2 pumps
+- at 50cm down .. dry climate 500ppm  | wet climate 26000-40000 ppm [fn:Yuan2001]
+- Final CO_2 partial pressure is determined by water (20%) and temperature (50%) [fn:Drake1975]
+- Organic matter is also brought down with the water and decomposes within the karst (which complicates resulting concentrations)
+- Water get's saturated with CO_{2} .. probably.. most of the time
+*** Epikarst (Vadose)
+The immediate face of the limestone where the majority of the weathering happens. Existing fissures preferrencially continue to dissolve - so weathering is not uniform
+- 70% of dissolution happens here (hence fissures narrow as you go further down)
+- 10-30% porosity. Can hold the bulk of the water in a suspended aquifer
+- 3-10 meters in depth
+- high storage capacity
+- spacially variable with some zones erroded much deeper than others - creating shafts
+- Closed system - so the CO_{2} is limited to what came in with the water. This leads to a max 25mg/L of calcium carbonate (open system is 55mg/L)
+
+*NOTE* Not always true.. if you have strong dry seasons and chalky porous limestone then you can have *case hardening* and so it's actually less permiable near the surface.
+*** Transit zone  (Vadose)
+- primary/secondary/tertiary porosity.. 
+- unweathered rock - so much less permiable - this differential makes the epikarst develop a suspended aquifer of sorts
+- less than 2% porosity (matrix flow)
+- mainly flow through fissures
+- changes in pressure caused by more rain causes a near immediate *pulse through* (also called /piston effect/)
+- The actualy *flow through* of the water can take much longer [fn:Klimchouk1989]
+- There can be a lot of lateral flow through the cave
+
+*Note* Sometimes entirely missing.. like in Shilin Yunnan. Just epikarst and water table [fn:Williams2008]
+
+
+** Phreatic zone
+The water table .. below the cave.
+The outer layer is the *capillary fringe* followed by the *zone of saturation*.
+In the ground water you have *ground water flow* which will go to a stream bed in *baseflow*
+
+The cumulative flow in the stream is the *runoff*
+
+*** Baseflow recession
+As the available water dcreases the flow rate drops along an exponential curve
+#+BEGIN_QUOTE
+Q(t) = Q_{0}e^{at}
+#+END_QUOTE
+Where *Q_{0}* is the flow rate at the start time 0.\\
+Flow rates are in m^{3}/s
+
+- /baseflow/ into a river is *gaining* or *effluent*
+- /baseflow/ out of a river is *losing* or *influent*
+
+*** TODO Has been modeled before
+[fn:Clemens1999] Simulation of the development of karst squifers: role of the epikarst
+International Journal of Earth Sciences 88(1) 157-62
+
+[fn:Kiraly2002] Karstification and groundwater flow
+Evolition of Karst: from Prekarst to Cessation
+Postojna;Ljubljana: Institu za raziskovanje krasa
+
+[fn:Kovacs2003] Geometry and hydraulic parameters of karst aquifers: a hydrodynamic modeling approach
+Faculte des Sciences
+Universite de Neuchatel Thesis 131 pp.
+at www.unine.ch/biblio/
+
+*** TODO Flow switching
+[fn:Smart1987] Water movement and storage in the unsaturated zone of a maturely jarstified carbonate aquifer, Mendip Hills, England
+Proceedings of the Conference on Environmental Problems in Karst Terrances and their Solutions.
+National Water Well Assiciation, Dublin, Ohio 59-87
+[fn:Sondag2003] Monitoring present day climatic conditions in tropical caves using an Evnonmental Data Acquisition System (EDAS)
+Journal of Hydrology 273(1-4) 103-18
+[fn:Baker2003] Non-linearities in drip water hydrology: an example from Stump Cross Caverns, Yorkshire
+Journal of Hydrology 277 151-63
+
+* Geochemistry
+** Negative Logarithms
+like pH
+#+BEGIN_QUOTE
+Ca^{2+} = 0.0025 mol L^{-1} \Rightarrow log_{10} \Rightarrow 10^{-2.6} \Rightarrow pCa^{2+} = 2.6
+#+END_QUOTE
+p41 [fn:Ford2007]
+** Chemical Equilibria
+The following from ... p42 [fn:Ford2007]\\
+\\
+a bit of calcite will dissolve in water
+#+BEGIN_QUOTE
+CaCO_{3} \Leftrightarrow Ca^{2+} + CO_{3}^{2-}
+#+END_QUOTE
+This can be *hydrated* by *H^{+}* (proton)
+#+BEGIN_QUOTE
+Ca^{2+} + CO_{3}^{2-} + H^{+ } \Leftrightarrow Ca^{2+} + HCO_{3}^{-}
+#+END_QUOTE
+But this equation is unbalanced in terms of charge.. and further CO_{3}^{2-} may dissociate .. leading to *acid dissolution*. This will keep going till it reaches a dynamic equilibrium and the reverse reaction balances the forward one
+
+- Law of Mass Action :: aA + bB \Leftrightarrow cC + dD
+- Equilibrium Constant *K* :: K = [C]^{c}[D}^{d} / [A]^{a}[B]^{b}
+
+ex: Water:
+#+BEGIN_QUOTE
+
+H_{2}O \Leftrightarrow H^{+ } + OH^{-} \\
+K_{w} = [H^{+}][OH^{-}] / [H_{2}O] \\
+we know that ... \\
+K_{w} = 10^{-14} (at 25\ordm{}C) \\
+K_{w} = 10^{-14.9} at 0\ordm{}C) \\
+#+END_QUOTE
+Since *K_{w}* is tiny the top term must be very small. Water doesn't spontaneously dissociate much into ions. The energy to dissociate is the *Gibbs free energy of reaction*
+#+BEGIN_QUOTE
+\Delta{}G\ordm{} = -2.303 \sdot{} RT \sdot{} log_{10}K\\
+R = 8.314 J mol^{-1} K^{-1}
+T = temperature
+#+END_QUOTE
+*R* is the gas constant.. (who knows where that comes from)
+** Dissolution
+*** Equilibria
+**** Open System
+Like in a open pond on top of limestone p52 [fn:Ford2007]
+- infinite atomospheric CO_2 available
+- can ultimately dissolve 55mg/L @ 25\ordm{}C vs.. 75mg/L @ 0\ordm{}C
+- .. at P_{CO_2} ~ 0.036%
+**** Closed System
+Once water saturated with CO_2 goes down a fissure it can't get any more CO_2 so the amount of calcite it can dissolve is limited to 25mg/L @ 25\ordm{}C (ie. 40% of the surface)
+*** Kinetics/Chemistry
+- DBL :: Diffusion boundary layer. Layer above solid through which chemical diffusion happens
+- 90% saturation within the first 1-2m of water going down a fissure through dissolution of Ca^{2+} through the *DBL*
+- Kinetic Breakthrough :: past a certain threshold a fissure will suddenly start dissolving very fast p73 [fn:Ford2007] *Unclear why this happens.. just what the models show*
+- Dissolution happens at the surface as layers of ions are zippered off (a staircase "diagonal" edge dissolves much faster)
+- H^{+ } ions take off CO_{3}^{2-} molecules and then bare Ca^{2+} fall off (??)
+- Impossible to get a universal dissolution rate! (even if we somehow could fine the surface area)
+*** Factors
+**** Pressure
+ - The higher the more dissolves...
+ - seems to be a significant factor at large depths ... maybe not relevant in a karst tower
+ - Has weird interaction with temperature
+ #+BEGIN_QUOTE
+ ex:\\
+ Karst hotsprings -> CO_2 from below .. as water rises it's pressure drops and it becomes supersaturated w/ calcite *or* it cools so much it's understaturated\\
+ see:\\
+ Yoshimura et al
+ Deep source CO_2 in natural waters and its role in extensive tufa deposition in the Huanglong Ravines, Sichuan, China
+ #+END_QUOTE
+**** Temperature 
+ - strongly affects the saturation point
+ - 55mg/L @ 25\ordm{}C vs.. 75mg/L @ 0\ordm{}C
+ - Water often cools as it passes underground, making it able to dissolve rock further
+ - Krabi should have pretty constant annual temperatures
+**** Trace minerals
+- can strongly affect dissolution p57-58 [fn:Ford2007]
+- They interfere with the lattice structure of the crystal and create dislocations to is enhances unraveling of the structure
+**** Acid Rain
+ p58-59 [fn:Ford2007]
+**** Common Ion
+ If you have something lik gypsum that provides another source of Ca^{2+} then this will retard dissolution
+**** Sea water
+ p60 [fn:Ford2007]
+**** Biological Activity
+ ...
+
+*** H_{2}S
+Also dissolves everything.. 
+- Ramiform Hypogene System
+- Mississippi Valley Type (MVT)
+- H_{2}S is commonly from the oxidation of pyrite or from volcanic regions. But it can also come from compressed or deformed sediments (~1.5-4 km down) or biological activity
+- O_2 is the limiting factor. So you can get dissolution when O_2 is suddenly available - like a ventilated cavern, or a flood that pushes in O_2 rich water
+- Leads to the precipitation of sulfide ore bodies
+- Can happen in conjunction with the CO_2 dissolution of limstone (it can precipitate while the other is dissolving)
+** Precipitation
+*** In bare water
+- Forms *crystallite* micro crystals thant then grow/riper by accretion
+- only really happens in marl lakes
+*** On surfaces
+- Surfaces greatly decrease the required energy for precipitation to occur (*nulceation potential*)
+- Starts at SI = 0.3 (Saturation index)
+- SI > 1.0 things go very quickly
+- If it's too fast then you get crystals and globbing and *adhesive growth*
+*** Bacteria
+Can either enhance or retard crystallization by taking or releasing CO_2
+*** Other elements
+- Will readily pick up foreign ions and molecules
+- Humic/Fulvic acids -> give most of the differences in color
+- Some elements are "poisons" that inhibit precipitation (ex: microorganisms, phosphates, trace metals)
+- Mg^{2+} is a major "poison". However it doesn't "fit" in aragonite so aragonite can still form. Hence why aragonite precipitates in seawater environments
+#+BEGIN_QUOTE
+*Note*: Aragonite can still precipitate in fresh water conditions if for instance gypsum precipitates and depletes the Ca^{2+} first
+#+END_QUOTE
+#+BEGIN_QUOTE
+ex:\\
+HuangLong\\
+Lu et al 2000 \\
+Controlling processes in a CaCO_3 precipitation stream in Huanglong natural Scenic District, Sichuan, China \\
+Journal of Hydrology
+#+END_QUOTE
+
+* Challenges in modeling
+
+** Advantages in using karst towers
+
+
+* Things to measure
+
+** Tracers
+- You can measure the *flow through* rate this way
+- salts as tracers :: MgCl2 / CaCl2 / NaCl p7 [fn:Clark2015]
+When dissolved give the solution different densities. Will they percolate through differently? What are tracers others have used?
+*** TODO Read up on past work
+Lots of references in [fn:Williams2008] ...
+
+[fn:Bottrell1992] Tracer study of flow and storage in the unsaturated zone of a karstic limestone aquifer
+Trace Hydrology, Proceedings of the Sixth International Symposium on Water Tracing, Karlsruhe Germany pp 207-211
+
+** Detecting gaps above the cave (ventilated air pockets)
+- Ca^{2+} :: the normal calcium that precipitates out when the CO2 outgasses. The precipitation can be prevented with a small amount of nitric acid when the water is saturated (or super saturated)
+- Mg^{2+} :: Seems to dissolve immediately? Not as sensative to flow rate as *Ca*. Higher Flow rates give lower ion concentration but a higher *Mg/Ca* ration.
+------
+- You can have ventilated air gaps "above" your sampling cave - which will cause a premature deposition of a ration of your *Ca*. This should produce a discernable offset in your *Mg/Ca vs. drip-rate* plots [fn:Tooth2003].  So if there is premature deposition then this ratio will be skewed [fn:Fairchild2000]
+
+*** TODO Check Ca/Mg dissolutions precipitation stuff.. 
+[fn:Fairchild2000] Controls on trace element (Sr-Mg) compositions of carbonate cave waters: implications for speleothem climate records
+Chemical Geology 166,255-269
+[fn:Fairchild2001] Annual to sub-annual resolution of multiple trace-element trends in speleothems. 
+Journal of Geological Society 158, 831-841
+
+** Organic Activity 
+- Dissolved Oxygen (DO) :: is an indicator of organic activity (or lack of activity. Maybe a proxy for residence time? p23  [fn:Clark2015]
+
+** Carbon isotope in speleothem
+- the dissolved organic carbon (DIC)  from C3 plants should have dC13 of around -14% to -18%
+- host limestone dC13 +1%
+- In the unsaturated zone the C is from the DIC. limestone dissolution is limited by dissolved CO2
+- if you have fast flow then all the C13 is from the soil. If you have slow flow then it mixes with the limestone
+- complicated by the fact that you can have more fractionation.. at the degassing location or re-evaporation near the suface.
+- can see shifts btwn C3 and C4 plants.
+
+see [fn:McDermott2004] for more details and references..
+
+** Other residence time proxies
+- nobel gases / O2 / N2/ Ar :: related to ground wter recharge condition p24 [fn:Clark2015]
+- 87Sr/87Sr :: Something to do with weathering [fn:Clark2015]
+- if there is pyrite then you get sulfate... 
+*** TODO Determine if there is pyrite in the karst tower
+
+** Specific Conductivity *SpC
+p63 [fn:Ford2007]
+- Can be directly translated to a value of mg/L CaCO_2
+- Inpurities interfere at high concentrations
+** pH
+- best done directly in the cave...
+- Can be done afterwards in a lab - but sounds tricky.. p64 [fn:Ford2007]
+** Total Hardness (Ca^{2+} + Mg^{2+})
+involves doing chemistry..  p64 [fn:Ford2007]
+** CO_2
+p66 [fn:Ford2007]
+A drop of water formed at the tip of a soda straw stalactite lost CO_2 quickly:
+- 10% - 1 sec
+- 30% - 90 seconds
+- 70% - 15 minutes
+** Chemical Analysis
+- AAS :: Atomic Absorption Spectroscopy
+- ICP-AES :: Inductively coupled plasma-atomic emission spectrometry
+- IC :: Ion chromatography
+all methods are done in commercial water quality labs...
+* Glossary
+- Calcite :: Octohedral *CO_{3}^{2-}* around *Ca^{2+}*. The *Ca^{2+}* ions can sometimes be replaced by other smaller cations or by *Sr^{2+}*. It can have more than 2000 different forms based on the impurities it has. Based on the geometry of the crystal. [fn:Huizing2003] Table 2.2 p8-9 [fn:Ford2007] (Do the impurities drive the geometries or the geometries drive the structures?)
+
+- Aragonite :: Unlike Calcite. it doesn't capture cations smaller than *Ca*. However, *Sr* and *U* can still substitute for *Ca*. It will readily dissolve/reprecipitate and expell the *Sr* and *U*. It's 8% smaller by volume than calcite - so if it reprecipitates as calcite it will make the area less porous [fn:Ford2007]
+
+- Tufa :: Calcite from terestrial plants that have rotted away. It's a loose framework [fn:Ford2007]
+
+- Travertine :: terrestrial calcite from inorganic or bacterial sources (typically underground or near hotsprings) [fn:Ford2007]
+
+- Dolomite :: Should be layers of *Ca^{2+}* cations and then layers of *Mg^{2+}* cations, but in reality it's all mixed up and has impurities (and is usually *Ca^{2+}* rich). So it captures even more elements (Zn, Fe, Mn, Na, Sr) than Calcite p11 [fn:Ford2007] . In particular it captures *Fe^{2+}* which gives it a pink color (esp when weathered). Dolomite exists on a continium with Calcite. Dolomite will affect the solubility of the limestone. Seems it dissolved worse than Calcite p28 [fn:Ford2007]. And yet *Mg^{2+}* bonds 20% stronger to *H_{2}O* than *Ca^{2+}*. *Mg* is more abundant in seawater where limestone forms (esp. hypersaline lagoons)
+
+- Dolomitization :: In brackish water you can have calcite dissolve but leaving dolomite behind (not entirely clear) p21[fn:Ford2007]
+
+- Carbonatites :: carbonates that are ignious in nature and may include rare earth minerals
+
+- Limestone :: precipitates everywhere. Mostly forms in shallow tropical/warm marine environments (ex: sea platform/ramps) and is mostly made of marine shells/skeletons (so it's texture can provide clues to it's origin - see Table 2.4 [fn:Ford2007]). Starts as muddy 40-80% porosity and then diagenisis consolidates it to solid rock w/ ~5% porosity (or less). If no diagenisis then it forms chalks or marls. Diagenisis is driven by meteoric waters that remove aragonite and reform into more and more compact calcite.
+
+- Primary Porosity :: porosity of the bare rock. If it's too high then the karst develops poorly
+
+- Secondary Porosity :: fractures that may conduct water.
+
+- Tertiary porosity :: conduits that take most of the water typically. They are fed primarily by surface features (geomorphology) doline/streamsines. Hence the geomorphology determines the hydrology.
+
+- Karst :: A hydrological system of typically carbonate or evaporites that is driven by dissolution unlike other lithologies. Dissolution happens along ground water flow paths
+
+- Paleokarst :: karst that's been cut off from the hydrological system
+
+- Relic Karst :: Karst outside the original development area. Usually referring to lifting or subsiding of the karst features.
+
+- Interstratal Karst :: Karst layers found among non karst layers..
+
+- Bedding planes :: ground water more readily penetrates an inferface between limestone and another rock (like shale) than just plain limestone
+
+- Irregular contact :: ie... wavey contact surfaces (instead of a plane) "undulatory" will more readily be eaten away by ground water.
+
+- Joints :: due to stress (ex: tectonic) these breaks will appear normal to the bedding planes. If they cross several beds then they're called *Master joints*. In deeper karst they are less permiable than bedding planes due to the compression.
+
+- Fracture-traces / Faults :: due to displacement of rock. Can be seen by satellite.. can form a river like structure in the karst
+
+- Throats :: Constriction on the irregular terrain that bring water down deep into the karst. These are log-normally distributed
+
+* Footnotes
+[fn:Williams2008] The role of the epikarst in karst and cave hydrogeology: a review
+Internation Journal of Speleology
+[fn:Tooth2003] Soil and karst aquider hydrological controls on the geochemical evolution of speleothem-forming drip waters, Crag Cave, southwest Ireland
+Journal of Hydrology v 273 p51-68
+[fn:Clark2015] Groundwater Geochemistry and Isotopes 2015 BOOK
+[fn:McDermott2004] Paleo-climate reconstruction from stable isotope variations in speleothems: a review
+Quaternary Science Reviews, v23 p 901-918
+[fn:Klimchouk1989] Evidence of hydrological significance of the epikarstic zone from sutdy of oxygen isotope somposition of water, Arabika massif, Western Caucasus
+Proceedings 10th International Congress of Speleology (Budapest) II 798-799 (from [fn:Williams2008] )
+[fn:Ford2007] Karst Hydrogeology and Geomorphology BOOK
+[fn:Huizing2003] Calcite: the Mineral with the Most Forms, Christian Weise Verlag, Munich, 114 pp.
+[fn:Drake1984] Theory and model for global carbonate solution by groundwater
+Groundwater as a Geomorphic Agent (ed. R. G. LaFleur), Allen & Unwin, London pp 210-26 
+[fn:Yuan2001] Guidebook for Ecosystems of Semiarid Karst in North China and Subtropical Karst in Southwest China
+IGCP 228
+Karst Dynamics Laboratory, Guilin 94 pp.
+*CAN'T FIND*
+[fn:Drake1975] The effect of climate on the chemistry of carbonate groundwater
+Water Rousources Research, 11, 958-62
+Is this working???
+
+[fn:Freeze] Groundwater BOOK
+#+END_slide

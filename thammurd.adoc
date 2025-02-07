@@ -1,0 +1,230 @@
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+= Tham Murd Stalagmites
+
+== Schematic Map
+
+image:diagram/thammurd.svg[PINK is the narrative path- P# are perspective photos S# are stalagmites of interest]
+
+The cave has two entrances. One large main entrance and a smaller upper level window. The main entrance is only accessible with a boat during the rainy season. The photo sequence below follows the pink line through the cave
+
+=== P1
+
+Out in front on Tham Murd there is a shallow pond during the rainy season that is used for fishing. The water level fluctuates substantially
+
+[.scrollbox]
+--
+image:phot/thammurd/p1a.jpg[]
+image:phot/thammurd/p1b.jpg[]
+--
+
+=== P2
+
+We then go to the right of the pond and climb up a short ways along the side of the karst tower. The climb is relatively easy. Just a bit of boulder hoping.
+[.scrollbox]
+--
+image:phot/thammurd/p2a.jpg[]
+image:phot/thammurd/p2b.jpg[]
+--
+
+=== P3
+
+We then reach a small gap which forms a window into the cave. The gap is just enough to crawl through. It's about 1m long and then it open up to a small shelf with lots of headspace. There is no apparent airflow
+[.scrollbox]
+--
+image:phot/thammurd/p3a.jpg[]
+--
+
+=== S1
+
+About 2 meters in front and to the right you see the first set of active stalagmites. Since they are very close to the exterior wall, they are very responsive to rain on the outside. While we climbed in the cave a large thunderstorm passed by. These were the only ones that had an apparent change in their drip rate
+
+Temperature and humidity fluctuations have unfortunately not been measured here yet
+
+[.scrollbox]
+--
+image:phot/thammurd/s1a.jpg[]
+image:phot/thammurd/s1b.jpg[]
+image:phot/thammurd/s1c.jpg[]
+--
+
+video::phot/thammurd/s1d.mp4[]
+
+=== P4
+
+From the window shelf we then need to descend back to the water table. The descent is steep and a bit slippery. Here a rope definitely helps
+
+(Note: The photo here may be incorrect..)
+
+[.scrollbox]
+--
+image:phot/thammurd/p4a.jpg[]
+--
+
+=== P5
+We walk through waist deep water (with a very muddy/slippery bottom) and come out to a large slopped chamber. This has several stalagmites growing at different point - some active, others not. We now work from the right side of the image to the left
+[.scrollbox]
+--
+image:phot/thammurd/p5.jpg[]
+--
+
+=== S2
+We walk along the right wall past a large fractured column (Nong calls it the leaning tower of Pisa) and come to a large active stalagmite. While not the classical candlestick shape - the growth pattern is very interesting. There are clearly visible high and low frequency oscillation
+
+[.scrollbox]
+--
+image:phot/thammurd/s2a.jpg[]
+image:phot/thammurd/s2b.jpg[]
+image:phot/thammurd/s2c.jpg[]
+image:phot/thammurd/s2d.jpg[]
+image:phot/thammurd/s2e.jpg[]
+image:phot/thammurd/s2f.jpg[]
+--
+
+=== P6
+Looking ahead at the far back wall, we see 3 stalagmites ahead of us. One is very tall and near us (S3). And then two further ones in the back growing out of the mud (S4) (S5).
+
+[.scrollbox]
+--
+image:phot/thammurd/p6.jpg[]
+--
+
+
+=== S3
+Skinny, slightly undulating stalagmite growing out of the "tree trunk" of fallen column. Sits far above the ground. It's of medium length.
+
+[.scrollbox]
+--
+image:phot/thammurd/s3a.jpg[]
+image:phot/thammurd/s3b.jpg[]
+image:phot/thammurd/s3c.jpg[]
+image:phot/thammurd/s3d.jpg[]
+--
+
+=== S4
+Slightly ugly stalagmite, with a well developed stalagtite above. Would be easy to monitor (small stool to hold equipment above it)
+
+[.scrollbox]
+--
+image:phot/thammurd/s4a.jpg[]
+image:phot/thammurd/s4b.jpg[]
+image:phot/thammurd/s4c.jpg[]
+image:phot/thammurd/s4d.jpg[]
+--
+
+=== S5
+Fatter and more well shapped stalagmite but with almost no stalagtite above. Also would be easy to monitor
+
+[.scrollbox]
+--
+image:phot/thammurd/s5a.jpg[]
+image:phot/thammurd/s5b.jpg[]
+image:phot/thammurd/s5c.jpg[]
+--
+
+=== S6
+We then exit the chamber and go through a small narrow passage way (with a high ceiling). Here we find a very long stalagmite that has been broken off recently by someone. It's very straight and well formed. It looked like it was active, but minimally (see small straw above - and "dirty" top).
+
+[.scrollbox]
+--
+image:phot/thammurd/s6a.jpg[]
+image:phot/thammurd/s6b.jpg[]
+image:phot/thammurd/s6c.jpg[]
+image:phot/thammurd/s6d.jpg[]
+--
+
+video::phot/thammurd/s6e.mp4[]
+
+=== SX
+Further in the corridor (location needs to be confirmed) is another stalagmite which is similar. Very nice shape, not very active though
+
+[.scrollbox]
+--
+image:phot/thammurd/sxa.jpg[]
+image:phot/thammurd/sxb.jpg[]
+--
+
+video::phot/thammurd/sxc.mp4[]
+
+
+=== P7
+From the tunnel we emerge into another chamber which has two levels. There are a lot of bats here (unlike the previous one which had none). As a result the ground is a lot filthier. To the immediate right there is a ramp up to a ledge and window that looks back down into the tunnel we just walked through. At the top of this ramp (out of frame) would be (S7). Straight ahead, besides the ramp and behind Nong is a shelf with many active stalagmites (S8)
+[.scrollbox]
+--
+image:phot/thammurd/p7.jpg[]
+--
+
+
+=== S7
+Up near this ledge/window we find a very active stalagmite. The shape is not ideal because it has two active points, but the drip rate is very high and it would be of interest when it comes to the cave's reactivity to precipitation. It would hopefully show a distinct 18O signature compared to the other slow-growers we see in the cave.
+
+[.scrollbox]
+--
+image:phot/thammurd/s7a.jpg[]
+image:phot/thammurd/s7b.jpg[]
+--
+
+video::phot/thammurd/s7c.mp4[]
+
+=== S8
+On the right wall, on the ramp up to the window there is a shelf with several short stalagmites that seem pretty active. They would be easy to monitor (again - small stool)
+
+[.scrollbox]
+--
+image:phot/thammurd/s8a.jpg[]
+image:phot/thammurd/s8b.jpg[]
+image:phot/thammurd/s8c.jpg[]
+--
+
+video::phot/thammurd/s7c.mp4[]
+
+
+=== P8
+Going around the back of the chamber we see a very large sinkhole with water below. This seems well below the waterline in the cave itself. It hasn't been explored yet
+
+[.scrollbox]
+--
+image:phot/thammurd/p8.jpg[]
+--
+
+
+
+=== SY
+Going around other side of the chamber we walk across a strange river of rounded straws and near the exit passage way on the cave wall we see another shelf with many stalagmites (similar to S8). Several are also active. There is also a large active pillar as well. You can see oscillations like in (S2) but they're not nearly as distinct.
+
+[.scrollbox]
+--
+image:phot/thammurd/sya.jpg[]
+image:phot/thammurd/syb.jpg[]
+image:phot/thammurd/syc.jpg[]
+image:phot/thammurd/syd.jpg[]
+image:phot/thammurd/sye.jpg[]
+image:phot/thammurd/syf.jpg[]
+image:phot/thammurd/syg.jpg[]
+image:phot/thammurd/syh.jpg[]
+--
+
+=== P9
+As we exist the chamber the area seems to have more active flow and there is a very nicely developped rimmed pool here.
+
+[.scrollbox]
+--
+image:phot/thammurd/p9.jpg[]
+--
+
+=== PX
+Going up a bit of a ramp through a short passage way we come to a high shelf. From here we can look down into the main entrance chamber that is flooded. Going down is impossible without a ladder or rope. Here there are a couple of stalagmites (photos missing) and one particularly beautiful stalagmite/stalagmite pair that are about to form a column
+
+[.scrollbox]
+--
+image:phot/thammurd/pxa.jpg[]
+image:phot/thammurd/pxb.jpg[]
+image:phot/thammurd/pxc.jpg[]
+image:phot/thammurd/pxd.jpg[]
+--
+

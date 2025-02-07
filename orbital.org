@@ -1,0 +1,254 @@
+#+TITLE: Orbital driver of Climate
+#+DESCRIPTION:
+
+#+INCLUDE: "../web/config.org"
+
+#+BEGIN_SRC octave :results none :exports none
+inline code examples are in MATLAB/Octave
+#+END_SRC
+
+When it comes to the effects of the Earth's orbital there are two drivers, /obliquity/ and /eccentricity/ and two effect, /change in obliquity/ and /precession of the equinox/. While these processes are cyclical and look sinusoidal they are described using sums of many different sinusoids. The values and equations are described in [fn:Berger1978]
+
+* Drivers
+** Obliquity
+This is the tilt of the axis around which the earth spins. When the axis is aligned such that the either the top or bottom of Earth points at the sun, then you get the /summer/winter solstice/. At this point the day's length in the norther or southern hemisphere is at it's longest. Right now this is Jun 21st and December 21st. Between the two points you have two moments when the day and night is of equal length - known as the /equinox/. Obliquity undergoes two changes:
+*** Amplitude
+The obliquity will change in degree from /22.2\deg{}/ to /24.5\deg{}/ on a /41 000 years/ cycle. [[https://en.wikipedia.org/wiki/Axial_tilt#Oscillation][On Wikipedia]] you can find it described in terms of a polynomial, however we will follow the sum of sinusoids example from [fn:Berger1978].
+#+BEGIN_QUOTE
+\epsilon{} = \epsilon^{*} + \sum{} A_{i}cos(f_{i}t + \delta{}_{i})\\
+\\
+\epsilon^{*} = 23\deg{} 320 556  /.. i assume this is a decimal notation/
+#+END_QUOTE
+from the tables. /A_{i}/ is the amplitude, /f_{i}/ is the rate of change per year in arcseconds, /\delta{}_{i}/ is the phase in degrees
+#+BEGIN_QUOTE
+A_{0} = -2462.22 \\
+f_{0} = 31.609970" \\
+\delta{}_{0} = 251.9 \\
+\\
+A_{1} = -857.32 \\
+f_{1} = 32.620499" \\
+\delta{}_{1} = 280.83 \\
+\\
+A_{2} = -629.32 \\
+f_{2} = 24.172195" \\
+\delta{}_{2} = 128.30 \\
+\\
+#+END_QUOTE
+The double quotes *"* indicates the degrees in arcseconds. There are 3600 arcseconds in a degree (*\deg{}*). To convert to radians:
+#+BEGIN_QUOTE
+((A"/3600)/360) \times{} 2\pi{} = radians
+#+END_QUOTE
+
+#+BEGIN_SRC octave :results silent
+  A0 = -2462.22;
+  f0 = deg2rad(31.609970/3600);
+  delta0 = deg2rad(251.0);
+
+  A1 = -857.32;
+  f1 = deg2rad(32.620499/3600);
+  delta1 = deg2rad(280.83);
+
+  A2 = -629.32;
+  f2 = deg2rad(24.172195/3600);
+  delta2 = deg2rad(128.30);
+
+  epsilonPrime = deg2rad(23.320556);
+
+  t = [1:1000:800000];
+
+  epsilon = epsilonPrime + A0*cos(f0*t + delta0) + A1*cos(f1*t + delta1) + A2*cos(f2*t + delta2);
+
+  plot(t,epsilon);
+  hold on;
+  axis "off"
+  print "-S720,160" "obliquity.svg"
+  hold off;
+#+END_SRC
+
+[[./../fig/plot/obliquity.svg]]
+
+*** Precession
+The direction of the axis will rotate (relative to the orbital plane and the stars) like a misaligned spinning top in a process known as /axial precession/. The axis currently points at Polaris, but this will slowly change and draw a big circle in the sky (the change has been observed over historical time scales). This can also be described numerically, but as we'll see this is unnecessary
+
+** Eccentricity
+The Earth also goes around in the sun in a slight oval, where the major axis is about 3% longer than the minor axis. When the Earth is farthest, on July 4th, it is at its /apehelion/ (158M km) . When it is at its closest, January 3rd, it's at its /perhelion/ (153M km). This similarly undergoes two changes
+
+Note that at the moment, from the March 20th equinox to Sept 22 equinox the Earth passes the /perihelion/ and goes faster (as potential energy is turned to kinetic). Hence from Sep 22 to March 20th it passes the /apehilion/ you get an *extra 7 days* as the Earth is flung out and slows down
+*** Amplitude
+The degree of this eccentricity will vary, from Earth's orbit being almost circular, to being more elliptical. This is described in very similar terms to the changes in /obliquity/
+
+#+BEGIN_QUOTE
+e = e_{0} + \sum{} E_{i} cos(\lambda{}_{i}t + \phi{}_{i}) \\
+..\\
+e_{0} = 0.028707
+#+END_QUOTE
+We again just grab the first few terms. For a more accurate solution take more terms from the tables in [fn:Berger1978]
+#+BEGIN_QUOTE
+E_{0} = 0.01102940 \\
+\lambda{}_{0} = 3.3138886 \\
+\phi{}_{0} = 165.16 \\
+\\
+E_{1} = -0.00873296 \\
+\lambda{}_{1} = 13.650058 \\
+\phi{}_{1} = 279.68 \\
+\\
+E_{2} = -0.00749255 \\
+\lambda{}_{2} = 10.511172 \\
+\phi{}_{2} = 114.51 \\
+\\
+#+END_QUOTE
+
+#+BEGIN_SRC octave :results silent
+  E0 = 0.01102940;
+  l0 = deg2rad(3.3138886/3600);
+  phi0 = deg2rad(165.16);
+
+  E1 = -0.00873296;
+  l1 = deg2rad(13.650058/3600);
+  phi1 = deg2rad(279.68);
+
+  E2 = -0.00749255;
+  l2 = deg2rad(10.511172/3600);
+  phi2 = deg2rad(114.51);
+
+  eMin = 0.028707;
+
+  t = [1:1000:800000];
+
+  e = eMin + E0*cos(l0*t + phi0) + E1*cos(l1*t + phi1) + E2*cos(l2*t + phi2);
+
+  plot(t,e);
+  hold on;
+  axis "off"
+  print "-S720,160" "./fig/plot/eccentricity.svg"
+  hold off;
+#+END_SRC
+
+[[./../fig/plot/eccentricity.svg]]
+
+
+
+*** Precession
+The direction of the major/minor axis will also vary over time relative to the stars. On its own it doesn't cause any changes, however it "interferes" with the precession of the obliquity. The combined effect will be described shortly.
+
+* Effects
+** Obliquity Amplitude
+As the tilt of the planet increases, the change between winter and summer becomes more severe. The effect applies to both the northern and southern hemispehere equally
+** Precession of the Equinox
+As the rotational axis changes over time, it will at times align with the eccentricity of the orbit such, for instances, that during summer solstice the planet is closest the Sun while during the winter solstice it is furthest away. Or you can get the inverse situation, where the winter solstice is at the /perihelion/. Both these situations will create a bias towards one hemisphere and either the north or south will get a larger fraction of the Sun's heat. 
+
+To track the degree of alignment between the orbital ellipse and the rotational axis we look at the angle /\omega{}/ between the /perihelion/ and the March 20th /equinox/. 
+
+The difference of heat between /apihelion/ and /perihelion/ is also being modulated by the changes in the amplitude of the eccentricity. If the orbit is at a time where it's near-circular then there is little difference between the warming during /apihelion/ and /perihelion/ and therefore the orientation of the rotational axis relative to the orbit's major axis has little effect. However if the eccentricity is near a maximum then this effect is felt strongly. The combined effect is described with the product ~e sin( \omega{} )~ and can again be described with a sum of sinusoids
+#+BEGIN_QUOTE
+e sin( \omega{} ) = \sum{} P_{i} sin(\alpha{}_{i}t + \zeta{}_{i}) \\
+..\\
+e - /eccentricity (defined previously as the sum of sinusoids)/ \\
+omega - /the angle btwn the perihelion and the March 20th equinox/ \\
+*note*: the sine terms can be replaces with cosines. There is also no constant term b/c precession is symmetric
+#+END_QUOTE
+This product is also known as the *precession index*. Again the terms in the sum of sinusoids are defined in the tables [fn:Berger1978]
+#+BEGIN_QUOTE
+P_{0} = 0.0186080 \\
+\alpha{}_{0} = 54.646484 \\
+\zeta{}_{0} = 32.01 \\
+\\
+P_{1} = 0.0162752 \\
+\alpha{}_{1} = 57.785370 \\
+\zeta{}_{1} = 197.18 \\
+\\
+P_{2} = -0.0130066 \\
+\alpha{}_{2} = 68.296539 \\
+\zeta{}_{2} = 311.69 \\
+\\
+#+END_QUOTE
+
+#+BEGIN_SRC octave :results silent
+  P0 = 0.0186080;
+  a0 = deg2rad(54.646484/3600);
+  z0 = deg2rad(32.01);
+
+  P1 = 0.0162752;
+  a1 = deg2rad(57.785370/3600);
+  z1 = deg2rad(197.18);
+
+  P2 = -0.0130066;
+  a2 = deg2rad(68.296539/3600);
+  z2 = deg2rad(311.69);
+
+  t = [1:1000:800000];
+
+  esinw = P0*cos(a0*t + z0) + P1*cos(a1*t + z1) + P2*cos(a2*t + z2);
+
+  plot(t,esinw);
+  hold on;
+  line(t,e,"color",'r',"linestyle","--")
+  axis "off"
+  print "-S720,160" "./fig/plot/precession.svg"
+  hold off;
+#+END_SRC
+
+[[./../fig/plot/precession.svg]]
+
+To verify the correct behavior (since we are not plotting /\omega{}/ directly) I've added the change in eccentricity in red - and you can see how the product makes the /eccentricity/ behave as an envolope for the /precession of the equinox/ - squeezing it down at its minimums.
+
+*Note*: That minor mismatches in the plots are due to me only using the first 3 terms. The tables include 40+ terms
+
+Using the precession of the equinox you can actually split the year into a half where the northern hemisphere gets more sun and a half where the southern gets more sun. This split creates what are known as the *caloric insolation seasons* and they're not exactly centered on the summer/winter solstice b/c of the perihelion offset.
+
+Note that there are also much longer term variations in frequency over tectonic time. ~400 Myrs ago the  *Precession* was 20 000 years  and the *Tilt* changed every 30 000 years.
+
+#+BEGIN_QUOTE
+*Orbital monsoon hypothesis* \\
+That increased insolation leads to stronger monsoon that reach further inland (due to stronger areas of low pressure due to heating).
+
+Climate records can operate on a threshold where once it reaches far enough inland you suddenly have a lake forming greating sediment - but below the threshold you get nothing
+
+Sapropels, anoxic carbon rich "stinky mud" layers in the Mediterranean may be caused by extra trong monsoons that create an *anoxic* bottom. Due to rains that caused the overflow of the Nile and a fresh water cap over the sea.
+
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+*Orbital tuning* \\
+once you've established a time range using isotopes you can then find some orbital signal to narrow down the dates to something more specific (p 148)[fn:BOOK-Ruddiman]. *Note*: This seems a bit suspect if you're trying to find which event is the driver.. but could be useful for stretch/squish type of tuning...
+#+END_QUOTE 
+
+#+BEGIN_QUOTE
+*Tectonic monsoon* \\
+Tectonic uplift also causes stronger monsoons. This effect can also be folded in to the caluclation... (but this has no frequency per se..)
+#+END_QUOTE 
+
+* Useful Data
+Since Berger's tables there have been further improvements in modeling. The state of the art is described here: https://earthscience.stackexchange.com/a/16599/22874
+
+The first two data files that are linked to, =CLIVAR0N.ASC= and =CLIVAR0P.ASC=, are in a very unusual format. The only calculator at the bottom will output a more easy-to-use format. Note that the calculate output values per the Laskar2004 paper. There is a newer Laskar2010, which will go back further in time. Maybe it has it's own calculator... I haven't looked into it
+
+Once saved I still needed to fudge them to make them properly space delimined. I've saved a file with 1M years and a 100 year step size [[./data/year-obliq-prec-eccen-fixed.txt]]
+
+#+BEGIN_SRC octave :results silent
+  data = dlmread("data/year-obliq-prec-eccen-fixed.txt" , " ");
+  plot(data(:,1),data(:,2))
+  hold on;
+  plot(data(:,1),data(:,3))
+  plot(data(:,1),data(:,4).-0.3)
+  axis "off"
+  print "-S720,160" "./fig/plot/laskar2004.svg"
+  hold off;
+#+END_SRC
+
+[[./../fig/plot/laskar2004.svg]]
+
+* Bibliography
+
+[fn:BOOK-Ruddiman] Earth's Climate Past and Future, Second Edition by William F. Ruddiman
+[fn:Berger1978] Long-Term Variations of Daily Insolation and Quaternary Climatic Changes
+[fn:Bereiter2014] Revision of the EPICA Dome C CO_{2} record from 800 to 600 kyr before present 
+
+
+
+# End - Octave plotting stuff shutdown
+# I forget why i needed this..
+#+BEGIN_SRC octave :results silent :exports none
+figure( 1, "visible", "off" );
+#+END_SRC
+

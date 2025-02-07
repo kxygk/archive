@@ -1,0 +1,600 @@
+#+TITLE: Climate
+#+DESCRIPTION:
+
+#+INCLUDE: "../web/config.org"
+
+* Preamble
+
+Notes based on /Atmosphere, Ocean, and Climate Dynamics: An Introducory Txt/ by John Marshall and R. Alan Plumb
+
+written in literate single-file clojure: https://geokon-gh.github.io/literate-clojure.html
+
+** Loading Libraries
+Here I load a bunch of libraries. I use the ~geo~ library to work with GIS files and then I use ~thing/geom~ to display the result as an inline SVG. 
+#+BEGIN_SRC clojure :exports code
+  (use 'clojure.tools.deps.alpha.repl)
+#+END_SRC
+
+#+RESULTS:
+: nil
+
+#+BEGIN_SRC clojure :exports code
+;; Add libraries for plotting
+(add-libs {'thi.ng/geom {:mvn/version "1.0.0-RC4"}})
+(add-libs {'thi.ng/math {:mvn/version "0.3.0"}})
+(add-libs {'thi.ng/ndarray {:mvn/version "0.3.2"}})
+(add-libs {'thi.ng/color {:mvn/version "1.4.0"}})
+(add-libs {'factual/geo {:mvn/version "3.0.1"}})
+(add-libs {'com.github.jai-imageio/jai-imageio-core {:mvn/version "1.4.0"}})
+(add-libs {'clj-curl/clj-curl {:mvn/version "1.1.2"}})
+(add-libs {'guru.nidi.com.kitfox/svgSalamander {:mvn/version "1.1.3"}})
+(add-libs {'batik-rasterize/batik-rasterize {:mvn/version "0.1.2"}
+           'xerces/xerces {:mvn/version  "2.4.0"}
+           'org.apache.xmlgraphics/batik-transcoder {:mvn/version  "1.14"}
+           'org.apache.xmlgraphics/batik-codec {:mvn/version  "1.10"}
+           'org.apache.xmlgraphics/batik-anim {:mvn/version  "1.10"}
+           'org.apache.xmlgraphics/xmlgraphics-commons {:mvn/version  "2.3"}})
+#+END_SRC
+
+#+RESULTS:
+: nilnilnilnilnilnilnilnilnilnil
+
+#+BEGIN_SRC clojure :exports code
+;; Add them to the default ~user~ namespace
+(require '[clojure.java.io :as io]
+         '(thi.ng.geom [core :as geom]
+                       [matrix :as matrix])
+         '[thi.ng.geom.viz.core :as viz]
+         '[thi.ng.geom.svg.core :as svg]
+         '[thi.ng.math.core :as math]
+         '[thi.ng.ndarray.core :as ndarray]
+         '[thi.ng.color.core :as col]
+         '[thi.ng.math.noise :as noise]
+         '[clj-curl.easy :as curl-easy]
+         '[clj-curl.opts :as curl-opts]
+         '[batik.rasterize :as batik])
+(use 'geo.io)
+(use 'geo.jts)
+(use '[uncomplicate.neanderthal core native])
+#+END_SRC
+
+#+RESULTS:
+: nilnilnilnil
+
+** SVG Utils
+A few helper functions for diplaying things in org
+#+BEGIN_SRC clojure
+(defn svg2org
+  "Takes the SVG hiccup,
+      - Serializes it to XML
+      - Breaks it up along XML nodes
+      - outputs as symbols that can be output to org
+    The result can then be exported to HTML"
+  [svg-hiccup]
+  (-> svg-hiccup
+      svg/serialize
+      (#(clojure.string/replace %
+                                #"><"
+                                ">\n<"))
+      symbol))
+
+(defn- render-with-svgsalamander
+[region
+svg-xml-string]
+  (let [[lat-range 
+         lon-range] (region-ranges region)
+        universe (com.kitfox.svg.SVGCache/getSVGUniverse)
+        uri (.loadSVG universe
+                      (java.io.StringReader. svg-xml-string)
+                      "unused-placeholder")
+        diagram (.getDiagram universe uri)
+        buffered-image (java.awt.image.BufferedImage.
+                        (* lon-range
+                           100) ;; width
+                        (* lat-range
+                           100) ;; height
+                        java.awt.image.BufferedImage/TYPE_4BYTE_ABGR)
+        graphics-2d (.createGraphics buffered-image)]
+    (.setRenderingHint graphics-2d
+                       java.awt.RenderingHints/KEY_ANTIALIASING
+                       java.awt.RenderingHints/VALUE_ANTIALIAS_ON)
+    (.render diagram graphics-2d)
+    (.removeDocument universe
+                     uri)
+    buffered-image))
+
+(defn- render-with-batik
+[region
+svg-xml-string]
+(-> svg-xml-string
+    (batik/render-svg-string "batik-rendered.png"
+                                       {:type :png})))
+
+(defn render-as-buffered-image
+  "Given an SVG string, return a native Java BufferedImage
+  ie. java.awt.image.BufferedImage"
+  [region
+   svg-xml-string]
+  #_(println svg-xml-string)
+  (let [[lat-range 
+         lon-range] (region-ranges region)
+        universe (com.kitfox.svg.SVGCache/getSVGUniverse)
+        uri (.loadSVG universe
+                      (java.io.StringReader. svg-xml-string)
+                      "unused-placeholder")
+        diagram (.getDiagram universe uri)
+        buffered-image (java.awt.image.BufferedImage.
+                        (* lon-range
+                           100) ;; width
+                        (* lat-range
+                           100) ;; height
+                        java.awt.image.BufferedImage/TYPE_4BYTE_ABGR)
+        graphics-2d (.createGraphics buffered-image)]
+    (.setRenderingHint graphics-2d
+                       java.awt.RenderingHints/KEY_ANTIALIASING
+                       java.awt.RenderingHints/VALUE_ANTIALIAS_ON)
+    (.render diagram graphics-2d)
+    (.removeDocument universe
+                     uri)
+    buffered-image))
+#+END_SRC
+
+#+RESULTS:
+: #'user/svg2org#'user/render-with-batikclass clojure.lang.Compiler$CompilerExceptionclass clojure.lang.Compiler$CompilerExceptionclass clojure.lang.Compiler$CompilerExceptionclass clojure.lang.Compiler$CompilerExceptionSyntax error compiling at (*cider-repl Projects/rocks:localhost:41185(clj)*:19:21).
+: Unable to resolve symbol: region-ranges in this context
+: Syntax error compiling at (*cider-repl Projects/rocks:localhost:41185(clj)*:54:21).
+: Unable to resolve symbol: region-ranges in this context
+
+
+* Intro
+What differentiates the study of atmospheric and ocean circulation from our physics class study of fluid dynamics?
+
+** Primary Driver is Temperature
+In a physics class when we look at eddies/vortices in a fluid - they are driven by kinetics and conservation of energy. Turbulence is a mechanical property of the fluid moving around objects
+
+The fundamentally simplifying assumption is that the density of the fluid is a function of the pressure \\
+\rho{} = \rho{}(p)
+
+While this holds on the small scale - on the scale of the climate and ocean circulation this assumption quickly falls apart. We need to extend the relationship to include temperature \\
+\rho{} = \rho{}(p,T)
+
+In fact temperature is the primary driver behind the dynamics and mixing in the oceans and atmosphere. The warm fluids are more boyant - so they rises and you get convection. This is known as /Geophysical Fluid Dynamics/ (GFD)
+
+** Rotating Sphere
+The second distinguishing feature is that we are working on the surface of a spining sphere and the fluids are being compressed gravitationally. The spining is a relevant factor b/c atmospheric and oceanic phenomena are happening on the order of thousands of kilometers - and the radius of the Earth is ~6000km
+
+** Multigas system
+At least when it comes to the atmosphere, you have multiple gases working semi-independently. *Dalton's Law of Partal Pressures* tells us that the total pressure of a gas is equal to the sum of the partial pressures of it's constituents.
+
+#+begin_quote
+p = p_{d} + e\\
+e /partial pressure of water vapor/\\
+p_{d} /partial pressure of water vapor/
+#+end_quote
+For instance most of the heat transfer in the atmosphere is happening thanks to the transfer of energy by moisture. However as a percent-by-volume water vapor is a very small fraction of the atmospheric gas.
+
+The dry air component and vapor component can be treated as both obeying the *perfect gas law*
+#+begin_quote
+p = \rho{}R_{g}/m_{a} T = \rho{} RT\\
+R_[g} = 8.3143 KK^{-1}mol^{-1} .. /universal gas constant/
+R = R_{g}/m_{a} = 287Kkg^{-1}K^{-1} .. /for dry air .. where/ m_{a} = 28.97
+#+end_quote
+
+The saturation vapor pressure over water is however a function of the temperature following the *Clausius Clapeyron relationship*
+#+begin_quote
+e_{s} = Ae^{\beta{}T}\\
+A = 6.11 hPa\\
+\beta{} = 0.067\deg{}C^{-1}
+#+end_quote
+In summary the amount of water in the atomosphere heavily changes exponentially with the temperature. So warms areas of the Earth have exponentially more moisture (and hence can transport exponentially more heat)
+* Global Energy Balance
+
+** The Sun
+Emits /3.87 \times{} 10^{26} W/ of power\\
+
+The flux of solar energy at the Earth depends on the Earth-Sun distance /r/ : /S_{0} = Q/4\pi{}r^{2}/. While the distance /r/ varies around 150\times{}10^{9} - it's not by a lot. On average /S_[0}= 1367W/m^{2}/
+
+The Earth's crossectional area is /\pi{}a^{2}/ where /a/ is the radius of the Earth. The total incident solar radiation is  /1.74 \times{} 10^{17}/
+
+** Solar Flux
+This strikes the disk of the Earth for a total of /S_{0}\pi{}a^{2}/ W. But it then reradiates out over the whole surface of the sphere of the Earth - /4\pi{}a^{2}/.
+
+At equilibrium the Earth on average naturally reradiates as much as strikes it (otherwise it'd get colder and colder or hotter and hotter over time). The average *solar flux* per unit area is then
+
+#+begin_quote
+(S_{0}\pi{}a^{2})/(4\pi{}a^{2})\\
+S_{0}/4
+#+end_quote
+
+
+** Albedo
+
+A fraction of this incoming energy is reflected away (the albedo) - depending on the surface type. Expressed as a percentage
+
+- Ocean 2-10%
+- Forest 6-18 %
+- Soil 10-20 %
+- Desert 35-45 %
+- Snow 40-95%
+
+On average it's about 30% (the *planetary albedo* - /\alpha{}/). So the total energy absorption of Earth will be:
+
+#+begin_quote
+(1-\alpha{})\times{}S_{0}\pi{}a^{2} \\
+(1-0.3)* 1.74 \times{} 10^{17} \\
+1.22 \times{} 10^{17} W
+#+end_quote
+
+** Black body radiation
+The Earth is at some temperature /T_{e}/. The Stefan-Boltzmann law tells us about how much a black body emits at a given temperature
+#+begin_quote
+*Stefan-Boltzmann law*\\
+\sigma{}T_{e}^{4}\\
+/where/ \sigma{} = 5.67 \times{} 10^{-8} Wm^{-2}K^{-4}
+#+end_quote
+
+We treat the the Earth is a sphere radiating out equally in all directions giving a total radiation emitted as  /4\pi{}a^{2}\sigma{}T_{e}^{4}/
+
+However, at equilibrium the Earth must radiate as much energy as it absorbs (otherwise it would keep building up heat or cold). So /1.22 \times{} 10^{17} W/ must radiate out. Combing the radiation equation with the total we can solve for the Earth's *emission temperature* /T_{e}/
+
+/T_{e} = [ S_{0}(1-\alpha{}) / 4\sigma{} ]^{1/4} = 255K/
+
+*Wein's displacement law* gives us a handy tool to find the blackbody radiation peak wavelength
+#+begin_quote
+*Wein's Displacement Law*
+\lambda{}_{m}T = /constant/
+#+end_quote
+So for instance b/c the sun has en emission peak of 14\micro{}m and a temp of 6000K. Then the Earth at  temperature of 255K has en emission of /0.6\micro{}m \times{} 6000/255 = 14\micro{}m/. This is very much in the infrared and doesn't overlap with the sun' emission much at all
+
+** Greenhouse effect
+The atmosphere however is pretty opaque to IR so the Earth's black body gets absorbed in large part (primarily by H_{2}O) and reradiated at altitude .. at around 5km (above this there is little moisture). So the Earth's "emission temperature" /T_{e}/ is really the temperature of the atmosphere at 5km. This emission goes both outwards towards space, and downward back to the ground - making the ground warmer (than if there was no atmosphere at all)
+
+*** Simply opaque model
+
+The simplest greenhouse models is to assume all of the incoming light from the sun strikes the Earth. And all of the Earth's black body IR radiation is absorbed by the atmosphere. 
+
+#+begin_quote
+- T_{s} :: temperature of the surface of Earth
+- T_{a} :: temperature of the atmosphere (that then re-radiated out to space)
+#+end_quote
+
+Since from the outside you'd only see the radiation of the atmosphere, the Earth's emission temperature must equal to the atmospheric emission temperature /T_{e} == T_{a}/. Furthermore, the incoming absorbed *solar flux* must equal to the energy emitted by the planet. However since the atmosphere is opaque, it's the only emitter, hence /(1-\alpha{})S_{0}/4 = \sigma{}T_{a}^{4}/ . 
+
+The atmosphere is emitting this /\sigma{}T_{a}^{4}/ - both up and down. The downward component will heat the surface along with mentioned *solar flux* (scaled by the albedo factor /(1-\alpha{})/)
+
+Since 
+#+begin_quote
+\sigma{}T_{a}^{4} + (1-\alpha{})S_{0}/4
+#+end_quote
+
+And the Earth's surface in turn will reradiate out this energy as black body radiation /\sigma{}T_{s}^{4}/. Hence
+
+#+begin_quote
+\sigma{}T_{a}^{4} = \sigma{}T_{a}^{4} + (1-\alpha{})S_{0}/4
+#+end_quote
+
+Since the atmosphere's emitted flux is equal to the incoming radiation we can subsitute and solve
+
+#+begin_quote
+\sigma{}T_{a}^{4} = \sigma{}T_{a}^{4} + \sigma{}T_{a}^{4} \\
+\sigma{}T_{a}^{4} = 2\sigma{}T_{a}^{4} \\
+T_{s} = 2^{1/4}T_{a}
+#+end_quote
+
+
+We already calculated the Earth's emission temperature /T_{e}/ as 255K, and in the opaque model this is equal to the atmosphere temperature - hence /T_{s}= 255\times{}2^{1/4} = 303K/
+
+*** Leaky model
+
+In reality the atmosphere doesn't block all the black body radiation coming off the surface. So the outgoing energy is both coming from the heat of the atmosphere and some of the blackbody radiation off the surface. It still sums to the total absorbed incoming radiation from the sun - /(1-\alpha{})S_{0}/4/. Note that when the atmosphere absorbs a fraction /\epsilon{}/ of the IR coming from the surface then it also emits this same fraction
+#+begin_quote
+*Kirchhoff's law*\\
+Radiation_{atmospheric} = \epsilon{}\sigma{}T_{a}^{4}
+#+end_quote
+
+, then we are left with the sum for the top of the atmosphere
+#+begin_quote
+(1-\alpha{})S_{0}/4 = Radiation_{atmospheric} + Radiation_{from-surface-through-atmosphere}\\
+(1-\alpha{})S_{0}/4 = \epsilon{}\sigma{}T_{a}^{4} + (1-\epsilon{})\sigma{}T_{s}^{4}
+#+end_quote
+Again at the surface you have the second contraint - net zero energy. The incoming solar radiation and downward atmospheric radiation equal the resulting surface radiation. (note the last term is slightly different)
+#+begin_quote
+(1-\alpha{})S_{0}/4 + Radiation_{atmospheric} = Radiation_{total-from-surface}\\
+(1-\alpha{})S_{0}/4 + \epsilon{}\sigma{}T_{a}^{4} = \sigma{}T_{s}^{4}
+#+end_quote
+
+Combining the two constraints we get
+#+begin_quote
+\epsilon{}\sigma{}T_{a}^{4} + (1-\epsilon{})\sigma{}T_{s}^{4} = \sigma{}T_{s}^{4} - \sigma{}T_{a}^{4} \\
+\epsilon{}T_{a}^{4} + (1-\epsilon{})T_{s}^{4} = T_{s}^{4} - T_{a}^{4} \\
+2\epsilon{}T_{a}^{4} = \epsilon{}T_{s}^{4} \\
+\epsilon{}T_{a}^{4} = \epsilon{}T_{s}^{4}/2 \\
+T_{a} = T_{s}^{4}/2 \\
+T_{a} = (1/2)^{1/4} T_{s}
+#+end_quote
+
+So T_{a} < T_{s} - always! And indepent of /\epsilon{}/
+
+And in terms of the incoming raditation
+#+begin_quote
+(1-\alpha{})S_{0}/4 = \epsilon{}\sigma{}T_{a}^{4} + (1-\epsilon{})\sigma{}T_{s}^{4} \\
+(1-\alpha{})S_{0}/4 = \epsilon{}\sigma{}[(1/2)^{1/4} T_{s}]^{4} + (1-\epsilon{})\sigma{}T_{s}^{4}\\
+(1-\alpha{})S_{0}/4 = \epsilon{}\sigma{}(1/2)T_{s}^{4} + (1-\epsilon{})\sigma{}T_{s}^{4} \\
+(1-\alpha{})S_{0}/4 = [ (\epsilon{}/2)+ 2/2 -2\epsilon{}/2) ] \sigma{}T_{s}^{4} \\
+(1-\alpha{})S_{0}/4 = [ (2-\epsilon{})/2 ] \sigma{}T_{s}^{4} \\
+#+end_quote
+
+*** Feedback
+
+While these models are very simplified b/c it's more accurate to say there are many layers and a lot of heat transfer happens due to dynamic convection (and not this radiation) - they do give us a general relationship
+
+* Vertical Structure
+
+** Layers
+
+The top of the atomosphere is the *thermosphere*. This region is very short wavelength UV. At the outer reaches the UV is high enough energy to cause /photoionization/ which creates the *ionosphere*.  Other short wave UV is absorbed by /O_{2}/ superheating the air up to as much as 2000C. The air here doesn't really behave like a normal gas b/c it's so thin. As this short wave UV is absorbed the effect diminishes and there is a temperature minimum known as the *mesopause*. 
+
+The ionization of /photolysis/ can break O_{2} bonds and will generate ozone, O_{3},  at these high level. And this ozone is then found at higher and higher partial pressure going down. Ozone absorbs longer wave UV - leading to hotter and hotter temperatures going downward. This reaches a new maximum at the *stratopause*. Note that this absorption maximum doesn't occur at the actual ozone maximum. The partial pressure of ozone reaches a maximum much lower, but b/c by the ozone maximum most of the UV has already been absorbed the temperature maximum is much higher up.
+
+Nonetheless, this zone with still-absorbing ozone forms a huge layer called the *stratosphere*. It shields the surface from harmful ionizing radiation. It also is very stratified and doesn't mix much. Particles ejected into it will have long residence times (ex: from volcanoes)
+
+The ozone heating reach a minimum at the *tropopause* and below this we have the *troposphere* - which contains 85% of the mass of the atmosphere and almost all water vapor (the primary greenhouse gas). The moisture is really mostly in the lower bounds as it's very temperature sensitive (due to the /Clausius Clayperon relationship/). Using the previous radiative equilibrium profile for this area would give a very wrong temperature profile b/c this area is strongly controlled by convections
+
+** Pressure
+
+If you look at a static slice of a cylinder of air. It's not moving up or down and hence it's in equilibrium and the net force on the cylinder must be zero. 
+#+begin_quote
+- Gravity on the block of air :: -gM = -g\rho{}\delta{}A\delta{}z
+- Pressure on top surface :: p(z + \delta{}z) \rightarrow{} p(z) + \delta{}p \rightarrow{} -(p(z) + \delta{}\rho{}) \delta{}A
+- Pressure on bottom surface :: p(z)\delta{}A\\
+/These add up to zero/\\
+0 = -g\rho{}\delta{}A\delta{}z - (p(z) + \delta{}\rho{}) \delta{}A + p(z)\delta{}A\\
+0 = \partial{}p/\partial{}z + g\rho{}
+#+end_quote
+This is the equation of *hydrostatic balance*. From the /perfect gas law/ we know that
+#+begin_quote
+p = \rho{}RT(z) \\
+\partial{}p/\partial{}z = -gp/RT(z)' \\
+\partial{}p/\partial{}zp = -g/RT(z)' \\
+\partial{}\ln{}p/\partial{}z = -g/RT(z)' .. /b/c/ \partial{}x/x = \partial{}ln(x) \\
+\partial{}\ln{}p = -\partial{}zg/RT(z)' \\
+/integrate both sides/
+\ln{}p =  \int{}_{0}^{z}\partial{}z'g/RT(z') + constant \\
+p(z) = p_{s}exp(-\int{}_{0}^{z} dz'g/RT(z'))
+#+end_quote
+If you assume a constant temperature /T(z) = T_{0}/ then this simplifies to an exponential /p(z)=p_{s}e^{-zg/RT_{0}}/ . Often this simplifying assumption is okay.
+
+You can reuse the ideal gas law to reexpress these in terms of changes of density
+#+begin_quote
+- Constant T - T_{0} :: 
+\rho{}(z) = [p_{s}/RT_{0}] e^{-zg/RT_{0}}
+- Variable T - T(z) :: 
+\rho{}(z) = [p_{s}/RT(z)] e^{-\int{}_{0}^{2}-dz'g/RT(z)}
+#+end_quote
+A consequence of these two relationships is that most of the atmospheric mass is at the very bottom - near the surface
+ 
+* Convection
+If you have a dense layer above a less dense one then you have an unstable setup where you will sometimes get convection. Convection in incompressibly fluids (like the ocean) is simpler than in a compressible like the air.
+
+** In Water
+We start with the simpler incompressible case. We look at a small chunk of water. It is getting pulled downward by gravity but also being pushed up by the parcel below it. Its buoyancy is:
+#+begin_quote
+b = -g(\rho{}_{p} - \rho{}_e{})/\rho_{p}\\ /.. page 34. Unclear how this is derived!/
+#+end_quote
+If /\rho{}_{p} < \rho{}_e{}/ then it's positively boyant and rises, otherwise it's negatively boyant and sinks.
+
+An easier way to look at the movement of the parcel is look at the potential energy ( /U = mvh/ ). Imagine it exchanging positions with another parcel below it. At the start their cumulative energies will be 
+#+begin_quote
+PE_{initial} = g\rho{}_{1}z_{1} + g\rho{}_{2}z_{2}\\
+PE_{initial} = g(\rho{}_{1}z_{1} + \rho{}_{2}z_{2})
+#+end_quote
+If they exchange positions then the energy becomes
+#+begin_quote
+PE_{new} = g(\rho{}_{1}z_{2} + \rho{}_{2}z_{1})
+#+end_quote
+If the change in energy is positive then some of the potential energy has converted to kinetic and the parcels will exchange. Otherwise they won't
+#+begin_quote
+PE_{new} - PE_{initial} = -g(\rho{}_{1}z_{2} + \rho{}_{2}z_{1} - \rho{}_{1}z_{1} - \rho{}_{2}z_{2})\\
+PE_{new} - PE_{initial} = -g(\rho{}_{2} - \rho{}_{1})(z_{2} - z_{1})\\
+#+end_quote
+We can rewrite this in terms of the density gradient /d\rho{}/dz/ (ie. how fast the density is changing)
+#+begin_quote
+/since../\\
+d\rho{}/dz = (\rho{}_{2} - \rho{}_{1})/(z_{2} - z_{1})\\
+PE_{new} - PE_{initial} = -g(d\rho{}/dz)(z_{2} - z_{2})^{2}\\
+#+end_quote
+So as long as the density gradient is positive, potential energy will turn to kinetic and you get convective flow
+
+** Dry Convection in Air
+The complication in air is that when your air parcels exchange places they can undergo undergo a change in pressure which leads to adiabatic cooling/heating. So your lighter parcel will float up, but then expand, cool, and sink down. So there is a built-in resistance in the system. To calculate we start with the *First Law of Thermodynamics*
+#+begin_quote
+\delta{}Q = dU + dW\\
+- dU :: change in Energy\\
+- dW :: external work done
+#+end_quote
+In our case we know both terms
+#+begin_quote
+\delta{}Q = c_{v}dT + p dV
+#+end_quote
+We choose some starting volume and solve for the change in volume in terms of pressure and density
+#+begin_quote
+\rho{}V=1\\
+V= 1 / \rho{}\\
+dV = d(1 / \rho{})\\
+dV = - 1 / \rho{}^{2} d\rho{}
+#+end_quote
+Now we can rewrite the First Law
+#+begin_quote
+\delta{}Q = c_{v}dT - p / \rho{}^{2} d\rho{}
+#+end_quote
+But we can also use the perfect gas law to eliminate the pressure term /d\rho{}/. Using..
+#+begin_quote
+p = \rho{}RT
+dp = RTd\rho{} + \rho{}RdT .. /differentiating by parts/
+d\rho{} = dp/RT - \rho{}RdT/RT
+d\rho{} = dp/RT - \rho{}dT/T
+#+end_quote
+we rewrite again the first law as
+#+begin_quote
+\delta{}Q = c_{v}dT - (p / \rho{}^{2}) (dp/RT - \rho{}dT/T)\\
+\delta{}Q = c_{v}dT + pdp/RT\rho{}^{2} - pdT/\rho{}T
+#+end_quote
+Again subsituting the perfect gas law, for /p = \rho{}RT/
+#+begin_quote
+\delta{}Q = c_{v}dT - dp/\rho{} - RdT
+\delta{}Q = (c_{v}-R)dT - dp/\rho{}
+#+end_quote
+If the system is adiabatic then no energy is added or leaves, so /\delta{}Q = 0/
+#+begin_quote
+(c_{v}-R)dT = dp/\rho{}
+#+end_quote
+Furthermore, remember the equilibrium air column, we know that /dp = -g\rho{}_{E}dz/ so
+#+begin_quote
+(c_{v}-R)dT = -g\rho{}_{E}dz/\rho{}
+dT/dz = -g/(c_{v}+R)
+#+end_quote
+And we have a final equation of how a parcel's temperature changes with altitude when it moves adiabatically. This is the *dry adiabatic lapse rate* - /\Gamma{}_{d}/
+
+The value /c_{v}+R/ is the *specific heat at constant pressure* (written as /c_{p}/) and for air it's /1005 J kg^{-1}K^{-1}/. So the /\Gamma{}_{d} \approx{} 10Kkm^{-1}/
+
+So now if you look at a parcel of air, you need to see how it's /dT/dz/ changes relative to the adiabatic lapse rate. If the temperature drops faster than the lapse rate then your parcel is in an unstable arrangement and you will likely get convection. 
+
+On a larger scale, this means you can have colder air layers over warmer ones without getting an overturn - as long as the temperature difference is below the lapse rate
+
+** Potential Temperature
+
+As a consequence comparing temperatures of gasses becomes complicate b/c they are under different pressures. The solution is to "normalize" temperatures to a constant pressure - called the *potential temperature*. Conceptually this is the temperature of a parcel of air if it were brought down to a fixes pressure (conventionally the surface of the earth - /1000mbar/)
+#+begin_quote
+*Potential Temperature*:\\
+\theta{} = T (p_{0}/p)^{k}\\
+/where/ k = R/c_{p} = R/(c_{v}-R) = 2/7 /.. for any perfect diatomic gas/
+#+end_quote
+We derive this by manipulating the First Law of Thermodynamics and the perfect gas law /p=\rho{}RT/. As we saw previously
+#+begin_quote
+\delta{}Q = \delta{}Energy + \delata{}Work
+\delta{}Q = (c_{v}-R)dT - dp/\rho{}\\
+/substitute ../ \rho{} = p/RT\\
+\delta{}Q = (c_{v}-R)dT - RTdp/\rho{}\\
+/Now if we assume no change in energy - ie. adiabatic changes and/ \delta{}Q=0 \\
+dT/T = (R/(c_{v}-R)) dp/p //
+/sub calc identity/ dx/x = d\ln{}x\\
+\ln{}T = (R/(c_{v}-R)) d\ln{}p //
+T =  p^{(R/(c_{v}-R))} + constant //
+T/p^{R/(c_{v}-R)} = constant //
+#+end_quote
+So we see that if you have adiabatic movement then /T/p^{R/(c_{v}-R)}/ remains constant. In practic the pressure is re-expressed as a fraction of the surface pressure
+#+begin_quote
+\theta{} = T (p_{0}/p)^{R/(c_{v}-R)}\\
+/where/ p_{0} = 1000mbar
+#+end_quote
+
+The term /{R/(c_{v}-R)}/ is a constant and is shorted to /k/. 
+
+With our new term /\theta{}/ we can compare air parcels directly. If an airparcel with a higher /potential temperature/ is below one with a lower /potential temperature/ then it is in an unstable arrangement and the parcel will rise till it reaches a layer with the same /potential temperature/
+
+When parcels rise they gain momentum and will "overshoot" the area of equal potential temperature, and then sink back to it. This creates an oscillator of sorts - and like a ripple on the surface of water - this greates *gravity waves*
+
+** Moist Air Convection
+
+If we now add moisture into the mix then things get a bit more complicated. We describe the moisture in air in terms of serveral parameters
+
+- Specific Humidity :: /q/ - mass of water vapor to mass of air per unit volume
+#+begin_quote
+q = \rho{}_{v}/\rho{} \\
+/where../ \\
+\rho{}_{v} /.. vapor mass/ \\
+\rho{} = \rho{}_{d} + \rho{}_{v} /.. total air mass/
+#+end_quote
+
+- Saturation-specific humidity :: /q_{*}/ is the humidity at which the the humidity is at a maximum. (ie. /\rho{}_{v}/ is the highest it can be). This maximum is a function of both temperature and pressure.
+#+begin_quote
+Using the perfect gas law /p=\rho{}RT/ we can also express humidity as a ratio of partial pressures:\\
+q_{* } = \rho{}_{saturation}/\rho{}_{dry-air} \\
+q_{* } = p_{saturation}/R_[vapor}T] / p_{dry-air}/R_[dry-air}T]\\
+q_{* } = (R_{vapor}/R_{dry-air]) (p_{saturation}/p_{dry-air})
+#+end_quote
+The trick here is that /p_{saturation}/ changes exponentially with temperature. So if an air parcel is moved adiabatically to higher altitude, the pressure and temperature (due to expansion) will both decrease. But the exponential drop of the /p_{saturation}/ term means /q_{*}/ will decrease
+
+- Relative Humidity :: is the percent humidity
+#+begin_quote
+U = q/q_{*} \times{} 100
+#+end_quote
+
+
+As the air parcel is raised, at some point /q_{*} > q/, the relative humidity reaches 100% and water start to condensce out of the air. This is the /condensation level z_[c}/. Condensation releases energy into the air (b/c of the phase change) which warms the parcel - making the parcel even more bouyant. As before the parcel keeps going up till its temperature and boyancy matches the environment. 
+
+This condensation in effect offsets the cooling of the pressure drop and means that moist air is less stable and mixes easier than dry air.
+
+** Equivalent potential temperature
+
+We can again incorporate and "normalize" a air parcel so that they can be compared even when they're at different pressure and temperatures. We start with the first law and adiabatic motion again (no net energy) - but we add a correction term for the warming (added energy) of the condensation
+
+#+begin_quote
+\delta{}Q = \delta{}Energy + \delata{}Work
+\delta{}Q = [(c_{v}-R)dT + Ldq] - dp/\rho{}\\
+#+end_quote
+
+In the end we can express the /equivalent potential temperature - \theta{}_{e}/ as a function of the /potential temperature - \theta{}/ and /humidity - q/
+
+#+begin_quote
+\theta{}_{e} = \theta{} e^{(Lq/c_{p}T)}\\
+L /.. latent heat of condensation/
+#+end_quote
+When /q/ is zero you get back /\theta{}/
+
+This terms is used in the same exact way as /\theta{}/ - as is the primary term we should be looking at for air convection. Around the tropics, where we have a lot of air rising, \theta{}_{e}\ is pretty constant with altitude (indicating instability)
+
+* Meridonal structure of the atmosphere
+
+*** Tilt
+If the Earth has no tilt then the poles would recieve no radiation. The tilt ensures that during their respective summer each pole recieves some radiation. This has the cummulative effect of evening out the amount of radiation absorbed by the Earth
+
+*** Sphericity
+Due to the Earth's sphericity and the albedo of polar ice/snow, the tropics absorb about \times{}6 more radiation than the poles.
+
+And yet the outgoing radiation doesn't differ by as much. This is due to heat being transported poleward. This happens both through the atmosphere as well as the oceans
+
+*** Potential temperature
+
+B/c convection is generally driven by moist air, the dry-air convection's /potential temperature/ is generally secondary. Therefore the atmosphere is generally "warmer" in terms of potential temperature as you go up. However, the actual (nonpressure-corrected) temperature decreases (and hence the /saturated specific humidity/). The potential temperature starts to rapidly change in thin layers once you've reaches the stratosphere
+
+*** Equivalent potential temperature
+
+The moisture corrected temperature however doesn't change as you look up in altitude when you are in the tropics. This however changes a bit towards the poles. This is due to intense equatorial convection. We can look at the resulting isolines to determine where air can move along adiabatically
+
+*** Stratosphere
+
+Is deliniated from the troposphere by the tropopause. Due to the equatorial convection, the tropopause is pushed upwards in the tropics - so it does not form a smooth spherical layer. Furthermore there are /tropopause gaps/ where the temperature is warm enough to allow stratosphere air to mix with the upper troposphere air directly (caused by jet streams.. to be revisited..)
+
+** Pressure vs Height
+
+Pressure is simpler to measure. It is in effect a measure of "the overlying mass burden" (how much air is above a point) and is known as a /mass coordinate/.
+
+Of course pressure and height as mutually dependent. As we saw before there is a net zero balance of forces on a static pair parcel. When looking at in terms of densities /\rho{}/
+
+#+begin_quote
+Pressure_{below} + Pressure_{above} + gravity = 0 \\
+p\delta{}A - (p+\delta{}p)\delta{}A + \delta{}p/\delta{}z + g\rho{}\delta{}A\delta{}z = 0 \\
+\partial{}p/\partial{}z + g\rho{} = 0 \\
+#+end_quote
+Here we can rewrite the density term /\rho{}/ in terms of temperature /T/ and pressure /p/ using the perfect gas law /p=\rho{}RT/
+#+begin_quote
+\partial{}p/\partial{}z + gp/[RT] = 0 \\
+#+end_quote
+Rearranging things a bit 
+#+begin_quote
+\partial{}z p / \partial{}p = -g/[RT] \\
+\partial{}z / \partial{}\ln{}p = -g/[RT] /.. using the calculus idenity/ p \partial{}/\partial{}p = \partial{}/\partial{}\ln{}p\\
+z(p) = R \int{}_{p}^{p_{s}} [T/g] dp/p
+#+end_quote
+And we can now calculate the height /z/ of a given pressure "surface"  /p/. It depends on the average temperature below it (/T/ is a function of /p/ here and needs to be integrated) as well as the surface pressure /p_{s}/. The equation assumes a static /g/ - so this kind of calculation will drift from the true height when you are at very high altitudes (ie. mesosphere ~100km)
+
+In general /z/ and /p/ covary. A low pressure surface corresponds to a lower /z/ height. And generally pressure surfaces are high in the tropics and low at the poles b/c the integral/average of the temperature below a pressure surface is higher in the tropics. Cold air columns contract and warm columns expand.
+
+** Winds
+The resulting difference in pressure surface height drives air mass poleward from the tropics and creates winds.
+(However the pressure difference seems to be offset by Coriolis forces)
+
+One would expect a large "cell" to form where air rises at the equator, moves to the poles, and then falls back to the surface. However this isn't the case. Instead you get two cells (no explanation!) on each hemisphere, with only the tropical cell behaving the way we expect - with the surface winds being towards the equator.
+
+There is also a /zonal-wind/ (east/west) component. In the tropics winds are westward *Easterlies*, while away from the tropics they are eastward *Westerlies*. The East/West divide only roughly corresponds to the overturn cell. So at the surface winds that are towards the equator are generally also westward - but on the graphs there is a bit of a mismatch at altitude.

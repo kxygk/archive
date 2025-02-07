@@ -1,0 +1,230 @@
+:imagesdir: fig/photo/eastern-caves/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+
+= Karst
+
+Notes from *Karst Hydrology and Geomorphology* by _Derek Ford and Paul Williams_
+
+== Carbonate Rocks
+Vary along several dimensions
+
+* limestone vs. dolomite
+* carbonate vs silt/mud impurities
+* calcite vs aragonite
+
+=== Calcite/Aragonite
+* Calcite is less dense
+* Calcites 5 possible crystal structures which can combine in to a plethora of different configurations
+* Aragonite just has one crystal structure
+* Calcite can accomodate substitutions for *Ca^2+* in the its crystal structure. These are generally smaller  divalent cations (*Na^+*, *Mn^2+*, *Fe^2+*, *Zn^2+*, *Mg^2+*). Larger atoms (ex: *Sr^2+*)  don't integrate as easily
+* Aragonite doesn't allow small cation substitution, but larger ones may be present (ex: *Sr* and *U*)
+* Aragonite can invert to calcite. Since it's more dense this leads to a decrease in porosity
+* If Aragonite dissolves and reprecipitates as calcite, it expells most *Sr* and *U* ions.
+
+=== Dolomite
+
+* Both a rock name (aka dolostone) and a mineral name
+* Kinda like calcite but has one layer of *Ca^2+* cations alternating with a layer of *Mg^2+* cations. But for this you need a perfect 1:1 ratio of *Ca* to *Mg*. In reality you typically have a *Ca* rich ratio and *Ca* atoms in the *Mg* layer
+* Zn Fe Mn Na Sr atoms can contaminate either layer
+* Fe slots in particularly well in either layer - so you typically have more iron than in a calcite
+* When it weathers the *Fe^2+* oxidizes to *Fe^3+*
+* "As disorder increases so does solubility" (related to PCP??)
+* "Staining with alizarin red is the standard means of distinguishing it from calcite (Adams et al. 1984)"
+* Ca/Mg ratios can vary from rock to rock - and you're usually somewhere on a limestone/calcite vs dolomite spectrum. Don't expect it to be consistent!! (again, maybe different sources in the aquifer lead to a PCP signal)
+
+== Limestone deposition
+
+* Coral reefs are not a major contributor by volume
+* Mostly is precipitation of marine animal shells (ex: algae aragonite needles)
+* Marine shells are then cemented and recrystallized
+* Diagenesis can then lead to the formation of calcite spars (solid crystals of calcite.. like iceland spar
+* River runoff can mix with the shell deposition creating calcareous shale/sandstone. So Limestone is often not very oure, Will have clay/mud/silicates/sand
+* If there is little compaction and diagenesis you can get chalks
+* Sometimes diagenese happens so slowly that you are left with the shapes of previous crystal structures or a ghost image of the original depositional environment (ex: biosparites)
+* *Allochem* recognizable "grains" in carbonate rock
+* Lithification preserved a tiny amount of organic material. About ~1% in modern limestone (page 15)
+*  If the depositional environment is periodically exposed supratidaly then you can end up with layers of thing clay called *paleosol*.
+
+* Terrestrial limestone forms at hotsprings - *tufa* (a framestone on root, plants, rocks around the spring) and *travertine* (crystalline, underground, inorganic)
+* Calcium carbonate can also accu ulate a bit in lakes - *marls* - can form some sands
+
+== Limestone Diagensis
+
+* Limestone starts off as nuddy material at 40-80% porosity
+* After diagensis it's about 5% porosity
+* If its not buried deep and compacted then it remains porous and forms *chalk*.
+* As the carbonate rock reaches above sea level, sea water is pushed out by meteoric water
+* Rainwater leads to dissolution and the removal of aragonite [which is from the original shells I think!]
+* Aragonite is then replaced with calcite spar
+* If done slowly, retains aragonite crystal shape (ghosts)
+
+
+* Dolimite probably occurs due to diagensis in lagoonal environmrnts bc it requires hypersaline environments
+* It's likely formed by replacing earlier calcite/aragonite
+* Another possibility is that fresh water intrusion creates conditions where calcite dissolved but dolomite does not (maybe in Florida right now)
+* Geothermal activity may also play a role (page 21-22)
+* *Breccia* broken fragments in a cement
+* *Stylolites* = Pressure solution seam (very squiggly "bed"/layer). Forms below 500m (high pressure). It's dissolutional but concentrates impurities so is not very permiable (page 23). Can be along bedding planes but not always
+* Silica may accumulate (for instance from sponges/radiolaria/diatoms) creating lenses of *chert*
+* At high pressure and heat youget annealing and formation of spars. At higher heat the crystals realign destroying fossiles and starting to form *marbles*
+
+== Evaporation
+* A little -> Dolomite (organic) - slightly above seawater salinity
+* More -> Gypsum (inorganic) - 3x seawater strength
+* A Lot -> Salt (inorganic) - 11x seawater strength
+* Restricted evaporation lagoons - *sabkha*
+* *Gypsum* sulfate mineral .. CaSO_{4} 2H_{2}O
+* Gypsum when under pressure will turn to *anhydrite* and reduce by volume by 40%
+* Anhydrite will have annealed bedding planes/joints and have no porosity. Surrounding/Overlaying dolomite will crumble ("brecciated") bc of the volume change
+
+== Dissolution
+* Hard to characterize
+* If clay/silica impurities are too high then you won't form karst
+* Dissolution rate is not a just a bulk property (ex:ratio of impurities) but also about things like texture/grain size
+
+== Bedding planes
+*  "[..] produced by some change in sedimentation or by its temporary interruption"
+* ex: "by the introduction of clay by a storm or flood, etc. that leave a paper-thin or thicker parting between the successive regular carbonate layers"
+* These can be 1000s of km long! and confine water to deep layers. (ex Canadian Praries with 30kyr residence times - page 36)
+
+== Joints
+* "Joints are simple pull-apart breaks in previously consolidated rocks"
+* "joints are oriented normal to bedding planes"
+* parallel joint consitute a *joint set*
+* Multiple joint sets at regular angles to each other form a *joint system*
+* "its important to understand that some new joints are created as a karst terrain is eroding, because of pressure release as rock is removed"
+* "Many caves are rectangular mazes guided rigidly by joint patterns"
+
+== Faults
+
+* "Faults are fractures with some displacement of rock up, down and/or laterally"
+* "Where this is less than about 1cm ther may be considered to grade into shear fractures or *joints*."
+* "For hydrological purposes it is better to think of the wter passing from more widely open areas with highly irregular shapes to others down the hydraulic gradient visa constrictions (*throats*)
+* "Effective throat apertures appear to be log-normally distributed (e.g. Chernyshev 1983)"
+* "By measuring the particate organic matter reaching stalactites and stalagmites visa the finest cracks in the cave roofs worlwide, van Beynen et al, (2011) show that throat apertures in their tiny feedwater channels can never be less that ~0.1um"
+
+== Folding
+.p35
+* Karst limestone will only fold (ie. plastic deformation) at great depths/pressure
+* Folding can create things like artesian wells (when mixed with siliciclastic strata)
+* It also creates some of the longest groundwater flows in the world. "Recharge from the Rocky Mountains and their eastern foothills is believed to flow for more than 1000km through carbonates beneath confining salts, sands, clays and shales in the Canadian Prairies, with underground residence times perhaps more than 30 000 yr"
+
+== Calcite Dissolution Chemistry Basics
+.p47
+* Quartz aso dissolves, which suggests a dissolution threshold for "karstification"
+* Actually with no CO_{2} calcite and quartz have similar dissolution rates. So CO_{2} is pretty much necessary for the dissolution of calcite
+* CO_{2} forms a weak acid which promotes dissolution
+* CO_{2} in the air is about 0.04% - but in trapped soil air this can gradually displace all the oxygen (~21). So the P_{CO_{2}} is typically much higher than in aerially exposed karst/rain
+* CO_{2} + H_{2}O <=> H_{2}CO_{3} (carbonic acid)
+* acids sorta give protons..  H_{2}CO_{3} <=> H^{+}+HCO_{3}^{-}
+* the bicarconate ion can give another proton leaving us with carbonate
+* HCO_{3}^{-} <=> H^{+} + CO_{3}^{2-}
+* When calcite dissolves it also gives a carbonate! The carbonates can exchange
+* CaCO_{3} + H^{+} <=> Ca^{2+} + HCO_{3}^{-}
+
+== Soil
+.p50
+* Soil is usually more than 40% void
+* 17-31% of the volume is available for air storage, while the remaining fraction is taken up by bound water
+* Torturous intergranular pathways retard both drainage and rapid diffusion of gases
+* 40% of plant CO_{2} uptake is then respired in the root systems. So its taking CO_{2} frrom the air and in effect pumping it out its roots.
+* Root respiration increases with both water availability and temperature
+* Temprature relationship follows : log P_{CO_{2}} = -2 + 0.04* T (Drake and Wigley 1975) [p.50]
+
+== Open/Closed systems
+.p51 .p81 p82
+*  The relationship between dissolution and if a system is closed or open is complicated
+* A closed system, such as deep in soil, can potentially have much higher P_{CO_{2}}
+* An open system will have CO_{2} replenshiment from the air
+* Given a P_{CO_{2}} of 0.036% at 25 C
+** A closed system will dissolve 25mg per liter
+** An open system will dissolve 55mg per liter (40% more)
+* You can have situations like glacial tills, where there is soil has carbonate chips in it. So as the water travels down it'd dissolving the rock and getting new CO_{2} from the soil
+* Purely atmospheric systems with no soil will lead to poor dissolution.. (I think?)
+
+== "S-O-H" systems (ie. sulfur induced dissolution)
+.p53
+* shale interbeds in the limestone/dolomite will often contain iron-rich minierals like *pyrite* (FeS_{2})
+* pyrite will create a weak acid which locally enhances calcite dissolution
+* the reaction depends on the precense of dissolved oxygen, so the effect will be limited in anaerobic/phreatic environments
+* By contrast the effect will be seen in "vadose (ie. air-filled) caves"
+* The flow of *hydrogen sulfide H_{2}S* and organics through deep karst is the basis of oil and gas formation (see .p54 .p55)
+* So hydrogen sulfide can be "freed" from organic rich layers at deeper anaerobic areas of high pressure and temperature
+* H_{2}S flowing upward and then reaching oxygenated waters from above - usually at the watertable - can cause the formation of *sulfuric acid*
+
+== Carbonate dissolution - temp/pressure
+.57
+* Calcite dissolves more in cold water (at same CO_{2} level)
+** At standard atmosphere (25C and 0.03% CO_{2}) - 55 mg of calcite per liter
+** At 0C this increases to 75 mg of calcite per liter
+* As water goes down is generally cools - increasing the amount of calcite it can dissolve
+* CO_{2} rich water coming up is complex (ex from a volcanic tectonic setting) and the net effect is situation dependent
+** -> pressure drops -> CO_{2} degasses -> calcite precipitates
+** -> water cools -> calcite is more soluable -> dissolves more rock
+** Heat can also breakdown calcite generating CO_{2} (ex: oil window) which can then travel upward
+
+== Salts
+.p59 .p60
+* Large amounts of salt will affect solubility.. maybe? It's a bit unclear
+* See Fig 12b : NaCl seems to have no real effect at all?
+* Fig 3.14 : Seems confusing..
+
+== Bacteria
+.p62
+* Anaerobic :: below the watertable (up to 100C and >1kbar) Will typically be reducing sulphates - creating acids and dissolving carbonates
+* Around the Watertable :: will be in an environment with dissolved oxygen O_{2} and oxidizing/reducing things. Ex: ".. oxidation of Mn^{2+} too produce birnessite and other brown or black manganese coatings on peggles or on passage walls".
+* Relic Cave :: Acidic bacterial biofilms cause etching/weathering. Ammonia will get turned into saltpetre
+
+== Things to measure..
+.p63
+* SpC :: specific conductivity - gives a good approximation of the dissolved load b/c proportionate to ionic concentration... _SpC = 1.86 * TH + 31.5_ [R^{2} = 0.93] .. where _TH_ = Total hardness (mg/l of CaCO_{3})
+* pH :: can be done in the cave.. but it's a bit tricky
+* Direct measurement of TH is also possible in the field
+* Chloride can be measured with *ion-selective electrodes*
+* If you want to take the samples to a lab, then you need to acidify them first (p65) to make sure everything is dissolved
+
+== Dissolution Kinetics
+.p65
+* Friction makes the liquid-solid interface effectively static (just molecular diffusion near the boundary). Further away from the surface you get eddy diffusion based on the flow turbulence. This friction induced layer is called the *Diffusion Boundary Layer (DBL)*
+* In the DBL it'll be saturated
+* "Roques (1969) found that a drop of water forming at the tip of a soda straw stalactite lost 10% of its CO_{2} in the first second 30% in 90s and 70% in 15 min"
+* Dissolution rates of karst can't be generalized b/c it will depend on tge surface roughness .. ex: Carrara marble will dissolve faster than icelandic spar (zippering off of molecules at the surface) (p68)
+* H+ dependent regimes are less sensitive to roughness
+* Dolomitic calcite (Mg rich) may dissolve *faster* b/c of discontinuities _or_ *slower* due to MgCO_{2} not dissolving as easily
+* "Early penetration will occur under closed-system conditions with laminar flow that prohibits eddy diffusion"
+* mixing corrosion :: differ water bodies as saturation of different CO_{2} concentrations - when mixed will be undersaturated
+* they will dissolve material and re-reach saturation in 1-2 meters. So doesn't explain karstification..
+* kinetic breakthrough :: "the dissolutional fronts of one or moreconduits break through the full length of yje high-resistance, unmodifiedfissure to reach an unimpeded point point of discharge such as a spring or early cave: those conduits enlarge rapidly and attract the flow un other conduits towards them". At a certain size this creates a sudden change to turbulent flow and breakthrough the DBL`
+* Precipitation on to a sufrace is much easier than in solution. There is a "nucleation potential" that needs to be overcome. So the saturation index needs to reach SI_{c} > 1.5 so in-solution or SI_{c} > 0.3 for on-surface.
+* cyanobacteria on tufa act a nucleation point for microfabrics
+* by contrast diatoms produce CO_{2} and retard accumulation (ex: Huanglong) p74
+* Mg will act as a poison - attaching to the calcite steps and inhibiting growth. But it can't adsorb onto aragonite, so aragnoite can grow in Mg rich seawater
+* In cold regions kast is dissolved much facter b/c of the inverse relationship with CO_{2} dissolution
+* However precipitation rate is the stronger factor (and it typically rains more where it's hotter)
+* Other factors like does the rain form surface flow, or go underground. Or is there thick soil cover.. all are huge factors
+* Denudation rate can be modeled with this relationship: D_{max} = 100/ ( \rho{} )4^{1/3} * (K_{c} K_{1} K_{CO_{2}} / K_{2})^{1/2} P_{CO_{@}}^{1/3} (P - E)   .....  p80
+* As a result .. a factor of 100 P_{CO_{2}} -> 5x denudation rate
+* And 25C to 5C leads to an autogenic denudation increase of ~30%
+* Karst discharge can be monitored and plotted as a "rating curve". See; p84 and Fig 4.6
+
+== Karst Denudation
+.p85
+
+... not relevant or interesting. Seems ultimately kind of futile to estimate.
+
+.p90
+Erosion rates can be estimated by measuring cosmogenic cholorine-36. Cosmic rays turns 40Ca to 36Cl. Most are produced at the surface, with exponentially fewer as you go into the rock. 2 orders of magnitude at 15meters. Time to saturation is about 10^5-10^6 years. But erosion removes the saturated top layer - so you can work back and estimate the erosion rate. *Stone et al. 1994*
+
+.92
+Silicate areas have so much clay material (kaolinite) that it clogs up joints and caves don't form. Hence no quartz karst. (doesn't silicate make clay?)
+
+~50% of dissolution happens at the karst surface - and the rest is in the top 5-10 meters. Bacteria can continue to give CO_2 lower down
+
+Topography can drive denudation (due to channeling of runoff + soil distribution)
+
+Vegitation can both drive dissolution, but it can also take up Ca and Mg (into the tree body) so the relationship is not clear. See p95 (left) and Fig 4.14

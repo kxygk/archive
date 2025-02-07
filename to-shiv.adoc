@@ -1,0 +1,57 @@
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+Dear Professor,
+
+This is George Kontsevich, your Linear Algebra student from years ago. I'm finally studying for a PhD (in Geology) and I've gotten the chance to apply some of the more advanced things I learned in your class.
+
+I'm writing to ask for your advice as I'm a bit stuck. I think my problem is relatively uncomplicated and there is likely some turn key solution. For some context, I'm working with some rain data in the South of Thailand (the skinny part of the Malaysian peninsula). On the annual scale there are two major rain patterns - the summer and winter monsoons. An example year looks something like this:
+
+image:maps/krabi/monthly/two-seas-monsoon.svg[]
+
+(the data actually is on an hourly granularity, but I bin it into months for convenience)
+
+The summer rains come from the Indian Ocean to the West and the winter rains come from the East - producing two fairly consistent patterns. In short, using about ten years of data I've managed to extract these two patterns using the SVD. But there are complications. Most basically the singular vectors are not aligned with the original signals. I played around with this using synthetic data, and looking more closely it seems this is a consequence of the way a two norm weighs the data (the addition in quadriture). So the induced matrix 2-norm make the first singular vector a mix of the two dominant signal, and the second singular vector gives a different mix.
+
+.first SV
+image:imrg/krabi/monthly/sv-0.svg[]
+
+.second SV
+image:imrg/krabi/monthly/sv-1.svg[]
+
+However the subspace of these two singular vectors contains the two original monsoon signals. If I project the original data on to the singular vectors and plot in 2D then the data primarily lies along two axis - with an additional cluster near zero for the Jan-Feb dry season.
+
+image:imrg/krabi/monthly/sv-projections.svg[]
+
+Here it's also obvious that underlying signals/patterns are also non-orthogonal. It should be noted that the summer months very bizarrely lie on a line that doesn't seem to go through the origin. I have no clear explanation for this - though I suspect it's related so what's effectively a "DC offset". The dry season is less rain than the global average amount of rain - and hence is a 3rd component/signal itself.
+
+At this point I can just manually pick out the two axis by drawing two vectors by eye and I get a very pretty result!
+
+."summer"
+image:imrg/krabi/monthly/bottom-pattern.svg[]
+
+."winter"
+image:imrg/krabi/monthly/top-pattern.svg[]
+
+I can now reproject all my data on tho these two vectors and build a summer/winter monsoon index of sorts - and then look at how the monsoons change year to year.
+
+In the original 2D SV plot there are a few purple points in between the two axis - this is October/November when the monsoon switches from its summer direction to its winter direction. Probably one could do a second pass over the data and re-bin it so these are eliminated entirely.
+
+But I don't like this manually axis selection step. Not only does it limit me to 2/3 dimensions, but I would like to be able to do this in a more objective "hands off" way. I've been hunting for an suitable method, but it leads me down a rabbit hole of questionable math. There is the ICA - but this seems more appropriate for signals that are mixing (cocktail party problem). Here two the signals are distinct (either one or the other). I tried it in both Java and MATLAB and it's given me terrible results - though it's very possible I made some mistake running it. It was also unclear if I should run it on original data or the reduced 2D data.
+
+There are also methods used in the fringes of meteorology (where this is called a EOF rotation). But they seem to mostly do orthogonal rotations, and the methods are numerous and dubious. Oblique rotations are mentioned but hardly every used. Since they reinvented the SVD/wheel with this "EOF" all the proofs and terminology they use are different and it's been challenging to really assess them.
+
+Since I know I have two axes/processes, my current gut feeling is split the space in half in a way that minimizes the variance of each half. So that data near-zero dry-season data points don't swamp the result, each half's mean should probably be calculated by weighting the data by its norm.
+
+I was wondering if you had any suggestions as to how to approach this problem. My inuition tells me that this is likely a solved problem with well developed solutions.
+
+
+I should thank you again for your wonderful class and everything you taught me. A lot of it has stayed with me over the years and comes up in my career at critical moments.
+
+
+Yours,
+George

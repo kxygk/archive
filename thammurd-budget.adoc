@@ -1,0 +1,108 @@
+:imagesdir: fig/photo/eastern-caves/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+
+= Preliminary Budget
+
+All prices are in Bhat
+
+The sections are semi-independent - but not in any particular order
+
+The grand total is quite reasonable.. but obviously I can only include what I can anticipate! Thing may (and will) go wrong and things will get more expensive. There are also probably other fees that will occure (like entrance fees or paying for Nong's food) but I can't really give you an estimate for those... After this knapkin math, it seems the secondary caves are actually not expensive to search in the grand scheme of things.
+
+This does not include costs of a trip to Bangkok (maybe ~10K?)
+
+== MINIMUM :: 27 000 Baht
+- Scooter rental for two months 200Baht per day X 60 days = *12 000*
+- Gas and Insurace = *Unknown*
+- 4 Trips with Nong into Tham Murd, 1500 X 3 = *6 000*
+- 1 Trip around Khao Panom Bencha = *1 500*
+- 8 scooter batteries (very rough guess) = *5 000*
+- Machine stalagmite platforms - *Unknown*
+- DHL Shipping = *2 500*
+
+The minimum entails going to Tham Murd and installing equipment there
+
+.Trip to Cave #1
+- *1 Nong Trip*
+- photos for River
+- find actively dripping stalagmites
+- install temperature loggers
+- sketch a layout of the cave
+- Look at how we could potentially install the rain gauge on top of the stalagmites
+- check access to the top of the karst tower (the owner says there is a trail)
+.Issues
+****
+- It actually floods during the rainy season so you can only enter through a small window (or with a boat and the main entrance)
+- It has a main entrance and a small window.. so maybe it is ventilated
+- Getting on top.. it's a bit unclear how hard this will be
+****
+
+.Initial preparation of equipment
+- unloaded/test/prepare equipment
+- buy scooter batteries and spares for all the equipment. (4 rain collectors - *8 batteries*)
+- *Pay a machinist* to make a basic rain gauge holder that will go on top of the stalagmite
+.Issues
+****
+- Potentially the batteries can't be bough locally.. and have to be bought online. It takes a long time to deliver
+- Unclear how easy it is to get the rain gauge platform built
+****
+
+.Trip to Cave #2
+- *1 Nong Trip*
+- Return temperature collectors
+- Install one rain gauge on top of karst tower
+- Try to install one rain gauge inside the cave
+
+.Prepare the rest of the Equipment
+- Weikang's equipment should be sufficiently tested at this point.l.
+- Finalize a rain gauge platform to go on the stalagmites
+- Zhenya's loggers should arrive and the rest of the rain gauges should be prepared. *DHL shipping*
+
+.Trip to Cave #3
+- *1 Nong Trip*
+- Install the rest of the equipment
+- Take back data from the first rain gauge and check data
+
+.Trip to Cave #4
+- *1 Nong Trip*
+- Go back after a long period see if it's all running smoothly
+.Issues
+****
+- Something may have broken and we need to fix and go back more
+****
+
+== East Coast Cave Search :: 3 000 Baht
+- 2 Nongdays = *3 000*
+
+Nong is going for some personal business back to Khanom in a week (for ~2 days). We can use this opportunity to get him to look for some more caves. He's got 2-3 maybe promising leads from locals. But I kinda explained that this cave search is gunna wind down now
+
+Could be expanded to 3 days..
+
+== East Coast Survey :: 3 000 Baht
+- 2 Nongdays = *3 000*
+
+So this one is kinda awkward.. technically I could just go there and check the cave on my own.. It's a tourist cave and open to the public. But I think Nong would feel sidelined.
+
+If he finds another cave in the cave search we could also go see that.
+
+Nong is going on a fossil digging trip with another professor who's a colleague of Nut's (at one of the caves he found while on our last expedition :S). He's going some time in December. So it's not awkward to just pay him for a day or two before that. I could come along and go see the stalagmite cave. Maybe set up some thermometers for 48 hours and get some preliminary data on it's suitability and take some better photos for River.
+
+== Leeward Caves :: 1 500 Baht
+- 1 Nong Trips = *1 500*
+
+Nong knows two caves in the rain shadow of the mountain that have potential. One can only really be accessed in the dry season (I probably won't be here then). One needs to be checked. If it looks good would be nice to install some rain gauges there and do some basic monitoring of the rain/drip (or maybe only rain)
+
+.Issues
+****
+Maybe this needs more than one trip to do..
+****
+
+== Hillside Jungle Cave :: 3 200 Baht
+- 2 Nong Trips = *3 000*
+- Bus tickets = *200*
+Nong knows another cave that has good stalagmites - but it's not located in a karst tower (it's in a mountain side). However access is problematic b/c it's an hour's hike. We could however put a rain gauge inside and one outside and monitor the rain/drip

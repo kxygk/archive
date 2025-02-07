@@ -1,0 +1,458 @@
+:imagesdir: ../fig/phot/eastern-caves/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+
+= Eastern Cave Survey (Summer 2022)
+
+== Caves - Khanon
+:sectnums:
+
+=== Tham Khao Wang Thong
+Location:: 9.204618418631329, 99.7741429933002
+Quality:: Good. A lot of stalagmites
+Depth:: 500 meters
+Access:: Seems you can drive up
+Concerns:: 300 baht guide fee. Tourist cave. Looks like it even has some shrine inside..
+Other:: https://www.tripadvisor.com/Attraction_Review-g469413-d9718774-Reviews-Tham_Khao_Wang_Thong-Khanom_Nakhon_Si_Thammarat_Province.html
+
+.Entrance
+[cols="1,1,1"]
+|===
+|image:2022-07-11/entrance.jpg[]
+|image:2022-07-15/entrance.jpg[]
+|
+|===
+
+.Interior
+[cols="1,1,1"]
+|===
+|image:2022-07-11/interior01.jpg[]
+|image:2022-07-11/interior02.jpg[]
+|image:2022-07-11/interior03.jpg[]
+
+|image:2022-07-15/interior00.jpg[]
+|image:2022-07-15/interior01.jpg[]
+|image:2022-07-15/interior02.jpg[]
+
+|image:2022-07-15/interior03.jpg[]
+|image:2022-07-15/interior04.jpg[]
+|image:2022-07-15/interior05.jpg[]
+|===
+
+=== Tham Khao Krod
+
+Has 1/2/3 caves together in one area
+
+Location:: 9.2165261,99.7616255 or 9.239590, 99.801338
+Quality:: Bad Ceremonial Cave
+Depth:: N/A
+Access:: Public
+Concerns:: Monks
+
+.Krod 1
+image::2022-07-12/krod1-a.avif[]
+
+=== Tham Taled
+
+Location:: 9.31203961279708, 99.78394269229388
+Quality:: Bad
+Depth:: 100-200 meters
+Access:: Steep Stairs
+Concerns:: Only a flowstone
+Other:: Big Chamber
+
+From online it looks like a temple/cave
+https://www.google.com/maps/@9.3120389,99.7839414,17z
+
+=== Tham Thalot
+(or is it Thalod?)
+
+Location:: 9.228682, 99.837597
+Quality:: Bad
+
+.Temple cave
+[cols="1,1,1"]
+|===
+|image:2022-07-13/talot0.jpg[]
+|image:2022-07-13/talot1.jpg[]
+|
+|===
+
+=== Tham Lot
+
+Location:: 9.232862, 99.866472
+Quality:: Bad, Dry Cave
+
+.Interior
+[cols="1,1,1"]
+|===
+|image:2022-07-13/lot0.jpg[]
+|image:2022-07-13/lot1.jpg[]
+|
+|===
+
+=== Tham lek
+
+Location:: 9.201878, 99.774613
+Quality:: Bad .. dry .. flowstones and stalagtites
+Depth:: ??
+Access:: Looks developped with stairs
+Other::
+
+.Entrance
+[cols="1,1,1"]
+|===
+|image:2022-07-14/entrance.jpg[]
+|
+|
+|===
+
+.Interior
+[cols="1,1,1"]
+|===
+|image:2022-07-14/interior0.jpg[]
+|image:2022-07-14/interior1.jpg[]
+|image:2022-07-14/interior2.jpg[]
+
+|image:2022-07-14/interior3.jpg[]
+|image:2022-07-14/interior4.jpg[]
+|image:2022-07-14/interior5.jpg[]
+|===
+
+=== Tham Khao Hua Chang
+
+Location:: 9.093424, 99.782259
+Quality:: Bad .. only flowstones
+Depth:: ??
+Access:: Looks developped with stairs
+
+[.sidebar]
+so long, and the cave is like turnal and look like they should be under water so long time,  there is so lond and many many branch, but no stalegtite/mite, just alot of flowstone
+
+
+.Entrance
+[cols="1,1,1"]
+|===
+|image:2022-07-26/entrance.jpg[]
+|
+|
+|===
+
+.Interior
+[cols="1,1,1"]
+|===
+|image:2022-07-26/interior0.jpg[]
+|image:2022-07-26/interior1.jpg[]
+|image:2022-07-26/interior2.jpg[]
+
+|image:2022-07-26/interior3.jpg[]
+|image:2022-07-26/interior4.jpg[]
+|image:2022-07-26/interior5.jpg[]
+|===
+
+=== Tham Khao Nang Pao
+
+Location::  9.089118, 99.523652
+
+[.sidebar]
+Tham Khao Nang Pao, near the tample but the tample didn't have any activity to this cave, big chamber, about 200 meter long but too dry,
+
+[.sidebar]
+On second trip: "I found new chamber and water system under ground(with fish) and fossil"
+
+.Entrance
+[cols="1,1,1"]
+|===
+|image:2022-07-27/entrance0.jpg[]
+|image:2022-07-27/entrance1.jpg[]
+|
+|===
+
+.Interior
+[cols="1,1,1"]
+|===
+|image:2022-07-27/interior0.jpg[]
+|image:2022-07-27/interior1.jpg[]
+|image:2022-07-27/interior2.jpg[]
+
+|image:2022-07-27/interior3.jpg[]
+|image:2022-07-27/interior4.jpg[]
+|image:2022-07-27/interior5.jpg[]
+
+|image:2022-07-27/interior6.jpg[]
+|image:2022-07-27/interior7.jpg[]
+|image:2022-07-27/interior8.jpg[]
+|===
+
+.Other
+[%collapsible]
+====
+(the floating stuff is limestone powder)
+
+video::2022-07-28/khao-nang-pao.mp4[]
+
+[cols="1,1,1"]
+|===
+|image:2022-07-27/other0.jpg[]
+|image:2022-07-27/other1.jpg[]
+|image:2022-07-27/other2.jpg[]
+|===
+
+====
+
+=== Tham Nue Sern
+
+Location::  9.122999, 99.696184
+Depth:: only 60m
+
+****
+Tham Khao Nang Pao, near the tample but the tample didn't have any activity to this cave, big chamber, about 200 meter long but too dry,
+****
+****
+use to be ceramony cave but didn't use for many years
+****
+
+.Entrance
+[cols="1,1,1"]
+|===
+|image:2022-07-28/entrance0.jpg[]
+|image:2022-07-28/entrance1.jpg[]
+|
+|===
+
+.Interior
+[cols="1,1,1"]
+|===
+|image:2022-07-28/interior0.jpg[]
+|image:2022-07-28/interior1.jpg[]
+|image:2022-07-28/interior2.jpg[]
+
+|image:2022-07-28/interior3.jpg[]
+|image:2022-07-28/interior4.jpg[]
+|image:2022-07-28/interior5.jpg[]
+|===
+
+.Other
+[%collapsible]
+====
+[cols="1,1,1"]
+|===
+|image:2022-07-28/other0.jpg[]
+|image:2022-07-28/other1.jpg[]
+|image:2022-07-28/other2.jpg[]
+|===
+====
+
+=== Mina Cave
+close to a Meena coffee shop
+
+Location:: 9.271773, 99.789355
+Depth:: 30m
+Other:: On a cliff. Very hard to reach
+
+.Entrance
+[cols="1,1,1"]
+|===
+|image:2022-07-30/entrance0.jpg[]
+|image:2022-07-30/entrance1.jpg[]
+|image:2022-07-30/entrance2.jpg[]
+|===
+
+.Interior
+[cols="1,1,1"]
+|===
+|image:2022-07-30/interior0.jpg[]
+|image:2022-07-30/interior1.jpg[]
+|image:2022-07-30/interior2.jpg[]
+|===
+
+.Other
+[%collapsible]
+====
+[cols="1,1,1"]
+|===
+|image:2022-07-30/other0.jpg[]
+|image:2022-07-30/other1.jpg[]
+|image:2022-07-30/other2.jpg[]
+|===
+====
+
+=== Tham Khao Nok Yoong
+
+Location:: 9.177586, 99.769663
+Depth:: "not deep"
+Other:: There are other caves nearby
+
+.Entrance
+[cols="1,1,1"]
+|===
+|image:2022-07-31/entrance0.jpg[]
+|
+|
+|===
+
+.Interior
+[cols="1,1,1"]
+|===
+|image:2022-07-31/interior0.jpg[]
+|image:2022-07-31/interior1.jpg[]
+|
+|===
+
+.Other
+[%collapsible]
+====
+video::2022-07-31/other1.mp4[]
+|===
+|image:2022-07-31/other0.jpg[]
+|
+|
+|===
+====
+
+=== Tham Khao Nok Yoong 2
+
+Location:: 9.178211, 99.764364
+Depth:: 50m (but other branches go deeper)
+Other:: very muddy/slippery
+
+****
+cave was good, alot of water system and wet, muddy but anyway no stalecmite, just flowston
+****
+
+.Entrance
+[cols="1,1,1"]
+|===
+|image:2022-08-01/entrance0.jpg[]
+|image:2022-08-01/entrance1.jpg[]
+|
+|===
+
+.Interior
+[cols="1,1,1"]
+|===
+|image:2022-08-01/interior0.jpg[]
+|image:2022-08-01/interior1.jpg[]
+|image:2022-08-01/interior2.jpg[]
+
+|image:2022-08-01/interior3.jpg[]
+|image:2022-08-01/interior4.jpg[]
+|image:2022-08-01/interior5.jpg[]
+
+|image:2022-08-01/interior6.jpg[]
+|image:2022-08-01/interior7.jpg[]
+|
+|===
+
+.Other
+[%collapsible]
+====
+video::2022-07-31/other3.mp4
+[cols="1,1,1"]
+|===
+|image:2022-08-01/other0.jpg[]
+|image:2022-08-01/other1.jpg[]
+|image:2022-08-01/other2.jpg[]
+
+|image:2022-08-01/other4.jpg[]
+|image:2022-08-01/other5.jpg[]
+|image:2022-08-01/other6.jpg[]
+|===
+====
+=== No name cave A
+
+Location:: 9.120318, 99.712254
+
+Depth:: 20-30m
+
+Other:: Dry.. might have other caves nearby (_Tham Khao in_)
+
+
+.Entrance
+[cols="1,1,1"]
+|===
+|image:2022-08-03/entrance0.jpg[]
+|image:2022-08-03/entrance1.jpg[]
+|
+|===
+
+.Interior
+[cols="1,1,1"]
+|===
+|image:2022-08-03/interior0.jpg[]
+|image:2022-08-03/interior1.jpg[]
+|image:2022-08-03/interior2.jpg[]
+
+|image:2022-08-03/interior3.jpg[]
+|image:2022-08-03/interior4.jpg[]
+|image:2022-08-03/interior5.jpg[]
+|===
+
+== Timesheet
+
+=== First Trip
+
+.2022-07-11
+- <<_tham_khao_wang_thong>>
+- Nong had to pay a 300 guide fee
+
+.2022-07-12
+- <<_tham_khao_krod>> this is 3 part cave
+- <<_tham_taled>>
+
+.2022-07-13
+- <<_tham_thalot>>
+- <<_tham_lot>>
+
+.2022-07-14
+- <<_tham_lek>>
+
+.2022-07-16
+- <<_tham_khao_wang_thong>>
+- Returning there for a better look and better photos
+- Looks quite promising
+
+=== Second Trip
+
+.2022-07-24
+- Went to some cave
+- Phone got wet and broke (so no photos)
+
+.2022-07-25
+- When around mountain just south of Khanon and found no caves
+
+.2022-07-26
+- <<_tham_khao_hua_chang>>
+
+.2022-07-27
+- <<_tham_khao_nang_pao>>
+- Went 2 places but only found 1 cave
+
+.2022-07-28
+- <<_tham_khao_nang_pao>> again
+- <<_tham_nue_sern>>
+
+(One day break - as he makes local contacts - unpaid)
+
+.2022-07-30
+- <<_mina_cave>>
+- He climbed a huge cliff.. was dangerous. He found one cave but couldn't find the other one
+
+.2022-07-31
+- <<_tham_khao_nok_yoong>>
+- He climbed a huge cliff.. was dangerous. He found one cave but couldn't find the other one
+
+
+.2022-08-01
+- <<_tham_khao_nok_yoong_2>>
+- Sounded like it was kind of far away
+
+(Next day it rained too hard to do caving)
+
+.2022-08-03
+- <<_no_name_cave_a>>
+- Unusal rock textures. Last day of trip. Nothing remarkeable.

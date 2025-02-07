@@ -1,0 +1,308 @@
+:revealjs_customtheme: ../web/reveal-white.css
+:revealjs_slideNumber: h
+:revealjs_transition: none
+:revealjs_hash: true
+:revealjs_center: false
+:revealjs_controls: false
+:revealjs_progress: false
+:revealjs_disablelayout: true
+:!webfonts:
+
+:imagesdir: ../fig/
+:svg-type: inline
+
+= Looking for stalagmite ^18^O's connection to climate
+
+by George Kontsevich (PhD Student)
+
+_Qualification Exam_
+
+image:phot/stalagmite-example.jpg[]
+
+== A "complete" speleothem δ^18^O record
+
+_The Asian monsoon over the past 640,000 years and ice age terminations_ *Hai Cheng et al.* Nature (2016)
+image:plot/haicheng-all.svg[]
+
+δ^18^O tracks changes in insolation
+
+*Basic Questions:*
+
+What climate process is driving changes in Oxygen isotope?
+
+How does actual climate change with insolation?
+
+=== !
+image:plot/haicheng-zoom.svg[]
+
+== The ^18^O source
+
+image::diag/karst-3-proj.svg[]
+
+== A: Driver(s) of ^18^O (in China)
+
+Monsoon rain has an isotopically light signature
+
+image:diag/haicheng-2-state.svg[]
+
+_Ideally we'd have a climate curve and not a δ^18^O curve_
+
+*Unanswered Question:*
+
+What is the other moisture source?
+
+_(here labeled BACKGROUND RAIN)_
+
+=== !
+image:extr/Haicheng-rain-isotope.svg[]
+
+=== !
+image:extr/Haicheng-rain-moisture.svg[]
+
+=== !
+image:extr/monsoons-map.webp[]
+
+== A: Drivers of ^18^O (in Thailand)
+
+image:maps/krabi/two-seas-monsoon.svg[]
+
+== A: Theoretical Speleothem
+
+Endmembers should be more obvious in Thailand
+
+image:diag/haicheng-2-monsoon.svg[]
+
+*Question*
+
+What summer/winter monsoon ratio does each point represent?
+
+*Objective*
+
+Measure rain water δ^18^O and find a summer/winter monsoon "fingerprint"
+
+*Bonus Question*
+
+Can we do better..? Can we track changes in each monsoon system?
+
+_Maybe.._
+
+== B: Conduit flow
+
+image:diag/karst-conduit-composite.svg[]
+
+We should expect non-linear responses to rain volume
+
+== B: Inter-stalagmite variability
+
+image:diag/karst-2-speleo.svg[]
+
+Different stalagmites should have different responses to the rain
+
+== C: The Speleothems
+
+image:diag/karst-func.svg[]
+
+=== Notes on stalagmite calcite
+image:diag/inverse-func.svg[]
+
+== C: Our Stalagmites
+
+image:phot/all-stalagmites-small.jpg[]
+
+=== !
+
+image:phot/all-stalagmites-notes.jpg[]
+
+
+== C: Hendy Test
+
+Progress: Performed Hendy tests
+
+image:diag/hendy-example.png[]
+
+_(Example Hendy Test)_
+
+== B: Cave/Rain Monitoring
+
+image:phot/collage.jpg[]
+
+
+== B: Equipment isotopic distortion
+
+image:diag/thammurd-equipment-onsite.svg[]
+
+Comparing a simple glass funnel water collector with a Davis rain gauge
+
+Both produce consistent results
+
+== B: Temporal variability
+
+image:diag/cave-d18O.svg[]
+
+Monitoring multiple sites in the cave, we see that the δ^18^O of drip water generally varies as a slow place.
+
+== B: Spatial consistency
+
+image:diag/thammurd-500m-onsite.svg[]
+
+Comparing the rain isotope values at two sides "D" and "X", separated by 500 meters in the vicinity of the karst tower
+
+Both produce consistent results
+
+== A: Longer rain isotope record - Krabi Airport
+
+Rain monitoring near the cave is too short to for us to deduce climate related δ^18^O signatures
+
+image:maps/krabi/two-seas-monsoon.svg[]
+
+== A: Daily rainfall amounts and δ^18^O
+
+image:plot/airport-isotopes-2011.svg[]
+
+image:plot/airport-isotopes-legend.svg[]
+
+== A: 14 Year record
+
+image:plot/airport-isotopes.svg[]
+
+(Showing first 7 Years of data)
+
+== A: Attributing rain to climate systems
+
+image:diag/haicheng-2-monsoon.svg[]
+
+We need to average the monsoon days to calculate these endmembers
+
+image:plot/airport-isotopes-2011.svg[]
+
+*Missing Piece:*
+
+What climate system is "active" during each sample day?
+
+== A: Visual inspection of rain pattern
+
+Looking at satellite precipitation maps we can "see" which climate regime is active during a particular month
+
+image:imrg/krabi/monthly/year-stack.svg[]
+
+- Satellite monthly cumulative rain maps (IMERG)
+- 0.1 degree resolution
+
+== A: 2 patterns in a singular value subspace
+
+image:imrg/krabi/monthly/sv-projections-plain.svg[]
+
+*Note*
+
+Months cluster into two groups associated with the summer and winter monsoon seasons
+
+== A: The two monsoon clusters are isolated by var minimization
+
+image:imrg/krabi/monthly/sv-projections.svg[]
+
+Minimizing the variance (ie. Otsu's method)
+
+== A: SV mixture: Summer centroid
+
+image:imrg/krabi/monthly/bottom-pattern.svg[]
+
+== A: The two monsoon clusters are isolated by var minimization
+
+image:imrg/krabi/monthly/sv-projections.svg[]
+
+== A: SV mixtures: Winter centroid
+
+image:imrg/krabi/monthly/top-pattern.svg[]
+
+== A: Method replicates with daily precipitation data
+
+image:imrg/krabi/monthly/sv-projections-monthly-daily.svg[]
+
+Daily data gives near-identical patterns, but allows for a more fine-grained look at the changes in climate
+
+== A: Index generation
+
+image:imrg/krabi/monthly/indeces-monthly-daily.svg[]
+
+Evaluating how far each month/day is along the median axis of each half allows us to quantify the strength of the monsoon pattern for each time-point
+
+
+
+== A: Confidence in index
+
+Rain patterns with the climate signal removed
+
+image:imrg/krabi/monthly/designaled-long-linked.svg[]
+
+The expected-value/mean of the noise is zero
+
+However noise has induces a random shift in the measured climate signal
+
+How can we estimate how large this shift was?
+
+== A: Zero-mean noise's jitter
+
+Generating normally distributed values around zero, they're mean is never exactly zero
+
+image:diag/random-hist.svg[]
+
+The variance of the mean is *_Var~mean~ = Var / √N_*
+
+We know the number of pixels *_N_*
+
+We can estimate the *_Var_* by looking our remaining noise
+
+So we can quantify how much our signal may have been shifted *_Var~mean~_* before we removed it
+
+== Can we blow up _N_?
+
+image:diag/marrah-size.svg[]
+
+Increasing the observational area increases *_N_* - But should that decreases the error in our climate estimate?
+
+Feels like no.. Only jitter in climate pattern related areas should throw off the climate estimate
+
+== A: Noise rebalanced
+
+After having subtracted a scaled rain signal from original data we multiply it by the signal's norm to only consider relevant areas
+
+image:imrg/krabi/monthly/designaled-weighted-long-linked.svg[]
+
+
+The previous definition of variation-of-the-mean _Var/N_ now generalizes:
+
+The original noise-pixel values are deviations from the mean (of *0*). The scaling factors depend on the climate patterns:
+
+*Single Point Signal* => 1 _ie. no scaling_
+
+*A Uniform Field* =>  1 / √N  _where N is the size of the climate rain "zone"_
+
+If the field is uniform then after multiplication by the scaling factor if we just need to square the pixel values and sum them all up. This leaves gives us a sum of the squares of the deviation divided by the climate pattern size (in number of pixels)
+
+The non-uniform case is similar, but with variable weights (the √N denominator varies)
+
+
+[.left-align]
+== Outlook
+.
+.
+.
+
+.A Modern Climate：
+- Generate final indeces with error bars
+- Generate a daily summer/winter/indeterminate labeled
+- Wrap up the GUI interface
+- Write paper
+- Calculate δ^18^O values are variances for summer/winter monsoons
+- Estimate the minimum discernable time span
+
+.B Karst Aquifer:
+- Check equipment is working as-expected
+- Wait for data from δ^18^O data
+- Make a flow model and linear approximation
+- Construct inverse function
+
+.C Stalagmite:
+- Resample Hendy test outliers
+- Drill and construct δ^18^O sequence
+- Do U/Th dating as appropriate

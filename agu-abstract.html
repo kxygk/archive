@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>Using IMERG precipitation patterns to index climate at the mesoscale: A basis rotation method based on climate bistability</title>
+<style>
+@import '../web/kxygk.css';
+
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+font: 14px/20px italic Times, sans-serif;
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+.listingblock,pre.src {
+margin-left:  -5vw;
+margin-right: -5vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: solid;
+border-left-width: 4px;
+border-left-color: grey;
+font: 14px/20px italic Times, serif;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+/*.org-svg {
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}*/
+
+img {
+    display:flex;
+max-width: 100%;
+height: 100%;
+max-height: 33vh;
+vertical-align: middle;
+width: auto;
+margin: auto;
+}
+ul {
+list-style-type: circle;
+padding-left: 1.5em;
+border-left: solid;
+border-left-width: 1px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {
+    color: black;
+font-style: italic;
+    padding-top: 0.5em;
+    border-bottom: 4px solid  #aaaaaa;}
+h3 {color: black;
+border-bottom: 2px dotted  #aaaaaa;}
+b, i{
+font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+font-size: 0.8em;
+line-height: 0;
+position: relative;
+vertical-align: baseline;
+top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+.title {
+font-weight: bold;
+}
+dt {
+font-weight: bold;
+}
+td p, dd p, li p{
+    margin: 0;
+}
+ul, p{
+    margin-top: 0;
+}
+.sidebarblock{
+    background:#f3f3f2;
+}
+.float-group::before,.float-group::after{content:" ";display:table}
+.left{float:left!important}
+.right{float:right!important}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+.scrollbox{
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+.scrollbox img{
+    height:auto;
+    width:auto;
+    max-width: 70vw;
+    max-height: 60vh;
+    vertical-align: bottom;
+    scroll-snap-align: start;
+}
+video{
+    height:auto;
+    width:auto;
+    max-width: 30vw;
+    max-height: 30vh;
+}
+.content{
+    height: 100%;
+}
+.imageblock{
+    height: 100%;
+}
+.flexbox > .content{
+    display: flex;
+    justify-content: center;
+    height: 33vh;
+}
+
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>Using IMERG precipitation patterns to index climate at the mesoscale: A basis rotation method based on climate bistability</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Session: H23U-1847</p>
+</div>
+<div class="paragraph">
+<p>Date:  Wednesday, 13 December 2023
+Time: 06:10 - 10:30
+Location: Poster Hall A-C - South (Exhibition Level, South, MC)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abstract">Abstract</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As communities observe recurring regional weather patterns they will often ascribe colloquial names to them such as the Meiyu in East Asia or the Santa Ana winds of California. However, attaching quantitative characterizations to these same names often proves challenging. Classically heuristics have been developed for particular locations and climate phenomena, but their inherent subjectivity undermine the robustness of any subsequent quantitative analysis. To develop a neutral universal mesoscale metric we start by observing that the spatial distribution of rain in a given region is controlled by the interplay between the meteorological parameters (humidity, wind, pressure etc.) and the Earth’s topography. As a result, each recurring climactic phenomena exhibits a unique regional signature/distribution. Unlike at the synoptic scale, mesoscale climate patterns are largely stationary and an accumulation of two decades of high resolution satellite observations means that these patterns can now be reliably numerically extracted. The key additional observation is that at the mesoscale climate phenomena typically have either one or two non-co-occurring stationary states. This allows us to isolate patterns by a simple bifurcating of the subspace of the first two singular vectors. The end result behaves like a trivial Empirical Orthogonal Function (EOF) rotation that has a clear interpretation. It isolates the climate patterns as basis vectors and allows us to subsequently estimate the presence of the climate phenomena at arbitrary timescales. As a case study we use gridded precipitation data from NASA’s Global Precipitation Measurement (GPM) mission (compiled in to the IMERG dataset) in several regions and timescales of particular interest.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_plain_language_summary">Plain-language Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Rain patterns at the regional scale exhibit consistent patterns in the presence of different climate phenomena. Using two decades of high resolution satellite based global precipitation data, we can extract these patterns and use them to quantify the presence of the climate phenomena at both a fixed region and a high temporal resolution, creating a proxy precipitation based climactic pseudo-index</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_materials">Materials</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For this analysis we are using the IMERG dataset. This dataset provides a 0.1x0.1 degree resolution map of global precipitation at a 30 minute timescale. The data is available in three variants, Early Late and Final. For my analysis I use the Late set. Though the Final data is supposed to provide more accurate normalized values, its normalization procedure introduces artifacts in the precipitation&#8217;s spatial distribution</p>
+</div>
+<div class="paragraph">
+<p>For this proof-of-concept test of the method I use monthly aggrigate precipitation values. I used ten years of data from 2010 to 2020, resulting in 120 montly snapshots</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/year0.svg" alt="year0"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_methods">Methods</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The procedure is in 4 simple steps. First I do a singular value decomposition of the data which yields 120 basis vectors. This is because the dimension of each image, ie. the number of pixels, exceeds the total number of images.</p>
+</div>
+<div class="paragraph">
+<p>Here we show the first 4 vectors</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/sv-0.svg" alt="sv 0"></span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/sv-1.svg" alt="sv 1"></span></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/sv-2.svg" alt="sv 2"></span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/sv-3.svg" alt="sv 3"></span></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/sv-4.svg" alt="sv 4"></span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/sv-5.svg" alt="sv 5"></span></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The singular values confirm what we see on visual inspection, that there are two dominant patterns captures in the first and second singular vectors. The remaining vectors characterize the noise.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/sv-weights.svg" alt="sv weights"></span></p>
+</div>
+<div class="paragraph">
+<p>We can see this in the vector images, where the first two images present smooth patterns, while the remaining two show something that looks like a high frequency noise.</p>
+</div>
+<div class="paragraph">
+<p>We can then look again at our initial data (the 120 monthly images) as they appear in projected on to the first and second singular vectors.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/sv-projs.svg" alt="sv projs"></span></p>
+</div>
+<div class="paragraph">
+<p>When looking at the data in this 2D subspace two important observations can be made:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The first sigular vector does not hold any special meaning and does not directly correspond to any climate/weather state</p>
+</li>
+<li>
+<p>The data is distributed in 3 groupings. One around the zero point - representing a dry season. And two groupings off-axis.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These two observations illustrate that the weather is almost always in one of two states. To isolate these two groups, the subspace can split into two halves and the average centroid of each half can be calculated. All splitting dichotomies are evaluated and the one selected minimizes the total variance of both halves (red line in plot). Each resulting centroid, indicated by dashed lines, represents a mixture of the two orthogonal singular basis vectors and can be visually inspected</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/first-pattern.svg" alt="first pattern"></span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/second-pattern.svg" alt="second pattern"></span></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The two resulting patterns correspond to the recurring patterns observed in the original data. These form a new (non-orthogonal) basis. Projecting the original non-orthogonally on to these two vectors gives each data point a value quantifying it&#8217;s correspondence to each climate pattern. Based on these projections each month get two climatic index values. We use the bisecting line to constrain each data point to one half so that only one climate index is generated for each point in a composite plot</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/imrg/krabi/monthly/indeces.svg" alt="indeces"></span></p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

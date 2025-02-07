@@ -1,0 +1,138 @@
+#+TITLE: Stalagmites
+#+DESCRIPTION:
+
+#+INCLUDE: "../web/config.org"
+#+HTML_HEAD_EXTRA: <meta name="robots" content="noindex">
+
+
+* To discuss with professor
+- Can we expect these trace ions in Thailand?
+- There are people that have done tracer stuff.. but I can't find the paper
+- Does he still need a rotating sampler thing?
+- What to do with weather station?
+- Does CO2 outgas in the oil lid sampler?
+
+* Basics
+
+- Most speleothems are made of calcite - but there are other kinds
+- water in karst aquifers has high levels of dissolved soil-derived CO_2[fn:Murphy2003] and calcium due to subsequent limestone dissolution [fn:White1988]
+- In the cave atmosphere the partial pressure of CO_2 (/P_{CO2}/) is usually lower and the CO_2 degasses and calcite deposites. So cave water almost immediate becomes oversaturated with Ca and first deposite on the stalactite
+- deposition rates: 0.01-1.0 mm/year
+- Growth hiatus can be indicated by detriatal-rich layers
+- Can changed chemically between *calcite* and *argonite*. Unclear what causes the change.  McDermott refers to Denniston et al. 2000 in Nepal [fn:McDermott2004]  says ... cave aridity..? - not sure what that means. Caves aren't supposed to get arid. That'd mess up the deposition mechanism (shift from CO2 degassing to water drying out)
+
+
+* Advantages
+- Potentially very high resolutions that can help pinpoint cause-effect chains between climate changes (if one thing starts 100 years before another and then triggers the other)
+
+* Complications
+- You can get additional fractionation due to surface evaporation of the rain before it percolates into the soil (Bar-Matthews et al 1996; Denniston et al. 1999a)  from [fn:McDermott2004]
+- CO2/Ca in the water could vary seasonally - which would give you a seasonal bias
+- At very high flow rates you can have undersaturation of CO2 (and therefore weaker precipitation during degassing)
+- Can get additional temperature dependent fractionation in the cave itself (though if you have 99% humidity - not clear how this would happen? I guess the chemical deposition itself can induce O18 fractionation). In theory you could check if this is happening by looking at fluid inclusions.
+- To have 018 in the cave correspond to precipitation O18 it needs to meet the "Hendy criteria" (Hendy 1971; Schwarcz 1986) -- TO READ..
+- Cave temp is a function of average annular temp - so if the annual average temp changes then this will change and lead to weird changes in cave fractionation
+
+- The flows to each stalagmite can have drastically different routes - and an increase in rainfall can suddendly open new "channels" to the stalagmite
+
+- You can have ventilated air gaps "above" your sampling cave - which will cause a premature deposition of a ration of your *Ca*. This should produce a discernable offset in your *Mg/Ca vs. drip-rate* plots [fn:Tooth2003]. If I understand correction - the Mg doesn't recipitate out as a stalagmite. So if there is premature deposition then this ratio will be skewed
+
+* Chemistry
+all from [fn:Tooth2003].
+
+** Of the stalagmite
+- Ca^{2+} :: the normal calcium that precipitates out when the CO2 outgasses. The precipitation can be prevented with a small amount of nitric acid when the water is saturated (or super saturated)
+- Mg^{2+} :: Seems to dissolve immediately? Not as sensative to flow rate as *Ca*. Higher Flow rates give lower ion concentration but a higher *Mg/Ca* ration REEXAXIME MECHANISM
+- Sr^{2+} :: Seems to have the same mechanism as *Mg^{2}* ..
+- 87Sr/87Sr :: Something to do with weathering [fn:Clark2015]
+- SO_{4}^{2-} :: Is another proxy for dilution. It's from the very slow dilution of pyrite in the aquifer
+
+** Of the drip water
+- salts as tracers :: MgCl2 / CaCl2 / NaCl p7 [fn:Clark2015]
+When dissolved give the solution different densities. Will they percolate through differently? What are tracers others have used?
+- Dissolved Oxygen (DO) :: is an indicator of organic activity (or lack of activity. Maybe a proxy for residence time? p23  [fn:Clark2015]
+- nobel gases / O2 / N2/ Ar :: related to ground wter recharge condition p24 [fn:Clark2015]
+
+These things can all get messed up if some neighbouring aquafer "spills over" and dumps different ion concentrations on to your speleothem
+
+* Water flow
+- calculating how much rain goes into the soil seems a bit arbitrary... You can use the *Thornthwaite equation* to estimate monthly evaporation values (in mm/month) and then subtract that from the monthly precipitation values I guess [fn:Baker2003]
+
+* Criteria for site selection
+- Constant cave temp
+- Constant cave CO2
+- water is saturated with CO2 (seems tricky to measure... maybe measure in one spot and ensure it's year-round consistent)
+
+* Karst Hydrology
+
+- lots of caves, sinkholes/dolines, no surface drainage
+
+- Darcy's Law :: "Darcy's law is an equation that describes the flow of a fluid through a porous medium. The law was formulated by Henry Darcy based on results of experiments[1] on the flow of water through beds of sand, forming the basis of hydrogeology, a branch of earth sciences." - *wiki* This law often does not apply in Karst landscapes!
+
+- Manning Equation :: usually used instead: "The Manning formula is an empirical formula estimating the average velocity of a liquid flowing in a conduit that does not completely enclose the liquid, i.e., open channel flow. However, this equation is also used for calculation of flow variables in case of flow in partially full conduits, as they also possess a free surface like that of open channel flow. All flow in so-called open channels is driven by gravity. It was first presented by the French engineer Philippe Gauckler in 1867,[1] and later re-developed by the Irish engineer Robert Manning in 1890.[2]" - *wiki*
+
+The paths of the water in the limestone are complex due to anisotropic effects like bedding planes, fractures and dissolutional features and you can still have significant water retention due to /intergranular permiability/ and small fractures. The water that ultimately reaches a stalagmite could have being in the aquifer for decades or could be recent rain water - or both! So this acts as a semi-random band pass filter of sorts and therefore different stalagmites record climate with different resolution (even within the same cave). Some recording each rain event, others recording seasonal/yearly/decadal averages.
+
+- Stalagmites that are very responsive will yield noisy data and can be subject to unpredictable flow rerouting
+- Stalagmites that are too "averaged"  will only record a small percentage of total rainfall in their isotope variability (low signal intensity) and are only suitable for long term climate changes.
+
+Drip rate monitoring/logging [fn:McDermott2006] (Doesn't say directly)
+Drip water chemical analysis [fn:Baldini2006a] (Lists some instruments) [fn:Tooth2003]
+
+Changes in P_{CO2} affect growth substantially. So cave ventilation is crucial and can be seasonal [fn:Mattey2008] and can skew values towards a season [fn:Baldini2008]
+
+\shy{}^18O drip water reflects rainfall \shy{}^18O [fn:McDermott2004] b/c cave temperature is mostly stable. Changes are due mostly to either:
+- changes in the type of rainfall (Monsoons=low \shy{}^18O)
+- "amount effect" [fn:Rozanski1993]
+- Rainfall in humid low-latitude regions is characterized by elevated \shy{}^18O values (relative to Monsoon and TCs) [fn:Dansgaard1964]
+
+So you can even detect individual cyclone events
+
+HURRICANE Project in the Caribbean
+
+* Extra
+From Lowemark2009 (the South China Sea paper from class)
+#+BEGIN_QUOTE
+It has been previously found that the strength of the winter monsoon appears to be anticorrelated with the intensity of the summer monsoon (Wang et al 1999, Wehausen and Brumsack 2002 Yancheva et al 2007)
+#+END_QUOTE
+
+* Footnotes
+[fn:Murphy2003] Carbon dioxide efflux from a 550 m3 soil across a range of soil tempaertures
+Forest Ecology and Management
+
+[fn:White1988] Geomorphology and Hydrology of Karst Terrains
+Oxford Univeristy Press
+
+[fn:McDermott2001] Centennial-Scale Holocene Climate Variability Revealed by a High-Resolution Speleothem δ18O Record from SW Ireland
+Science  09 Nov 2001:
+Vol. 294, Issue 5545, pp. 1328-1331
+DOI: 10.1126/science.1063678 
+
+[fn:McDermott2006]
+McDermott Mattey Hakesworth 2001 Centennial-scale Holocene climate variability revealed by high-resolution spelethem record from SW Ireland
+Science v 294
+
+[fn:Baldini2006a] Spatial variability in cave drip water hydrochemistry: Implications for stalagmite paleoclimate records
+Chemical Geology, v.235 p390-404
+
+[fn:Tooth2003] Soil and karst aquider hydrological controls on the geochemical evolution of speleothem-forming drip waters, Crag Cave, southwest Ireland
+Journal of Hydrology v 273 p51-68
+
+[fn:Mattey2008] A 53 year seasonally resolved oxygen and carbon isotope record from a modern Gibraltar speleothem: reconstructed drop water and relationship to local precipitation
+Earth and Planetary Science Letters, v. doi 10.1016/j.epsl.2008.01.051
+
+[fn:Baldini2008] Very high-frequency and seasonal cave atmosphere P_{CO2} variability: Implications for stalagmite growth and oxygen isotope-based paleoclimate records
+Earth and Planetary Science Letters v. 272 p. 118-129.
+
+[fn:McDermott2004] Paleo-climate reconstruction from stable isotope variations in speleothems: a review
+Quaternary Science Reviews, v23 p 901-918
+
+[fn:Rozanski1993] Isotopic patterns in modern global precipitation
+American Geophysical Union p 1-36
+
+[fn:Dansgaard1964] Stable isotopes in precipitation
+Tellus v. 16 p436-468
+
+[fn:Baker2003] Baker and Brunsdon, 2003  Non-linearities in drip water hydrology
+
+[fn:Clark2015] Groundwater Geochemistry and Isotopes 2015 BOOK

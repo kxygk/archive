@@ -1,0 +1,74 @@
+:imagesdir: ../fig/imrg/krabi/monthly/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+# Using IMERG precipitation patterns to index climate at the mesoscale: A basis rotation method based on climate bistability
+
+Session: H23U-1847
+
+Date:  Wednesday, 13 December 2023
+Time: 06:10 - 10:30
+Location: Poster Hall A-C - South (Exhibition Level, South, MC)
+
+## Abstract
+
+As communities observe recurring regional weather patterns they will often ascribe colloquial names to them such as the Meiyu in East Asia or the Santa Ana winds of California. However, attaching quantitative characterizations to these same names often proves challenging. Classically heuristics have been developed for particular locations and climate phenomena, but their inherent subjectivity undermine the robustness of any subsequent quantitative analysis. To develop a neutral universal mesoscale metric we start by observing that the spatial distribution of rain in a given region is controlled by the interplay between the meteorological parameters (humidity, wind, pressure etc.) and the Earth’s topography. As a result, each recurring climactic phenomena exhibits a unique regional signature/distribution. Unlike at the synoptic scale, mesoscale climate patterns are largely stationary and an accumulation of two decades of high resolution satellite observations means that these patterns can now be reliably numerically extracted. The key additional observation is that at the mesoscale climate phenomena typically have either one or two non-co-occurring stationary states. This allows us to isolate patterns by a simple bifurcating of the subspace of the first two singular vectors. The end result behaves like a trivial Empirical Orthogonal Function (EOF) rotation that has a clear interpretation. It isolates the climate patterns as basis vectors and allows us to subsequently estimate the presence of the climate phenomena at arbitrary timescales. As a case study we use gridded precipitation data from NASA’s Global Precipitation Measurement (GPM) mission (compiled in to the IMERG dataset) in several regions and timescales of particular interest.
+
+## Plain-language Summary
+
+Rain patterns at the regional scale exhibit consistent patterns in the presence of different climate phenomena. Using two decades of high resolution satellite based global precipitation data, we can extract these patterns and use them to quantify the presence of the climate phenomena at both a fixed region and a high temporal resolution, creating a proxy precipitation based climactic pseudo-index
+
+## Materials
+
+For this analysis we are using the IMERG dataset. This dataset provides a 0.1x0.1 degree resolution map of global precipitation at a 30 minute timescale. The data is available in three variants, Early Late and Final. For my analysis I use the Late set. Though the Final data is supposed to provide more accurate normalized values, its normalization procedure introduces artifacts in the precipitation's spatial distribution
+
+For this proof-of-concept test of the method I use monthly aggrigate precipitation values. I used ten years of data from 2010 to 2020, resulting in 120 montly snapshots
+
+image:year0.svg[]
+
+## Methods
+
+The procedure is in 4 simple steps. First I do a singular value decomposition of the data which yields 120 basis vectors. This is because the dimension of each image, ie. the number of pixels, exceeds the total number of images.
+
+Here we show the first 4 vectors
+
+[cols="a,a"]
+|===
+|image:sv-0.svg[]
+|image:sv-1.svg[]
+|image:sv-2.svg[]
+|image:sv-3.svg[]
+|image:sv-4.svg[]
+|image:sv-5.svg[]
+|===
+
+The singular values confirm what we see on visual inspection, that there are two dominant patterns captures in the first and second singular vectors. The remaining vectors characterize the noise.
+
+image:sv-weights.svg[]
+
+We can see this in the vector images, where the first two images present smooth patterns, while the remaining two show something that looks like a high frequency noise.
+
+We can then look again at our initial data (the 120 monthly images) as they appear in projected on to the first and second singular vectors.
+
+image:sv-projs.svg[]
+
+When looking at the data in this 2D subspace two important observations can be made:
+
+- The first sigular vector does not hold any special meaning and does not directly correspond to any climate/weather state
+
+- The data is distributed in 3 groupings. One around the zero point - representing a dry season. And two groupings off-axis.
+
+These two observations illustrate that the weather is almost always in one of two states. To isolate these two groups, the subspace can split into two halves and the average centroid of each half can be calculated. All splitting dichotomies are evaluated and the one selected minimizes the total variance of both halves (red line in plot). Each resulting centroid, indicated by dashed lines, represents a mixture of the two orthogonal singular basis vectors and can be visually inspected
+
+[cols="a,a"]
+|===
+|image:first-pattern.svg[]
+|image:second-pattern.svg[]
+|===
+
+The two resulting patterns correspond to the recurring patterns observed in the original data. These form a new (non-orthogonal) basis. Projecting the original non-orthogonally on to these two vectors gives each data point a value quantifying it's correspondence to each climate pattern. Based on these projections each month get two climatic index values. We use the bisecting line to constrain each data point to one half so that only one climate index is generated for each point in a composite plot 
+
+image:indeces.svg[]

@@ -1,0 +1,117 @@
+:imagesdir: none
+:!webfonts:
+:stylesheet: ../web/adoc.css
+
+= Notes on _Mountain Weather and Climate_
+
+****
+Mostly a compilation of references from _Mountain Weather and Climate_ by *Roger G Barry*
+****
+
+== by page
+
+.Orogrpahic Enhancement ^p274^
+- is cause by _synoptic scale uplift_
+- + _convection instability_
+
+.Mesoscale Precipitation Areas ^p275^
+(MPAs) are statistically singificant areas of precipitation in cyclones (enhanced by mountains)
+
+.Smoothed local topography ^p280^
+- Precipitation maxima over mid-latitude mountains is related to the "smoother" topography (the details matter less)
+- *Pedgley 1970* _Heave rainfalls over Snowdonia_
+- *Pedgley 1971* _Some weather patterns in Snowdonia_
+<<Pedgley1970>>
+<<Pedgley1971>>
+
+
+.Lee side rain ^p281^
+- uptilt of streamlines means that air starts to rise over a mountain before it actually reached the mountain. This can cause condensation to occur upstream of the actual barrier
+- *Smith 2005* _Orographic Precipitation and Oregon's climate transition_
+- *Jiang and Smith 2003* Cloud timescales and Orogrpahic precipitation
+
+.Potential complications
+- Convective activity -> erratic pattern
+- Precipitation Efficiency -> precipitation vs. condensation due to moisture content/wind velocity/stability
+- Cyclonica systems vs. warm convection systems will react very differently
+
+- *Barstad and Smith 2003* _Evaluation of an orographic precipitation model_
+
+
+.Afternoon/Evening thunderstorms
+- *Henz 1972* _An operational technique of forecasting thunderstorms along the lee slope of a mountain_
+- *Riley et al 1987* _The diurnal variability of precipitation across the central Rockies and adjacent Great Plains_
+
+.Rainshadows through vegitation / NVDI ^p288^
+- Normalized Difference Vegetation index
+- *Smith 2005* _Orographic Precipitation and Oregon's climate transition_
+
+.Regression Model ^p290^
+- *Dalu et all 1994*
+
+.PRISM
+- Parametric Elevation Regression and Independent Slopes Model
+- www.wecc.dri.edu/precip.html[]
+
+.TRMM
+- like GPM but for tropics or something..
+- *Anders 2004* _Conference notebook orographic precipitation and the form of mountain ranges_
+
+.Durnal TRRM
+- *Bhatt Nakamura 2005* _Characterics of monsoon rainfall around the Himalayas revealed by TRMM_
+- *Bhatt Nakamura 2006* _A climatological dynamical analysis associated with precipitation around the southern part of the Himalayas_
+
+== by region
+
+.Nowot Ridge ^p401^
+- *Hjermstad 1970* _The influence of meterological parameters on the distrbution of precipitation across Colorado_
+
+.Colorado
+- *Barry 1973* _A climateological transect on the east slope of the Front Range Colorado_
+
+.New Mexico
+- Sangre de Cristo Mountains
+- *Guan 2005* _Geostatistical mapping of mountain precipitation incorporating autosearched effects of terrain and climate characteristics_
+
+.Alaska/Yukon
+- Winter/Summer systems (maybe?)
+- Mt.Elias / St, Elias / Mr. Logan
+
+.Colombia ^p422^
+- 3 Cordilleras
+- *Poveda et al 2005* The diurnal cycle of precipitation in the tropical Andes
+
+.Bolivia
+- 70% Summer rain.. (from Amazon vs Pacific)
+- *Garreaud 2003* _The climate of the Altiplano observed currenty conditions and mechanism of past change_
+- *Falvey Garreaud* _Moisture veriability over South American Altiplano during SALLSEX
+
+.New Guinea ^p363^
+- 2 systems
+- Mt. Wilhelm
+- *Peterson et al 2002* _Mountain evnironments in new Guinea and the late Glacial Maximum enigma_
+- *Prentice and Hope 2006* _The climate of Papua and its recent changes_
+- *Barry 1978* _Aspects of the precipitation characteristics of the New Guinea mountains_
+- *Barry 1980* _Mountain climates of New Guinea_
+- *Barry 1973* _A climateological transect on the east slope of the Front Range Colorado_
+
+.Kenya
+- Mt. Kenya / Mt. Kilimongaro
+- Easterlies vs S/N winds
+- *Davies 1977* _The daily cycle of weather in Mt. Kenya_
+- *Coutts 1969* _Rainfall of the kilimanjaro area_
+- *Hardy et al 1998* _Annual and daily meterological cycles at high altitude on tropical mountains_
+- *Gregory 1968* The orographic componen in rainfall distribution patterns_ (BOOK?)
+
+.Japan ^282^
+- Diurnal cycles
+- *Sato and Kimura 2005* _Diurnal cycle of convective instability around the centeral mountains in Japan during the warm season_
+
+
+[bibliography]
+== References
+* [[[Pedgley1970]]] _Heave rainfalls over Snowdonia_
+* [[[Pedgley1971]]] _Some weather patterns in Snowdonia_
+
+
+As an examples of how to do references

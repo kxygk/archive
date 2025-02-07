@@ -1,0 +1,87 @@
+:imagesdir: fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+:svg-type: inline
+
+= Tham Murd Stalagmites
+
+== Overview
+
+image:https://raw.githubusercontent.com/wiki/kxygk/onionorcake/first-scans-downsize.jpg[]
+
+All speloethems from Tham Murd in no particular order
+
+== Initial observations
+
+* Sample #0 was an "extra" sample that was at an inactive/dead site I'm not monitoring (it was attached to the side of #3). I brought it back to Taiwan simple to have a test sample I could experiment on without risking the samples from monitored locations (since they're irreplaceable). However I've included it here because it exhibits a characteristic behavior seen in most of the other samples. There is a transition from white dense aragonite to some fibrous form right before the site died. A quick search seems to suggest this is called "botryoidal aragonite". If I were to guess for a driving mechanism, as the flow rate decreases  the residence time of the water on the ceiling increases. This would lead to more PCP, higher magnesium concentrations, and a stronger preference for aragonite precipitation. Maybe this somehow promotes long fibrous crystal growth.
+
+Note: My initial guess was that these darker bands are calcite regions. Changes in calcite fabric is something more associated with calcite rather than aragonite. However this runs counter to the PCP mechanism. And the literature suggests lower flow rates lead to aragonite and not vice versa
+
+* Similar fibrous transitions happen very clearly further back in time in stalagmite #4. There are two fibrous transitions followed by hiatuses (ie. "dead time"). When the stalagmite comes back to life, it returns to its previous white aragonite form.
+
+* #5 also exhibits a very similar double hiatus band. This drip site is closer to the soil horizon, so the brown material (likely inflowing clayey material) would be expected to suppress the formation of fibrous crystals and would explain the end product looking a bit different. However, the band spacing and subbanding looks quite similar to #4 which suggests a common origin/driver.
+
+
+* #5 also shows something that we see across most sample. Prior to a hiatus the speleothem seems to typically drift off axis - presumably due a slowing in the drip rate and some "adjustments" on the stalactite above.
+
+* #6 has a similar drift prior its hiatus. However this is the only sample that shows a non fibrous transition. It's white aragonite throughout, with the pre-hiatus layering notably "dirty" (since it's far from the top layers, this is out of scope of the current research)
+
+* #1 shows a drifting off axis and several fibrous sub-bands suggesting the speleothem is slowing down.
+
+* Maybe most critically, #1 #2 #3 (and maybe #5) all are showing this "pre-death" fibrous transition at the top of the speleothem. By purely observing past trends in the speleothems' one can't help but think that they are all about to go into a hiatus. This concurrent transition at the tops makes me consider avoiding these speleothems
+
+* I should probably mention the bottom of #3. It looks fundamentally different from everything else we're seeing. It was seemingly always in some fibrous state. I don't have any interpretation for this and it's not consistent with everything else we're seeing. However I don't intend to look at this section in the near future
+
+== #2 - WhiteLoner
+
+[.flexbox]
+====
+image::https://raw.githubusercontent.com/wiki/kxygk/onionorcake/WhiteLoner.jpg[]
+image::https://raw.githubusercontent.com/kxygk/rainusage/master/out/ThMuCH2Sh02WhiteLoner.svg[]
+====
+
+== #3 - PairTall
+
+[.flexbox]
+====
+image::https://raw.githubusercontent.com/wiki/kxygk/onionorcake/PairTall.jpg[]
+image::https://raw.githubusercontent.com/kxygk/rainusage/master/out/ThMuCH2Sh02PairTall.svg[]
+====
+
+
+== #5 - ConjoinedBottom
+
+[.flexbox]
+====
+image::https://raw.githubusercontent.com/wiki/kxygk/onionorcake/ConjoinedBottom.jpg[]
+image::https://raw.githubusercontent.com/kxygk/rainusage/master/out/ThMuCh0ConjoinedBottom.svg[]
+====
+
+
+== #4 - Thumb
+
+[.flexbox]
+====
+image::https://raw.githubusercontent.com/wiki/kxygk/onionorcake/Thumb.jpg[]
+image::https://raw.githubusercontent.com/kxygk/rainusage/master/out/ThMuCh2Sh01Thumb.svg[]
+====
+
+== #4 - LongLizard
+
+[.flexbox]
+====
+image::https://raw.githubusercontent.com/wiki/kxygk/onionorcake/LongLizard.jpg[]
+image::https://raw.githubusercontent.com/kxygk/rainusage/master/out/ThMuCh1LongLizard.svg[]
+====
+
+
+== #1 - BrownTop
+
+[.flexbox]
+====
+image::https://raw.githubusercontent.com/wiki/kxygk/onionorcake/BrownTop.jpg[]
+image::https://raw.githubusercontent.com/kxygk/rainusage/master/out/ThMuCh2Sh01BrownTop.svg[]
+====

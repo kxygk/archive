@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Climate</title>
+<meta name="author" content="George Kontsevich" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="../web/kxygk.css" />
+<link rel="shortcut icon" href="../web/panda.svg" type="image/x-icon">
+<style>
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+font: 14px/20px italic Times, sans-serif;
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+
+pre.src {
+margin-left:  -5vw;
+margin-right: -5vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: solid;
+border-left-width: 4px;
+border-left-color: grey;
+font: 14px/20px italic Times, serif;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+.org-svg { /* non-inlined SVGs */
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
+img { /* static images */
+width:     100%;
+max-width: max-content;}
+ul {padding-left: 1.5em;
+border-left: solid;
+border-left-width: 4px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {color: black;
+padding-top: 0.5em;
+border-bottom: 4px solid  #aaaaaa;}
+h3 {color: black;
+border-bottom: 2px dotted  #aaaaaa;}
+b, i{
+font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+font-size: 0.8em;
+line-height: 0;
+position: relative;
+vertical-align: baseline;
+top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src=""../MathJax/MathJax.js?config=TeX-AMS_CHTML"">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Climate</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orge779a20">Preamble</a>
+<ul>
+<li><a href="#orgab148c9">Loading Libraries</a></li>
+<li><a href="#org01126ee">SVG Utils</a></li>
+</ul>
+</li>
+<li><a href="#org59b315b">Intro</a>
+<ul>
+<li><a href="#org14db3e3">Primary Driver is Temperature</a></li>
+<li><a href="#org94e6f68">Rotating Sphere</a></li>
+<li><a href="#orgb510327">Multigas system</a></li>
+</ul>
+</li>
+<li><a href="#org465ec91">Global Energy Balance</a>
+<ul>
+<li><a href="#org0f92ee9">The Sun</a></li>
+<li><a href="#org096015d">Solar Flux</a></li>
+<li><a href="#org10caee8">Albedo</a></li>
+<li><a href="#org2b30d4c">Black body radiation</a></li>
+<li><a href="#org7064aec">Greenhouse effect</a>
+<ul>
+<li><a href="#org485d81f">Simply opaque model</a></li>
+<li><a href="#org5c9b66a">Leaky model</a></li>
+<li><a href="#orgf6f12ce">Feedback</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org476d48e">Vertical Structure</a>
+<ul>
+<li><a href="#org76240fa">Layers</a></li>
+<li><a href="#orga111b73">Pressure</a></li>
+</ul>
+</li>
+<li><a href="#org949bc77">Convection</a>
+<ul>
+<li><a href="#org215a9da">In Water</a></li>
+<li><a href="#org7634910">Dry Convection in Air</a></li>
+<li><a href="#orgae98ff1">Potential Temperature</a></li>
+<li><a href="#org7d6f765">Moist Air Convection</a></li>
+<li><a href="#org84b367c">Equivalent potential temperature</a></li>
+</ul>
+</li>
+<li><a href="#org42937ec">Meridonal structure of the atmosphere</a>
+<ul>
+<li>
+<ul>
+<li><a href="#orga77acbd">Tilt</a></li>
+<li><a href="#orgb7e2b99">Sphericity</a></li>
+<li><a href="#orge7d4e67">Potential temperature</a></li>
+<li><a href="#org817ba0b">Equivalent potential temperature</a></li>
+<li><a href="#org45aac81">Stratosphere</a></li>
+</ul>
+</li>
+<li><a href="#orga3e790d">Pressure vs Height</a></li>
+<li><a href="#orgc501438">Winds</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orge779a20" class="outline-2">
+<h2 id="orge779a20">Preamble</h2>
+<div class="outline-text-2" id="text-orge779a20">
+<p>
+Notes based on <i>Atmosphere, Ocean, and Climate Dynamics: An Introducory Txt</i> by John Marshall and R. Alan Plumb
+</p>
+
+<p>
+written in literate single-file clojure: <a href="https://geokon-gh.github.io/literate-clojure.html">https://geokon-gh.github.io/literate-clojure.html</a>
+</p>
+</div>
+
+<div id="outline-container-orgab148c9" class="outline-3">
+<h3 id="orgab148c9">Loading Libraries</h3>
+<div class="outline-text-3" id="text-orgab148c9">
+<p>
+Here I load a bunch of libraries. I use the <code>geo</code> library to work with GIS files and then I use <code>thing/geom</code> to display the result as an inline SVG. 
+</p>
+<div class="org-src-container">
+<pre class="src src-clojure">  (use 'clojure.tools.deps.alpha.repl)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #8b0000;">;; </span><span style="color: #8b0000;">Add libraries for plotting</span>
+(add-libs {'<span style="color: #000000;">thi.ng</span>/geom {<span style="color: #696969;">:</span><span style="color: #000000;">mvn</span><span style="color: #000000; background-color: #ffffff;">/</span><span style="color: #696969;">version</span> <span style="color: #000000;">"1.0.0-RC4"</span>}})
+(add-libs {'<span style="color: #000000;">thi.ng</span>/math {<span style="color: #696969;">:</span><span style="color: #000000;">mvn</span><span style="color: #000000; background-color: #ffffff;">/</span><span style="color: #696969;">version</span> <span style="color: #000000;">"0.3.0"</span>}})
+(add-libs {'<span style="color: #000000;">thi.ng</span>/ndarray {<span style="color: #696969;">:</span><span style="color: #000000;">mvn</span><span style="color: #000000; background-color: #ffffff;">/</span><span style="color: #696969;">version</span> <span style="color: #000000;">"0.3.2"</span>}})
+(add-libs {'<span style="color: #000000;">thi.ng</span>/color {<span style="color: #696969;">:</span><span style="color: #000000;">mvn</span><span style="color: #000000; background-color: #ffffff;">/</span><span style="color: #696969;">version</span> <span style="color: #000000;">"1.4.0"</span>}})
+(add-libs {'<span style="color: #000000;">factual</span>/geo {<span style="color: #696969;">:</span><span style="color: #000000;">mvn</span><span style="color: #000000; background-color: #ffffff;">/</span><span style="color: #696969;">version</span> <span style="color: #000000;">"3.0.1"</span>}})
+(add-libs {'<span style="color: #000000;">com.github.jai-imageio</span>/jai-imageio-core {<span style="color: #696969;">:</span><span style="color: #000000;">mvn</span><span style="color: #000000; background-color: #ffffff;">/</span><span style="color: #696969;">version</span> <span style="color: #000000;">"1.4.0"</span>}})
+(add-libs {'<span style="color: #000000;">clj-curl</span>/clj-curl {<span style="color: #696969;">:</span><span style="color: #000000;">mvn</span><span style="color: #000000; background-color: #ffffff;">/</span><span style="color: #696969;">version</span> <span style="color: #000000;">"1.1.2"</span>}})
+(add-libs {'<span style="color: #000000;">guru.nidi.com.kitfox</span>/svgSalamander {<span style="color: #696969;">:</span><span style="color: #000000;">mvn</span><span style="color: #000000; background-color: #ffffff;">/</span><span style="color: #696969;">version</span> <span style="color: #000000;">"1.1.3"</span>}})
+(add-libs {'<span style="color: #000000;">batik-rasterize</span>/batik-rasterize {<span style="color: #696969;">:</span><span style="color: #000000;">mvn</span><span style="color: #000000; background-color: #ffffff;">/</span><span style="color: #696969;">version</span> <span style="color: #000000;">"0.1.2"</span>}
+           '<span style="color: #000000;">xerces</span>/xerces {<span style="color: #696969;">:</span><span style="color: #000000;">mvn</span><span style="color: #000000; background-color: #ffffff;">/</span><span style="color: #696969;">version</span>  <span style="color: #000000;">"2.4.0"</span>}
+           '<span style="color: #000000;">org.apache.xmlgraphics</span>/batik-transcoder {<span style="color: #696969;">:</span><span style="color: #000000;">mvn</span><span style="color: #000000; background-color: #ffffff;">/</span><span style="color: #696969;">version</span>  <span style="color: #000000;">"1.14"</span>}
+           '<span style="color: #000000;">org.apache.xmlgraphics</span>/batik-codec {<span style="color: #696969;">:</span><span style="color: #000000;">mvn</span><span style="color: #000000; background-color: #ffffff;">/</span><span style="color: #696969;">version</span>  <span style="color: #000000;">"1.10"</span>}
+           '<span style="color: #000000;">org.apache.xmlgraphics</span>/batik-anim {<span style="color: #696969;">:</span><span style="color: #000000;">mvn</span><span style="color: #000000; background-color: #ffffff;">/</span><span style="color: #696969;">version</span>  <span style="color: #000000;">"1.10"</span>}
+           '<span style="color: #000000;">org.apache.xmlgraphics</span>/xmlgraphics-commons {<span style="color: #696969;">:</span><span style="color: #000000;">mvn</span><span style="color: #000000; background-color: #ffffff;">/</span><span style="color: #696969;">version</span>  <span style="color: #000000;">"2.3"</span>}})
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-clojure"><span style="color: #8b0000;">;; </span><span style="color: #8b0000;">Add them to the default ~user~ namespace</span>
+(require '[clojure.java.io <span style="color: #696969;">:as</span> io]
+         '(thi.ng.geom [core <span style="color: #696969;">:as</span> geom]
+                       [matrix <span style="color: #696969;">:as</span> matrix])
+         '[thi.ng.geom.viz.core <span style="color: #696969;">:as</span> viz]
+         '[thi.ng.geom.svg.core <span style="color: #696969;">:as</span> svg]
+         '[thi.ng.math.core <span style="color: #696969;">:as</span> math]
+         '[thi.ng.ndarray.core <span style="color: #696969;">:as</span> ndarray]
+         '[thi.ng.color.core <span style="color: #696969;">:as</span> col]
+         '[thi.ng.math.noise <span style="color: #696969;">:as</span> noise]
+         '[clj-curl.easy <span style="color: #696969;">:as</span> curl-easy]
+         '[clj-curl.opts <span style="color: #696969;">:as</span> curl-opts]
+         '[batik.rasterize <span style="color: #696969;">:as</span> batik])
+(use 'geo.io)
+(use 'geo.jts)
+(use '[uncomplicate.neanderthal core native])
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org01126ee" class="outline-3">
+<h3 id="org01126ee">SVG Utils</h3>
+<div class="outline-text-3" id="text-org01126ee">
+<p>
+A few helper functions for diplaying things in org
+</p>
+<div class="org-src-container">
+<pre class="src src-clojure">(<span style="color: #000000;">defn</span> <span style="color: #000000; background-color: #ffffff;">svg2org</span>
+  <span style="color: #8b0000;">"Takes the SVG hiccup,</span>
+<span style="color: #8b0000;">      - Serializes it to XML</span>
+<span style="color: #8b0000;">      - Breaks it up along XML nodes</span>
+<span style="color: #8b0000;">      - outputs as symbols that can be output to org</span>
+<span style="color: #8b0000;">    The result can then be exported to HTML"</span>
+  [svg-hiccup]
+  (<span style="color: #000000;">-&gt;</span> svg-hiccup
+      <span style="color: #000000;">svg</span>/serialize
+      (#(<span style="color: #000000;">clojure.string</span>/replace <span style="color: #000000;">%</span>
+                                #<span style="color: #000000;">"&gt;&lt;"</span>
+                                <span style="color: #000000;">"&gt;</span><span style="color: #000000; font-weight: bold;">\n</span><span style="color: #000000;">&lt;"</span>))
+      symbol))
+
+(<span style="color: #000000;">defn-</span> <span style="color: #000000; background-color: #ffffff;">render-with-svgsalamander</span>
+[region
+svg-xml-string]
+  (<span style="color: #000000;">let</span> [[lat-range 
+         lon-range] (region-ranges region)
+        universe (<span style="color: #000000;">com.kitfox.svg.SVGCache</span>/getSVGUniverse)
+        uri (.loadSVG universe
+                      (java.io.StringReader. svg-xml-string)
+                      <span style="color: #000000;">"unused-placeholder"</span>)
+        diagram (.getDiagram universe uri)
+        buffered-image (java.awt.image.BufferedImage.
+                        (* lon-range
+                           100) <span style="color: #8b0000;">;; </span><span style="color: #8b0000;">width</span>
+                        (* lat-range
+                           100) <span style="color: #8b0000;">;; </span><span style="color: #8b0000;">height</span>
+                        <span style="color: #000000;">java.awt.image.BufferedImage</span>/TYPE_4BYTE_ABGR)
+        graphics-2d (.createGraphics buffered-image)]
+    (.setRenderingHint graphics-2d
+                       <span style="color: #000000;">java.awt.RenderingHints</span>/KEY_ANTIALIASING
+                       <span style="color: #000000;">java.awt.RenderingHints</span>/VALUE_ANTIALIAS_ON)
+    (.render diagram graphics-2d)
+    (.removeDocument universe
+                     uri)
+    buffered-image))
+
+(<span style="color: #000000;">defn-</span> <span style="color: #000000; background-color: #ffffff;">render-with-batik</span>
+[region
+svg-xml-string]
+(<span style="color: #000000;">-&gt;</span> svg-xml-string
+    (<span style="color: #000000;">batik</span>/render-svg-string <span style="color: #000000;">"batik-rendered.png"</span>
+                                       {<span style="color: #696969;">:type</span> <span style="color: #696969;">:png</span>})))
+
+(<span style="color: #000000;">defn</span> <span style="color: #000000; background-color: #ffffff;">render-as-buffered-image</span>
+  <span style="color: #8b0000;">"Given an SVG string, return a native Java BufferedImage</span>
+<span style="color: #8b0000;">  ie. java.awt.image.BufferedImage"</span>
+  [region
+   svg-xml-string]
+  #_<span style="color: #8b0000;">(println svg-xml-string)</span>
+  (<span style="color: #000000;">let</span> [[lat-range 
+         lon-range] (region-ranges region)
+        universe (<span style="color: #000000;">com.kitfox.svg.SVGCache</span>/getSVGUniverse)
+        uri (.loadSVG universe
+                      (java.io.StringReader. svg-xml-string)
+                      <span style="color: #000000;">"unused-placeholder"</span>)
+        diagram (.getDiagram universe uri)
+        buffered-image (java.awt.image.BufferedImage.
+                        (* lon-range
+                           100) <span style="color: #8b0000;">;; </span><span style="color: #8b0000;">width</span>
+                        (* lat-range
+                           100) <span style="color: #8b0000;">;; </span><span style="color: #8b0000;">height</span>
+                        <span style="color: #000000;">java.awt.image.BufferedImage</span>/TYPE_4BYTE_ABGR)
+        graphics-2d (.createGraphics buffered-image)]
+    (.setRenderingHint graphics-2d
+                       <span style="color: #000000;">java.awt.RenderingHints</span>/KEY_ANTIALIASING
+                       <span style="color: #000000;">java.awt.RenderingHints</span>/VALUE_ANTIALIAS_ON)
+    (.render diagram graphics-2d)
+    (.removeDocument universe
+                     uri)
+    buffered-image))
+</pre>
+</div>
+
+<pre class="example">
+#'user/svg2org#'user/render-with-batikclass clojure.lang.Compiler$CompilerExceptionclass clojure.lang.Compiler$CompilerExceptionclass clojure.lang.Compiler$CompilerExceptionclass clojure.lang.Compiler$CompilerExceptionSyntax error compiling at (*cider-repl Projects/rocks:localhost:41185(clj)*:19:21).
+Unable to resolve symbol: region-ranges in this context
+Syntax error compiling at (*cider-repl Projects/rocks:localhost:41185(clj)*:54:21).
+Unable to resolve symbol: region-ranges in this context
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org59b315b" class="outline-2">
+<h2 id="org59b315b">Intro</h2>
+<div class="outline-text-2" id="text-org59b315b">
+<p>
+What differentiates the study of atmospheric and ocean circulation from our physics class study of fluid dynamics?
+</p>
+</div>
+
+<div id="outline-container-org14db3e3" class="outline-3">
+<h3 id="org14db3e3">Primary Driver is Temperature</h3>
+<div class="outline-text-3" id="text-org14db3e3">
+<p>
+In a physics class when we look at eddies/vortices in a fluid - they are driven by kinetics and conservation of energy. Turbulence is a mechanical property of the fluid moving around objects
+</p>
+
+<p>
+The fundamentally simplifying assumption is that the density of the fluid is a function of the pressure <br>
+&rho; = &rho;(p)
+</p>
+
+<p>
+While this holds on the small scale - on the scale of the climate and ocean circulation this assumption quickly falls apart. We need to extend the relationship to include temperature <br>
+&rho; = &rho;(p,T)
+</p>
+
+<p>
+In fact temperature is the primary driver behind the dynamics and mixing in the oceans and atmosphere. The warm fluids are more boyant - so they rises and you get convection. This is known as <i>Geophysical Fluid Dynamics</i> (GFD)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org94e6f68" class="outline-3">
+<h3 id="org94e6f68">Rotating Sphere</h3>
+<div class="outline-text-3" id="text-org94e6f68">
+<p>
+The second distinguishing feature is that we are working on the surface of a spining sphere and the fluids are being compressed gravitationally. The spining is a relevant factor b/c atmospheric and oceanic phenomena are happening on the order of thousands of kilometers - and the radius of the Earth is ~6000km
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb510327" class="outline-3">
+<h3 id="orgb510327">Multigas system</h3>
+<div class="outline-text-3" id="text-orgb510327">
+<p>
+At least when it comes to the atmosphere, you have multiple gases working semi-independently. <b>Dalton's Law of Partal Pressures</b> tells us that the total pressure of a gas is equal to the sum of the partial pressures of it's constituents.
+</p>
+
+<blockquote>
+<p>
+p = p<sub>d</sub> + e<br>
+e <i>partial pressure of water vapor</i><br>
+p<sub>d</sub> <i>partial pressure of water vapor</i>
+</p>
+</blockquote>
+<p>
+For instance most of the heat transfer in the atmosphere is happening thanks to the transfer of energy by moisture. However as a percent-by-volume water vapor is a very small fraction of the atmospheric gas.
+</p>
+
+<p>
+The dry air component and vapor component can be treated as both obeying the <b>perfect gas law</b>
+</p>
+<blockquote>
+<p>
+p = &rho;R<sub>g</sub>/m<sub>a</sub> T = &rho; RT<br>
+R_[g} = 8.3143 KK<sup>-1</sup>mol<sup>-1</sup> .. <i>universal gas constant</i>
+R = R<sub>g</sub>/m<sub>a</sub> = 287Kkg<sup>-1</sup>K<sup>-1</sup> .. <i>for dry air .. where</i> m<sub>a</sub> = 28.97
+</p>
+</blockquote>
+
+<p>
+The saturation vapor pressure over water is however a function of the temperature following the <b>Clausius Clapeyron relationship</b>
+</p>
+<blockquote>
+<p>
+e<sub>s</sub> = Ae<sup>&beta;T</sup><br>
+A = 6.11 hPa<br>
+&beta; = 0.067&deg;C<sup>-1</sup>
+</p>
+</blockquote>
+<p>
+In summary the amount of water in the atomosphere heavily changes exponentially with the temperature. So warms areas of the Earth have exponentially more moisture (and hence can transport exponentially more heat)
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org465ec91" class="outline-2">
+<h2 id="org465ec91">Global Energy Balance</h2>
+<div class="outline-text-2" id="text-org465ec91">
+</div>
+<div id="outline-container-org0f92ee9" class="outline-3">
+<h3 id="org0f92ee9">The Sun</h3>
+<div class="outline-text-3" id="text-org0f92ee9">
+<p>
+Emits <i>3.87 &times; 10<sup>26</sup> W</i> of power<br>
+</p>
+
+<p>
+The flux of solar energy at the Earth depends on the Earth-Sun distance <i>r</i> : <i>S<sub>0</sub> = Q/4&pi;r<sup>2</sup></i>. While the distance <i>r</i> varies around 150&times;10<sup>9</sup> - it's not by a lot. On average <i>S_[0}= 1367W/m<sup>2</sup></i>
+</p>
+
+<p>
+The Earth's crossectional area is <i>&pi;a<sup>2</sup></i> where <i>a</i> is the radius of the Earth. The total incident solar radiation is  <i>1.74 &times; 10<sup>17</sup></i>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org096015d" class="outline-3">
+<h3 id="org096015d">Solar Flux</h3>
+<div class="outline-text-3" id="text-org096015d">
+<p>
+This strikes the disk of the Earth for a total of <i>S<sub>0</sub>&pi;a<sup>2</sup></i> W. But it then reradiates out over the whole surface of the sphere of the Earth - <i>4&pi;a<sup>2</sup></i>.
+</p>
+
+<p>
+At equilibrium the Earth on average naturally reradiates as much as strikes it (otherwise it'd get colder and colder or hotter and hotter over time). The average <b>solar flux</b> per unit area is then
+</p>
+
+<blockquote>
+<p>
+(S<sub>0</sub>&pi;a<sup>2</sup>)/(4&pi;a<sup>2</sup>)<br>
+S<sub>0</sub>/4
+</p>
+</blockquote>
+</div>
+</div>
+
+
+<div id="outline-container-org10caee8" class="outline-3">
+<h3 id="org10caee8">Albedo</h3>
+<div class="outline-text-3" id="text-org10caee8">
+<p>
+A fraction of this incoming energy is reflected away (the albedo) - depending on the surface type. Expressed as a percentage
+</p>
+
+<ul class="org-ul">
+<li>Ocean 2-10%</li>
+<li>Forest 6-18 %</li>
+<li>Soil 10-20 %</li>
+<li>Desert 35-45 %</li>
+<li>Snow 40-95%</li>
+</ul>
+
+<p>
+On average it's about 30% (the <b>planetary albedo</b> - <i>&alpha;</i>). So the total energy absorption of Earth will be:
+</p>
+
+<blockquote>
+<p>
+(1-&alpha;)&times;S<sub>0</sub>&pi;a<sup>2</sup> <br>
+(1-0.3)* 1.74 &times; 10<sup>17</sup> <br>
+1.22 &times; 10<sup>17</sup> W
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org2b30d4c" class="outline-3">
+<h3 id="org2b30d4c">Black body radiation</h3>
+<div class="outline-text-3" id="text-org2b30d4c">
+<p>
+The Earth is at some temperature <i>T<sub>e</sub></i>. The Stefan-Boltzmann law tells us about how much a black body emits at a given temperature
+</p>
+<blockquote>
+<p>
+<b>Stefan-Boltzmann law</b><br>
+&sigma;T<sub>e</sub><sup>4</sup><br>
+<i>where</i> &sigma; = 5.67 &times; 10<sup>-8</sup> Wm<sup>-2</sup>K<sup>-4</sup>
+</p>
+</blockquote>
+
+<p>
+We treat the the Earth is a sphere radiating out equally in all directions giving a total radiation emitted as  <i>4&pi;a<sup>2</sup>&sigma;T<sub>e</sub><sup>4</sup></i>
+</p>
+
+<p>
+However, at equilibrium the Earth must radiate as much energy as it absorbs (otherwise it would keep building up heat or cold). So <i>1.22 &times; 10<sup>17</sup> W</i> must radiate out. Combing the radiation equation with the total we can solve for the Earth's <b>emission temperature</b> <i>T<sub>e</sub></i>
+</p>
+
+<p>
+<i>T<sub>e</sub> = [ S<sub>0</sub>(1-&alpha;) / 4&sigma; ]<sup>1/4</sup> = 255K</i>
+</p>
+
+<p>
+<b>Wein's displacement law</b> gives us a handy tool to find the blackbody radiation peak wavelength
+</p>
+<blockquote>
+<p>
+<b>Wein's Displacement Law</b>
+&lambda;<sub>m</sub>T = <i>constant</i>
+</p>
+</blockquote>
+<p>
+So for instance b/c the sun has en emission peak of 14&micro;m and a temp of 6000K. Then the Earth at  temperature of 255K has en emission of <i>0.6&micro;m &times; 6000/255 = 14&micro;m</i>. This is very much in the infrared and doesn't overlap with the sun' emission much at all
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7064aec" class="outline-3">
+<h3 id="org7064aec">Greenhouse effect</h3>
+<div class="outline-text-3" id="text-org7064aec">
+<p>
+The atmosphere however is pretty opaque to IR so the Earth's black body gets absorbed in large part (primarily by H<sub>2</sub>O) and reradiated at altitude .. at around 5km (above this there is little moisture). So the Earth's "emission temperature" <i>T<sub>e</sub></i> is really the temperature of the atmosphere at 5km. This emission goes both outwards towards space, and downward back to the ground - making the ground warmer (than if there was no atmosphere at all)
+</p>
+</div>
+
+<div id="outline-container-org485d81f" class="outline-4">
+<h4 id="org485d81f">Simply opaque model</h4>
+<div class="outline-text-4" id="text-org485d81f">
+<p>
+The simplest greenhouse models is to assume all of the incoming light from the sun strikes the Earth. And all of the Earth's black body IR radiation is absorbed by the atmosphere. 
+</p>
+
+<blockquote>
+<dl class="org-dl">
+<dt>T<sub>s</sub></dt><dd>temperature of the surface of Earth</dd>
+<dt>T<sub>a</sub></dt><dd>temperature of the atmosphere (that then re-radiated out to space)</dd>
+</dl>
+</blockquote>
+
+<p>
+Since from the outside you'd only see the radiation of the atmosphere, the Earth's emission temperature must equal to the atmospheric emission temperature <i>T<sub>e</sub> == T<sub>a</sub></i>. Furthermore, the incoming absorbed <b>solar flux</b> must equal to the energy emitted by the planet. However since the atmosphere is opaque, it's the only emitter, hence <i>(1-&alpha;)S<sub>0</sub>/4 = &sigma;T<sub>a</sub><sup>4</sup></i> . 
+</p>
+
+<p>
+The atmosphere is emitting this <i>&sigma;T<sub>a</sub><sup>4</sup></i> - both up and down. The downward component will heat the surface along with mentioned <b>solar flux</b> (scaled by the albedo factor <i>(1-&alpha;)</i>)
+</p>
+
+<p>
+Since 
+</p>
+<blockquote>
+<p>
+&sigma;T<sub>a</sub><sup>4</sup> + (1-&alpha;)S<sub>0</sub>/4
+</p>
+</blockquote>
+
+<p>
+And the Earth's surface in turn will reradiate out this energy as black body radiation <i>&sigma;T<sub>s</sub><sup>4</sup></i>. Hence
+</p>
+
+<blockquote>
+<p>
+&sigma;T<sub>a</sub><sup>4</sup> = &sigma;T<sub>a</sub><sup>4</sup> + (1-&alpha;)S<sub>0</sub>/4
+</p>
+</blockquote>
+
+<p>
+Since the atmosphere's emitted flux is equal to the incoming radiation we can subsitute and solve
+</p>
+
+<blockquote>
+<p>
+&sigma;T<sub>a</sub><sup>4</sup> = &sigma;T<sub>a</sub><sup>4</sup> + &sigma;T<sub>a</sub><sup>4</sup> <br>
+&sigma;T<sub>a</sub><sup>4</sup> = 2&sigma;T<sub>a</sub><sup>4</sup> <br>
+T<sub>s</sub> = 2<sup>1/4</sup>T<sub>a</sub>
+</p>
+</blockquote>
+
+
+<p>
+We already calculated the Earth's emission temperature <i>T<sub>e</sub></i> as 255K, and in the opaque model this is equal to the atmosphere temperature - hence <i>T<sub>s</sub>= 255&times;2<sup>1/4</sup> = 303K</i>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5c9b66a" class="outline-4">
+<h4 id="org5c9b66a">Leaky model</h4>
+<div class="outline-text-4" id="text-org5c9b66a">
+<p>
+In reality the atmosphere doesn't block all the black body radiation coming off the surface. So the outgoing energy is both coming from the heat of the atmosphere and some of the blackbody radiation off the surface. It still sums to the total absorbed incoming radiation from the sun - <i>(1-&alpha;)S<sub>0</sub>/4</i>. Note that when the atmosphere absorbs a fraction <i>&epsilon;</i> of the IR coming from the surface then it also emits this same fraction
+</p>
+<blockquote>
+<p>
+<b>Kirchhoff's law</b><br>
+Radiation<sub>atmospheric</sub> = &epsilon;&sigma;T<sub>a</sub><sup>4</sup>
+</p>
+</blockquote>
+
+<p>
+, then we are left with the sum for the top of the atmosphere
+</p>
+<blockquote>
+<p>
+(1-&alpha;)S<sub>0</sub>/4 = Radiation<sub>atmospheric</sub> + Radiation<sub>from-surface-through-atmosphere</sub><br>
+(1-&alpha;)S<sub>0</sub>/4 = &epsilon;&sigma;T<sub>a</sub><sup>4</sup> + (1-&epsilon;)&sigma;T<sub>s</sub><sup>4</sup>
+</p>
+</blockquote>
+<p>
+Again at the surface you have the second contraint - net zero energy. The incoming solar radiation and downward atmospheric radiation equal the resulting surface radiation. (note the last term is slightly different)
+</p>
+<blockquote>
+<p>
+(1-&alpha;)S<sub>0</sub>/4 + Radiation<sub>atmospheric</sub> = Radiation<sub>total-from-surface</sub><br>
+(1-&alpha;)S<sub>0</sub>/4 + &epsilon;&sigma;T<sub>a</sub><sup>4</sup> = &sigma;T<sub>s</sub><sup>4</sup>
+</p>
+</blockquote>
+
+<p>
+Combining the two constraints we get
+</p>
+<blockquote>
+<p>
+&epsilon;&sigma;T<sub>a</sub><sup>4</sup> + (1-&epsilon;)&sigma;T<sub>s</sub><sup>4</sup> = &sigma;T<sub>s</sub><sup>4</sup> - &sigma;T<sub>a</sub><sup>4</sup> <br>
+&epsilon;T<sub>a</sub><sup>4</sup> + (1-&epsilon;)T<sub>s</sub><sup>4</sup> = T<sub>s</sub><sup>4</sup> - T<sub>a</sub><sup>4</sup> <br>
+2&epsilon;T<sub>a</sub><sup>4</sup> = &epsilon;T<sub>s</sub><sup>4</sup> <br>
+&epsilon;T<sub>a</sub><sup>4</sup> = &epsilon;T<sub>s</sub><sup>4</sup>/2 <br>
+T<sub>a</sub> = T<sub>s</sub><sup>4</sup>/2 <br>
+T<sub>a</sub> = (1/2)<sup>1/4</sup> T<sub>s</sub>
+</p>
+</blockquote>
+
+<p>
+So T<sub>a</sub> &lt; T<sub>s</sub> - always! And indepent of <i>&epsilon;</i>
+</p>
+
+<p>
+And in terms of the incoming raditation
+</p>
+<blockquote>
+<p>
+(1-&alpha;)S<sub>0</sub>/4 = &epsilon;&sigma;T<sub>a</sub><sup>4</sup> + (1-&epsilon;)&sigma;T<sub>s</sub><sup>4</sup> <br>
+(1-&alpha;)S<sub>0</sub>/4 = &epsilon;&sigma;[(1/2)<sup>1/4</sup> T<sub>s</sub>]<sup>4</sup> + (1-&epsilon;)&sigma;T<sub>s</sub><sup>4</sup><br>
+(1-&alpha;)S<sub>0</sub>/4 = &epsilon;&sigma;(1/2)T<sub>s</sub><sup>4</sup> + (1-&epsilon;)&sigma;T<sub>s</sub><sup>4</sup> <br>
+(1-&alpha;)S<sub>0</sub>/4 = [ (&epsilon;/2)+ 2/2 -2&epsilon;/2) ] &sigma;T<sub>s</sub><sup>4</sup> <br>
+(1-&alpha;)S<sub>0</sub>/4 = [ (2-&epsilon;)/2 ] &sigma;T<sub>s</sub><sup>4</sup> <br>
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-orgf6f12ce" class="outline-4">
+<h4 id="orgf6f12ce">Feedback</h4>
+<div class="outline-text-4" id="text-orgf6f12ce">
+<p>
+While these models are very simplified b/c it's more accurate to say there are many layers and a lot of heat transfer happens due to dynamic convection (and not this radiation) - they do give us a general relationship
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org476d48e" class="outline-2">
+<h2 id="org476d48e">Vertical Structure</h2>
+<div class="outline-text-2" id="text-org476d48e">
+</div>
+<div id="outline-container-org76240fa" class="outline-3">
+<h3 id="org76240fa">Layers</h3>
+<div class="outline-text-3" id="text-org76240fa">
+<p>
+The top of the atomosphere is the <b>thermosphere</b>. This region is very short wavelength UV. At the outer reaches the UV is high enough energy to cause <i>photoionization</i> which creates the <b>ionosphere</b>.  Other short wave UV is absorbed by <i>O<sub>2</sub></i> superheating the air up to as much as 2000C. The air here doesn't really behave like a normal gas b/c it's so thin. As this short wave UV is absorbed the effect diminishes and there is a temperature minimum known as the <b>mesopause</b>. 
+</p>
+
+<p>
+The ionization of <i>photolysis</i> can break O<sub>2</sub> bonds and will generate ozone, O<sub>3</sub>,  at these high level. And this ozone is then found at higher and higher partial pressure going down. Ozone absorbs longer wave UV - leading to hotter and hotter temperatures going downward. This reaches a new maximum at the <b>stratopause</b>. Note that this absorption maximum doesn't occur at the actual ozone maximum. The partial pressure of ozone reaches a maximum much lower, but b/c by the ozone maximum most of the UV has already been absorbed the temperature maximum is much higher up.
+</p>
+
+<p>
+Nonetheless, this zone with still-absorbing ozone forms a huge layer called the <b>stratosphere</b>. It shields the surface from harmful ionizing radiation. It also is very stratified and doesn't mix much. Particles ejected into it will have long residence times (ex: from volcanoes)
+</p>
+
+<p>
+The ozone heating reach a minimum at the <b>tropopause</b> and below this we have the <b>troposphere</b> - which contains 85% of the mass of the atmosphere and almost all water vapor (the primary greenhouse gas). The moisture is really mostly in the lower bounds as it's very temperature sensitive (due to the <i>Clausius Clayperon relationship</i>). Using the previous radiative equilibrium profile for this area would give a very wrong temperature profile b/c this area is strongly controlled by convections
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga111b73" class="outline-3">
+<h3 id="orga111b73">Pressure</h3>
+<div class="outline-text-3" id="text-orga111b73">
+<p>
+If you look at a static slice of a cylinder of air. It's not moving up or down and hence it's in equilibrium and the net force on the cylinder must be zero. 
+</p>
+<blockquote>
+<dl class="org-dl">
+<dt>Gravity on the block of air</dt><dd>-gM = -g&rho;&delta;A&delta;z</dd>
+<dt>Pressure on top surface</dt><dd>p(z + &delta;z) &rarr; p(z) + &delta;p &rarr; -(p(z) + &delta;&rho;) &delta;A</dd>
+<dt>Pressure on bottom surface</dt><dd>p(z)&delta;A<br></dd>
+</dl>
+<p>
+<i>These add up to zero</i><br>
+0 = -g&rho;&delta;A&delta;z - (p(z) + &delta;&rho;) &delta;A + p(z)&delta;A<br>
+0 = &part;p/&part;z + g&rho;
+</p>
+</blockquote>
+<p>
+This is the equation of <b>hydrostatic balance</b>. From the <i>perfect gas law</i> we know that
+</p>
+<blockquote>
+<p>
+p = &rho;RT(z) <br>
+&part;p/&part;z = -gp/RT(z)' <br>
+&part;p/&part;zp = -g/RT(z)' <br>
+&part;lnp/&part;z = -g/RT(z)' .. <i>b/c</i> &part;x/x = &part;ln(x) <br>
+&part;lnp = -&part;zg/RT(z)' <br>
+<i>integrate both sides</i>
+lnp =  &int;<sub>0</sub><sup>z</sup>&part;z'g/RT(z') + constant <br>
+p(z) = p<sub>s</sub>exp(-&int;<sub>0</sub><sup>z</sup> dz'g/RT(z'))
+</p>
+</blockquote>
+<p>
+If you assume a constant temperature <i>T(z) = T<sub>0</sub></i> then this simplifies to an exponential <i>p(z)=p<sub>s</sub>e<sup>-zg/RT<sub>0</sub></sup></i> . Often this simplifying assumption is okay.
+</p>
+
+<p>
+You can reuse the ideal gas law to reexpress these in terms of changes of density
+</p>
+<blockquote>
+<dl class="org-dl">
+<dt>Constant T - T<sub>0</sub></dt><dd></dd>
+</dl>
+<p>
+&rho;(z) = [p<sub>s</sub>/RT<sub>0</sub>] e<sup>-zg/RT<sub>0</sub></sup>
+</p>
+<dl class="org-dl">
+<dt>Variable T - T(z)</dt><dd></dd>
+</dl>
+<p>
+&rho;(z) = [p<sub>s</sub>/RT(z)] e<sup>-&int;<sub>0</sub><sup>2</sup>-dz'g/RT(z)</sup>
+</p>
+</blockquote>
+<p>
+A consequence of these two relationships is that most of the atmospheric mass is at the very bottom - near the surface
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org949bc77" class="outline-2">
+<h2 id="org949bc77">Convection</h2>
+<div class="outline-text-2" id="text-org949bc77">
+<p>
+If you have a dense layer above a less dense one then you have an unstable setup where you will sometimes get convection. Convection in incompressibly fluids (like the ocean) is simpler than in a compressible like the air.
+</p>
+</div>
+
+<div id="outline-container-org215a9da" class="outline-3">
+<h3 id="org215a9da">In Water</h3>
+<div class="outline-text-3" id="text-org215a9da">
+<p>
+We start with the simpler incompressible case. We look at a small chunk of water. It is getting pulled downward by gravity but also being pushed up by the parcel below it. Its buoyancy is:
+</p>
+<blockquote>
+<p>
+b = -g(&rho;<sub>p</sub> - &rho;<sub>e</sub>{})/&rho;<sub>p</sub>\\ <i>.. page 34. Unclear how this is derived!</i>
+</p>
+</blockquote>
+<p>
+If <i>&rho;<sub>p</sub> &lt; &rho;<sub>e</sub>{}</i> then it's positively boyant and rises, otherwise it's negatively boyant and sinks.
+</p>
+
+<p>
+An easier way to look at the movement of the parcel is look at the potential energy ( <i>U = mvh</i> ). Imagine it exchanging positions with another parcel below it. At the start their cumulative energies will be 
+</p>
+<blockquote>
+<p>
+PE<sub>initial</sub> = g&rho;<sub>1</sub>z<sub>1</sub> + g&rho;<sub>2</sub>z<sub>2</sub><br>
+PE<sub>initial</sub> = g(&rho;<sub>1</sub>z<sub>1</sub> + &rho;<sub>2</sub>z<sub>2</sub>)
+</p>
+</blockquote>
+<p>
+If they exchange positions then the energy becomes
+</p>
+<blockquote>
+<p>
+PE<sub>new</sub> = g(&rho;<sub>1</sub>z<sub>2</sub> + &rho;<sub>2</sub>z<sub>1</sub>)
+</p>
+</blockquote>
+<p>
+If the change in energy is positive then some of the potential energy has converted to kinetic and the parcels will exchange. Otherwise they won't
+</p>
+<blockquote>
+<p>
+PE<sub>new</sub> - PE<sub>initial</sub> = -g(&rho;<sub>1</sub>z<sub>2</sub> + &rho;<sub>2</sub>z<sub>1</sub> - &rho;<sub>1</sub>z<sub>1</sub> - &rho;<sub>2</sub>z<sub>2</sub>)<br>
+PE<sub>new</sub> - PE<sub>initial</sub> = -g(&rho;<sub>2</sub> - &rho;<sub>1</sub>)(z<sub>2</sub> - z<sub>1</sub>)<br>
+</p>
+</blockquote>
+<p>
+We can rewrite this in terms of the density gradient <i>d&rho;/dz</i> (ie. how fast the density is changing)
+</p>
+<blockquote>
+<p>
+<i>since..</i><br>
+d&rho;/dz = (&rho;<sub>2</sub> - &rho;<sub>1</sub>)/(z<sub>2</sub> - z<sub>1</sub>)<br>
+PE<sub>new</sub> - PE<sub>initial</sub> = -g(d&rho;/dz)(z<sub>2</sub> - z<sub>2</sub>)<sup>2</sup><br>
+</p>
+</blockquote>
+<p>
+So as long as the density gradient is positive, potential energy will turn to kinetic and you get convective flow
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7634910" class="outline-3">
+<h3 id="org7634910">Dry Convection in Air</h3>
+<div class="outline-text-3" id="text-org7634910">
+<p>
+The complication in air is that when your air parcels exchange places they can undergo undergo a change in pressure which leads to adiabatic cooling/heating. So your lighter parcel will float up, but then expand, cool, and sink down. So there is a built-in resistance in the system. To calculate we start with the <b>First Law of Thermodynamics</b>
+</p>
+<blockquote>
+<p>
+&delta;Q = dU + dW<br>
+</p>
+<dl class="org-dl">
+<dt>dU</dt><dd>change in Energy<br></dd>
+<dt>dW</dt><dd>external work done</dd>
+</dl>
+</blockquote>
+<p>
+In our case we know both terms
+</p>
+<blockquote>
+<p>
+&delta;Q = c<sub>v</sub>dT + p dV
+</p>
+</blockquote>
+<p>
+We choose some starting volume and solve for the change in volume in terms of pressure and density
+</p>
+<blockquote>
+<p>
+&rho;V=1<br>
+V= 1 / &rho;<br>
+dV = d(1 / &rho;)<br>
+dV = - 1 / &rho;<sup>2</sup> d&rho;
+</p>
+</blockquote>
+<p>
+Now we can rewrite the First Law
+</p>
+<blockquote>
+<p>
+&delta;Q = c<sub>v</sub>dT - p / &rho;<sup>2</sup> d&rho;
+</p>
+</blockquote>
+<p>
+But we can also use the perfect gas law to eliminate the pressure term <i>d&rho;</i>. Using..
+</p>
+<blockquote>
+<p>
+p = &rho;RT
+dp = RTd&rho; + &rho;RdT .. <i>differentiating by parts</i>
+d&rho; = dp/RT - &rho;RdT/RT
+d&rho; = dp/RT - &rho;dT/T
+</p>
+</blockquote>
+<p>
+we rewrite again the first law as
+</p>
+<blockquote>
+<p>
+&delta;Q = c<sub>v</sub>dT - (p / &rho;<sup>2</sup>) (dp/RT - &rho;dT/T)<br>
+&delta;Q = c<sub>v</sub>dT + pdp/RT&rho;<sup>2</sup> - pdT/&rho;T
+</p>
+</blockquote>
+<p>
+Again subsituting the perfect gas law, for <i>p = &rho;RT</i>
+</p>
+<blockquote>
+<p>
+&delta;Q = c<sub>v</sub>dT - dp/&rho; - RdT
+&delta;Q = (c<sub>v</sub>-R)dT - dp/&rho;
+</p>
+</blockquote>
+<p>
+If the system is adiabatic then no energy is added or leaves, so <i>&delta;Q = 0</i>
+</p>
+<blockquote>
+<p>
+(c<sub>v</sub>-R)dT = dp/&rho;
+</p>
+</blockquote>
+<p>
+Furthermore, remember the equilibrium air column, we know that <i>dp = -g&rho;<sub>E</sub>dz</i> so
+</p>
+<blockquote>
+<p>
+(c<sub>v</sub>-R)dT = -g&rho;<sub>E</sub>dz/&rho;
+dT/dz = -g/(c<sub>v</sub>+R)
+</p>
+</blockquote>
+<p>
+And we have a final equation of how a parcel's temperature changes with altitude when it moves adiabatically. This is the <b>dry adiabatic lapse rate</b> - <i>&Gamma;<sub>d</sub></i>
+</p>
+
+<p>
+The value <i>c<sub>v</sub>+R</i> is the <b>specific heat at constant pressure</b> (written as <i>c<sub>p</sub></i>) and for air it's <i>1005 J kg<sup>-1</sup>K<sup>-1</sup></i>. So the <i>&Gamma;<sub>d</sub> &asymp; 10Kkm<sup>-1</sup></i>
+</p>
+
+<p>
+So now if you look at a parcel of air, you need to see how it's <i>dT/dz</i> changes relative to the adiabatic lapse rate. If the temperature drops faster than the lapse rate then your parcel is in an unstable arrangement and you will likely get convection. 
+</p>
+
+<p>
+On a larger scale, this means you can have colder air layers over warmer ones without getting an overturn - as long as the temperature difference is below the lapse rate
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgae98ff1" class="outline-3">
+<h3 id="orgae98ff1">Potential Temperature</h3>
+<div class="outline-text-3" id="text-orgae98ff1">
+<p>
+As a consequence comparing temperatures of gasses becomes complicate b/c they are under different pressures. The solution is to "normalize" temperatures to a constant pressure - called the <b>potential temperature</b>. Conceptually this is the temperature of a parcel of air if it were brought down to a fixes pressure (conventionally the surface of the earth - <i>1000mbar</i>)
+</p>
+<blockquote>
+<p>
+<b>Potential Temperature</b>:<br>
+&theta; = T (p<sub>0</sub>/p)<sup>k</sup><br>
+<i>where</i> k = R/c<sub>p</sub> = R/(c<sub>v</sub>-R) = 2/7 <i>.. for any perfect diatomic gas</i>
+</p>
+</blockquote>
+<p>
+We derive this by manipulating the First Law of Thermodynamics and the perfect gas law <i>p=&rho;RT</i>. As we saw previously
+</p>
+<blockquote>
+<p>
+&delta;Q = &delta;Energy + \delata{}Work
+&delta;Q = (c<sub>v</sub>-R)dT - dp/&rho;<br>
+<i>substitute ..</i> &rho; = p/RT<br>
+&delta;Q = (c<sub>v</sub>-R)dT - RTdp/&rho;<br>
+<i>Now if we assume no change in energy - ie. adiabatic changes and</i> &delta;Q=0 <br>
+dT/T = (R/(c<sub>v</sub>-R)) dp/p <i>/
+/sub calc identity</i> dx/x = dlnx<br>
+lnT = (R/(c<sub>v</sub>-R)) dlnp <i>/
+T =  p<sup>(R/(c<sub>v</sub>-R))</sup> + constant /</i>
+T/p<sup>R/(c<sub>v</sub>-R)</sup> = constant //
+</p>
+</blockquote>
+<p>
+So we see that if you have adiabatic movement then <i>T/p<sup>R/(c<sub>v</sub>-R)</sup></i> remains constant. In practic the pressure is re-expressed as a fraction of the surface pressure
+</p>
+<blockquote>
+<p>
+&theta; = T (p<sub>0</sub>/p)<sup>R/(c<sub>v</sub>-R)</sup><br>
+<i>where</i> p<sub>0</sub> = 1000mbar
+</p>
+</blockquote>
+
+<p>
+The term <i>{R/(c<sub>v</sub>-R)}</i> is a constant and is shorted to <i>k</i>. 
+</p>
+
+<p>
+With our new term <i>&theta;</i> we can compare air parcels directly. If an airparcel with a higher <i>potential temperature</i> is below one with a lower <i>potential temperature</i> then it is in an unstable arrangement and the parcel will rise till it reaches a layer with the same <i>potential temperature</i>
+</p>
+
+<p>
+When parcels rise they gain momentum and will "overshoot" the area of equal potential temperature, and then sink back to it. This creates an oscillator of sorts - and like a ripple on the surface of water - this greates <b>gravity waves</b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7d6f765" class="outline-3">
+<h3 id="org7d6f765">Moist Air Convection</h3>
+<div class="outline-text-3" id="text-org7d6f765">
+<p>
+If we now add moisture into the mix then things get a bit more complicated. We describe the moisture in air in terms of serveral parameters
+</p>
+
+<dl class="org-dl">
+<dt>Specific Humidity</dt><dd><i>q</i> - mass of water vapor to mass of air per unit volume</dd>
+</dl>
+<blockquote>
+<p>
+q = &rho;<sub>v</sub>/&rho; <br>
+<i>where..</i> <br>
+&rho;<sub>v</sub> <i>.. vapor mass</i> <br>
+&rho; = &rho;<sub>d</sub> + &rho;<sub>v</sub> <i>.. total air mass</i>
+</p>
+</blockquote>
+
+<dl class="org-dl">
+<dt>Saturation-specific humidity</dt><dd><i>q<sub>*</sub></i> is the humidity at which the the humidity is at a maximum. (ie. <i>&rho;<sub>v</sub></i> is the highest it can be). This maximum is a function of both temperature and pressure.</dd>
+</dl>
+<blockquote>
+<p>
+Using the perfect gas law <i>p=&rho;RT</i> we can also express humidity as a ratio of partial pressures:<br>
+q<sub>* </sub> = &rho;<sub>saturation</sub>/&rho;<sub>dry-air</sub> <br>
+q<sub>* </sub> = p<sub>saturation</sub>/R_[vapor}T] / p<sub>dry-air</sub>/R_[dry-air}T]<br>
+q<sub>* </sub> = (R<sub>vapor</sub>/R_{dry-air]) (p<sub>saturation</sub>/p<sub>dry-air</sub>)
+</p>
+</blockquote>
+<p>
+The trick here is that <i>p<sub>saturation</sub></i> changes exponentially with temperature. So if an air parcel is moved adiabatically to higher altitude, the pressure and temperature (due to expansion) will both decrease. But the exponential drop of the <i>p<sub>saturation</sub></i> term means <i>q<sub>*</sub></i> will decrease
+</p>
+
+<dl class="org-dl">
+<dt>Relative Humidity</dt><dd>is the percent humidity</dd>
+</dl>
+<blockquote>
+<p>
+U = q/q<sub>*</sub> &times; 100
+</p>
+</blockquote>
+
+
+<p>
+As the air parcel is raised, at some point <i>q<sub>*</sub> &gt; q</i>, the relative humidity reaches 100% and water start to condensce out of the air. This is the <i>condensation level z_[c}</i>. Condensation releases energy into the air (b/c of the phase change) which warms the parcel - making the parcel even more bouyant. As before the parcel keeps going up till its temperature and boyancy matches the environment. 
+</p>
+
+<p>
+This condensation in effect offsets the cooling of the pressure drop and means that moist air is less stable and mixes easier than dry air.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org84b367c" class="outline-3">
+<h3 id="org84b367c">Equivalent potential temperature</h3>
+<div class="outline-text-3" id="text-org84b367c">
+<p>
+We can again incorporate and "normalize" a air parcel so that they can be compared even when they're at different pressure and temperatures. We start with the first law and adiabatic motion again (no net energy) - but we add a correction term for the warming (added energy) of the condensation
+</p>
+
+<blockquote>
+<p>
+&delta;Q = &delta;Energy + \delata{}Work
+&delta;Q = [(c<sub>v</sub>-R)dT + Ldq] - dp/&rho;<br>
+</p>
+</blockquote>
+
+<p>
+In the end we can express the <i>equivalent potential temperature - &theta;<sub>e</sub></i> as a function of the <i>potential temperature - &theta;</i> and <i>humidity - q</i>
+</p>
+
+<blockquote>
+<p>
+&theta;<sub>e</sub> = &theta; e<sup>(Lq/c<sub>p</sub>T)</sup><br>
+L <i>.. latent heat of condensation</i>
+</p>
+</blockquote>
+<p>
+When <i>q</i> is zero you get back <i>&theta;</i>
+</p>
+
+<p>
+This terms is used in the same exact way as <i>&theta;</i> - as is the primary term we should be looking at for air convection. Around the tropics, where we have a lot of air rising, &theta;<sub>e</sub>\ is pretty constant with altitude (indicating instability)
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org42937ec" class="outline-2">
+<h2 id="org42937ec">Meridonal structure of the atmosphere</h2>
+<div class="outline-text-2" id="text-org42937ec">
+</div>
+<div id="outline-container-orga77acbd" class="outline-4">
+<h4 id="orga77acbd">Tilt</h4>
+<div class="outline-text-4" id="text-orga77acbd">
+<p>
+If the Earth has no tilt then the poles would recieve no radiation. The tilt ensures that during their respective summer each pole recieves some radiation. This has the cummulative effect of evening out the amount of radiation absorbed by the Earth
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb7e2b99" class="outline-4">
+<h4 id="orgb7e2b99">Sphericity</h4>
+<div class="outline-text-4" id="text-orgb7e2b99">
+<p>
+Due to the Earth's sphericity and the albedo of polar ice/snow, the tropics absorb about &times;6 more radiation than the poles.
+</p>
+
+<p>
+And yet the outgoing radiation doesn't differ by as much. This is due to heat being transported poleward. This happens both through the atmosphere as well as the oceans
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge7d4e67" class="outline-4">
+<h4 id="orge7d4e67">Potential temperature</h4>
+<div class="outline-text-4" id="text-orge7d4e67">
+<p>
+B/c convection is generally driven by moist air, the dry-air convection's <i>potential temperature</i> is generally secondary. Therefore the atmosphere is generally "warmer" in terms of potential temperature as you go up. However, the actual (nonpressure-corrected) temperature decreases (and hence the <i>saturated specific humidity</i>). The potential temperature starts to rapidly change in thin layers once you've reaches the stratosphere
+</p>
+</div>
+</div>
+
+<div id="outline-container-org817ba0b" class="outline-4">
+<h4 id="org817ba0b">Equivalent potential temperature</h4>
+<div class="outline-text-4" id="text-org817ba0b">
+<p>
+The moisture corrected temperature however doesn't change as you look up in altitude when you are in the tropics. This however changes a bit towards the poles. This is due to intense equatorial convection. We can look at the resulting isolines to determine where air can move along adiabatically
+</p>
+</div>
+</div>
+
+<div id="outline-container-org45aac81" class="outline-4">
+<h4 id="org45aac81">Stratosphere</h4>
+<div class="outline-text-4" id="text-org45aac81">
+<p>
+Is deliniated from the troposphere by the tropopause. Due to the equatorial convection, the tropopause is pushed upwards in the tropics - so it does not form a smooth spherical layer. Furthermore there are <i>tropopause gaps</i> where the temperature is warm enough to allow stratosphere air to mix with the upper troposphere air directly (caused by jet streams.. to be revisited..)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga3e790d" class="outline-3">
+<h3 id="orga3e790d">Pressure vs Height</h3>
+<div class="outline-text-3" id="text-orga3e790d">
+<p>
+Pressure is simpler to measure. It is in effect a measure of "the overlying mass burden" (how much air is above a point) and is known as a <i>mass coordinate</i>.
+</p>
+
+<p>
+Of course pressure and height as mutually dependent. As we saw before there is a net zero balance of forces on a static pair parcel. When looking at in terms of densities <i>&rho;</i>
+</p>
+
+<blockquote>
+<p>
+Pressure<sub>below</sub> + Pressure<sub>above</sub> + gravity = 0 <br>
+p&delta;A - (p+&delta;p)&delta;A + &delta;p/&delta;z + g&rho;&delta;A&delta;z = 0 <br>
+&part;p/&part;z + g&rho; = 0 <br>
+</p>
+</blockquote>
+<p>
+Here we can rewrite the density term <i>&rho;</i> in terms of temperature <i>T</i> and pressure <i>p</i> using the perfect gas law <i>p=&rho;RT</i>
+</p>
+<blockquote>
+<p>
+&part;p/&part;z + gp/[RT] = 0 <br>
+</p>
+</blockquote>
+<p>
+Rearranging things a bit 
+</p>
+<blockquote>
+<p>
+&part;z p / &part;p = -g/[RT] <br>
+&part;z / &part;lnp = -g/[RT] <i>.. using the calculus idenity</i> p &part;/&part;p = &part;/&part;lnp<br>
+z(p) = R &int;<sub>p</sub><sup>p<sub>s</sub></sup> [T/g] dp/p
+</p>
+</blockquote>
+<p>
+And we can now calculate the height <i>z</i> of a given pressure "surface"  <i>p</i>. It depends on the average temperature below it (<i>T</i> is a function of <i>p</i> here and needs to be integrated) as well as the surface pressure <i>p<sub>s</sub></i>. The equation assumes a static <i>g</i> - so this kind of calculation will drift from the true height when you are at very high altitudes (ie. mesosphere ~100km)
+</p>
+
+<p>
+In general <i>z</i> and <i>p</i> covary. A low pressure surface corresponds to a lower <i>z</i> height. And generally pressure surfaces are high in the tropics and low at the poles b/c the integral/average of the temperature below a pressure surface is higher in the tropics. Cold air columns contract and warm columns expand.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc501438" class="outline-3">
+<h3 id="orgc501438">Winds</h3>
+<div class="outline-text-3" id="text-orgc501438">
+<p>
+The resulting difference in pressure surface height drives air mass poleward from the tropics and creates winds.
+(However the pressure difference seems to be offset by Coriolis forces)
+</p>
+
+<p>
+One would expect a large "cell" to form where air rises at the equator, moves to the poles, and then falls back to the surface. However this isn't the case. Instead you get two cells (no explanation!) on each hemisphere, with only the tropical cell behaving the way we expect - with the surface winds being towards the equator.
+</p>
+
+<p>
+There is also a <i>zonal-wind</i> (east/west) component. In the tropics winds are westward <b>Easterlies</b>, while away from the tropics they are eastward <b>Westerlies</b>. The East/West divide only roughly corresponds to the overturn cell. So at the surface winds that are towards the equator are generally also westward - but on the graphs there is a bit of a mismatch at altitude.
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

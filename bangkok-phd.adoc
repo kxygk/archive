@@ -1,0 +1,140 @@
+:revealjs_customtheme: ../web/reveal-white.css
+:revealjs_slideNumber: true
+:revealjs_transition: none
+:revealjs_center: true
+:revealjs_disablelayout: true
+:!webfonts:
+
+:imagesdir: ../fig/
+:svg-type: inline
+
+= Tham Murd monitoring project
+
+by George Kontsevich
+
+PhD Student - Advisor: Professor Ludvig Löwemark
+
+Department of Geosciences , National Taiwan University
+
+[.left-align]
+== The complete speleothem ^18^O record
+
+
+_The Asian monsoon over the past 640,000 years and ice age terminations_ *Hai Cheng et al.* Nature (2016)
+image:plot/haicheng-all.svg[]
+
+.*Hypothesis*: In South East China variations in ^18^O are driven by changed in the intensity of the summer monsoon system
+* Synthetic record from multiple speleothems
+* Very high temporal resolution - accurate in both time and amount (^18^O)
+* Spans the full time span available with U-Th dating (~600kyr)
+* ^18^O closely follows insolation (pick your latitude..)
+
+.Outstanding questions..
+0. Are you sure it's a monsoon signal..?
+1. High frequency variations.. noise? signal? what's going on?
+1. How does this look in different locations around Asia?
+2. When speleothem *^18^O* changes, how exactly is the monsoon changing?
+[.left-align]
+
+=== Data zoom
+_The Asian monsoon over the past 640,000 years and ice age terminations_ *Hai Cheng et al.* Nature (2016)
+image:plot/haicheng-zoom.svg[]
+
+
+
+== Study Site: Krabi, Thailand
+
+image:maps/krabi/two-seas-monsoon.svg[]
+
+We get an added twist: A short (~2 month) Winter Monsoon system
+
+[.columns]
+=== Wind Patterns
+[.column]
+--
+image::extr/summer-wind3h10sm.gif[]
+Summer pattern
+--
+
+[.column]
+--
+image::extr/winter-wind3h10sm.gif[]
+Winter pattern
+--
+
+=== Precipitation Patterns
+
+image:imrg/krabi/monthly/year0.svg[]
+One year of monthly precipitation (IMERG satellite data)
+
+[.columns]
+=== Seasonal precipitation differences between coasts
+
+[.column]
+--
+image::imrg/krabi/monthly/bottom-pattern.svg[]
+Summer pattern (dominant in Krabi)
+--
+
+[.column]
+--
+image::imrg/krabi/monthly/top-pattern.svg[]
+Winter pattern (dominant in Khanom)
+--
+
+[.left-align]
+== Two Monsoons on a local scale
+
+image:diag/rain-shadow.svg[]
+
+We could also try to focus in on a very local region
+
+PRO: Close proximity reduces the influence of secondary drivers of precipitation
+
+CON: The &Delta;^18^O between closely spaced caves maybe be too small to detect
+
+[.columns]
+== Monsoon on the cave scale
+
+[.column.has-text-left]
+--
+image:diag/karst-tower.svg[]
+--
+
+[.column.has-text-left]
+--
+image:phot/thammurd/p0a.jpg[]
+
+The karst system acts as a (low pass?) filter on the ^18^O signal we see in precipitation
+--
+
+[.columns]
+=== Equipment
+
+[.column.has-text-left]
+--
+image:outside-sampler.jpg[]
+--
+
+[.column.has-text-left]
+--
+image:inside-gauge.jpg[]
+--
+
+
+[.columns]
+=== Preliminary results
+
+[.column.has-text-left]
+--
+image:temp-results.svg[]
+--
+
+[.column.has-text-left]
+--
+image:inside-sampler.jpg[]
+--
+
+== Future Plans: Two Speleothems
+
+image:diag/karst-2-speleo.svg[]

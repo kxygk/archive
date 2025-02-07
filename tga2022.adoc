@@ -1,0 +1,211 @@
+:revealjs_customtheme: ../web/reveal-white.css
+:revealjs_slideNumber: true
+:revealjs_transition: none
+:revealjs_center: true
+:revealjs_disablelayout: true
+:!webfonts:
+
+:imagesdir: ../fig/
+
+= Climate index generation by spatial SVD
+
+by George Kontsevich
+
+PhD Student - Advisor: Professor Ludvig Löwemark
+
+Department of Geosciences , National Taiwan University
+
+[.columns]
+== Motivation
+
+[.column]
+--
+image:maps/krabi/two-seas.svg[]
+--
+
+[.column%step]
+--
+image:d18O/annual/2011.svg[]
+image:d18O/annual/2012.svg[]
+image:d18O/annual/2013.svg[]
+image:d18O/annual/2014.svg[]
+--
+
+[.columns]
+=== Motivation
+
+[.column]
+--
+image:maps/krabi/two-seas-monsoon.svg[]
+--
+
+[.column]
+--
+image:d18O/annual/2011.svg[]
+image:d18O/annual/2012.svg[]
+image:d18O/annual/2013.svg[]
+image:d18O/annual/2014.svg[]
+--
+
+
+[.columns]
+== The Hawaii method
+
+[.column.has-text-left]
+--
+
+* *Relative Pentad mean rainfall rate* heuristic
+* _RR~i~ = R~i~ - R~JAN~_
+* if _RR~i~ > 5_ then it's a monsoon pentad!
+
+image::extr/hawaii-annual.png[]
+
+Averaging over 20 years we can derive monsoon dates
+
+Onset:: May 5th (25th pentad)
+Peak:: September 27th (54th pentad)
+Withdrawal:: Dec 11th (69th pentad)
+--
+
+[.column.has-text-left]
+--
+image::extr/hawaii-asia.png[]
+_Bin Wang & LinHo 2001_
+
+.*Problems*
+* No distinction between winter/summer monsoons
+* Regions are very large
+* 20 year average
+* Annual variations are destroyed
+* Heuristic uses a magic number (_5_)
+--
+
+[.columns]
+=== Other indeces: ENSO indeces (SLIDE BROKEN)
+
+[.column.has-text-left]
+--
+.*Oceanic Niño Index (ONI)*
+"[..] based on a threshold of +/- 0.5^o^C for the Oceanic Niño Index (ONI) [3 month running mean of ERSST.v5 SST anomalies in the Niño 3.4 region (5^o^N-5^o^S, 120^o^-170^o^W)], based on centered 30-year base periods updated every 5 years."
+
+https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_v5.php
+--
+
+[.column.has-text-left]
+--
+.*Multivariate ENSO Index Version 2*
+
+image:extr/ENSO-anomalies.png[]
+https://www.psl.noaa.gov/enso/mei/
+
+"[..] The schematic is based on the composite anomalies for November-December (ND) drawn from 11 warm events and 11 cold events during 1980-2016."
+--
+
+== How does the rain actually look like?
+
+.*Dataset*
+* *IMERG: Integrated Multi-satellitE Retrievals for GPM*
+* We look at monthly precipitation estimates
+* Region is small enough that dynamics are not too complicated
+
+=== 2011
+image::imrg/krabi/monthly/year0.svg[]
+
+=== 2012
+image::imrg/krabi/monthly/year1.svg[]
+
+=== 2013
+image::imrg/krabi/monthly/year2.svg[]
+
+=== 2014
+image::imrg/krabi/monthly/year3.svg[]
+
+[.columns]
+== Topography drives spatial distribution
+
+[.column]
+image::diag/krabi-two-monsoons.png[]
+
+[.column]
+image::maps/krabi/topo.svg[]
+
+[.columns]
+== Pattern extraction through SVD/PCA
+
+[.column]
+image::imrg/krabi/monthly/sv-0.svg[]
+
+[.column]
+image::imrg/krabi/monthly/sv-1.svg[]
+
+=== Third SV
+image::imrg/krabi/monthly/sv-2.svg[]
+
+=== Fourth SV
+image::imrg/krabi/monthly/sv-3.svg[]
+
+== Data in 2D
+
+image::imrg/krabi/monthly/sv-projections-plain.svg[]
+
+[.columns]
+== Adjusted Basis Vectors
+
+[.column]
+--
+PIC MISSING
+
+Month: 91 (August)
+--
+
+[.column]
+--
+PIC MISSING
+
+Month: 95 (Decemeber)
+--
+
+[.columns]
+== Climate Index
+
+[.column.has-text-left]
+--
+_Summer Monsoon Index_
+
+image::imrg/krabi/monthly/bottom-pattern.svg[]
+
+
+
+.*What we've achieved so far*
+* no heuristics (ie "hands off the wheel")
+* no magic numbers
+* no input/tuning parameters
+--
+
+[.column.has-text-left]
+--
+_Winter Monsoon Index_
+
+image::imrg/krabi/monthly/top-pattern.svg[]
+
+.*Limitations*
+* Large regions have dynamic effects
+* Basis adjustment is done manually (To be fixed!)
+* Time step and region bounds are arbitrary
+
+.*Not shown..*
+* Diurnal cycles and interannual cycles
+* 1 component systems (trivial - just PCA)
+* 3,4 component systems (hard to visualize and validate)
+* Stability vs time step size and region
+--
+
+[.columns]
+== EXTRA: Late IMERG SVs
+
+PICS MISSING
+
+[.columns]
+=== EXTRA: Final IMERG SVs
+
+PICS MISSING

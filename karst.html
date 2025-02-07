@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>Karst</title>
+<style>
+@import '../web/kxygk.css';
+
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+font: 14px/20px italic Times, sans-serif;
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+.listingblock,pre.src {
+margin-left:  -5vw;
+margin-right: -5vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: solid;
+border-left-width: 4px;
+border-left-color: grey;
+font: 14px/20px italic Times, serif;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+/*.org-svg {
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}*/
+
+img {
+    display:flex;
+max-width: 100%;
+height: 100%;
+max-height: 33vh;
+vertical-align: middle;
+width: auto;
+margin: auto;
+}
+ul {
+list-style-type: circle;
+padding-left: 1.5em;
+border-left: solid;
+border-left-width: 1px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {
+    color: black;
+font-style: italic;
+    padding-top: 0.5em;
+    border-bottom: 4px solid  #aaaaaa;}
+h3 {color: black;
+border-bottom: 2px dotted  #aaaaaa;}
+b, i{
+font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+font-size: 0.8em;
+line-height: 0;
+position: relative;
+vertical-align: baseline;
+top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+.title {
+font-weight: bold;
+}
+dt {
+font-weight: bold;
+}
+td p, dd p, li p{
+    margin: 0;
+}
+ul, p{
+    margin-top: 0;
+}
+.sidebarblock{
+    background:#f3f3f2;
+}
+.float-group::before,.float-group::after{content:" ";display:table}
+.left{float:left!important}
+.right{float:right!important}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+.scrollbox{
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+.scrollbox img{
+    height:auto;
+    width:auto;
+    max-width: 70vw;
+    max-height: 60vh;
+    vertical-align: bottom;
+    scroll-snap-align: start;
+}
+video{
+    height:auto;
+    width:auto;
+    max-width: 30vw;
+    max-height: 30vh;
+}
+.content{
+    height: 100%;
+}
+.imageblock{
+    height: 100%;
+}
+.flexbox > .content{
+    display: flex;
+    justify-content: center;
+    height: 33vh;
+}
+
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>Karst</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Notes from <strong>Karst Hydrology and Geomorphology</strong> by <em>Derek Ford and Paul Williams</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_carbonate_rocks">Carbonate Rocks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vary along several dimensions</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>limestone vs. dolomite</p>
+</li>
+<li>
+<p>carbonate vs silt/mud impurities</p>
+</li>
+<li>
+<p>calcite vs aragonite</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_calcitearagonite">Calcite/Aragonite</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Calcite is less dense</p>
+</li>
+<li>
+<p>Calcites 5 possible crystal structures which can combine in to a plethora of different configurations</p>
+</li>
+<li>
+<p>Aragonite just has one crystal structure</p>
+</li>
+<li>
+<p>Calcite can accomodate substitutions for <strong>Ca^2+</strong> in the its crystal structure. These are generally smaller  divalent cations (<strong>Na^*, *Mn^2</strong>, <strong>Fe^2+</strong>, <strong>Zn^2+</strong>, <strong>Mg^2+</strong>). Larger atoms (ex: <strong>Sr^2+</strong>)  don&#8217;t integrate as easily</p>
+</li>
+<li>
+<p>Aragonite doesn&#8217;t allow small cation substitution, but larger ones may be present (ex: <strong>Sr</strong> and <strong>U</strong>)</p>
+</li>
+<li>
+<p>Aragonite can invert to calcite. Since it&#8217;s more dense this leads to a decrease in porosity</p>
+</li>
+<li>
+<p>If Aragonite dissolves and reprecipitates as calcite, it expells most <strong>Sr</strong> and <strong>U</strong> ions.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dolomite">Dolomite</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Both a rock name (aka dolostone) and a mineral name</p>
+</li>
+<li>
+<p>Kinda like calcite but has one layer of <strong>Ca^2+</strong> cations alternating with a layer of <strong>Mg^2+</strong> cations. But for this you need a perfect 1:1 ratio of <strong>Ca</strong> to <strong>Mg</strong>. In reality you typically have a <strong>Ca</strong> rich ratio and <strong>Ca</strong> atoms in the <strong>Mg</strong> layer</p>
+</li>
+<li>
+<p>Zn Fe Mn Na Sr atoms can contaminate either layer</p>
+</li>
+<li>
+<p>Fe slots in particularly well in either layer - so you typically have more iron than in a calcite</p>
+</li>
+<li>
+<p>When it weathers the <strong>Fe^2+</strong> oxidizes to <strong>Fe^3+</strong></p>
+</li>
+<li>
+<p>"As disorder increases so does solubility" (related to PCP??)</p>
+</li>
+<li>
+<p>"Staining with alizarin red is the standard means of distinguishing it from calcite (Adams et al. 1984)"</p>
+</li>
+<li>
+<p>Ca/Mg ratios can vary from rock to rock - and you&#8217;re usually somewhere on a limestone/calcite vs dolomite spectrum. Don&#8217;t expect it to be consistent!! (again, maybe different sources in the aquifer lead to a PCP signal)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_limestone_deposition">Limestone deposition</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Coral reefs are not a major contributor by volume</p>
+</li>
+<li>
+<p>Mostly is precipitation of marine animal shells (ex: algae aragonite needles)</p>
+</li>
+<li>
+<p>Marine shells are then cemented and recrystallized</p>
+</li>
+<li>
+<p>Diagenesis can then lead to the formation of calcite spars (solid crystals of calcite.. like iceland spar</p>
+</li>
+<li>
+<p>River runoff can mix with the shell deposition creating calcareous shale/sandstone. So Limestone is often not very oure, Will have clay/mud/silicates/sand</p>
+</li>
+<li>
+<p>If there is little compaction and diagenesis you can get chalks</p>
+</li>
+<li>
+<p>Sometimes diagenese happens so slowly that you are left with the shapes of previous crystal structures or a ghost image of the original depositional environment (ex: biosparites)</p>
+</li>
+<li>
+<p><strong>Allochem</strong> recognizable "grains" in carbonate rock</p>
+</li>
+<li>
+<p>Lithification preserved a tiny amount of organic material. About ~1% in modern limestone (page 15)</p>
+</li>
+<li>
+<p>If the depositional environment is periodically exposed supratidaly then you can end up with layers of thing clay called <strong>paleosol</strong>.</p>
+</li>
+<li>
+<p>Terrestrial limestone forms at hotsprings - <strong>tufa</strong> (a framestone on root, plants, rocks around the spring) and <strong>travertine</strong> (crystalline, underground, inorganic)</p>
+</li>
+<li>
+<p>Calcium carbonate can also accu ulate a bit in lakes - <strong>marls</strong> - can form some sands</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_limestone_diagensis">Limestone Diagensis</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Limestone starts off as nuddy material at 40-80% porosity</p>
+</li>
+<li>
+<p>After diagensis it&#8217;s about 5% porosity</p>
+</li>
+<li>
+<p>If its not buried deep and compacted then it remains porous and forms <strong>chalk</strong>.</p>
+</li>
+<li>
+<p>As the carbonate rock reaches above sea level, sea water is pushed out by meteoric water</p>
+</li>
+<li>
+<p>Rainwater leads to dissolution and the removal of aragonite [which is from the original shells I think!]</p>
+</li>
+<li>
+<p>Aragonite is then replaced with calcite spar</p>
+</li>
+<li>
+<p>If done slowly, retains aragonite crystal shape (ghosts)</p>
+</li>
+<li>
+<p>Dolimite probably occurs due to diagensis in lagoonal environmrnts bc it requires hypersaline environments</p>
+</li>
+<li>
+<p>It&#8217;s likely formed by replacing earlier calcite/aragonite</p>
+</li>
+<li>
+<p>Another possibility is that fresh water intrusion creates conditions where calcite dissolved but dolomite does not (maybe in Florida right now)</p>
+</li>
+<li>
+<p>Geothermal activity may also play a role (page 21-22)</p>
+</li>
+<li>
+<p><strong>Breccia</strong> broken fragments in a cement</p>
+</li>
+<li>
+<p><strong>Stylolites</strong> = Pressure solution seam (very squiggly "bed"/layer). Forms below 500m (high pressure). It&#8217;s dissolutional but concentrates impurities so is not very permiable (page 23). Can be along bedding planes but not always</p>
+</li>
+<li>
+<p>Silica may accumulate (for instance from sponges/radiolaria/diatoms) creating lenses of <strong>chert</strong></p>
+</li>
+<li>
+<p>At high pressure and heat youget annealing and formation of spars. At higher heat the crystals realign destroying fossiles and starting to form <strong>marbles</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_evaporation">Evaporation</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>A little &#8594; Dolomite (organic) - slightly above seawater salinity</p>
+</li>
+<li>
+<p>More &#8594; Gypsum (inorganic) - 3x seawater strength</p>
+</li>
+<li>
+<p>A Lot &#8594; Salt (inorganic) - 11x seawater strength</p>
+</li>
+<li>
+<p>Restricted evaporation lagoons - <strong>sabkha</strong></p>
+</li>
+<li>
+<p><strong>Gypsum</strong> sulfate mineral .. CaSO_{4} 2H_{2}O</p>
+</li>
+<li>
+<p>Gypsum when under pressure will turn to <strong>anhydrite</strong> and reduce by volume by 40%</p>
+</li>
+<li>
+<p>Anhydrite will have annealed bedding planes/joints and have no porosity. Surrounding/Overlaying dolomite will crumble ("brecciated") bc of the volume change</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dissolution">Dissolution</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Hard to characterize</p>
+</li>
+<li>
+<p>If clay/silica impurities are too high then you won&#8217;t form karst</p>
+</li>
+<li>
+<p>Dissolution rate is not a just a bulk property (ex:ratio of impurities) but also about things like texture/grain size</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bedding_planes">Bedding planes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>"[..] produced by some change in sedimentation or by its temporary interruption"</p>
+</li>
+<li>
+<p>ex: "by the introduction of clay by a storm or flood, etc. that leave a paper-thin or thicker parting between the successive regular carbonate layers"</p>
+</li>
+<li>
+<p>These can be 1000s of km long! and confine water to deep layers. (ex Canadian Praries with 30kyr residence times - page 36)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_joints">Joints</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>"Joints are simple pull-apart breaks in previously consolidated rocks"</p>
+</li>
+<li>
+<p>"joints are oriented normal to bedding planes"</p>
+</li>
+<li>
+<p>parallel joint consitute a <strong>joint set</strong></p>
+</li>
+<li>
+<p>Multiple joint sets at regular angles to each other form a <strong>joint system</strong></p>
+</li>
+<li>
+<p>"its important to understand that some new joints are created as a karst terrain is eroding, because of pressure release as rock is removed"</p>
+</li>
+<li>
+<p>"Many caves are rectangular mazes guided rigidly by joint patterns"</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_faults">Faults</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>"Faults are fractures with some displacement of rock up, down and/or laterally"</p>
+</li>
+<li>
+<p>"Where this is less than about 1cm ther may be considered to grade into shear fractures or <strong>joints</strong>."</p>
+</li>
+<li>
+<p>"For hydrological purposes it is better to think of the wter passing from more widely open areas with highly irregular shapes to others down the hydraulic gradient visa constrictions (<strong>throats</strong>)</p>
+</li>
+<li>
+<p>"Effective throat apertures appear to be log-normally distributed (e.g. Chernyshev 1983)"</p>
+</li>
+<li>
+<p>"By measuring the particate organic matter reaching stalactites and stalagmites visa the finest cracks in the cave roofs worlwide, van Beynen et al, (2011) show that throat apertures in their tiny feedwater channels can never be less that ~0.1um"</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_folding">Folding</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">p35</div>
+<ul>
+<li>
+<p>Karst limestone will only fold (ie. plastic deformation) at great depths/pressure</p>
+</li>
+<li>
+<p>Folding can create things like artesian wells (when mixed with siliciclastic strata)</p>
+</li>
+<li>
+<p>It also creates some of the longest groundwater flows in the world. "Recharge from the Rocky Mountains and their eastern foothills is believed to flow for more than 1000km through carbonates beneath confining salts, sands, clays and shales in the Canadian Prairies, with underground residence times perhaps more than 30 000 yr"</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_calcite_dissolution_chemistry_basics">Calcite Dissolution Chemistry Basics</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">p47</div>
+<ul>
+<li>
+<p>Quartz aso dissolves, which suggests a dissolution threshold for "karstification"</p>
+</li>
+<li>
+<p>Actually with no CO_{2} calcite and quartz have similar dissolution rates. So CO_{2} is pretty much necessary for the dissolution of calcite</p>
+</li>
+<li>
+<p>CO_{2} forms a weak acid which promotes dissolution</p>
+</li>
+<li>
+<p>CO_{2} in the air is about 0.04% - but in trapped soil air this can gradually displace all the oxygen (~21). So the P_{CO_{2}} is typically much higher than in aerially exposed karst/rain</p>
+</li>
+<li>
+<p>CO_{2} + H_{2}O &lt;&#8658; H_{2}CO_{3} (carbonic acid)</p>
+</li>
+<li>
+<p>acids sorta give protons..  H_{2}CO_{3} &lt;&#8658; H<sup>{+}+HCO_{3}</sup>{-}</p>
+</li>
+<li>
+<p>the bicarconate ion can give another proton leaving us with carbonate</p>
+</li>
+<li>
+<p>HCO_{3}^{-} &lt;&#8658; H^{+} + CO_{3}^{2-}</p>
+</li>
+<li>
+<p>When calcite dissolves it also gives a carbonate! The carbonates can exchange</p>
+</li>
+<li>
+<p>CaCO_{3} + H^{} &lt;=&gt; Ca^{2} + HCO_{3}^{-}</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_soil">Soil</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">p50</div>
+<ul>
+<li>
+<p>Soil is usually more than 40% void</p>
+</li>
+<li>
+<p>17-31% of the volume is available for air storage, while the remaining fraction is taken up by bound water</p>
+</li>
+<li>
+<p>Torturous intergranular pathways retard both drainage and rapid diffusion of gases</p>
+</li>
+<li>
+<p>40% of plant CO_{2} uptake is then respired in the root systems. So its taking CO_{2} frrom the air and in effect pumping it out its roots.</p>
+</li>
+<li>
+<p>Root respiration increases with both water availability and temperature</p>
+</li>
+<li>
+<p>Temprature relationship follows : log P_{CO_{2}} = -2 + 0.04* T (Drake and Wigley 1975) [p.50]</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_openclosed_systems">Open/Closed systems</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">p51 .p81 p82</div>
+<ul>
+<li>
+<p>The relationship between dissolution and if a system is closed or open is complicated</p>
+</li>
+<li>
+<p>A closed system, such as deep in soil, can potentially have much higher P_{CO_{2}}</p>
+</li>
+<li>
+<p>An open system will have CO_{2} replenshiment from the air</p>
+</li>
+<li>
+<p>Given a P_{CO_{2}} of 0.036% at 25 C</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A closed system will dissolve 25mg per liter</p>
+</li>
+<li>
+<p>An open system will dissolve 55mg per liter (40% more)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>You can have situations like glacial tills, where there is soil has carbonate chips in it. So as the water travels down it&#8217;d dissolving the rock and getting new CO_{2} from the soil</p>
+</li>
+<li>
+<p>Purely atmospheric systems with no soil will lead to poor dissolution.. (I think?)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_s_o_h_systems_ie_sulfur_induced_dissolution">"S-O-H" systems (ie. sulfur induced dissolution)</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">p53</div>
+<ul>
+<li>
+<p>shale interbeds in the limestone/dolomite will often contain iron-rich minierals like <strong>pyrite</strong> (FeS_{2})</p>
+</li>
+<li>
+<p>pyrite will create a weak acid which locally enhances calcite dissolution</p>
+</li>
+<li>
+<p>the reaction depends on the precense of dissolved oxygen, so the effect will be limited in anaerobic/phreatic environments</p>
+</li>
+<li>
+<p>By contrast the effect will be seen in "vadose (ie. air-filled) caves"</p>
+</li>
+<li>
+<p>The flow of <strong>hydrogen sulfide H_{2}S</strong> and organics through deep karst is the basis of oil and gas formation (see .p54 .p55)</p>
+</li>
+<li>
+<p>So hydrogen sulfide can be "freed" from organic rich layers at deeper anaerobic areas of high pressure and temperature</p>
+</li>
+<li>
+<p>H_{2}S flowing upward and then reaching oxygenated waters from above - usually at the watertable - can cause the formation of <strong>sulfuric acid</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_carbonate_dissolution_temppressure">Carbonate dissolution - temp/pressure</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">57</div>
+<ul>
+<li>
+<p>Calcite dissolves more in cold water (at same CO_{2} level)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>At standard atmosphere (25C and 0.03% CO_{2}) - 55 mg of calcite per liter</p>
+</li>
+<li>
+<p>At 0C this increases to 75 mg of calcite per liter</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>As water goes down is generally cools - increasing the amount of calcite it can dissolve</p>
+</li>
+<li>
+<p>CO_{2} rich water coming up is complex (ex from a volcanic tectonic setting) and the net effect is situation dependent</p>
+<div class="ulist">
+<ul>
+<li>
+<p>&#8594; pressure drops &#8594; CO_{2} degasses &#8594; calcite precipitates</p>
+</li>
+<li>
+<p>&#8594; water cools &#8594; calcite is more soluable &#8594; dissolves more rock</p>
+</li>
+<li>
+<p>Heat can also breakdown calcite generating CO_{2} (ex: oil window) which can then travel upward</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_salts">Salts</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">p59 .p60</div>
+<ul>
+<li>
+<p>Large amounts of salt will affect solubility.. maybe? It&#8217;s a bit unclear</p>
+</li>
+<li>
+<p>See Fig 12b : NaCl seems to have no real effect at all?</p>
+</li>
+<li>
+<p>Fig 3.14 : Seems confusing..</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bacteria">Bacteria</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">p62</div>
+<ul>
+<li>
+<p>Anaerobic :: below the watertable (up to 100C and &gt;1kbar) Will typically be reducing sulphates - creating acids and dissolving carbonates</p>
+</li>
+<li>
+<p>Around the Watertable :: will be in an environment with dissolved oxygen O_{2} and oxidizing/reducing things. Ex: ".. oxidation of Mn^{2+} too produce birnessite and other brown or black manganese coatings on peggles or on passage walls".</p>
+</li>
+<li>
+<p>Relic Cave :: Acidic bacterial biofilms cause etching/weathering. Ammonia will get turned into saltpetre</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_things_to_measure">Things to measure..</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">p63</div>
+<ul>
+<li>
+<p>SpC :: specific conductivity - gives a good approximation of the dissolved load b/c proportionate to ionic concentration&#8230;&#8203; <em>SpC = 1.86 * TH + 31.5</em> [R^{2} = 0.93] .. where <em>TH</em> = Total hardness (mg/l of CaCO_{3})</p>
+</li>
+<li>
+<p>pH :: can be done in the cave.. but it&#8217;s a bit tricky</p>
+</li>
+<li>
+<p>Direct measurement of TH is also possible in the field</p>
+</li>
+<li>
+<p>Chloride can be measured with <strong>ion-selective electrodes</strong></p>
+</li>
+<li>
+<p>If you want to take the samples to a lab, then you need to acidify them first (p65) to make sure everything is dissolved</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dissolution_kinetics">Dissolution Kinetics</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">p65</div>
+<ul>
+<li>
+<p>Friction makes the liquid-solid interface effectively static (just molecular diffusion near the boundary). Further away from the surface you get eddy diffusion based on the flow turbulence. This friction induced layer is called the <strong>Diffusion Boundary Layer (DBL)</strong></p>
+</li>
+<li>
+<p>In the DBL it&#8217;ll be saturated</p>
+</li>
+<li>
+<p>"Roques (1969) found that a drop of water forming at the tip of a soda straw stalactite lost 10% of its CO_{2} in the first second 30% in 90s and 70% in 15 min"</p>
+</li>
+<li>
+<p>Dissolution rates of karst can&#8217;t be generalized b/c it will depend on tge surface roughness .. ex: Carrara marble will dissolve faster than icelandic spar (zippering off of molecules at the surface) (p68)</p>
+</li>
+<li>
+<p>H+ dependent regimes are less sensitive to roughness</p>
+</li>
+<li>
+<p>Dolomitic calcite (Mg rich) may dissolve <strong>faster</strong> b/c of discontinuities <em>or</em> <strong>slower</strong> due to MgCO_{2} not dissolving as easily</p>
+</li>
+<li>
+<p>"Early penetration will occur under closed-system conditions with laminar flow that prohibits eddy diffusion"</p>
+</li>
+<li>
+<p>mixing corrosion :: differ water bodies as saturation of different CO_{2} concentrations - when mixed will be undersaturated</p>
+</li>
+<li>
+<p>they will dissolve material and re-reach saturation in 1-2 meters. So doesn&#8217;t explain karstification..</p>
+</li>
+<li>
+<p>kinetic breakthrough :: "the dissolutional fronts of one or moreconduits break through the full length of yje high-resistance, unmodifiedfissure to reach an unimpeded point point of discharge such as a spring or early cave: those conduits enlarge rapidly and attract the flow un other conduits towards them". At a certain size this creates a sudden change to turbulent flow and breakthrough the DBL`</p>
+</li>
+<li>
+<p>Precipitation on to a sufrace is much easier than in solution. There is a "nucleation potential" that needs to be overcome. So the saturation index needs to reach SI_{c} &gt; 1.5 so in-solution or SI_{c} &gt; 0.3 for on-surface.</p>
+</li>
+<li>
+<p>cyanobacteria on tufa act a nucleation point for microfabrics</p>
+</li>
+<li>
+<p>by contrast diatoms produce CO_{2} and retard accumulation (ex: Huanglong) p74</p>
+</li>
+<li>
+<p>Mg will act as a poison - attaching to the calcite steps and inhibiting growth. But it can&#8217;t adsorb onto aragonite, so aragnoite can grow in Mg rich seawater</p>
+</li>
+<li>
+<p>In cold regions kast is dissolved much facter b/c of the inverse relationship with CO_{2} dissolution</p>
+</li>
+<li>
+<p>However precipitation rate is the stronger factor (and it typically rains more where it&#8217;s hotter)</p>
+</li>
+<li>
+<p>Other factors like does the rain form surface flow, or go underground. Or is there thick soil cover.. all are huge factors</p>
+</li>
+<li>
+<p>Denudation rate can be modeled with this relationship: D_{max} = 100/ ( \rho{} )4^{1/3} * (K_{c} K_{1} K_{CO_{2}} / K_{2})^{1/2} P_{CO_{@}}^{1/3} (P - E)   &#8230;&#8203;..  p80</p>
+</li>
+<li>
+<p>As a result .. a factor of 100 P_{CO_{2}} &#8594; 5x denudation rate</p>
+</li>
+<li>
+<p>And 25C to 5C leads to an autogenic denudation increase of ~30%</p>
+</li>
+<li>
+<p>Karst discharge can be monitored and plotted as a "rating curve". See; p84 and Fig 4.6</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_karst_denudation">Karst Denudation</h2>
+<div class="sectionbody">
+<div class="olist lowerroman">
+<div class="title">p85</div>
+<ol class="lowerroman" type="i">
+<li>
+<p>not relevant or interesting. Seems ultimately kind of futile to estimate.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">p90</div>
+<p>Erosion rates can be estimated by measuring cosmogenic cholorine-36. Cosmic rays turns 40Ca to 36Cl. Most are produced at the surface, with exponentially fewer as you go into the rock. 2 orders of magnitude at 15meters. Time to saturation is about 10<sup>5-10</sup>6 years. But erosion removes the saturated top layer - so you can work back and estimate the erosion rate. <strong>Stone et al. 1994</strong></p>
+</div>
+<div class="paragraph">
+<div class="title">92</div>
+<p>Silicate areas have so much clay material (kaolinite) that it clogs up joints and caves don&#8217;t form. Hence no quartz karst. (doesn&#8217;t silicate make clay?)</p>
+</div>
+<div class="paragraph">
+<p>~50% of dissolution happens at the karst surface - and the rest is in the top 5-10 meters. Bacteria can continue to give CO_2 lower down</p>
+</div>
+<div class="paragraph">
+<p>Topography can drive denudation (due to channeling of runoff + soil distribution)</p>
+</div>
+<div class="paragraph">
+<p>Vegitation can both drive dissolution, but it can also take up Ca and Mg (into the tree body) so the relationship is not clear. See p95 (left) and Fig 4.14</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

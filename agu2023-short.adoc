@@ -1,0 +1,262 @@
+:revealjs_customtheme: ../web/reveal-white.css
+:revealjs_slideNumber: true
+:revealjs_transition: none
+:revealjs_center: true
+:revealjs_disablelayout: true
+:!webfonts:
+
+:imagesdir: ../fig/
+
+= Using IMERG precipitation patterns to index climate at the mesoscale: A basis rotation method based on climate bistability
+by George Kontsevich
+
+PhD Student - Advisor: Professor Ludvig Löwemark
+
+Department of Geosciences , National Taiwan University
+
+== Study Location: Southern Thailand
+
+image:maps/krabi/worldmap-highlight.png[]
+
+[.columns]
+== Project Overview
+
+[.column]
+image:phot/thammurd/p0c.jpg[]
+
+[.column]
+image:diag/karst-light-rain.svg[]
+
+[.column]
+image:phot/thammurd/s2c.jpg[]
+
+
+[.text-left]
+== Control of _­^18^O_ : Monsoons?
+
+image:maps/krabi/two-seas-monsoon.svg[]
+
+== Collect water and check..
+
+image:plot/airport-isotopes-2011.svg[]
+
+Jan 1st <---------> Dec 31st
+
+Daily samples of: *Rain (mm)* and its *_­^18^O_ concentration*
+
+image:plot/airport-isotopes-legend.svg[]
+
+[.columns]
+== Collect water for 10 years!
+
+[.column]
+image:plot/airport-isotopes.svg[]
+
+[.column]
+image:plot/airport-isotopes-legend.svg[]
+
+[.columns]
+== Rain as climate proxy
+
+[.column]
+====
+image:imrg/krabi/monthly/year0.svg[]
+high density precipitation data thanks to NASA satellites (IMERG)
+====
+
+[.column]
+====
+image:maps/krabi/topo.svg[]
+====
+
+[.column]
+====
+* climate configuration/parameters + topography -> rain's spatial pattern.
+* rain patterns = unique fingerprint
+* the pattern signals the presence of the climate phenomena
+* a detailed understanding of the climate configuration isn't need
+====
+
+== 2011
+image:imrg/krabi/monthly/year0.svg[]
+
+=== 2012
+image:imrg/krabi/monthly/year1.svg[]
+
+=== 2013
+image:imrg/krabi/monthly/year2.svg[]
+
+=== 2014
+image:imrg/krabi/monthly/year3.svg[]
+
+[.columns]
+=== First Pass: Visual Inspection
+
+[.column]
+image:maps/krabi/topo.svg[]
+
+[.column]
+image:imrg/krabi/monthly/year1.svg[]
+
+[.column.has-text-left]
+.Observations:
+* 2 patterns: summer + winter
+* Onset/Withdrawl change year to year
+* Sporadic dry period
+* Weather = Climate + Noise
+
+[.columns]
+== Second Pass: EOF
+
+[.column]
+====
+image:imrg/krabi/monthly/sv-0.svg[]
+PC1
+====
+
+[.column]
+====
+image:imrg/krabi/monthly/sv-1.svg[]
+PC2
+====
+
+[.column]
+====
+image:imrg/krabi/monthly/sv-weights.svg[]
+Singular Values
+====
+
+[.column.text-left]
+====
+.Good:
+. Noise is gone! (in PC3,4,5,..)
+. IMERG/mesoscale eliminates smearing + gives a ~40000 dimension basis
+
+.Bad:
+. PC1/2 must be orthogonal - while climate does not
+. PC1/2 are mixtures of the two patterns - always!
+====
+
+[.columns]
+
+== Fixing the EOF: What's going wrong?
+
+[.column.is-one-fifth]
+====
+image::imrg/krabi/monthly/year-stack.png[]
+====
+
+[.column.is-one-fifth]
+====
+image:imrg/krabi/monthly/sv-0.svg[]
+====
+
+[.column.is-one-fifth]
+====
+image:imrg/krabi/monthly/sv-1.svg[]
+====
+
+[.column.is-vcentered]
+image:imrg/krabi/monthly/sv-projections-plain.svg[,opts=inline]
+
+[.columns]
+== Fixing the EOF: Bistability
+
+[.column]
+image:imrg/krabi/monthly/sv-projections-plain.svg[,opts=inline]
+
+[.column.has-text-left]
+====
+.Observations:
+. Climate is either "summer monsoon" or "winter monsoon"
+. Climate can't be both! (except maybe in a transition month)
+. Many climate phenomena will exhibit bistability: ENSO, NAO, AO, SAM
+
+.Fix:
+. Divide the PC1/PC2 plane in two to halves
+. Such that you minimize the variance of both halves
+. The centroid of each half yield the "true" pattern
+====
+
+
+[.columns]
+=== Fixing the EOF: Bistability
+
+[.column]
+image:imrg/krabi/monthly/sv-projections.svg[,opts=inline]
+
+[.column.has-text-left]
+====
+.Observations:
+. Climate is either "summer monsoon" or "winter monsoon"
+. Climate can't be both! (except maybe in a transition month)
+. Many climate phenomena will exhibit bistability: ENSO, NAO, AO, SAM
+
+.Fix:
+. Divide the PC1/PC2 plane in two to halves
+. Such that you minimize the variance of both halves
+. The centroid of each half yield the "true" pattern
+====
+
+[.columns]
+=== Fixing the EOF: Bistability
+
+[.column]
+image:imrg/krabi/monthly/bottom-pattern.svg[]
+
+
+[.column]
+image:imrg/krabi/monthly/top-pattern.svg[]
+
+
+[.columns]
+=== Fixing the EOF: Bistability
+
+[.column.is-one-quarter]
+====
+image::imrg/krabi/monthly/year-stack.png[]
+====
+
+
+[.column.is-one-fifth]
+====
+image:imrg/krabi/monthly/bottom-pattern.svg[]
+====
+
+[.column.is-one-fifth]
+====
+image:imrg/krabi/monthly/top-pattern.svg[]
+====
+
+[.column]
+image:imrg/krabi/monthly/indeces.svg[]
+
+[.columns]
+=== Fixing the EOF: Bistability
+
+[.column]
+image:imrg/krabi/monthly/indeces.svg[]
+
+[.column.is-one-third]
+image:extr/20210827_Global_surface_temperature_bar_chart_-_bars_color-coded_by_El_Niño_and_La_Niña_intensity.svg[]
+
+== Daily samples
+
+image:imrg/krabi/monthly/sv-projections-monthly-daily.svg[]
+1 point = 1 month => 1 point = 1 day
+
+We still the same exact patterns!
+
+=== Daily samples
+
+image:imrg/krabi/monthly/indeces-monthly-daily.svg[]
+
+The resulting index is noisy but maybe useable
+
+.TODO
+* Constrain the noise level
+* Estimate "error"/variances
+
+== EGU Poster
+
+image:../imergination.wiki/agu2023-poster.svg[]

@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Karst Tower hydrology</title>
+<meta name="author" content="George Kontsevich" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="../web/kxygk.css" />
+<link rel="shortcut icon" href="../web/panda.svg" type="image/x-icon">
+<style>
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+font: 14px/20px italic Times, sans-serif;
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+
+pre.src {
+margin-left:  -5vw;
+margin-right: -5vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: solid;
+border-left-width: 4px;
+border-left-color: grey;
+font: 14px/20px italic Times, serif;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+.org-svg { /* non-inlined SVGs */
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
+img { /* static images */
+width:     100%;
+max-width: max-content;}
+ul {padding-left: 1.5em;
+border-left: solid;
+border-left-width: 4px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {color: black;
+padding-top: 0.5em;
+border-bottom: 4px solid  #aaaaaa;}
+h3 {color: black;
+border-bottom: 2px dotted  #aaaaaa;}
+b, i{
+font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+font-size: 0.8em;
+line-height: 0;
+position: relative;
+vertical-align: baseline;
+top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+</style>
+<meta name="robots" content="noindex">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src=""../MathJax/MathJax.js?config=TeX-AMS_CHTML"">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Karst Tower hydrology</h1>
+
+
+<div id="outline-container-org33e2c94" class="outline-2">
+<h2 id="org33e2c94">Hydrogeology</h2>
+<div class="outline-text-2" id="text-org33e2c94">
+</div>
+<div id="outline-container-org4462ddb" class="outline-3">
+<h3 id="org4462ddb">Force</h3>
+<div class="outline-text-3" id="text-org4462ddb">
+<dl class="org-dl">
+<dt>Mass</dt><dd>resistance to being accelerated</dd>
+<dt>Weight</dt><dd>gravitation force of an object</dd>
+<dt>Momentum</dt><dd>mass * velocity</dd>
+<dt>1 Newton</dt><dd>force to accelerate <i>1 kg</i> by <i>1 m/s<sup>2</sup></i></dd>
+</dl>
+</div>
+
+<div id="outline-container-orgb316bc4" class="outline-4">
+<h4 id="orgb316bc4">Newton's First Law</h4>
+<div class="outline-text-4" id="text-orgb316bc4">
+<blockquote>
+<p>
+In the absense of forces - a point mass moves with constant velocity <b>v</b> (= zero acceleration)
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org17ae47f" class="outline-4">
+<h4 id="org17ae47f">Newton's Second Law</h4>
+<div class="outline-text-4" id="text-org17ae47f">
+<blockquote>
+<p>
+The net force on a particle is <b>F=ma</b> <br>
+Where <b>a = dv/dt = d<sup>2</sup>r/dt<sup>2</sup></b> <br>
+In other words, force is a change in momentum <b>p</b>. ie. <b>F= dp/dt</b>
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-orgf7f5246" class="outline-4">
+<h4 id="orgf7f5246">Newton's Third Law</h4>
+<div class="outline-text-4" id="text-orgf7f5246">
+<blockquote>
+<p>
+If <code>Object1</code> exerts a force <b>F<sub>21</sub></b> on <code>Object2</code><br>
+Then <code>Object2</code> always exerts an opposite force <b>F<sub>12</sub></b> <br>
+Such that <b>F<sub>12</sub> = -F<sub>21</sub></b>
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-orgc0dd71c" class="outline-4">
+<h4 id="orgc0dd71c">Conservation of momentum</h4>
+<div class="outline-text-4" id="text-orgc0dd71c">
+<dl class="org-dl">
+<dt>Momentum</dt><dd>mass * velocity</dd>
+</dl>
+<p>
+Givens:
+</p>
+<ul class="org-ul">
+<li>If you have a system with many particles <b>&alpha; = [1,2 &#x2026; N]</b></li>
+<li>They extert an influence on each other particle <b>F<sub>&alpha; &beta;</sub></b></li>
+<li>They are under some external force <b>F<sup>ext</sup><sub>&alpha;</sub></b></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org489014c" class="outline-3">
+<h3 id="org489014c">Gravity</h3>
+<div class="outline-text-3" id="text-org489014c">
+<p>
+The most basic force on every object. Depends on the masses of two particles and the distance btwn them
+</p>
+<blockquote>
+<p>
+F<sub>gravity</sub> = [ -GmM/r<sup>2</sup> ] r<sup>^</sup> <br>
+</p>
+</blockquote>
+<p>
+on earth, the mass of the earth is constant and the distance is the radius of the earth. So we simplify to one value  <b>g</b> = -GM/r<sup>2</sup> <i>approx{} = 9.8 m/s</i>
+</p>
+<blockquote>
+<p>
+F<sub>gravity</sub> = -mgr<sup>^</sup>
+</p>
+</blockquote>
+</div>
+</div>
+
+
+<div id="outline-container-orgc4cbc66" class="outline-3">
+<h3 id="orgc4cbc66">Energy</h3>
+<div class="outline-text-3" id="text-orgc4cbc66">
+<p>
+A parallel concept is the idea of Energy. Though it looks like momentum, it's actually a separate constraint. Energy is also often (though not always) conserved. Generally speaking, water flows from an area of high energy to an area of low energy.
+</p>
+</div>
+<div id="outline-container-orgf9e5a98" class="outline-4">
+<h4 id="orgf9e5a98">Work Energy</h4>
+<div class="outline-text-4" id="text-orgf9e5a98">
+<p>
+When a <b>Force</b> applies onto a particle over a <b>distance</b> it imparts an energy
+Also known as the <b>Work-KE theorem</b>
+</p>
+<blockquote>
+<p>
+&Delta;T = T<sub>2</sub>-T<sub>1</sub> = &int;<sub>1&rarr;2</sub> F&sdot; <i>d</i> r
+</p>
+</blockquote>
+<p>
+Notice that this has no relation to the <i>time</i>!
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb9a5a32" class="outline-4">
+<h4 id="orgb9a5a32">Gravitation potential energy</h4>
+<div class="outline-text-4" id="text-orgb9a5a32">
+<p>
+When an object/particle is allowed to drop a height <i>h</i>, the force of gravity <i>F<sub>gravity</sub></i> moves an object a distance <i>h</i>
+</p>
+<blockquote>
+<p>
+F<sub>gravity</sub> = -mgr<sup>^</sup>
+</p>
+</blockquote>
+<p>
+It drops a height <b>h</b> so it's simply <i>force &times; height</i>
+</p>
+<blockquote>
+<p>
+T<sub>potential</sub> = F<sub>gravity</sub> &times; h = -mgh
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org552d0d7" class="outline-4">
+<h4 id="org552d0d7">Kinectic Energy</h4>
+<div class="outline-text-4" id="text-org552d0d7">
+<p>
+Once the particle has dropped to <i>height = 0</i> then the potential energy goes to zero. The energy is all turned into <b>kinetic energy</b> - a function of the particle's final velocity. We integrate and solve for the equivalent velocity.
+</p>
+<blockquote>
+<p>
+F = ma = mg <br>
+&int;F = &int;ma = &int;mg <br>
+&int;m d<sup>2</sup>x(t)/dt<sup>2</sup> = &int;mg <br>
+m dx(t)/dt = mv<sub>0</sub> + mgt <br>
+dx(t)/dt = v<sub>0</sub> + gt <br>
+</p>
+</blockquote>
+<p>
+This final velocity is naturally a function of time <i>t</i>. So we need to solve for the travel time to the ground. We integrate once again.
+</p>
+<blockquote>
+<p>
+m dx(t)/dt = v<sub>0</sub> + mgt <br>
+&int; m dx(t)/dt = &int; v<sub>0</sub> + mgt <br>
+mx(t) = x<sub>0</sub> + v<sub>0</sub>t + mgt<sup>2</sup>/2 <br>
+</p>
+</blockquote>
+<p>
+The distance traveled <i>x(t) = h</i>. For simplicity we assume the initial position and velocity are zero. <i>x<sub>0</sub> = 0</i> and <i>v<sub>0</sub> = 0</i>. We solve for <i>t</i>
+</p>
+<blockquote>
+<p>
+mx(t) = x<sub>0</sub> + v<sub>0</sub>t + mgt<sup>2</sup>/2 <br>
+mh = mgt<sup>2</sup>/2 <br>
+t = &radic; 2h/g <br>
+</p>
+</blockquote>
+<p>
+We put this back into our equation for the final velocity and solve
+</p>
+<blockquote>
+<p>
+dx(t)/dt = v<sub>0</sub> + gt <i>&#x2026;(v<sub>0</sub> = 0)</i><br>
+dx(t)/dt = g(&radic; 2h/g) = (&radic; 2hg)<br>
+</p>
+</blockquote>
+<p>
+Now we construct the equation for the famous Kinetic Energy
+</p>
+<blockquote>
+<p>
+T<sub>kinetic</sub> = (1/2)mv<sup>2</sup>
+</p>
+</blockquote>
+<p>
+Notice how when we input the equation for the speed of an object that's falled a distance <i>h</i> - we get back the potential energy
+</p>
+<blockquote>
+<p>
+T<sub>kinetic</sub> = (1/2)m(&radic; 2hg)<sup>2</sup> <br>
+T<sub>kinetic</sub> = mgh
+</p>
+</blockquote>
+<p>
+While we assumed no initial velocity <i>v<sub>0</sub>=0</i> - this is not a necessary condition. If a particle is shot towards the ground with some starting velocity it will be under the influence of gravity for a shorter amount of time but it will  nonetheless aquire the same amount of energy (TODO: Prove this&#x2026;)
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbd6e830" class="outline-3">
+<h3 id="orgbd6e830">Bernoulli's Equation</h3>
+<div class="outline-text-3" id="text-orgbd6e830">
+<p>
+Now we can describe the energy of particles in a fluid as a fluid flows through a medium. In a static system, if we assume the fluid conserves energy then the fluid's energy state at any point in it's flow path must conform to the following sum
+</p>
+<blockquote>
+<p>
+T<sub>total</sub> = T<sub>potential</sub> + T<sub>kinetic</sub> + T<sub>p-V Work</sub> <br>
+T<sub>potential</sub> = ghm <br>
+T<sub>kinetic</sub> = mv^{2]/2 <br>
+T<sub>p-V Work</sub> = m &int; dp/&rho;
+</p>
+</blockquote>
+<p>
+The first two terms have already been introduced, while the last term represents the work done on the fluid by any difference in pressure along the flow line. If the fluid flows from an area of low pressure to one of high pressure then it need to expend energy (ie. "climb up hill") against the force of pressure pushing it back
+</p>
+<dl class="org-dl">
+<dt>p</dt><dd>pressure (Force / Area - Newtons / m<sup>2</sup>)</dd>
+<dt>&rho;</dt><dd>density (mass / Volume - kg / m<sup>3</sup>)</dd>
+</dl>
+<p>
+If the fluid is incomprehisible (such as in the case of liquids) then <i>&rho;</i> is not a function of pressure <i>p</i> and the integral is of the most basic type
+</p>
+<blockquote>
+<p>
+T<sub>p-V Work</sub> = m &int; dp/&rho; = m (p<sub>i</sub> - p<sub>start</sub>) / &rho;
+</p>
+</blockquote>
+<p>
+Where there is a starting pressure <i>p<sub>start</sub></i> and <i>p<sub>i</sub></i> is the pressure at a particular point along the flow path. The resulting total energy can be written as
+</p>
+<blockquote>
+<p>
+T<sub>total</sub> = ghm + mv^{2]/2 + m (p<sub>i</sub> - p<sub>start</sub>) / &rho;
+</p>
+</blockquote>
+<p>
+However instead of reasoning about the energy of a bit of fluid at some point <i>i</i> of mass <i>m</i> we instead find it easier to discuss it in terms of <b>fluid potential</b> <i>&Phi;</i> - which is the <i>energy per unit mass</i>
+</p>
+<blockquote>
+<p>
+&Phi; = gh + v<sup>2</sup>/2 + (p<sub>i</sub> - p<sub>start</sub>) / &rho;
+</p>
+</blockquote>
+<p>
+For flow in ground water the velocity is generally quite small, so the kinetic term is normally dropped
+</p>
+<blockquote>
+<p>
+&Phi; = gh + (p<sub>i</sub> - p<sub>start</sub>) / &rho;
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-orgb3b20ee" class="outline-3">
+<h3 id="orgb3b20ee">Hydraulic Head</h3>
+<div class="outline-text-3" id="text-orgb3b20ee">
+<p>
+As a fluid flows downward the pressure it experiences will typically increase under the weight of the water above, however the fluid potential will remain the same.
+</p>
+
+<p>
+The fluid potential at its starting point will be:
+</p>
+<blockquote>
+<p>
+&Phi;<sub>start</sub> = gh + (p<sub>start</sub> - p<sub>start</sub>)/&rho; = gh <br>
+<i>If this is water then this will be at the water's surface and</i> p<sub>start</sub> = p<sub>atmosphere</sub>
+</p>
+</blockquote>
+<p>
+It then flows down some distance <i>&psi;</i> and we recalculate the fluid potential:
+</p>
+<blockquote>
+<p>
+&Phi;<sub>&psi;</sub> = g(h-&psi;) + (p<sub>&psi;</sub> - p<sub>start</sub>)/&rho;
+</p>
+</blockquote>
+<p>
+<i>p<sub>&psi;</sub></i> is the pressure at the new location. This pressure has increased by the added weight above. This is the density of the fluid times the height: <i>&rho;g(h-&psi;)</i>. Looking at the units it's clear this gives a Pressure: <i>kg/m<sup>3</sup> &times; m = kg/m<sup>2</sup></i>. The total pressure is just the sum of the previous pressure and the increase
+</p>
+<blockquote>
+<p>
+p<sub>i</sub> = p<sub>start</sub> + &rho;g&psi;
+</p>
+</blockquote>
+<p>
+We recalculate the fluid potential
+</p>
+<blockquote>
+<p>
+&Phi;<sub>&psi;</sub> = g(h-&psi;) + (p<sub>start</sub> + &rho;g&psi; - p<sub>start</sub>)/&rho; = g(h-&psi;) + g&psi; = gh
+</p>
+</blockquote>
+<p>
+And we see that the resulting energy remains <i>gh</i>.
+</p>
+
+<p>
+However it's often useful to keep thinking of the fluid potential as consistenting of these two parts.
+</p>
+<blockquote>
+<p>
+&Phi;<sub>d</sub> = &Phi;<sub>elevation</sub> + &Phi;<sub>pressure</sub><br>
+gh = g(h-&psi;) + g&psi;
+</p>
+</blockquote>
+<p>
+The two factors are called the <i>&psi;</i> <b>pressure head</b> and the <i>h-&psi;</i> <b>elevation head</b>.
+</p>
+
+<p>
+The result tells us that the total <i>fluid potential</i> anywhere in a slow stream always remains a function of the height of the very top of the fluid. This top starting point is not an arbitrarily chosen point and must be where the fluid flow begins (in our case, the water's surface). This starting height <i>h</i> is the <b>hydraulic head</b>.
+</p>
+
+<p>
+A more complete notation of the <b>total head</b> for fluids at velocity is
+</p>
+<blockquote>
+<p>
+h<sub>T</sub> = h<sub>z</sub> + h<sub>p</sub> + h<sub>v</sub><br>
+h<sub>z</sub> - <i>elevation head</i> <br>
+h<sub>p</sub> - <i>pressure head</i> <br>
+h<sub>v</sub> - <i>velocity head</i> <br>
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org49895e6" class="outline-3">
+<h3 id="org49895e6">Darcy's Law</h3>
+<div class="outline-text-3" id="text-org49895e6">
+<p>
+What induces a fluid to start flowing in a dynamic difference in energy between two points. Particles move from an area of high energy to an area of low energy. In other words from an area of high head to low head. The higher the energy gradient (change in energy per unit distance) the higher the fluid's velocity
+</p>
+
+<blockquote>
+<p>
+v = -K dh/dl
+</p>
+</blockquote>
+<dl class="org-dl">
+<dt><i>v</i></dt><dd>the <b>specific discharge</b>. This to fluid's cumulative macro-level velocity. On the micro inter-grain level the particles of fluid have much longer/torturous flow paths and their velocity can be much higher.</dd>
+<dt><i>h</i></dt><dd>the <i>hydraulic head</i></dd>
+<dt><i>l</i></dt><dd>distance</dd>
+<dt><i>K</i></dt><dd>the <b>hydraulic conductivity</b> is a property of the medium and the fluid traveling through it</dd>
+</dl>
+<p>
+The parameter <i>K</i> can be further broken up into properties of the just the medium and those of just the fluid.
+</p>
+<blockquote>
+<p>
+K = k&rho;g/&mu;
+</p>
+</blockquote>
+<dl class="org-dl">
+<dt><i>&rho;g</i></dt><dd>weight per unit volume of the fluid</dd>
+<dt><i>&mu;</i></dt><dd>dynamic viscocity of the fluid</dd>
+<dt><i>k</i></dt><dd><b>(specific/intrinsic) permiability</b> (in meters<sup>2</sup>) of the medium</dd>
+</dl>
+
+<p>
+Both <i>K</i> and <i>k</i> are used&#x2026; where the permiability <i>k</i> is useful because it remains the same regardless of if you have water or some mixture of gas/oil/water flowing. <i>K</i> values are implied to be about water. Values vary in 13 orders of magnitutde - so values are no very sensitive. 
+</p>
+
+<p>
+If <i>K</i> is constant in a geological formation then we say it's <b>homogenous</b> - otherwise <b>heterogenous</b>. Most common is layers of different rock/sediment - called <i>layered heterogeneity</i>. Other forms are fault induced <i>discontinuous heterogeneity</i> and gradually changing <i>trending heterogeneity</i> (deltas, alluvial fans, glacial outwash). Normally even relatively homogenous geological formations will typically have internal variations in <i>K</i> on the order of 1-2 orders of magnitude (formations with monomodal variation are called <b>uniform</b>) p31-32 <sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+</p>
+
+<p>
+<i>K</i> can also vary based on the flow direction if the medium is <b>anisotropic</b> (as opposite to unform flow in all directions - <b>isotropic</b>). Interestingly enough, <i>layered heterogeneity</i> will lead to <b>anisotropy</b>.
+</p>
+</div>
+
+<div id="outline-container-orgc562d0e" class="outline-4">
+<h4 id="orgc562d0e">Layered heterogeneity</h4>
+<div class="outline-text-4" id="text-orgc562d0e">
+<p>
+Using Darcy's law, we can look at water flowing vertically and horizontally through N homogenous layers of different conductivity K<sub>i</sub>.
+</p>
+
+<p>
+We summarize the <b>vertical flow</b> in one global conductivity term. Each layer is of depth <i>d<sub>i</sub>}</i>, has a conductivity <i>K<sub>i</sub></i> and an associated change in hydraulic head <i>&Delta;h<sub>i</sub></i> (it can be measured with a <i>piezometer</i> - ie. drilling a shaft to the layer and see how high the water rises). The velocity across all the layers must remain the same if this is a constant ongoing process (otherwise fluid will pool indefinitely in some middle layer - which doesn't make physical sense). Hence
+</p>
+
+<blockquote>
+<p>
+v = K<sub>1</sub>&Delta;h<sub>1</sub>/d<sub>1</sub> = K<sub>2</sub>&Delta;h<sub>2</sub>/d<sub>2</sub> = .. = K<sub>n</sub>&Delta;h<sub>n</sub>/d<sub>n</sub> = K<sub>z</sub>&Delta;h<sub>z</sub>/d<sub>z</sub>
+</p>
+</blockquote>
+
+<p>
+The global depth and change in head is <i>d</i> and <i>&Delta;h</i>. And we wish to solve for a global vertical conductivity <i>K<sub>z</sub></i>. (<i>z</i> being the vertical direction here)
+</p>
+
+<blockquote>
+<p>
+K<sub>z</sub> = vd/&Delta;h <br>
+ = vd/[&Delta;h<sub>1</sub>+&Delta;h<sub>2</sub>+..+&Delta;h<sub>n</sub>] <br>
+ = vd/[vd<sub>1</sub>/K<sub>1</sub> + vd<sub>2</sub>/K<sub>2</sub> + &#x2026; + vd<sub>n</sub>/K<sub>n</sub>]
+</p>
+</blockquote>
+
+<p>
+by contrast the <b>horizontal flow</b> through the same layers exhibits an effective conductivity that is simply a weighted sum based on how much space each layer takes up
+</p>
+<blockquote>
+<p>
+K<sub>x</sub> = &sum; K<sub>i</sub>d<sub>i</sub> / d 
+</p>
+</blockquote>
+
+<p>
+The net effect is that multiple homogenous isotropic layers produce a nonhomogenous anisotropic whole.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcf5a024" class="outline-4">
+<h4 id="orgcf5a024">3D Darcy</h4>
+<div class="outline-text-4" id="text-orgcf5a024">
+<p>
+Because the conductivity K varies in direction, you end up with a second rank symmetric tensor known as the <b>hydraulic conductivity tensor</b>
+</p>
+<blockquote>
+<p>
+v<sub>x</sub> = - K<sub>xx</sub> &part;h/&part;x - K<sub>xy</sub> &part;h/&part;y - K<sub>xz</sub> &part;h/&part;z <br>
+v<sub>y</sub> = - K<sub>yx</sub> &part;h/&part;x - K<sub>yy</sub> &part;h/&part;y - K<sub>yz</sub> &part;h/&part;z <br>
+v<sub>z</sub> = - K<sub>zx</sub> &part;h/&part;x - K<sub>zy</sub> &part;h/&part;y - K<sub>zz</sub> &part;h/&part;z <br>
+</p>
+</blockquote>
+<p>
+then things get complicated&#x2026; p36 <sup><a id="fnr.1.100" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+<b>TODO</b> Look into further if it's relevant 
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org158216c" class="outline-3">
+<h3 id="org158216c">Unsaturated Flow</h3>
+<div class="outline-text-3" id="text-org158216c">
+<dl class="org-dl">
+<dt>V<sub>T</sub></dt><dd>total unit volume</dd>
+<dt>V<sub>s</sub></dt><dd>solid volume</dd>
+<dt>V<sub>s</sub></dt><dd>void volume</dd>
+</dl>
+</div>
+<div id="outline-container-org07ec439" class="outline-4">
+<h4 id="org07ec439">Porosity</h4>
+<div class="outline-text-4" id="text-org07ec439">
+<blockquote>
+<p>
+n = V<sub>v</sub>/V<sub>T</sub><br>
+<i>generally expressed as a percentage..</i>
+</p>
+</blockquote>
+<p>
+Where <b>primary porosity</b> is due to the soil/rock matrix and <b>secondary porosity</b> is due to dissolving or fracturing.
+However this is unfortunately only vaguely related to /hydraulic conductivity..
+</p>
+</div>
+</div>
+<div id="outline-container-orgaf42a94" class="outline-4">
+<h4 id="orgaf42a94">Void Ratio</h4>
+<div class="outline-text-4" id="text-orgaf42a94">
+<p>
+Is an alternative way of looking at the same thing
+</p>
+<blockquote>
+<p>
+e = V<sub>v</sub>/V<sub>s</sub><br>
+&there4;<br>
+e = n/(1-n)
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-org2ad1a22" class="outline-4">
+<h4 id="org2ad1a22">Moisture Content</h4>
+<div class="outline-text-4" id="text-org2ad1a22">
+<p>
+Once water has entered the soil we add a new term
+</p>
+<dl class="org-dl">
+<dt>V<sub>w</sub></dt><dd>the volume of water</dd>
+</dl>
+<p>
+the <b>moisture content</b> is ratio of water to the total volume
+</p>
+<blockquote>
+<p>
+&theta; = V<sub>w</sub>/V<sub>T</sub>
+</p>
+</blockquote>
+<p>
+When water fills all the voids (<i>V<sub>w</sub></i> -&gt; <i>V<sub>v</sub></i>)this term goes to <i>n</i>
+</p>
+</div>
+</div>
+<div id="outline-container-orgb912b33" class="outline-4">
+<h4 id="orgb912b33">Water table</h4>
+<div class="outline-text-4" id="text-orgb912b33">
+<p>
+Is defined to start where:
+</p>
+<ul class="org-ul">
+<li><i>&psi; = 0</i></li>
+<li>the fluid pressure <i>p = p<sub>atmosphere</sub></i> or <i>p=0</i> (if using gauge pressure)</li>
+<li>the surface of a small open well</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf8daf0e" class="outline-4">
+<h4 id="orgf8daf0e">Capilary Fringe</h4>
+<div class="outline-text-4" id="text-orgf8daf0e">
+<p>
+Above this (where <i>&psi;&lt;0</i>) the capillary action creates a <i>negative pressure head &psi;</i> called the <b>tension head</b> or <b>suction head</b>. For part of this (in fine-grained soils) the negative pressure is enough to keep the soil saturated (<i>&theta; = n</i>) in a <b>capillary fringe</b>. The effect amount <i>&psi;<sub>a</sub></i> is known as the <b>air entry pressure</b> or <b>bubbling pressure</b> p41 <sup><a id="fnr.1.100" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+</p>
+
+<p>
+Because the pressure head is negative, the fluid pressure is below atmosphere. So while the water can move within the fringe (and the subsequent unsaturated zone) it can never flow out to the atomosphere through anything like a borehole, seepage face or spring. It can only leave by evaporation or transpiration.
+</p>
+</div>
+</div>
+<div id="outline-container-org6d18034" class="outline-4">
+<h4 id="org6d18034">Unsaturated zone</h4>
+<div class="outline-text-4" id="text-org6d18034">
+<p>
+Above the capillary fringe as the negative pressure head <i>&psi;</i> keeps decreasing the moisture content keeps falls as well. This has two effect. First it makes the conductivity of the soil decrease as  water has more trouble flowing from grain to grain. And second, the less moisture the smaller the miniscus around the grains and the higher the surface tension. This exaserbates the negative pressure head.
+</p>
+
+<p>
+Further complicating the issue, the <i>&theta; vs &psi;</i> relationship is also hysteretic. A drying soil will in effect extend out further. At a given negative pressure head (ie. distance above water table) a wetting soil will have much less moisture content than for a drying soil. Similarly, the drying soil will have a much high conductivity than a wetting one. p42 <sup><a id="fnr.1.100" class="footref" href="#fn.1" role="doc-backlink">1</a></sup> (This needs double checking if important)
+</p>
+
+<p>
+Thus, in the unsaturated zone where <i>&psi; &lt; &psi;<sub>a</sub></i> the conductivity and moisture, <i>K</i> and <i>&theta;</i> are functions the head <i>&psi;</i> (as well as some time component). This has implications for water flowing from areas of higher head to lower head and hence Darcy's Law is modified
+</p>
+<blockquote>
+<p>
+v<sub>x</sub> = K(&psi;) d{}h/\d{}l
+</p>
+</blockquote>
+<p>
+We already know that since the partial pressure <i>&psi;</i> is a function of the head <i>h</i>, as the head changes the partial pressure changes as well. Now we also see that the conductivity and moisture content will change as well
+</p>
+
+<p>
+Note that if you have a highly dynamic system and you have air pressure that builds up in the soil, then you may need to consider a more complex mutliphase flow model that takes in to account the movement of the air in the soil as well.
+</p>
+
+<p>
+<b>TODO</b>: This part is a bit muddled..
+</p>
+
+<dl class="org-dl">
+<dt>aquifer</dt><dd>saturated permeable geological unit that can transmit significant amounts of water &#x2013; unconsolidated sand/gravel | permiable sedimentary rock (sandstone/limestome) | fractures volcanic/crystalline rock</dd>
+<dt>aquiclude</dt><dd>an aquifer that can't transmit significant amounts of water</dd>
+<dt>aquitard</dt><dd>somewhere in between&#x2026; &#x2013; clay | shale |  dense crystalline rock</dd>
+</dl>
+<p>
+These things can ofcourse intermix..
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgdaa3946" class="outline-4">
+<h4 id="orgdaa3946">Compressability of water</h4>
+<div class="outline-text-4" id="text-orgdaa3946">
+<p>
+is a property of material (both the liquid and soil) and it is the ratio of the change in volume, <b>strain</b>, under an applied <b>stress</b>. The stress on water is the pressure and a change in pressure (<i>dp</i>) induces a fraction change in volume (<i>dV_{w{/V<sub>w</sub></i>) &#x2026; p52 <sup><a id="fnr.1.100" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+</p>
+<blockquote>
+<p>
+&beta;<sub>water</sub> = -(dV<sub>w</sub>/V<sub>w</sub>)/dp
+</p>
+</blockquote>
+<p>
+So <i>&beta;</i> is the slope of the line relating strain/pressure to stress/change-in-volume. We assume it's mostly constant in the rages of interest at &sim; 4.4 &times; 10<sup>-10</sup> m<sup>2</sup>/N
+</p>
+
+<p>
+You can also express this in terms of a change in the water's density <i>&rho;</i>
+</p>
+<blockquote>
+<p>
+&beta;<sub>water</sub> = (d&rho;/&rho;)/dp
+</p>
+</blockquote>
+<p>
+Which we can integrate to solve for the current density. This is the <b>equation of state</b> (think intro thermo <i>pV = nRT</i>)
+</p>
+<blockquote>
+<p>
+&rho; = &rho;<sub>0</sub>e<sup>&beta;(p-p<sub>0</sub>)</sup>
+</p>
+</blockquote>
+<p>
+where <i>&rho;<sub>0</sub></i> is the a priori known density at pressure <i>p<sub>0</sub></i>. If <i>p<sub>0</sub></i> is atmospheric pressure and we work with gauge pressures then the term can be dropped
+</p>
+<blockquote>
+<p>
+&rho; = &rho;<sub>0</sub>e<sup>&beta;p</sup>
+</p>
+</blockquote>
+<p>
+So if <i>&beta; = 0</i> then <i>&rho;=&rho;<sub>0</sub></i> and the fluid is called <b>incompressible</b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb21f5df" class="outline-4">
+<h4 id="orgb21f5df">Effective Stress</h4>
+<div class="outline-text-4" id="text-orgb21f5df">
+<p>
+We want to similarly look at the compressability of the soil. However the stress needs to be observed indirectly. When we look at the total stress at a certain depth of our porous medium. There is the stress downward from the overlaying soil and then push back up (canceling out the force downward) is the pressure of the water as well as the <b>effective stress</b> of the material.
+</p>
+<blockquote>
+<p>
+&sigma;<sub>T</sub> = &sigma;<sub>e</sub> + p
+</p>
+</blockquote>
+<p>
+Here the total stress <i>\simga{}<sub>T</sub></i> is near-constant b/c the overlaying mass of soil and water remains mostly constant in mass
+</p>
+<blockquote>
+<p>
+d&sigma;<sub>T</sub> = d&sigma;<sub>e</sub> + dp <br>
+0 = d&sigma;<sub>e</sub> + dp <br>
+d&sigma;<sub>e</sub> = -dp <br>
+</p>
+</blockquote>
+<p>
+Which tells us that the stress on the material is proportional to the decrease in the pressure of the water. This conclusion is intuitive. Remember that <i>p=&rho;g&psi;</i> and <i>&psi;</i> is relative to the hydraulic head <i>h</i>. So at the head changes the stress changes
+</p>
+<blockquote>
+<p>
+d&sigma;<sub>e</sub> = -dp = -&rho; g d&psi; = - p g dh
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-org3889ea5" class="outline-4">
+<h4 id="org3889ea5">Compressability of soil</h4>
+<div class="outline-text-4" id="text-org3889ea5">
+<p>
+Now that we have the stress on the soil characterized we can write out the compressability
+</p>
+<blockquote>
+<p>
+&alpha; = (-dV<sub>T</sub>/V<sub>T</sub>)/d&sigma;<sub>e</sub>
+</p>
+</blockquote>
+<p>
+Note that here we are looking at the medium's total volume  <i>V<sub>T</sub></i>, and it's composed of solid volume <i>V<sub>s</sub></i> and a void volume <i>V<sub>v</sub></i>. The solid material mostly does not change. However under stress the material can rearrange itself to decrease it's void ratio <i>e</i>. So bearing in mind that <i>V<sub>T</sub> =  V<sub>s</sub> + V<sub>v</sub></i> we can rewrite in terms of <i>e</i>
+</p>
+<blockquote>
+<p>
+&alpha; = (-de/(1+e<sub>0</sub>)/d&sigma;<sub>e</sub>
+</p>
+</blockquote>
+<p>
+This is called <b>consolidation</b> it is often irreversibly or partially irreversibly. Furthermore, <i>alpha{}</i> is nonlinear though we can sometimes approximate it with a linear term (see Table 2.5 p55) <sup><a id="fnr.1.100" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+</p>
+
+<p>
+Furthermore these relationships do not hold in the unsaturated zone where the relationship is further complicated as you need to consider the moisture content and negative pressure heads
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org0b19524" class="outline-3">
+<h3 id="org0b19524">Other</h3>
+<div class="outline-text-3" id="text-org0b19524">
+<p>
+So in the simple case, pressures are simply the weight of water above a point (at some height  + atomospheric pressure
+</p>
+<blockquote>
+<p>
+p = &rho;(i - &phi; + p<sub>atmosphere</sub>
+</p>
+</blockquote>
+<blockquote>
+<p>
+&Delta;U = Heat - Work <br>
+&Delta;U = &delta;Q - PdV
+</p>
+<dl class="org-dl">
+<dt>Q</dt><dd>heat is in Joules (like Energy) or Newton-meters</dd>
+<dt>P</dt><dd>Pressure external to the system - Force/Area .. Newtons per m<sup>2</sup></dd>
+<dt>dV</dt><dd>Change in Volume - m<sup>3</sup></dd>
+<dt>PdV</dt><dd>.. also in Newton meters</dd>
+</dl>
+</blockquote>
+<p>
+The <b>PdV</b> relationship is hard to reason about. Generally energy is by definition:
+</p>
+<blockquote>
+<p>
+T = 1/2 mv<sup>2</sup>
+</p>
+</blockquote>
+<p>
+The change in energy in a small incriment of time as .. (using the product rule)
+</p>
+<blockquote>
+<p>
+dT/dt = (1/2)m(dv/dt&sdot;v + v&sdot;dv/dt) = m dv/dt &sdot; v
+</p>
+</blockquote>
+<p>
+Since <i>F=ma = mdv/dt</i> we can write out a small change in energy as a function of small distance <i>dr</i>
+</p>
+<blockquote>
+<p>
+dT/dt = F&sdot;v <br>
+dT= F&sdot;dr
+</p>
+</blockquote>
+<p>
+So <i>Energy</i> is <i>Force</i> &times; <i>distance</i> <br>
+An easy way to visualize it is to imagine a cylinder at constant pressure, like a bicyle pump. If gass is added and the pump moves against the external <i>Pressure</i> of the surrounding air, then the top end of the cylinder moves a distance  proportional to the change in <i>Volume</i> - hence the resulting <i>Work</i>.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc9bed53" class="outline-2">
+<h2 id="orgc9bed53">Water's journey through the rock</h2>
+<div class="outline-text-2" id="text-orgc9bed53">
+</div>
+<div id="outline-container-org730d8c7" class="outline-3">
+<h3 id="org730d8c7">Rain</h3>
+<div class="outline-text-3" id="text-org730d8c7">
+<p>
+What we try to measure. <b>&shy;<sup>18</sup>O</b> is based on weather "events". Primarily the monsoon..
+</p>
+
+<p>
+For every 75cm of rainfall:
+</p>
+<ul class="org-ul">
+<li>55cm evaporates back to the atmosphere</li>
+<li>20cm goes into the rivers</li>
+</ul>
+
+<p>
+Water that is in ice/snow/puddles is in <b>depression storage</b> - otherwise it goes into streams
+</p>
+
+<p>
+Land sloping to a discharge point - <b>catchment</b> / <b>drainage baisin</b>. The equivalent in the subsurface is the <b>ground water basin</b> which is surrounded by <b>ground water divides</b>.
+</p>
+</div>
+
+<div id="outline-container-orgfebce30" class="outline-4">
+<h4 id="orgfebce30">Canopy</h4>
+<div class="outline-text-4" id="text-orgfebce30">
+<ul class="org-ul">
+<li>The vegitation canopy will have a storage capacity which catches 8-30% of the rain</li>
+<li>A wet canopy reduces evapotranspiration (by about 10%)</li>
+<li>The interception rate will decrease as the rain progresses (as the canopy becomes water-logged)</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgedd20d9" class="outline-4">
+<h4 id="orgedd20d9">Transpiration</h4>
+<div class="outline-text-4" id="text-orgedd20d9">
+<p>
+<b>Transpiration</b> vegitation pulls water from the soil up by osmosis and makes it available for evaporation. This accounts for most of the vapor loss of a drainage basin. Hence a pond qith aquatic plants will loose water at a similar rate as an uncovered pond.
+</p>
+
+<dl class="org-dl">
+<dt>wilting point</dt><dd>when the surface tension of the water in the soil &gt; osmotic pressure</dd>
+<dt>Phreatophytes</dt><dd>plants that grow roots to the water table (ex: in the desert)</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgb41fb74" class="outline-4">
+<h4 id="orgb41fb74">Evaporation</h4>
+<div class="outline-text-4" id="text-orgb41fb74">
+<dl class="org-dl">
+<dt>absolute humidity</dt><dd>grams of water / cubic meter of air</dd>
+<dt>saturation humidity</dt><dd>max amount of humidity (function of temperature)</dd>
+<dt>relative humidity</dt><dd>ratio of absolute/saturation humidity ( at 100% evaporation ceases</dd>
+<dt>dew point</dt><dd>the temp at which at a given relative humidity you will start to get condensation (ie. 100% relative humidity)</dd>
+</dl>
+
+<p>
+evaporation cools a surface while condensation heats it [590 cal/gram]
+</p>
+</div>
+</div>
+
+<div id="outline-container-org01c23f3" class="outline-4">
+<h4 id="org01c23f3">Evapotranspiration</h4>
+<div class="outline-text-4" id="text-org01c23f3">
+<p>
+We lump transpiration and evaporation together b/c they're difficult to decouple
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge5c9ff6" class="outline-4">
+<h4 id="orge5c9ff6">EUD - Effective uniform depth of precipitation</h4>
+<div class="outline-text-4" id="text-orge5c9ff6">
+<p>
+Ways of estimating the average rainfall in a drainage basin&#x2026;
+</p>
+
+<p>
+In the case of a karst tower this is greatly simplified and can be estimated with one rain gauge
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga3cbf76" class="outline-4">
+<h4 id="orga3cbf76">Thornthwaite 1944</h4>
+<div class="outline-text-4" id="text-orga3cbf76">
+<p>
+an estimate of the potential evapotranspiration (how much could evaporate)
+</p>
+
+<dl class="org-dl">
+<dt>Latent heat of vaporization</dt><dd><b>H<sub>v</sub></b> = 597.3 - 0.564T calories/gram (of water) (T = temp in Celcius)</dd>
+<dt>Latent heat of fusion</dt><dd>79.7 cal/gram</dd>
+<dt>Sublimation</dt><dd>597.3 + 79.7 = 677 cal/gram</dd>
+</dl>
+
+<p>
+TODO
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9a6832b" class="outline-4">
+<h4 id="org9a6832b">Infiltration</h4>
+<div class="outline-text-4" id="text-org9a6832b">
+<p>
+Once rain reaches the ground it starts to infiltrate
+</p>
+<ul class="org-ul">
+<li>up to a <b>infiltration capacity</b> (cm/hr)</li>
+<li>this capacity drops over time b/c capillary actions drops and the soil swells up</li>
+<li>It eventually reaches a steady state</li>
+</ul>
+<p>
+Horton 1933 1940
+</p>
+
+<p>
+Once the infiltration capacity has been exceeded, the water starts to flow on the surface by <b>Horton overland flow</b>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf25c3e2" class="outline-3">
+<h3 id="orgf25c3e2">Vadose</h3>
+<div class="outline-text-3" id="text-orgf25c3e2">
+<ul class="org-ul">
+<li>water flowing here is called <b>interflow</b> and goes down under <b>gravity drainage</b> (flows towards a stream normally)</li>
+<li>If the water comes out before a stream then it's called <b>throughflow</b> and the remaining surface flow to the steam is the <b>return flow</b></li>
+<li>has both bound water and air</li>
+</ul>
+</div>
+
+<div id="outline-container-org796bc10" class="outline-4">
+<h4 id="org796bc10">Soil (Vadose)</h4>
+<div class="outline-text-4" id="text-org796bc10">
+<ul class="org-ul">
+<li>soil is about 40% porous</li>
+</ul>
+</div>
+<ul class="org-ul">
+<li><a id="org6dbdb37"></a>Dissolved CO<sub>2</sub><br>
+<div class="outline-text-5" id="text-org6dbdb37">
+<ul class="org-ul">
+<li>CO<sub>2</sub> accumulates b/c diffusion is retarded by friction of torturous path ways p50 <sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup> (so it's a semi-open system..)</li>
+<li>17-31% volume available for gas storage <sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup></li>
+<li>plants respire approximately 40% of the CO<sub>2</sub> they extract in their roots. roots = CO<sub>2</sub> pumps</li>
+<li>at 50cm down .. dry climate 500ppm  | wet climate 26000-40000 ppm <sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup></li>
+<li>Final CO<sub>2</sub> partial pressure is determined by water (20%) and temperature (50%) <sup><a id="fnr.5" class="footref" href="#fn.5" role="doc-backlink">5</a></sup></li>
+<li>Organic matter is also brought down with the water and decomposes within the karst (which complicates resulting concentrations)</li>
+<li>Water get's saturated with CO<sub>2</sub> .. probably.. most of the time</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div id="outline-container-org1397913" class="outline-4">
+<h4 id="org1397913">Epikarst (Vadose)</h4>
+<div class="outline-text-4" id="text-org1397913">
+<p>
+The immediate face of the limestone where the majority of the weathering happens. Existing fissures preferrencially continue to dissolve - so weathering is not uniform
+</p>
+<ul class="org-ul">
+<li>70% of dissolution happens here (hence fissures narrow as you go further down)</li>
+<li>10-30% porosity. Can hold the bulk of the water in a suspended aquifer</li>
+<li>3-10 meters in depth</li>
+<li>high storage capacity</li>
+<li>spacially variable with some zones erroded much deeper than others - creating shafts</li>
+<li>Closed system - so the CO<sub>2</sub> is limited to what came in with the water. This leads to a max 25mg/L of calcium carbonate (open system is 55mg/L)</li>
+</ul>
+
+<p>
+<b>NOTE</b> Not always true.. if you have strong dry seasons and chalky porous limestone then you can have <b>case hardening</b> and so it's actually less permiable near the surface.
+</p>
+</div>
+</div>
+<div id="outline-container-org0dc4b9e" class="outline-4">
+<h4 id="org0dc4b9e">Transit zone  (Vadose)</h4>
+<div class="outline-text-4" id="text-org0dc4b9e">
+<ul class="org-ul">
+<li>primary/secondary/tertiary porosity..</li>
+<li>unweathered rock - so much less permiable - this differential makes the epikarst develop a suspended aquifer of sorts</li>
+<li>less than 2% porosity (matrix flow)</li>
+<li>mainly flow through fissures</li>
+<li>changes in pressure caused by more rain causes a near immediate <b>pulse through</b> (also called <i>piston effect</i>)</li>
+<li>The actualy <b>flow through</b> of the water can take much longer <sup><a id="fnr.6" class="footref" href="#fn.6" role="doc-backlink">6</a></sup></li>
+<li>There can be a lot of lateral flow through the cave</li>
+</ul>
+
+<p>
+<b>Note</b> Sometimes entirely missing.. like in Shilin Yunnan. Just epikarst and water table <sup><a id="fnr.7.100" class="footref" href="#fn.7" role="doc-backlink">7</a></sup>
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org5fd5f4e" class="outline-3">
+<h3 id="org5fd5f4e">Phreatic zone</h3>
+<div class="outline-text-3" id="text-org5fd5f4e">
+<p>
+The water table .. below the cave.
+The outer layer is the <b>capillary fringe</b> followed by the <b>zone of saturation</b>.
+In the ground water you have <b>ground water flow</b> which will go to a stream bed in <b>baseflow</b>
+</p>
+
+<p>
+The cumulative flow in the stream is the <b>runoff</b>
+</p>
+</div>
+
+<div id="outline-container-org2742bcb" class="outline-4">
+<h4 id="org2742bcb">Baseflow recession</h4>
+<div class="outline-text-4" id="text-org2742bcb">
+<p>
+As the available water dcreases the flow rate drops along an exponential curve
+</p>
+<blockquote>
+<p>
+Q(t) = Q<sub>0</sub>e<sup>at</sup>
+</p>
+</blockquote>
+<p>
+Where <b>Q<sub>0</sub></b> is the flow rate at the start time 0.<br>
+Flow rates are in m<sup>3</sup>/s
+</p>
+
+<ul class="org-ul">
+<li><i>baseflow</i> into a river is <b>gaining</b> or <b>effluent</b></li>
+<li><i>baseflow</i> out of a river is <b>losing</b> or <b>influent</b></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgbc25397" class="outline-4">
+<h4 id="orgbc25397"><span class="todo TODO">TODO</span> Has been modeled before</h4>
+<div class="outline-text-4" id="text-orgbc25397">
+</div>
+</div>
+
+<div id="outline-container-orga585b58" class="outline-4">
+<h4 id="orga585b58"><span class="todo TODO">TODO</span> Flow switching</h4>
+<div class="outline-text-4" id="text-orga585b58">
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org92af348" class="outline-2">
+<h2 id="org92af348">Geochemistry</h2>
+<div class="outline-text-2" id="text-org92af348">
+</div>
+<div id="outline-container-orgca46f70" class="outline-3">
+<h3 id="orgca46f70">Negative Logarithms</h3>
+<div class="outline-text-3" id="text-orgca46f70">
+<p>
+like pH
+</p>
+<blockquote>
+<p>
+Ca<sup>2+</sup> = 0.0025 mol L<sup>-1</sup> &rArr; log<sub>10</sub> &rArr; 10<sup>-2.6</sup> &rArr; pCa<sup>2+</sup> = 2.6
+</p>
+</blockquote>
+<p>
+p41 <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
+</p>
+</div>
+</div>
+<div id="outline-container-orgaba5887" class="outline-3">
+<h3 id="orgaba5887">Chemical Equilibria</h3>
+<div class="outline-text-3" id="text-orgaba5887">
+<p>
+The following from &#x2026; p42 <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup><br>
+<br>
+a bit of calcite will dissolve in water
+</p>
+<blockquote>
+<p>
+CaCO<sub>3</sub> &hArr; Ca<sup>2+</sup> + CO<sub>3</sub><sup>2-</sup>
+</p>
+</blockquote>
+<p>
+This can be <b>hydrated</b> by <b>H<sup>+</sup></b> (proton)
+</p>
+<blockquote>
+<p>
+Ca<sup>2+</sup> + CO<sub>3</sub><sup>2-</sup> + H<sup>+ </sup> &hArr; Ca<sup>2+</sup> + HCO<sub>3</sub><sup>-</sup>
+</p>
+</blockquote>
+<p>
+But this equation is unbalanced in terms of charge.. and further CO<sub>3</sub><sup>2-</sup> may dissociate .. leading to <b>acid dissolution</b>. This will keep going till it reaches a dynamic equilibrium and the reverse reaction balances the forward one
+</p>
+
+<dl class="org-dl">
+<dt>Law of Mass Action</dt><dd>aA + bB &hArr; cC + dD</dd>
+<dt>Equilibrium Constant <b>K</b></dt><dd>K = [C]<sup>c</sup>[D}<sup>d</sup> / [A]<sup>a</sup>[B]<sup>b</sup></dd>
+</dl>
+
+<p>
+ex: Water:
+</p>
+<blockquote>
+<p>
+
+</p>
+
+<p>
+H<sub>2</sub>O &hArr; H<sup>+ </sup> + OH<sup>-</sup> <br>
+K<sub>w</sub> = [H<sup>+</sup>][OH<sup>-</sup>] / [H<sub>2</sub>O] <br>
+we know that &#x2026; <br>
+K<sub>w</sub> = 10<sup>-14</sup> (at 25&ordm;C) <br>
+K<sub>w</sub> = 10<sup>-14.9</sup> at 0&ordm;C) <br>
+</p>
+</blockquote>
+<p>
+Since <b>K<sub>w</sub></b> is tiny the top term must be very small. Water doesn't spontaneously dissociate much into ions. The energy to dissociate is the <b>Gibbs free energy of reaction</b>
+</p>
+<blockquote>
+<p>
+&Delta;G&ordm; = -2.303 &sdot; RT &sdot; log<sub>10</sub>K<br>
+R = 8.314 J mol<sup>-1</sup> K<sup>-1</sup>
+T = temperature
+</p>
+</blockquote>
+<p>
+<b>R</b> is the gas constant.. (who knows where that comes from)
+</p>
+</div>
+</div>
+<div id="outline-container-orgc6abf44" class="outline-3">
+<h3 id="orgc6abf44">Dissolution</h3>
+<div class="outline-text-3" id="text-orgc6abf44">
+</div>
+<div id="outline-container-org9b8ec95" class="outline-4">
+<h4 id="org9b8ec95">Equilibria</h4>
+<div class="outline-text-4" id="text-org9b8ec95">
+</div>
+<ul class="org-ul">
+<li><a id="orga190fd4"></a>Open System<br>
+<div class="outline-text-5" id="text-orga190fd4">
+<p>
+Like in a open pond on top of limestone p52 <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
+</p>
+<ul class="org-ul">
+<li>infinite atomospheric CO<sub>2</sub> available</li>
+<li>can ultimately dissolve 55mg/L @ 25&ordm;C vs.. 75mg/L @ 0&ordm;C</li>
+<li>.. at P<sub>CO<sub>2</sub></sub> ~ 0.036%</li>
+</ul>
+</div>
+</li>
+<li><a id="org3e16ce7"></a>Closed System<br>
+<div class="outline-text-5" id="text-org3e16ce7">
+<p>
+Once water saturated with CO<sub>2</sub> goes down a fissure it can't get any more CO<sub>2</sub> so the amount of calcite it can dissolve is limited to 25mg/L @ 25&ordm;C (ie. 40% of the surface)
+</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="outline-container-org0f15b79" class="outline-4">
+<h4 id="org0f15b79">Kinetics/Chemistry</h4>
+<div class="outline-text-4" id="text-org0f15b79">
+<dl class="org-dl">
+<dt>DBL</dt><dd>Diffusion boundary layer. Layer above solid through which chemical diffusion happens</dd>
+<dt>(no term)</dt><dd>90% saturation within the first 1-2m of water going down a fissure through dissolution of Ca<sup>2+</sup> through the <b>DBL</b></dd>
+<dt>Kinetic Breakthrough</dt><dd>past a certain threshold a fissure will suddenly start dissolving very fast p73 <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup> <b>Unclear why this happens.. just what the models show</b></dd>
+<dt>(no term)</dt><dd>Dissolution happens at the surface as layers of ions are zippered off (a staircase "diagonal" edge dissolves much faster)</dd>
+<dt>(no term)</dt><dd>H<sup>+ </sup> ions take off CO<sub>3</sub><sup>2-</sup> molecules and then bare Ca<sup>2+</sup> fall off (??)</dd>
+<dt>(no term)</dt><dd>Impossible to get a universal dissolution rate! (even if we somehow could fine the surface area)</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-orgcd1a9d3" class="outline-4">
+<h4 id="orgcd1a9d3">Factors</h4>
+<div class="outline-text-4" id="text-orgcd1a9d3">
+</div>
+<ul class="org-ul">
+<li><a id="org4a1c862"></a>Pressure<br>
+<div class="outline-text-5" id="text-org4a1c862">
+<ul class="org-ul">
+<li>The higher the more dissolves&#x2026;</li>
+<li>seems to be a significant factor at large depths &#x2026; maybe not relevant in a karst tower</li>
+<li>Has weird interaction with temperature</li>
+</ul>
+<blockquote>
+<p>
+ex:<br>
+Karst hotsprings -&gt; CO<sub>2</sub> from below .. as water rises it's pressure drops and it becomes supersaturated w/ calcite <b>or</b> it cools so much it's understaturated<br>
+see:<br>
+Yoshimura et al
+Deep source CO<sub>2</sub> in natural waters and its role in extensive tufa deposition in the Huanglong Ravines, Sichuan, China
+</p>
+</blockquote>
+</div>
+</li>
+<li><a id="orgec13f62"></a>Temperature<br>
+<div class="outline-text-5" id="text-orgec13f62">
+<ul class="org-ul">
+<li>strongly affects the saturation point</li>
+<li>55mg/L @ 25&ordm;C vs.. 75mg/L @ 0&ordm;C</li>
+<li>Water often cools as it passes underground, making it able to dissolve rock further</li>
+<li>Krabi should have pretty constant annual temperatures</li>
+</ul>
+</div>
+</li>
+<li><a id="orgf661610"></a>Trace minerals<br>
+<div class="outline-text-5" id="text-orgf661610">
+<ul class="org-ul">
+<li>can strongly affect dissolution p57-58 <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup></li>
+<li>They interfere with the lattice structure of the crystal and create dislocations to is enhances unraveling of the structure</li>
+</ul>
+</div>
+</li>
+<li><a id="orgc378a3d"></a>Acid Rain<br>
+<div class="outline-text-5" id="text-orgc378a3d">
+<p>
+p58-59 <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
+</p>
+</div>
+</li>
+<li><a id="orgdda9ea9"></a>Common Ion<br>
+<div class="outline-text-5" id="text-orgdda9ea9">
+<p>
+If you have something lik gypsum that provides another source of Ca<sup>2+</sup> then this will retard dissolution
+</p>
+</div>
+</li>
+<li><a id="orgcfa3810"></a>Sea water<br>
+<div class="outline-text-5" id="text-orgcfa3810">
+<p>
+p60 <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
+</p>
+</div>
+</li>
+<li><a id="orga7d1764"></a>Biological Activity<br>
+<div class="outline-text-5" id="text-orga7d1764">
+<p>
+&#x2026;
+</p>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-org8bd315a" class="outline-4">
+<h4 id="org8bd315a">H<sub>2</sub>S</h4>
+<div class="outline-text-4" id="text-org8bd315a">
+<p>
+Also dissolves everything.. 
+</p>
+<ul class="org-ul">
+<li>Ramiform Hypogene System</li>
+<li>Mississippi Valley Type (MVT)</li>
+<li>H<sub>2</sub>S is commonly from the oxidation of pyrite or from volcanic regions. But it can also come from compressed or deformed sediments (~1.5-4 km down) or biological activity</li>
+<li>O<sub>2</sub> is the limiting factor. So you can get dissolution when O<sub>2</sub> is suddenly available - like a ventilated cavern, or a flood that pushes in O<sub>2</sub> rich water</li>
+<li>Leads to the precipitation of sulfide ore bodies</li>
+<li>Can happen in conjunction with the CO<sub>2</sub> dissolution of limstone (it can precipitate while the other is dissolving)</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org7d73445" class="outline-3">
+<h3 id="org7d73445">Precipitation</h3>
+<div class="outline-text-3" id="text-org7d73445">
+</div>
+<div id="outline-container-org4278719" class="outline-4">
+<h4 id="org4278719">In bare water</h4>
+<div class="outline-text-4" id="text-org4278719">
+<ul class="org-ul">
+<li>Forms <b>crystallite</b> micro crystals thant then grow/riper by accretion</li>
+<li>only really happens in marl lakes</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org0500a64" class="outline-4">
+<h4 id="org0500a64">On surfaces</h4>
+<div class="outline-text-4" id="text-org0500a64">
+<ul class="org-ul">
+<li>Surfaces greatly decrease the required energy for precipitation to occur (<b>nulceation potential</b>)</li>
+<li>Starts at SI = 0.3 (Saturation index)</li>
+<li>SI &gt; 1.0 things go very quickly</li>
+<li>If it's too fast then you get crystals and globbing and <b>adhesive growth</b></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org57e8250" class="outline-4">
+<h4 id="org57e8250">Bacteria</h4>
+<div class="outline-text-4" id="text-org57e8250">
+<p>
+Can either enhance or retard crystallization by taking or releasing CO<sub>2</sub>
+</p>
+</div>
+</div>
+<div id="outline-container-orga071641" class="outline-4">
+<h4 id="orga071641">Other elements</h4>
+<div class="outline-text-4" id="text-orga071641">
+<ul class="org-ul">
+<li>Will readily pick up foreign ions and molecules</li>
+<li>Humic/Fulvic acids -&gt; give most of the differences in color</li>
+<li>Some elements are "poisons" that inhibit precipitation (ex: microorganisms, phosphates, trace metals)</li>
+<li>Mg<sup>2+</sup> is a major "poison". However it doesn't "fit" in aragonite so aragonite can still form. Hence why aragonite precipitates in seawater environments</li>
+</ul>
+<blockquote>
+<p>
+<b>Note</b>: Aragonite can still precipitate in fresh water conditions if for instance gypsum precipitates and depletes the Ca<sup>2+</sup> first
+</p>
+</blockquote>
+<blockquote>
+<p>
+ex:<br>
+HuangLong<br>
+Lu et al 2000 <br>
+Controlling processes in a CaCO<sub>3</sub> precipitation stream in Huanglong natural Scenic District, Sichuan, China <br>
+Journal of Hydrology
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org05fcb56" class="outline-2">
+<h2 id="org05fcb56">Challenges in modeling</h2>
+<div class="outline-text-2" id="text-org05fcb56">
+</div>
+<div id="outline-container-orge9ae9c4" class="outline-3">
+<h3 id="orge9ae9c4">Advantages in using karst towers</h3>
+</div>
+</div>
+
+
+<div id="outline-container-orge2eb7d9" class="outline-2">
+<h2 id="orge2eb7d9">Things to measure</h2>
+<div class="outline-text-2" id="text-orge2eb7d9">
+</div>
+<div id="outline-container-org5b6c915" class="outline-3">
+<h3 id="org5b6c915">Tracers</h3>
+<div class="outline-text-3" id="text-org5b6c915">
+<ul class="org-ul">
+<li>You can measure the <b>flow through</b> rate this way</li>
+<li id="salts as tracers">MgCl2 / CaCl2 / NaCl p7 <sup><a id="fnr.8" class="footref" href="#fn.8" role="doc-backlink">8</a></sup></li>
+</ul>
+<p>
+When dissolved give the solution different densities. Will they percolate through differently? What are tracers others have used?
+</p>
+</div>
+<div id="outline-container-orgc0a6df3" class="outline-4">
+<h4 id="orgc0a6df3"><span class="todo TODO">TODO</span> Read up on past work</h4>
+<div class="outline-text-4" id="text-orgc0a6df3">
+<p>
+Lots of references in <sup><a id="fnr.7.100" class="footref" href="#fn.7" role="doc-backlink">7</a></sup> &#x2026;
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd8e15d1" class="outline-3">
+<h3 id="orgd8e15d1">Detecting gaps above the cave (ventilated air pockets)</h3>
+<div class="outline-text-3" id="text-orgd8e15d1">
+<dl class="org-dl">
+<dt>Ca<sup>2+</sup></dt><dd>the normal calcium that precipitates out when the CO2 outgasses. The precipitation can be prevented with a small amount of nitric acid when the water is saturated (or super saturated)</dd>
+<dt>Mg<sup>2+</sup></dt><dd>Seems to dissolve immediately? Not as sensative to flow rate as <b>Ca</b>. Higher Flow rates give lower ion concentration but a higher <b>Mg/Ca</b> ration.</dd>
+</dl>
+<hr>
+<ul class="org-ul">
+<li>You can have ventilated air gaps "above" your sampling cave - which will cause a premature deposition of a ration of your <b>Ca</b>. This should produce a discernable offset in your <b>Mg/Ca vs. drip-rate</b> plots <sup><a id="fnr.9" class="footref" href="#fn.9" role="doc-backlink">9</a></sup>.  So if there is premature deposition then this ratio will be skewed <sup><a id="fnr.10" class="footref" href="#fn.10" role="doc-backlink">10</a></sup></li>
+</ul>
+</div>
+
+<div id="outline-container-org0755ae0" class="outline-4">
+<h4 id="org0755ae0"><span class="todo TODO">TODO</span> Check Ca/Mg dissolutions precipitation stuff..</h4>
+<div class="outline-text-4" id="text-org0755ae0">
+</div>
+</div>
+</div>
+
+<div id="outline-container-org464a905" class="outline-3">
+<h3 id="org464a905">Organic Activity</h3>
+<div class="outline-text-3" id="text-org464a905">
+<dl class="org-dl">
+<dt>Dissolved Oxygen (DO)</dt><dd>is an indicator of organic activity (or lack of activity. Maybe a proxy for residence time? p23  <sup><a id="fnr.8.100" class="footref" href="#fn.8" role="doc-backlink">8</a></sup></dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-org320be72" class="outline-3">
+<h3 id="org320be72">Carbon isotope in speleothem</h3>
+<div class="outline-text-3" id="text-org320be72">
+<ul class="org-ul">
+<li>the dissolved organic carbon (DIC)  from C3 plants should have dC13 of around -14% to -18%</li>
+<li>host limestone dC13 +1%</li>
+<li>In the unsaturated zone the C is from the DIC. limestone dissolution is limited by dissolved CO2</li>
+<li>if you have fast flow then all the C13 is from the soil. If you have slow flow then it mixes with the limestone</li>
+<li>complicated by the fact that you can have more fractionation.. at the degassing location or re-evaporation near the suface.</li>
+<li>can see shifts btwn C3 and C4 plants.</li>
+</ul>
+
+<p>
+see <sup><a id="fnr.11" class="footref" href="#fn.11" role="doc-backlink">11</a></sup> for more details and references..
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgdbdd8b2" class="outline-3">
+<h3 id="orgdbdd8b2">Other residence time proxies</h3>
+<div class="outline-text-3" id="text-orgdbdd8b2">
+<dl class="org-dl">
+<dt>nobel gases / O2 / N2/ Ar</dt><dd>related to ground wter recharge condition p24 <sup><a id="fnr.8.100" class="footref" href="#fn.8" role="doc-backlink">8</a></sup></dd>
+<dt>87Sr/87Sr</dt><dd>Something to do with weathering <sup><a id="fnr.8.100" class="footref" href="#fn.8" role="doc-backlink">8</a></sup></dd>
+<dt>(no term)</dt><dd>if there is pyrite then you get sulfate&#x2026;</dd>
+</dl>
+</div>
+<div id="outline-container-org1196406" class="outline-4">
+<h4 id="org1196406"><span class="todo TODO">TODO</span> Determine if there is pyrite in the karst tower</h4>
+</div>
+</div>
+
+<div id="outline-container-org2a5247e" class="outline-3">
+<h3 id="org2a5247e">Specific Conductivity *SpC</h3>
+<div class="outline-text-3" id="text-org2a5247e">
+<p>
+p63 <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
+</p>
+<ul class="org-ul">
+<li>Can be directly translated to a value of mg/L CaCO<sub>2</sub></li>
+<li>Inpurities interfere at high concentrations</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbedfdb3" class="outline-3">
+<h3 id="orgbedfdb3">pH</h3>
+<div class="outline-text-3" id="text-orgbedfdb3">
+<ul class="org-ul">
+<li>best done directly in the cave&#x2026;</li>
+<li>Can be done afterwards in a lab - but sounds tricky.. p64 <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org6584de7" class="outline-3">
+<h3 id="org6584de7">Total Hardness (Ca<sup>2+</sup> + Mg<sup>2+</sup>)</h3>
+<div class="outline-text-3" id="text-org6584de7">
+<p>
+involves doing chemistry..  p64 <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
+</p>
+</div>
+</div>
+<div id="outline-container-org7f64c35" class="outline-3">
+<h3 id="org7f64c35">CO<sub>2</sub></h3>
+<div class="outline-text-3" id="text-org7f64c35">
+<p>
+p66 <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
+A drop of water formed at the tip of a soda straw stalactite lost CO<sub>2</sub> quickly:
+</p>
+<ul class="org-ul">
+<li>10% - 1 sec</li>
+<li>30% - 90 seconds</li>
+<li>70% - 15 minutes</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org5ca8c45" class="outline-3">
+<h3 id="org5ca8c45">Chemical Analysis</h3>
+<div class="outline-text-3" id="text-org5ca8c45">
+<dl class="org-dl">
+<dt>AAS</dt><dd>Atomic Absorption Spectroscopy</dd>
+<dt>ICP-AES</dt><dd>Inductively coupled plasma-atomic emission spectrometry</dd>
+<dt>IC</dt><dd>Ion chromatography</dd>
+</dl>
+<p>
+all methods are done in commercial water quality labs&#x2026;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org2399001" class="outline-2">
+<h2 id="org2399001">Glossary</h2>
+<div class="outline-text-2" id="text-org2399001">
+<dl class="org-dl">
+<dt>Calcite</dt><dd>Octohedral <b>CO<sub>3</sub><sup>2-</sup></b> around <b>Ca<sup>2+</sup></b>. The <b>Ca<sup>2+</sup></b> ions can sometimes be replaced by other smaller cations or by <b>Sr<sup>2+</sup></b>. It can have more than 2000 different forms based on the impurities it has. Based on the geometry of the crystal. <sup><a id="fnr.12" class="footref" href="#fn.12" role="doc-backlink">12</a></sup> Table 2.2 p8-9 <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup> (Do the impurities drive the geometries or the geometries drive the structures?)</dd>
+
+<dt>Aragonite</dt><dd>Unlike Calcite. it doesn't capture cations smaller than <b>Ca</b>. However, <b>Sr</b> and <b>U</b> can still substitute for <b>Ca</b>. It will readily dissolve/reprecipitate and expell the <b>Sr</b> and <b>U</b>. It's 8% smaller by volume than calcite - so if it reprecipitates as calcite it will make the area less porous <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup></dd>
+
+<dt>Tufa</dt><dd>Calcite from terestrial plants that have rotted away. It's a loose framework <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup></dd>
+
+<dt>Travertine</dt><dd>terrestrial calcite from inorganic or bacterial sources (typically underground or near hotsprings) <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup></dd>
+
+<dt>Dolomite</dt><dd>Should be layers of <b>Ca<sup>2+</sup></b> cations and then layers of <b>Mg<sup>2+</sup></b> cations, but in reality it's all mixed up and has impurities (and is usually <b>Ca<sup>2+</sup></b> rich). So it captures even more elements (Zn, Fe, Mn, Na, Sr) than Calcite p11 <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup> . In particular it captures <b>Fe<sup>2+</sup></b> which gives it a pink color (esp when weathered). Dolomite exists on a continium with Calcite. Dolomite will affect the solubility of the limestone. Seems it dissolved worse than Calcite p28 <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>. And yet <b>Mg<sup>2+</sup></b> bonds 20% stronger to <b>H<sub>2</sub>O</b> than <b>Ca<sup>2+</sup></b>. <b>Mg</b> is more abundant in seawater where limestone forms (esp. hypersaline lagoons)</dd>
+
+<dt>Dolomitization</dt><dd>In brackish water you can have calcite dissolve but leaving dolomite behind (not entirely clear) p21<sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup></dd>
+
+<dt>Carbonatites</dt><dd>carbonates that are ignious in nature and may include rare earth minerals</dd>
+
+<dt>Limestone</dt><dd>precipitates everywhere. Mostly forms in shallow tropical/warm marine environments (ex: sea platform/ramps) and is mostly made of marine shells/skeletons (so it's texture can provide clues to it's origin - see Table 2.4 <sup><a id="fnr.2.100" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>). Starts as muddy 40-80% porosity and then diagenisis consolidates it to solid rock w/ ~5% porosity (or less). If no diagenisis then it forms chalks or marls. Diagenisis is driven by meteoric waters that remove aragonite and reform into more and more compact calcite.</dd>
+
+<dt>Primary Porosity</dt><dd>porosity of the bare rock. If it's too high then the karst develops poorly</dd>
+
+<dt>Secondary Porosity</dt><dd>fractures that may conduct water.</dd>
+
+<dt>Tertiary porosity</dt><dd>conduits that take most of the water typically. They are fed primarily by surface features (geomorphology) doline/streamsines. Hence the geomorphology determines the hydrology.</dd>
+
+<dt>Karst</dt><dd>A hydrological system of typically carbonate or evaporites that is driven by dissolution unlike other lithologies. Dissolution happens along ground water flow paths</dd>
+
+<dt>Paleokarst</dt><dd>karst that's been cut off from the hydrological system</dd>
+
+<dt>Relic Karst</dt><dd>Karst outside the original development area. Usually referring to lifting or subsiding of the karst features.</dd>
+
+<dt>Interstratal Karst</dt><dd>Karst layers found among non karst layers..</dd>
+
+<dt>Bedding planes</dt><dd>ground water more readily penetrates an inferface between limestone and another rock (like shale) than just plain limestone</dd>
+
+<dt>Irregular contact</dt><dd>ie&#x2026; wavey contact surfaces (instead of a plane) "undulatory" will more readily be eaten away by ground water.</dd>
+
+<dt>Joints</dt><dd>due to stress (ex: tectonic) these breaks will appear normal to the bedding planes. If they cross several beds then they're called <b>Master joints</b>. In deeper karst they are less permiable than bedding planes due to the compression.</dd>
+
+<dt>Fracture-traces / Faults</dt><dd>due to displacement of rock. Can be seen by satellite.. can form a river like structure in the karst</dd>
+
+<dt>Throats</dt><dd>Constriction on the irregular terrain that bring water down deep into the karst. These are log-normally distributed</dd>
+</dl>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Groundwater BOOK
+#+END<sub>slide</sub>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Karst Hydrogeology and Geomorphology BOOK
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Theory and model for global carbonate solution by groundwater
+Groundwater as a Geomorphic Agent (ed. R. G. LaFleur), Allen &amp; Unwin, London pp 210-26 
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4" role="doc-backlink">4</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Guidebook for Ecosystems of Semiarid Karst in North China and Subtropical Karst in Southwest China
+IGCP 228
+Karst Dynamics Laboratory, Guilin 94 pp.
+<b>CAN'T FIND</b>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5" role="doc-backlink">5</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+The effect of climate on the chemistry of carbonate groundwater
+Water Rousources Research, 11, 958-62
+Is this working???
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.6" class="footnum" href="#fnr.6" role="doc-backlink">6</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Evidence of hydrological significance of the epikarstic zone from sutdy of oxygen isotope somposition of water, Arabika massif, Western Caucasus
+Proceedings 10th International Congress of Speleology (Budapest) II 798-799 (from <sup><a id="fnr.7" class="footref" href="#fn.7" role="doc-backlink">7</a></sup> )
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.7" class="footnum" href="#fnr.7" role="doc-backlink">7</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+The role of the epikarst in karst and cave hydrogeology: a review
+Internation Journal of Speleology
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.8" class="footnum" href="#fnr.8" role="doc-backlink">8</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Groundwater Geochemistry and Isotopes 2015 BOOK
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.9" class="footnum" href="#fnr.9" role="doc-backlink">9</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Soil and karst aquider hydrological controls on the geochemical evolution of speleothem-forming drip waters, Crag Cave, southwest Ireland
+Journal of Hydrology v 273 p51-68
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.10" class="footnum" href="#fnr.10" role="doc-backlink">10</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Controls on trace element (Sr-Mg) compositions of carbonate cave waters: implications for speleothem climate records
+Chemical Geology 166,255-269
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.11" class="footnum" href="#fnr.11" role="doc-backlink">11</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Paleo-climate reconstruction from stable isotope variations in speleothems: a review
+Quaternary Science Reviews, v23 p 901-918
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.12" class="footnum" href="#fnr.12" role="doc-backlink">12</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Calcite: the Mineral with the Most Forms, Christian Weise Verlag, Munich, 114 pp.
+</p></div></div>
+
+
+</div>
+</div></div>
+</body>
+</html>

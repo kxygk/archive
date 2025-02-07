@@ -1,0 +1,74 @@
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+= Tham Khao Din Stalagmite(s)
+
+This is a very large spacious dry cave that is being converted into a temple of sorts. The bottom level are all eroded away and there are only some very ugly stalagmites. The area is generally very dusty
+
+[.scrollbox]
+--
+image:phot/thamkhaodin/p4.jpg[]
+image:phot/thamkhaodin/p1.jpg[]
+image:phot/thamkhaodin/p2.jpg[]
+image:phot/thamkhaodin/p3.jpg[]
+--
+
+I suspected that moving up in the cave we could get above this washed out layers. Through some stairs and ladders at the top you can access an enclosed chamber that contains a small group of accessible active stalagmites.
+
+== S1
+
+First you seet his huge beautiful barrel of a stalagmite. It looks like it's still active, however there is no practical way to sample it. However. it could be used to track the drip rate
+
+[.scrollbox]
+--
+image:phot/thamkhaodin/s1a.jpg[]
+image:phot/thamkhaodin/s1b.jpg[]
+image:phot/thamkhaodin/s1c.jpg[]
+--
+
+== S2
+
+Immediately behind this is a small cluster of stalagmites. One looks very active, a few others look a bit less active (maybe only during certain parts of the year). The ceiling is very high, but there seem to be wellfomed active stalagmites.
+
+[.scrollbox]
+--
+image:phot/thamkhaodin/s2g.jpg[]
+image:phot/thamkhaodin/s2h.jpg[]
+image:phot/thamkhaodin/s2i.jpg[]
+image:phot/thamkhaodin/s2j.jpg[]
+image:phot/thamkhaodin/s2k.jpg[]
+image:phot/thamkhaodin/s2l.jpg[]
+--
+
+extra photos:
+
+[.scrollbox]
+--
+image:phot/thamkhaodin/s2a.jpg[]
+image:phot/thamkhaodin/s2b.jpg[]
+image:phot/thamkhaodin/s2c.jpg[]
+image:phot/thamkhaodin/s2d.jpg[]
+image:phot/thamkhaodin/s2e.jpg[]
+image:phot/thamkhaodin/s2f.jpg[]
+--
+
+video::phot/thamkhaodin/s2g.mp4[]
+
+
+
+== S3
+
+Above there is a difficult to access shelf with stalagmites that were currently inactive (immediately after a rainshower)
+
+[.scrollbox]
+--
+image:phot/thamkhaodin/s3a.jpg[]
+image:phot/thamkhaodin/s3b.jpg[]
+image:phot/thamkhaodin/s3c.jpg[]
+image:phot/thamkhaodin/s3d.jpg[]
+image:phot/thamkhaodin/s3e.jpg[]
+--

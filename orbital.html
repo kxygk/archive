@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Orbital driver of Climate</title>
+<meta name="author" content="George Kontsevich" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="../web/kxygk.css" />
+<link rel="shortcut icon" href="../web/panda.svg" type="image/x-icon">
+<style>
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+font: 14px/20px italic Times, sans-serif;
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+
+pre.src {
+margin-left:  -5vw;
+margin-right: -5vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: solid;
+border-left-width: 4px;
+border-left-color: grey;
+font: 14px/20px italic Times, serif;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+.org-svg { /* non-inlined SVGs */
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
+img { /* static images */
+width:     100%;
+max-width: max-content;}
+ul {padding-left: 1.5em;
+border-left: solid;
+border-left-width: 4px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {color: black;
+padding-top: 0.5em;
+border-bottom: 4px solid  #aaaaaa;}
+h3 {color: black;
+border-bottom: 2px dotted  #aaaaaa;}
+b, i{
+font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+font-size: 0.8em;
+line-height: 0;
+position: relative;
+vertical-align: baseline;
+top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Orbital driver of Climate</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org48b363d">Drivers</a>
+<ul>
+<li><a href="#org4fdbbc0">Obliquity</a>
+<ul>
+<li><a href="#org46f61e3">Amplitude</a></li>
+<li><a href="#org1a2aa18">Precession</a></li>
+</ul>
+</li>
+<li><a href="#orgf22297e">Eccentricity</a>
+<ul>
+<li><a href="#orgf4fe97d">Amplitude</a></li>
+<li><a href="#org0968a90">Precession</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org270c024">Effects</a>
+<ul>
+<li><a href="#orgaf5d8f8">Obliquity Amplitude</a></li>
+<li><a href="#org097edcd">Precession of the Equinox</a></li>
+</ul>
+</li>
+<li><a href="#org3146068">Useful Data</a></li>
+<li><a href="#org954b679">Bibliography</a></li>
+</ul>
+</div>
+</div>
+<p>
+When it comes to the effects of the Earth's orbital there are two drivers, <i>obliquity</i> and <i>eccentricity</i> and two effect, <i>change in obliquity</i> and <i>precession of the equinox</i>. While these processes are cyclical and look sinusoidal they are described using sums of many different sinusoids. The values and equations are described in <sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+</p>
+
+<div id="outline-container-org48b363d" class="outline-2">
+<h2 id="org48b363d">Drivers</h2>
+<div class="outline-text-2" id="text-org48b363d">
+</div>
+<div id="outline-container-org4fdbbc0" class="outline-3">
+<h3 id="org4fdbbc0">Obliquity</h3>
+<div class="outline-text-3" id="text-org4fdbbc0">
+<p>
+This is the tilt of the axis around which the earth spins. When the axis is aligned such that the either the top or bottom of Earth points at the sun, then you get the <i>summer/winter solstice</i>. At this point the day's length in the norther or southern hemisphere is at it's longest. Right now this is Jun 21st and December 21st. Between the two points you have two moments when the day and night is of equal length - known as the <i>equinox</i>. Obliquity undergoes two changes:
+</p>
+</div>
+<div id="outline-container-org46f61e3" class="outline-4">
+<h4 id="org46f61e3">Amplitude</h4>
+<div class="outline-text-4" id="text-org46f61e3">
+<p>
+The obliquity will change in degree from <i>22.2&deg;</i> to <i>24.5&deg;</i> on a <i>41 000 years</i> cycle. <a href="https://en.wikipedia.org/wiki/Axial_tilt#Oscillation">On Wikipedia</a> you can find it described in terms of a polynomial, however we will follow the sum of sinusoids example from <sup><a id="fnr.1.100" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>.
+</p>
+<blockquote>
+<p>
+&epsilon; = &epsilon;<sup>*</sup> + &sum; A<sub>i</sub>cos(f<sub>i</sub>t + &delta;<sub>i</sub>)<br>
+<br>
+&epsilon;<sup>*</sup> = 23&deg; 320 556  <i>.. i assume this is a decimal notation</i>
+</p>
+</blockquote>
+<p>
+from the tables. <i>A<sub>i</sub></i> is the amplitude, <i>f<sub>i</sub></i> is the rate of change per year in arcseconds, <i>&delta;<sub>i</sub></i> is the phase in degrees
+</p>
+<blockquote>
+<p>
+A<sub>0</sub> = -2462.22 <br>
+f<sub>0</sub> = 31.609970" <br>
+&delta;<sub>0</sub> = 251.9 <br>
+<br>
+A<sub>1</sub> = -857.32 <br>
+f<sub>1</sub> = 32.620499" <br>
+&delta;<sub>1</sub> = 280.83 <br>
+<br>
+A<sub>2</sub> = -629.32 <br>
+f<sub>2</sub> = 24.172195" <br>
+&delta;<sub>2</sub> = 128.30 <br>
+<br>
+</p>
+</blockquote>
+<p>
+The double quotes <b>"</b> indicates the degrees in arcseconds. There are 3600 arcseconds in a degree (<b>&deg;</b>). To convert to radians:
+</p>
+<blockquote>
+<p>
+((A"/3600)/360) &times; 2&pi; = radians
+</p>
+</blockquote>
+
+<div class="org-src-container">
+<pre class="src src-octave">  A0 <span style="color: #000000;">=</span> <span style="color: #000000;">-</span>2462.22<span style="color: #000000;">;</span>
+  f0 <span style="color: #000000;">=</span> deg2rad(31.609970<span style="color: #000000;">/</span>3600)<span style="color: #000000;">;</span>
+  delta0 <span style="color: #000000;">=</span> deg2rad(251.0)<span style="color: #000000;">;</span>
+
+  A1 <span style="color: #000000;">=</span> <span style="color: #000000;">-</span>857.32<span style="color: #000000;">;</span>
+  f1 <span style="color: #000000;">=</span> deg2rad(32.620499<span style="color: #000000;">/</span>3600)<span style="color: #000000;">;</span>
+  delta1 <span style="color: #000000;">=</span> deg2rad(280.83)<span style="color: #000000;">;</span>
+
+  A2 <span style="color: #000000;">=</span> <span style="color: #000000;">-</span>629.32<span style="color: #000000;">;</span>
+  f2 <span style="color: #000000;">=</span> deg2rad(24.172195<span style="color: #000000;">/</span>3600)<span style="color: #000000;">;</span>
+  delta2 <span style="color: #000000;">=</span> deg2rad(128.30)<span style="color: #000000;">;</span>
+
+  epsilonPrime <span style="color: #000000;">=</span> deg2rad(23.320556)<span style="color: #000000;">;</span>
+
+  t <span style="color: #000000;">=</span> [1<span style="color: #000000;">:</span>1000<span style="color: #000000;">:</span>800000]<span style="color: #000000;">;</span>
+
+  epsilon <span style="color: #000000;">=</span> epsilonPrime <span style="color: #000000;">+</span> A0<span style="color: #000000;">*</span>cos(f0<span style="color: #000000;">*</span>t <span style="color: #000000;">+</span> delta0) <span style="color: #000000;">+</span> A1<span style="color: #000000;">*</span>cos(f1<span style="color: #000000;">*</span>t <span style="color: #000000;">+</span> delta1) <span style="color: #000000;">+</span> A2<span style="color: #000000;">*</span>cos(f2<span style="color: #000000;">*</span>t <span style="color: #000000;">+</span> delta2)<span style="color: #000000;">;</span>
+
+  plot(t<span style="color: #000000;">,</span>epsilon)<span style="color: #000000;">;</span>
+  hold on<span style="color: #000000;">;</span>
+  axis <span style="color: #000000;">"off"</span>
+  print <span style="color: #000000;">"-S720,160"</span> <span style="color: #000000;">"obliquity.svg"</span>
+  hold off<span style="color: #000000;">;</span>
+</pre>
+</div>
+
+
+<div id="org0ea2a7c" class="figure">
+<p><img src="./../fig/plot/obliquity.svg" alt="obliquity.svg" class="org-svg">
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1a2aa18" class="outline-4">
+<h4 id="org1a2aa18">Precession</h4>
+<div class="outline-text-4" id="text-org1a2aa18">
+<p>
+The direction of the axis will rotate (relative to the orbital plane and the stars) like a misaligned spinning top in a process known as <i>axial precession</i>. The axis currently points at Polaris, but this will slowly change and draw a big circle in the sky (the change has been observed over historical time scales). This can also be described numerically, but as we'll see this is unnecessary
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf22297e" class="outline-3">
+<h3 id="orgf22297e">Eccentricity</h3>
+<div class="outline-text-3" id="text-orgf22297e">
+<p>
+The Earth also goes around in the sun in a slight oval, where the major axis is about 3% longer than the minor axis. When the Earth is farthest, on July 4th, it is at its <i>apehelion</i> (158M km) . When it is at its closest, January 3rd, it's at its <i>perhelion</i> (153M km). This similarly undergoes two changes
+</p>
+
+<p>
+Note that at the moment, from the March 20th equinox to Sept 22 equinox the Earth passes the <i>perihelion</i> and goes faster (as potential energy is turned to kinetic). Hence from Sep 22 to March 20th it passes the <i>apehilion</i> you get an <b>extra 7 days</b> as the Earth is flung out and slows down
+</p>
+</div>
+<div id="outline-container-orgf4fe97d" class="outline-4">
+<h4 id="orgf4fe97d">Amplitude</h4>
+<div class="outline-text-4" id="text-orgf4fe97d">
+<p>
+The degree of this eccentricity will vary, from Earth's orbit being almost circular, to being more elliptical. This is described in very similar terms to the changes in <i>obliquity</i>
+</p>
+
+<blockquote>
+<p>
+e = e<sub>0</sub> + &sum; E<sub>i</sub> cos(&lambda;<sub>i</sub>t + &phi;<sub>i</sub>) <br>
+..<br>
+e<sub>0</sub> = 0.028707
+</p>
+</blockquote>
+<p>
+We again just grab the first few terms. For a more accurate solution take more terms from the tables in <sup><a id="fnr.1.100" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+</p>
+<blockquote>
+<p>
+E<sub>0</sub> = 0.01102940 <br>
+&lambda;<sub>0</sub> = 3.3138886 <br>
+&phi;<sub>0</sub> = 165.16 <br>
+<br>
+E<sub>1</sub> = -0.00873296 <br>
+&lambda;<sub>1</sub> = 13.650058 <br>
+&phi;<sub>1</sub> = 279.68 <br>
+<br>
+E<sub>2</sub> = -0.00749255 <br>
+&lambda;<sub>2</sub> = 10.511172 <br>
+&phi;<sub>2</sub> = 114.51 <br>
+<br>
+</p>
+</blockquote>
+
+<div class="org-src-container">
+<pre class="src src-octave">  E0 <span style="color: #000000;">=</span> 0.01102940<span style="color: #000000;">;</span>
+  l0 <span style="color: #000000;">=</span> deg2rad(3.3138886<span style="color: #000000;">/</span>3600)<span style="color: #000000;">;</span>
+  phi0 <span style="color: #000000;">=</span> deg2rad(165.16)<span style="color: #000000;">;</span>
+
+  E1 <span style="color: #000000;">=</span> <span style="color: #000000;">-</span>0.00873296<span style="color: #000000;">;</span>
+  l1 <span style="color: #000000;">=</span> deg2rad(13.650058<span style="color: #000000;">/</span>3600)<span style="color: #000000;">;</span>
+  phi1 <span style="color: #000000;">=</span> deg2rad(279.68)<span style="color: #000000;">;</span>
+
+  E2 <span style="color: #000000;">=</span> <span style="color: #000000;">-</span>0.00749255<span style="color: #000000;">;</span>
+  l2 <span style="color: #000000;">=</span> deg2rad(10.511172<span style="color: #000000;">/</span>3600)<span style="color: #000000;">;</span>
+  phi2 <span style="color: #000000;">=</span> deg2rad(114.51)<span style="color: #000000;">;</span>
+
+  eMin <span style="color: #000000;">=</span> 0.028707<span style="color: #000000;">;</span>
+
+  t <span style="color: #000000;">=</span> [1<span style="color: #000000;">:</span>1000<span style="color: #000000;">:</span>800000]<span style="color: #000000;">;</span>
+
+  e <span style="color: #000000;">=</span> eMin <span style="color: #000000;">+</span> E0<span style="color: #000000;">*</span>cos(l0<span style="color: #000000;">*</span>t <span style="color: #000000;">+</span> phi0) <span style="color: #000000;">+</span> E1<span style="color: #000000;">*</span>cos(l1<span style="color: #000000;">*</span>t <span style="color: #000000;">+</span> phi1) <span style="color: #000000;">+</span> E2<span style="color: #000000;">*</span>cos(l2<span style="color: #000000;">*</span>t <span style="color: #000000;">+</span> phi2)<span style="color: #000000;">;</span>
+
+  plot(t<span style="color: #000000;">,</span>e)<span style="color: #000000;">;</span>
+  hold on<span style="color: #000000;">;</span>
+  axis <span style="color: #000000;">"off"</span>
+  print <span style="color: #000000;">"-S720,160"</span> <span style="color: #000000;">"./fig/plot/eccentricity.svg"</span>
+  hold off<span style="color: #000000;">;</span>
+</pre>
+</div>
+
+
+<div id="org6075e3b" class="figure">
+<p><img src="./../fig/plot/eccentricity.svg" alt="eccentricity.svg" class="org-svg">
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org0968a90" class="outline-4">
+<h4 id="org0968a90">Precession</h4>
+<div class="outline-text-4" id="text-org0968a90">
+<p>
+The direction of the major/minor axis will also vary over time relative to the stars. On its own it doesn't cause any changes, however it "interferes" with the precession of the obliquity. The combined effect will be described shortly.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org270c024" class="outline-2">
+<h2 id="org270c024">Effects</h2>
+<div class="outline-text-2" id="text-org270c024">
+</div>
+<div id="outline-container-orgaf5d8f8" class="outline-3">
+<h3 id="orgaf5d8f8">Obliquity Amplitude</h3>
+<div class="outline-text-3" id="text-orgaf5d8f8">
+<p>
+As the tilt of the planet increases, the change between winter and summer becomes more severe. The effect applies to both the northern and southern hemispehere equally
+</p>
+</div>
+</div>
+<div id="outline-container-org097edcd" class="outline-3">
+<h3 id="org097edcd">Precession of the Equinox</h3>
+<div class="outline-text-3" id="text-org097edcd">
+<p>
+As the rotational axis changes over time, it will at times align with the eccentricity of the orbit such, for instances, that during summer solstice the planet is closest the Sun while during the winter solstice it is furthest away. Or you can get the inverse situation, where the winter solstice is at the <i>perihelion</i>. Both these situations will create a bias towards one hemisphere and either the north or south will get a larger fraction of the Sun's heat. 
+</p>
+
+<p>
+To track the degree of alignment between the orbital ellipse and the rotational axis we look at the angle <i>&omega;</i> between the <i>perihelion</i> and the March 20th <i>equinox</i>. 
+</p>
+
+<p>
+The difference of heat between <i>apihelion</i> and <i>perihelion</i> is also being modulated by the changes in the amplitude of the eccentricity. If the orbit is at a time where it's near-circular then there is little difference between the warming during <i>apihelion</i> and <i>perihelion</i> and therefore the orientation of the rotational axis relative to the orbit's major axis has little effect. However if the eccentricity is near a maximum then this effect is felt strongly. The combined effect is described with the product <code>e sin( \omega{} )</code> and can again be described with a sum of sinusoids
+</p>
+<blockquote>
+<p>
+e sin( &omega; ) = &sum; P<sub>i</sub> sin(&alpha;<sub>i</sub>t + &zeta;<sub>i</sub>) <br>
+..<br>
+e - <i>eccentricity (defined previously as the sum of sinusoids)</i> <br>
+omega - <i>the angle btwn the perihelion and the March 20th equinox</i> <br>
+<b>note</b>: the sine terms can be replaces with cosines. There is also no constant term b/c precession is symmetric
+</p>
+</blockquote>
+<p>
+This product is also known as the <b>precession index</b>. Again the terms in the sum of sinusoids are defined in the tables <sup><a id="fnr.1.100" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+</p>
+<blockquote>
+<p>
+P<sub>0</sub> = 0.0186080 <br>
+&alpha;<sub>0</sub> = 54.646484 <br>
+&zeta;<sub>0</sub> = 32.01 <br>
+<br>
+P<sub>1</sub> = 0.0162752 <br>
+&alpha;<sub>1</sub> = 57.785370 <br>
+&zeta;<sub>1</sub> = 197.18 <br>
+<br>
+P<sub>2</sub> = -0.0130066 <br>
+&alpha;<sub>2</sub> = 68.296539 <br>
+&zeta;<sub>2</sub> = 311.69 <br>
+<br>
+</p>
+</blockquote>
+
+<div class="org-src-container">
+<pre class="src src-octave">  P0 <span style="color: #000000;">=</span> 0.0186080<span style="color: #000000;">;</span>
+  a0 <span style="color: #000000;">=</span> deg2rad(54.646484<span style="color: #000000;">/</span>3600)<span style="color: #000000;">;</span>
+  z0 <span style="color: #000000;">=</span> deg2rad(32.01)<span style="color: #000000;">;</span>
+
+  P1 <span style="color: #000000;">=</span> 0.0162752<span style="color: #000000;">;</span>
+  a1 <span style="color: #000000;">=</span> deg2rad(57.785370<span style="color: #000000;">/</span>3600)<span style="color: #000000;">;</span>
+  z1 <span style="color: #000000;">=</span> deg2rad(197.18)<span style="color: #000000;">;</span>
+
+  P2 <span style="color: #000000;">=</span> <span style="color: #000000;">-</span>0.0130066<span style="color: #000000;">;</span>
+  a2 <span style="color: #000000;">=</span> deg2rad(68.296539<span style="color: #000000;">/</span>3600)<span style="color: #000000;">;</span>
+  z2 <span style="color: #000000;">=</span> deg2rad(311.69)<span style="color: #000000;">;</span>
+
+  t <span style="color: #000000;">=</span> [1<span style="color: #000000;">:</span>1000<span style="color: #000000;">:</span>800000]<span style="color: #000000;">;</span>
+
+  esinw <span style="color: #000000;">=</span> P0<span style="color: #000000;">*</span>cos(a0<span style="color: #000000;">*</span>t <span style="color: #000000;">+</span> z0) <span style="color: #000000;">+</span> P1<span style="color: #000000;">*</span>cos(a1<span style="color: #000000;">*</span>t <span style="color: #000000;">+</span> z1) <span style="color: #000000;">+</span> P2<span style="color: #000000;">*</span>cos(a2<span style="color: #000000;">*</span>t <span style="color: #000000;">+</span> z2)<span style="color: #000000;">;</span>
+
+  plot(t<span style="color: #000000;">,</span>esinw)<span style="color: #000000;">;</span>
+  hold on<span style="color: #000000;">;</span>
+  line(t<span style="color: #000000;">,</span>e<span style="color: #000000;">,</span><span style="color: #000000;">"color"</span><span style="color: #000000;">,</span><span style="color: #000000;">'r'</span><span style="color: #000000;">,</span><span style="color: #000000;">"linestyle"</span><span style="color: #000000;">,</span><span style="color: #000000;">"--"</span>)
+  axis <span style="color: #000000;">"off"</span>
+  print <span style="color: #000000;">"-S720,160"</span> <span style="color: #000000;">"./fig/plot/precession.svg"</span>
+  hold off<span style="color: #000000;">;</span>
+</pre>
+</div>
+
+
+<div id="orge6a2ff0" class="figure">
+<p><img src="./../fig/plot/precession.svg" alt="precession.svg" class="org-svg">
+</p>
+</div>
+
+<p>
+To verify the correct behavior (since we are not plotting <i>&omega;</i> directly) I've added the change in eccentricity in red - and you can see how the product makes the <i>eccentricity</i> behave as an envolope for the <i>precession of the equinox</i> - squeezing it down at its minimums.
+</p>
+
+<p>
+<b>Note</b>: That minor mismatches in the plots are due to me only using the first 3 terms. The tables include 40+ terms
+</p>
+
+<p>
+Using the precession of the equinox you can actually split the year into a half where the northern hemisphere gets more sun and a half where the southern gets more sun. This split creates what are known as the <b>caloric insolation seasons</b> and they're not exactly centered on the summer/winter solstice b/c of the perihelion offset.
+</p>
+
+<p>
+Note that there are also much longer term variations in frequency over tectonic time. ~400 Myrs ago the  <b>Precession</b> was 20 000 years  and the <b>Tilt</b> changed every 30 000 years.
+</p>
+
+<blockquote>
+<p>
+<b>Orbital monsoon hypothesis</b> <br>
+That increased insolation leads to stronger monsoon that reach further inland (due to stronger areas of low pressure due to heating).
+</p>
+
+<p>
+Climate records can operate on a threshold where once it reaches far enough inland you suddenly have a lake forming greating sediment - but below the threshold you get nothing
+</p>
+
+<p>
+Sapropels, anoxic carbon rich "stinky mud" layers in the Mediterranean may be caused by extra trong monsoons that create an <b>anoxic</b> bottom. Due to rains that caused the overflow of the Nile and a fresh water cap over the sea.
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Orbital tuning</b> <br>
+once you've established a time range using isotopes you can then find some orbital signal to narrow down the dates to something more specific (p 148)<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>. <b>Note</b>: This seems a bit suspect if you're trying to find which event is the driver.. but could be useful for stretch/squish type of tuning&#x2026;
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+<b>Tectonic monsoon</b> <br>
+Tectonic uplift also causes stronger monsoons. This effect can also be folded in to the caluclation&#x2026; (but this has no frequency per se..)
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3146068" class="outline-2">
+<h2 id="org3146068">Useful Data</h2>
+<div class="outline-text-2" id="text-org3146068">
+<p>
+Since Berger's tables there have been further improvements in modeling. The state of the art is described here: <a href="https://earthscience.stackexchange.com/a/16599/22874">https://earthscience.stackexchange.com/a/16599/22874</a>
+</p>
+
+<p>
+The first two data files that are linked to, <code>CLIVAR0N.ASC</code> and <code>CLIVAR0P.ASC</code>, are in a very unusual format. The only calculator at the bottom will output a more easy-to-use format. Note that the calculate output values per the Laskar2004 paper. There is a newer Laskar2010, which will go back further in time. Maybe it has it's own calculator&#x2026; I haven't looked into it
+</p>
+
+<p>
+Once saved I still needed to fudge them to make them properly space delimined. I've saved a file with 1M years and a 100 year step size <a href="./data/year-obliq-prec-eccen-fixed.txt">./data/year-obliq-prec-eccen-fixed.txt</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-octave">  data <span style="color: #000000;">=</span> dlmread(<span style="color: #000000;">"data/year-obliq-prec-eccen-fixed.txt"</span> <span style="color: #000000;">,</span> <span style="color: #000000;">" "</span>)<span style="color: #000000;">;</span>
+  plot(data(<span style="color: #000000;">:,</span>1)<span style="color: #000000;">,</span>data(<span style="color: #000000;">:,</span>2))
+  hold on<span style="color: #000000;">;</span>
+  plot(data(<span style="color: #000000;">:,</span>1)<span style="color: #000000;">,</span>data(<span style="color: #000000;">:,</span>3))
+  plot(data(<span style="color: #000000;">:,</span>1)<span style="color: #000000;">,</span>data(<span style="color: #000000;">:,</span>4).<span style="color: #000000;">-</span>0.3)
+  axis <span style="color: #000000;">"off"</span>
+  print <span style="color: #000000;">"-S720,160"</span> <span style="color: #000000;">"./fig/plot/laskar2004.svg"</span>
+  hold off<span style="color: #000000;">;</span>
+</pre>
+</div>
+
+
+<div id="org291df4c" class="figure">
+<p><img src="./../fig/plot/laskar2004.svg" alt="laskar2004.svg" class="org-svg">
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org954b679" class="outline-2">
+<h2 id="org954b679">Bibliography</h2>
+<div class="outline-text-2" id="text-org954b679">
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Long-Term Variations of Daily Insolation and Quaternary Climatic Changes
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Earth's Climate Past and Future, Second Edition by William F. Ruddiman
+</p></div></div>
+
+
+</div>
+</div></div>
+</body>
+</html>
