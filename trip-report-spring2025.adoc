@@ -129,4 +129,4 @@ image:diag/ThMuCh0ConjoinedBottom-zoom-overlay.svg[]
 
 === Seems to be a response to monthly accumulation
 
-image:diag/ThMuCh0ConjoinedBottom.svg[]
+image:plot/ThMuCh0ConjoinedBottom.svg[]
