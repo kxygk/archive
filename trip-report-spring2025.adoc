@@ -1,0 +1,132 @@
+:revealjs_customtheme: ../web/reveal-white.css
+:revealjs_slideNumber: true
+:revealjs_transition: none
+:revealjs_center: true
+:revealjs_disablelayout: true
+:!webfonts:
+
+:imagesdir: ../fig/
+
+= Report on Tham Murd cave logger results
+
+PhD Student - Advisor: Professor Ludvig Löwemark
+
+Department of Geosciences , National Taiwan University
+
+== Previously in Tham Murd
+
+image:phot/thammurd/outside.jpg[]
+
+
+[.columns]
+=== First Trip Into Cave : Test Logger installed
+
+[.column]
+image:phot/thammurd/2024-09-10.jpg[]
+2024-09-10
+
+[.column]
+image:phot/thammurd/sept2024-logger.jpg[]
+
+
+=== Second Trip Into Cave : Test Logger removed
+
+image:phot/thammurd/2024-09-18.jpg[]
+2024-09-18
+
+=== Third Trip Into Cave : Test Logger installed
+
+image:phot/thammurd/2024-09-20.jpg[]
+2024-09-20
+
+=== Third Trip Into Cave : Test Logger installed
+video::phot/thammurd/2024-09-20.mp4[]
+
+== Tham Murd Layout
+
+image:diag/thammurd.svg[]
+
+[.columns]
+== LongLizard
+
+[.column]
+image:plot/ThMuCh1LongLizard.svg[]
+
+[.column]
+image:phot/thammurd/ThMuCh1LongLizard.jpg[]
+
+=== LongLizard
+
+image:plot/ThMuCh1LongLizard.svg[]
+
+=== LongLizard ZOOM
+
+image:plot/ThMuCh1LongLizard-zoom01.svg[]
+
+=== LongLizard ZOOM ZOOM
+
+image:plot/ThMuCh1LongLizard-zoom02.svg[]
+
+
+[.columns]
+== ConjoinedBottom
+
+[.column]
+image:plot/ThMuCh0ConjoinedBottom.svg[]
+
+[.column]
+image:phot/thammurd/ThMuCh0ConjoinedBottom.jpg[]
+
+=== ConjoinedBottom
+
+image:plot/ThMuCh0ConjoinedBottom.svg[]
+
+=== ConjoinedBottom ZOOM
+
+image:plot/ThMuCh0ConjoinedBottom-zoom01.svg[]
+
+=== ConjoinedBottom ZOOM ZOOM
+
+image:plot/ThMuCh0ConjoinedBottom-zoom02.svg[]
+
+
+[.columns]
+== WhiteLoner
+
+[.column]
+image:plot/ThMuCh2Sh02WhiteLoner.svg[]
+
+[.column]
+image:phot/thammurd/ThMuCh2Sh02WhiteLoner.jpg[]
+
+=== WhiteLoner
+
+image:plot/ThMuCh2Sh02WhiteLoner.svg[]
+
+=== WhiteLoner ZOOM
+
+image:plot/ThMuCh2Sh02WhiteLoner-zoom01.svg[]
+
+=== WhiteLoner ZOOM ZOOM
+
+image:plot/ThMuCh2Sh02WhiteLoner-zoom02.svg[]
+
+
+== Hypothesis: Thresholded Aquifer
+
+image:extr/USGSReport-97-4253-Rorabaugh1964.svg[]
+*Model-Estimated Ground-Water Recharge and Hydrograph of Ground-Water Discharge to a Stream*
+
+U.S. Geological Survey
+
+Water-ResourcesResources Investigations Investigations Report
+
+Report 97-4253
+
+=== Curves seem similar..
+
+image:diag/ThMuCh0ConjoinedBottom-zoom-overlay.svg[]
+
+=== Seems to be a response to monthly accumulation
+
+image:diag/ThMuCh0ConjoinedBottom.svg[]
