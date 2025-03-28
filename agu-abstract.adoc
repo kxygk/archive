@@ -1,3 +1,4 @@
+:docinfo: shared
 :imagesdir: ../fig/imrg/krabi/monthly/
 :!webfonts:
 :stylesheet: ../web/adoc.css

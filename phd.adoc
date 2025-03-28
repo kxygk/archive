@@ -1,3 +1,4 @@
+:docinfo: shared
 :imagesdir: ../fig/
 :!webfonts:
 :stylesheet: ../web/adoc.css

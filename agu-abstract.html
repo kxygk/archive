@@ -14,7 +14,6 @@ margin: 0;
 overflow-x: hidden;
 }
 body {
-font: 14px/20px italic Times, sans-serif;
 margin-left: 0px;
 margin-right: 0px;
 margin-left: 5vw;
@@ -41,7 +40,6 @@ padding-left: 0.5em;
 border-left: solid;
 border-left-width: 4px;
 border-left-color: grey;
-font: 14px/20px italic Times, serif;
 background-color: #eefaf6; /*#f1ffee;*/
 margin: 0;
 .org-center {
@@ -154,8 +152,22 @@ video{
     justify-content: center;
     height: 33vh;
 }
+@media (min-width:60rem) {
+.sectionbody{
+    column-count:2;
+    hyphens: auto;
+}
+@media (min-width:90rem) {
+.sectionbody{
+    column-count:3;
+}
+@media (min-width:120rem) {
+.sectionbody{
+    column-count:4;
+}
 
 </style>
+<meta name="robots" content="noindex">
 </head>
 <body class="article">
 <div id="header">
