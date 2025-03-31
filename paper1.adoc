@@ -1,26 +1,140 @@
+:docinfo: shared
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
 = Paper1
+George Kontsevich
 
 == Abstract
 
-The interplay between recurring atmospheric processes and local topography creates regular observable climatic phenomena. We present a novel method for analyzing the spatial distribution of atmospheric parameters at the mesoscale which will allows for the extraction of a pair of underlying climate-associated shapes. These shapes act as unique fingerprints that allow one to observe climate without having to characterize it, without needing to understand any of its dynamics, and without building any heuristics . Key to making this leap is to note that many climate systems phenomena come in non-coocurring pairs. For instance the Summer/Winter Monsoons, El Nino / La Nina and the positive and negative phases of many climate dipoles. The presence of one climate state precludes the occurance of the other. As a result of this bistability, when reducing the measured climate parameter to two dimensions (by singular value decompositon) we will observe clustering around two linear combinations of the basis vectors. The combinations can be inferred with a variance minimizing search, and in the absence of any tertiary climate phenomena, these combinations will correspond to best estimates of the underlying climate-induced patterns. In so doing we correct for the inherant deficiencies of the vectors derived in a typical EOF analysis. Once extracted, we can measure the presence of these shapes in the original data and build a two state climate index. Lastly, we demonstrate how to estimate the noise induces error at each index value and present several examples using the IMERG presciptiation dataset. An  accompanying program for reproducing the analysis is provided
+The interplay between recurring atmospheric processes and local topography creates regular observable climatic phenomena. We present a novel method for analyzing the spatial distribution of atmospheric parameters at the mesoscale which will allows for the extraction of a pair of underlying climate-associated shapes. These shapes act as unique fingerprints that allow one to observe climate without having to characterize it, without needing to understand any of its dynamics, and without building any heuristics. Key to making this step is to make the observation that many climate phenomena come in non-coocurring pairs. For instance the Summer/Winter Monsoons, El Nino / La Nina and the positive and negative phases of many climate systems. The presence of one climate state precludes the occurance of the other. As a result of this bistability, when reducing the measured climate parameter to two dimensions (by singular value decompositon) we will observe clustering around two linear combinations of the basis vectors. These combinations can be found using a variance minimizing search, and in the absence of any tertiary climate phenomena, these combinations will correspond to best estimates of the underlying climate-induced patterns. These shapes form a new basis which corrects for the inherant deficiencies of the vectors derived in a typical EOF analysis. Once extracted, we can measure the presence of these shapes in the original data and build a two state climate index. Lastly, we demonstrate how to estimate the noise induces error at each index value and present several examples using the IMERG presciptiation dataset. An  accompanying program for reproducing the analysis is provided
+
+
+TODO:
+- How similar are the two shapes?
+- What is the "variance of the mean" of the calculated centroid?
+- How sensitive are the shapes to uniform noise?
+- Angular distribution plot
+- Plots are normalized to the highest value in-image (but that's not indicated anywhere)
 
 
 == Introduction
 
-Climate systems, such at the monsoons or El Nino/La Nina aquired their their names when people native to a region identified and labeled some recurring weather phenomena. The modern scientist tries to be more specific and characterize the causes and signatures associated with a particular climate system. However the original methodology, the pattern recognition that comes naturally to the untrained eye, still presents several distinct advantages. Chief among them are it's generallity and simplicity. Pattern recognition has been applied in the numerical field, partcularly with the use of the singular value decomposition (SVD). As applied in the atmospheric sciences this has been known as the EOF. However results are often not meeting expectations. Often the first EOF/singular-vector is used and subsequent ones are discarded. Why are there issues? And how to address them?
+Climate systems, such at the monsoons or El Nino/La Nina aquired their their names when people native to a region identified and labeled a recurring weather phenomena.
+The modern scientist tries to be more specific and characterize the causes and signatures associated with a particular climate system.
+However the original methodology, the pattern recognition that comes naturally to the untrained eye, still presents several distinct advantages.
+Chief among them are it's generallity and simplicity.
+Pattern recognition has been applied in the numerical field, partcularly with the use of the singular value decomposition (SVD).
+As applied in the atmospheric sciences this has been known as the EOF.
+However results are often not meeting expectations.
+Often the first EOF/singular-vector is used and subsequent ones are discarded.
+Why are there issues?
+And how to address them?
 
-Materials
+== Materials
 
-For the bulk of the analysis we will be using the IMERG global precipitation dataset. As we will illustrate, it has several properties that make it particularly amenable for pattern recognition
+- The first sections illustrate common issues with EOF analysis using synthetic data with know a-priori patterns. These are meant to provide a rough approximation of precipitation patterns as seen in the subsequently. Knowing the ground truth allows us evaluate results objectively.
 
-We will be looking at Southern Thailand and Peninsular Malaysia. A region affected by a summer monsoon system as well as a winter monsoon system.
+- We then move on to using gridded precipitation data as provided by the IMERG Late dataset to help us demonstrate how our method yields a clear improvement in climate pattern extraction in real-world conditions. These are used at the monthly, daily and hourly levels.
 
-Climate Patterns
+- Lastly we move to using a coarser ERA5 reanalysis dataset as a point of comparison and to highlight the potential utility of having accurate climate patterns
 
-Patterns in rain distributon are readily apparent to the nake eye.
-Fig1.
-When looking at monthly totals we see some clear shapes.
-In the summer months the north western side of the peninsula recieves a much higher fraction of rain.
-Conversely, in the winter month the rain fall on the south eastern side of the peninsula.
-The cause of these repeating patterns is some complex system of many atmospheric parameters (wind directions, moisture content etc.) and their interplay with the underlying topography of the region.
-Fig 2.
+Regions of interest will be:
+- Southern Thailand and Peninsular Malaysia. A region affected by a summer monsoon system as well as a winter monsoon system.
+- Martime Continent - in particular southern Java
+
+== Issues with the EOF
+
+Typically EOF anaylsis suffers from several common issues. We make the following observations:
+
+O1:: EOF patterns are orthogonal, climate patterns are generally not
+O2:: All EOF patterns will represent a mixture of all underlying signals
+O3:: EOF1 is biased towards the strongest signal
+O4:: At synoptic scales climate pattern shapes do not stay fixed. This creates incorrect patterns and makes energy "leak" in to secondary singular vectors.
+
+All of these are illustrated using synthetic examples in the following section (Supplimentary)
+
+== Synthetic illustrations of the EOF problem
+
+The standard method for extracting signals from noise is based on the singular value decomposition (SVD). The method works in an interative fashion, calculating the induced matrix norm of the dataset, removing it from the data and then repeating the process. For a single signal system this produces the best approximation of the underlying signal.
+
+To observe the result we will work off of a known pattern.
+
+image:imrg/pattern1.svg[]
+
+We then perturbe this pattern to generate a test dataset. These will represent an idealized climate induced precipitation pattern over a region. To make the example more concrete we imagine it as 12 monthly precipitation accumulations. Each row representing a year of rain
+
+.Probably need cleaner plot axis
+image:imrg/synth1patt/all-cycle.svg[]
+
+The SVD in effect performs a linear weighted sum of these input image such that we get a nice approximation of the underlying `t` shaped pattern.
+
+image:imrg/synth1patt/sv-0.svg[]
+
+The algorithm selects weights such that they maximizes the energy of the sum (under the constraint that the vector of weights is of unit length). Such a sum effectively gives more weight to data that has a higher signal to noise ration and the result should be superior to a straight average of all the data.
+
+Note the blue color indiciates negative values - a characterisitic of most SVD numberical routines is that the first singular vector will typically be negative. Inverting the sum's values doesn't alter the result, however for simplicity I will keep the output vectors unaltered
+
+We then expand the problem to a two pattern system. We have taken the last data set and substituted the last four months with a secondary pattern.
+
+image:imrg/pattern2.svg[]
+
+This will act as a synthetic secondary winter climate pattern. We want to observe how a secondary signal affects our final analysis.
+
+.Probably need cleaner plot axis
+image:imrg/synth2patt/all-cycle.svg[]
+
+Now when we perform the SVD, EOF1 (or the first singular vector) looks problematic.
+
+image:imrg/synth2patt/sv-0.svg[]
+
+The dominant signal from before is the most prominent feature, but the secondary pattern is also visible - illustrating "Issue 3". This should disspell the myth that EOF1 is somehow a safe basis b/c it is no affected by the orthogonality constraint. EOF2 is even more difficult to visually interpret.
+
+image:imrg/synth2patt/sv-1.svg[]
+
+EOF2 has to be orthogonal to EOF1. The iterative nature of the SVD algorithm had first removed EOF1 from the dataset before computing EOF2. Hence all the remaining data was orthogonal to EOF1 and their linear combination (EOF2) is also orthogonal. As a result EOF2 is even more strange and unrelated to the underlying signals. This is highlighting the reality of "Issue 2" - that all singular vectors are actually representing mixtures of all the signals and none can be directly interpreted as climate indicators.
+
+A detailed mathematical treatment of why all EOF vectors end up being mixtures is outside the scope of this paper. However in short, this is a byproduct of how the weights (the singular values) are assigned. At face value, adding in a secondary signal seems to run counter to the goal of maximizing the energy of the sum. However the maximization is done by maintaining the 2-norm of the weights at 1. This can restated as: the weights form a "unit vector" or the quadriture sum of the weights is equal to `1.0`. The quadriture sum means that counterintuitively, all else being equal, spreading weights out actually makes their direct sum a higher value. This can be illutrated by looking at the logical extremes. If all weight is assigned to one data point, then its weight will equal `1.0`. By contrast an even spread of weights across all data gives `N` weights of `1/sqrt(N)` and `N/sqrt(N) > 1.0` for all values of `N`. The end result is that secondary signals get small weights assigned to them.
+
+== Case Study: South East Asian monsoon systems
+
+We work off of a real example so that the EOF problems can be visually confirmed. This will allow us to construct a simple solution that corrects for the EOF's issues.
+
+Here we look at a Southern Thailand. The top of the Malay Pensinsula is climatologically challenging as it's subject to two monsoon systems. The summer monsoon brings moisture from the Indian Ocean and drives precipitation for most of the year, while the winter monsoon system brings moisture from the East - the South China Sea and the Gulf of Thailand. There is also a short "dry season" at the beginning of the year - who's presence is modulated by the interannual ENSO system.
+
+.Should be modified to the strip configuration??
+image:imrg/krabi/monthly/year-stack.svg[]
+
+Visually the two systems manifest with rainfall on the west and east coasts of the peninsula. The rain patterns represent a complex interplay between the local topography and the synoptic scale atmospheric configuration for large fractions of the year
+
+To attempt to observe the climate induces rain patterns, we perform a singular value decomposition on monthly rainfall. We choose a ten year period from 2011 to 2022 - for a total of 120 monthly snapshots.
+
+image:imrg/krabi/monthly/sv-0.svg[]
+
+The first singular vector gives us something that looks quite similar to the west coast precipitation associate with the summer monsoon. Signal mixing is not as apparent as in the synthetic example b/c the relative strengths of the summer and winter monsoon is larger, as well as the patterns being smoother - thereby masking the underlying mixing
+
+image:imrg/krabi/monthly/sv-0.svg[]
+
+The second signular vector, orthogonal to the first, look even harder to interpret but seems to display an very strong east west contrast.
+
+== Isolating correct patterns in the SV subspace
+
+Can also find errors here.. but what to do with them?
+
+== Climate Index construction
+
+== Error Estimation
+
+== Stability under noise - extension to daily data
+
+== Comparison to Climate model data
+
+== Case Study: Diurnal cycles in the maritime continent
+
+== Korean Peninsula
+
+Large regions are dangerous
