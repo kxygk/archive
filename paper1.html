@@ -224,13 +224,34 @@ We present several examples using the IMERG precipitation dataset,
 the ERA5 precipitations model estimates and a small synthetic data example.
 An accompanying program for reproducing the analysis is provided.</p>
 </div>
-<div class="paragraph">
-<p>TODO:
-- Angular distribution plot (histogram?)
-- Error bars on the SV1 SV2 plots
-- Updated weighted average centroids
-- Centroid error plots
-- Plots are normalized to the highest value in-image (but that&#8217;s not indicated anywhere)</p>
+<div class="ulist">
+<div class="title">TODO:</div>
+<ul>
+<li>
+<p>Angular distribution plot (histogram?). Probably for daily data would be useful</p>
+</li>
+<li>
+<p>Error bars on the SV1 SV2 plots</p>
+</li>
+<li>
+<p>Find something better than the ratio. Maybe work in radians?</p>
+</li>
+<li>
+<p>Updated current centroids with weighted average centroids once errors are in place</p>
+</li>
+<li>
+<p>Centroid error plots.. once I work out for the angular error maps to a pixel error</p>
+</li>
+<li>
+<p>Plots are normalized to the highest value in-image (but that&#8217;s not indicated anywhere) i think.. should be a normalized to the global max for the rain in the region I guess.</p>
+</li>
+<li>
+<p>ERA5 plots</p>
+</li>
+<li>
+<p>Other case studies&#8230;&#8203; Daily examples, Diurnal examples.. etc.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -777,8 +798,12 @@ the magnitude can be estimated by knowing the variance of the noise.</p>
 <p>For the purpose of this analysis we treat SV1 and SV2 as both having negligible errors relative to the data.</p>
 </div>
 <div class="paragraph">
+<div class="title">TODO:</div>
+<p>IS THIS A SAFE ASSUMPTION?? DO I NEED TO ESTIMATE THE ERROR OF THE SV??? CAN BE DONE BY DIVIDING DATASET AND CALCULATING&gt;&gt; OR SOME BOOTSTRAP??]</p>
+</div>
+<div class="paragraph">
 <p>While we got the projections from the left singular vectors,
-when done manually,
+if done explicitly,
 the projecting is done by taking the inner product of the data and the pattern.
 In other words we go pixel by pixel multiplying the pattern <strong>P</strong> with the data <strong>D</strong> and summing them all up:</p>
 </div>
@@ -818,8 +843,9 @@ So the error estimate is quadrature sum of the product of the designalled data a
 <div class="paragraph">
 <p>At this step the pattern <strong>P</strong> is either SV1 or SV2 and this quadrature sum provides the X and Y error in FIG????.
 Note also that a larger pattern will make the relative noise smaller.
-TODO: DOUBLE CHECK THIS IS TRUE&gt;&gt; SHOULD BE&gt;&gt;&gt;
-TODO: Add errors to the 2D SV1SV2 plot? Or maybe it&#8217;s going to look too busy and should be a separate graph?</p>
+.TODO:
+- DOUBLE CHECK THIS IS TRUE&gt;&gt; SHOULD BE&gt;&gt;&gt; I THINK
+- Add errors to the 2D SV1SV2 plot? Or maybe it&#8217;s going to look too busy and should be a separate graph?</p>
 </div>
 </div>
 <div class="sect2">
@@ -833,8 +859,19 @@ If we calculate X/Y for each point then the associate error is the sum in quadra
 <div class="paragraph">
 <p>\$X/Y +- sqrt(((dX)/X)^{2} + ((dY)/Y)^{2}\$</p>
 </div>
-<div class="paragraph">
-<p>TODO: RATIO SEEM PROBLEMATIC AS IT EXPLODES TO HUGE VALUES AS Y GOES TO ZERO. MAYBE RADIANS&gt;&gt;&gt;? MAYBE PERCENTAGE OF SV1&gt;&gt;&gt;???(X/(X+Y))</p>
+<div class="ulist">
+<div class="title">TODO:</div>
+<ul>
+<li>
+<p>RATIO SEEM PROBLEMATIC AS IT EXPLODES TO HUGE VALUES AS Y GOES TO ZERO.</p>
+</li>
+<li>
+<p>MAYBE RADIANS&gt;&gt;&gt;?</p>
+</li>
+<li>
+<p>MAYBE PERCENTAGE OF SV1&gt;&gt;&gt;??? (X/(X+Y))</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>When calculating the averages and variances of each half we now use these ratios with their associated errors.
@@ -844,8 +881,16 @@ we can use the variances to make a weighted average and calculate a weighted var
 <div class="paragraph">
 <p><a href="https://en.wikipedia.org/wiki/Inverse-variance_weighting" class="bare">https://en.wikipedia.org/wiki/Inverse-variance_weighting</a></p>
 </div>
-<div class="paragraph">
-<p>TODO: MAYBE ADDRESS THE INDEPENDENT/NORMAL CRITERIA..? :SS OR FIND AN ELEGANT WAY TO ACKNOWLEDGE AND SKIP IT..</p>
+<div class="ulist">
+<div class="title">TODO:</div>
+<ul>
+<li>
+<p>MAYBE ADDRESS THE INDEPENDENT/NORMAL CRITERIA..?</p>
+</li>
+<li>
+<p>OR FIND AN ELEGANT WAY TO ACKNOWLEDGE AND SKIP IT..</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>When the variance minimizing divider is found,
@@ -857,8 +902,13 @@ Naturally areas with high values in SV1 and SV2 will result in higher errors.</p
 <div class="paragraph">
 <p>THE ERRORS HERE ARE LIKELY NOT SYMMETRIC.. NOT SURE HOW TO HANDLE</p>
 </div>
-<div class="paragraph">
-<p>TODO: A MAP OR THE ERRORS FOR SUMMER AND WINTER MONSOONS??</p>
+<div class="ulist">
+<div class="title">TODO:</div>
+<ul>
+<li>
+<p>A MAP OR THE ERRORS FOR SUMMER AND WINTER MONSOONS??</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -902,6 +952,14 @@ once the pattern is isolated we can look for it in future (and past) data.</p>
 <p>The pattern as a source of truth can be useful when for instance looking at changes in atmospheric parameters.
 However, this needs to be evaluated on a case by case basis.
 A more direct approach would be for instance validating a climate model.</p>
+</div>
+<div class="ulist">
+<div class="title">TODO</div>
+<ul>
+<li>
+<p>ERA5 PLOTS</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>If we are to run the identical method on ERA5 monthly precipitation for the same period</p>
