@@ -5,7 +5,6 @@
 :table-caption!:
 :reproducible:
 :nofooter:
-:stem:
 
 = Paper1
 George Kontsevich
