@@ -182,14 +182,30 @@ video{
 <h2 id="_abstract">Abstract</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The interplay between recurring atmospheric processes and local topography creates regular observable climatic phenomena. We present a novel method for analyzing the spatial distribution of atmospheric parameters at the mesoscale which will allows for the extraction of a pair of underlying climate-associated shapes. The method builds on the singular value decomposition (SVD) and corrects for several difficiencies of a typical empirical orthogonal function (EOF) analysis. The extracted shapes act as unique fingerprints that allow one to observe climate without having to characterize it, without needing to understand any of its dynamics, and without building any heuristics. Key to making the EOF correction is the obersvation that many climate phenomena come in non-coocurring pairs. For instance the Summer/Winter Monsoons, El Nino / La Nina and the positive and negative phases of many climate systems. The presence of one climate state precludes the occurance of the other. As a result of this bistability, when reducing the measured climate parameters to two dimensions (by singular value decompositon) we will observe clustering around two linear combinations of the basis vectors. These two combinations can be found using a variance minimizing search (Otsu&#8217;s method) and represent a simple mixture of the first two singular vectors (or EOF1 and EOF2). The mixtures' associated shapes can then be used to measure the presence of the climate phenomena in the original data to build a rolling two state climate index. We present several examples using the IMERG presciptiation dataset as well as with ERA5 precipitations model estimates. An  accompanying program for reproducing the analysis is provided.</p>
+<p>The interplay between recurring atmospheric processes and local topography creates regular observable climatic phenomena.
+We present a novel method for analyzing the spatial distribution of atmospheric parameters at the mesoscale which will allows for the extraction of a pair of underlying climate-associated shapes.
+The method builds on the singular value decomposition (SVD) and corrects for several deficiencies of a typical empirical orthogonal function (EOF) analysis.
+The extracted shapes act as unique fingerprints that allow one to observe climate without having to characterize it,
+without needing to understand any of its dynamics,
+and without building any heuristics or adjusting tuning parameters.
+Key to making the EOF correction is recognizing that a large fraction of climate phenomena come in non-coocurring pairs.
+Systems such as the Summer/Winter Monsoons,
+El Nino / La Nina and the positive and negative phases of many climate systems are all typically in one of two modes.
+In effect the presence of one climate state precludes the occurrence of the other.
+As a result of this bistability,
+when using the SVD to reduce the measured climate parameters to two dimensions we observe clustering around two linear combinations of the basis vectors.
+These two combinations can be found using a variance minimizing search (Otsu&#8217;s method) that terminates at an optimal solution and represent a simple mixture of the first two singular vectors.
+The mixtures' associated shapes can then be used to measure the presence of the climate phenomena in the original data to build a rolling two state climate index.
+We present several examples using the IMERG precipitation dataset,
+the ERA5 precipitations model estimates and a small synthetic data example.
+An accompanying program for reproducing the analysis is provided.</p>
 </div>
 <div class="paragraph">
 <p>TODO:
-- How similar are the two shapes?
-- What is the "variance of the mean" of the calculated centroid?
-- How sensitive are the shapes to uniform noise?
-- Angular distribution plot
+- Angular distribution plot (histogram?)
+- Error bars on the SV1 SV2 plots
+- Updated weighted average centroids
+- Centroid error plots
 - Plots are normalized to the highest value in-image (but that&#8217;s not indicated anywhere)</p>
 </div>
 </div>
@@ -198,10 +214,19 @@ video{
 <h2 id="_introduction">Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Climate systems, such at the monsoons or El Nino/La Nina aquired their names when people native to a region note a recurring weather phenomena and ascribe it a name.
+<p>Climate systems,
+such at the monsoons or El Nino/La Nina aquired their names when people native to a region note a recurring weather phenomena and ascribe it a name.
 The typical modern approach is to characterize the causes and signatures associated with a particular recurring climate system.
-However the original methodology, of pattern recognition comes naturally to the untrained eye. Arguably it still presents several distinct advantages. Chief among them are its generality and simplicity. Pattern recognition has been applied in the numerical field, particularly with the use of the singular value decomposition (SVD). As applied in the atmospheric sciences this has been known as the EOF (this is typically done an SVD on the anomaly). However results are often not meeting expectations.
-Often the first EOF/singular-vector is used and subsequent ones are discarded. Why are there issues? Can they be addressed?</p>
+However the original methodology,
+of pattern recognition comes naturally to the untrained eye.
+Arguably it still presents several distinct advantages.
+Chief among them are its generality and simplicity.
+Pattern recognition as applied in the atmospheric sciences has chiefly been used using empirical orthogonal function (EOF) analysis.
+This is typically done by doing a singular value decomposition (SVD) of some climatological parameter&#8217;s anomaly from a mean.
+However results are often not meeting expectations.
+Often the first EOF is used and subsequent ones are discarded.
+Why are there issues,
+and how can they be addressed?</p>
 </div>
 </div>
 </div>
@@ -211,20 +236,29 @@ Often the first EOF/singular-vector is used and subsequent ones are discarded. W
 <div class="ulist">
 <ul>
 <li>
-<p>The first sections illustrate common issues with EOF analysis using synthetic data with know a-priori patterns. These are meant to provide a rough approximation of precipitation patterns as seen in the subsequent sections. Knowing the ground truth allows us evaluate results objectively.</p>
+<p>SUPP1 illustrates several common issues with EOF-like analyses using synthetic data with know a-priori patterns.
+These are meant to provide a rough approximation of precipitation patterns as seen in the subsequent sections.
+Knowing the ground truth allows us to evaluate results objectively.</p>
 </li>
 <li>
-<p>We then move on to using gridded precipitation data as provided by the IMERG Late dataset to help us demonstrate how our method yields a clear improvement in climate pattern extraction in real-world conditions. These are used at the monthly, daily and hourly levels.</p>
+<p>For the main case study we we then look at a Peninsular Southern Thailand.
+The top of the Malay Peninsula is climatologically challenging as it&#8217;s subject to two distinct monsoon systems.
+The summer monsoon brings moisture from the Indian Ocean and drives precipitation for most of the year,
+while a much shorter winter monsoon system brings moisture from the East - the South China Sea and the Gulf of Thailand.
+There is also a short "dry season" at the beginning of the year that is modulated by the inter-annual ENSO system.</p>
+</li>
+<li>
+<p>We use gridded precipitation data as provided by the IMERG Late dataset to help us demonstrate how our method yields a clear improvement in climate pattern extraction in real-world conditions.
+These are used at the monthly and daily levels.
+The Final dataset is not used b/c the rain-gauge normalization introduces stenciling artifacts (SHOW SUPPLEMENTARY FIGURE???)</p>
 </li>
 <li>
 <p>Lastly we move to using a coarser ERA5 reanalysis dataset as a point of comparison and to highlight the potential utility of having accurate climate patterns</p>
 </li>
+<li>
+<p>Supplementary sections explore other regions of interest as indicated.</p>
+</li>
 </ul>
-</div>
-<div class="paragraph">
-<p>Regions of interest will be:
-- Southern Thailand and Peninsular Malaysia. A region affected by a summer monsoon system as well as a winter monsoon system.
-- Maritime Continent - in particular southern Java</p>
 </div>
 </div>
 </div>
@@ -232,39 +266,63 @@ Often the first EOF/singular-vector is used and subsequent ones are discarded. W
 <h2 id="_issues_with_the_eof">Issues with the EOF</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Typically EOF analysis suffers from several common issues. We make the following observations:</p>
+<p>EOF analysis suffers from several issues.
+We make the following observations:</p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">O1</dt>
 <dd>
-<p>EOF patterns are orthogonal, climate patterns are generally not</p>
+<p>EOF patterns are orthogonal,
+climate-associated patterns are generally not</p>
 </dd>
 <dt class="hdlist1">O2</dt>
 <dd>
-<p>All EOF patterns will represent a mixture of all underlying signals</p>
+<p>All EOF patterns,
+including EOF1,
+will represent a mixture of all underlying signals</p>
 </dd>
 <dt class="hdlist1">O3</dt>
 <dd>
 <p>EOF1 is biased towards the strongest signal</p>
 </dd>
-<dt class="hdlist1">04</dt>
-<dd>
-<p>Looking at changes in EOF1 and EOF2 creates a phase-lag artifact</p>
-</dd>
 <dt class="hdlist1">O4</dt>
 <dd>
-<p>At synoptic scales climate pattern shapes do not stay fixed. This creates incorrect patterns and makes energy "leak" in to secondary singular vectors.</p>
+<p>Changes in EOF1 and EOF2 over time often erroneously look like they have a causal relationship.
+This typically looks like some sort of phase-lag, but is an artifact due to poor climate pattern separation.</p>
+</dd>
+<dt class="hdlist1">O5</dt>
+<dd>
+<p>At synoptic scales climate signals/patterns do not have fixed shapes.
+This creates incorrect patterns and makes energy/patterns "leak" in to other singular vectors (SVs).</p>
 </dd>
 </dl>
 </div>
 <div class="paragraph">
-<p>All of these are illustrated using synthetic examples in the following section (Supplimentary)</p>
+<p><strong>O1</strong> <strong>O2</strong> <strong>O3</strong> are illustrated in SUPP1.
+<strong>O4</strong> Will be apparent in the first case study.
+<strong>O5</strong> is illustrated in SUPP???</p>
+</div>
+<div class="paragraph">
+<p>EOF is typically described as the SVD of the climatological anomaly from some mean.
+However, in all our subsequent analysis we will be directly using the SVD of the original data.
+This means that instead of EOF1, EOF2, .. etc. we will use the singular vectors SV1 SV2 .. etc.
+The reason the anomaly is not used is because in our examples there is no mean structure that needs to be removed.
+All structure is climate-driven and the mean is a mixture of all present climate patterns.
+As a result,
+removing the mean in effect introduces some constant amount of each present climate patterns in to all of our time points,
+and in some ratio that is not know a priori.
+Meanwhile the present climatological patterns will vary in intensity.
+Disentangling the two would greatly complicate the analysis.</p>
+</div>
+<div class="paragraph">
+<p>However,
+all the illustrated issues while demonstrated on the SVD will also hold equally for a anomaly-based EOF anaylsis.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_synthetic_illustrations_of_the_eof_problem">Synthetic illustrations of the EOF problem</h2>
+<h2 id="_supp1_synthetic_illustrations_of_the_eof_problem">SUPP1: Synthetic illustrations of the EOF problem</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The standard method for extracting signals from noise is based on the singular value decomposition (SVD). The method works in an iterative fashion, calculating the induced matrix norm of the dataset, removing it from the data and then repeating the process. For a single signal system this produces the best approximation of the underlying signal.</p>
@@ -272,58 +330,127 @@ Often the first EOF/singular-vector is used and subsequent ones are discarded. W
 <div class="paragraph">
 <p>To observe the result we will work off of a known pattern.</p>
 </div>
-<div class="paragraph">
-<p><span class="image"><img src="../fig/imrg/pattern1.svg" alt="pattern1"></span></p>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/pattern1.svg" alt="pattern1">
+</div>
+<div class="title">Figure 1. Generation Pattern</div>
 </div>
 <div class="paragraph">
-<p>We then perturbe this pattern to generate a test dataset. These will represent an idealized climate induced precipitation pattern over a region. To make the example more concrete we imagine it as 12 monthly precipitation accumulations. Each row representing a year of rain</p>
+<p>We then perturb this pattern to generate a test dataset. These will represent an idealized climate induced precipitation pattern over a region. To make the example more concrete we imagine it as 12 monthly precipitation accumulations. Each row representing a year of rain</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/synth1patt/precipitation-all.svg" alt="precipitation all">
+</div>
+<div class="title">Figure 2. 3 Years of simulated gridded monthly precipitation over a region. One grid per month, one year per row.</div>
 </div>
 <div class="paragraph">
-<div class="title">Probably need cleaner plot axis</div>
-<p><span class="image"><img src="../fig/imrg/synth1patt/all-cycle.svg" alt="all cycle"></span></p>
+<p>The SVD in-effect performs a linear weighted sum of these input image such that we get a nice approximation of the underlying <code>t</code> shaped pattern.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/synth1patt/sv-0.svg" alt="sv 0">
+</div>
+<div class="title">Figure 3. First Singular Vector (SV1)</div>
 </div>
 <div class="paragraph">
-<p>The SVD in effect performs a linear weighted sum of these input image such that we get a nice approximation of the underlying <code>t</code> shaped pattern.</p>
+<p>The algorithm selects weights such that they maximizes the energy of the what is in-effect a weighted average. The constraint (so that you can&#8217;t pick arbitrarily large weights) is that the vector of your weights is of unit length. Such a sum effectively gives more weight to data that has higher values and data that has higher signal to noise ratios - as the data will effectively "stack up" producing a larger sum. The result should be superior to a straight average of all the data, though in our experience the results are quite similar</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/synth1patt/average.svg" alt="average">
+</div>
+<div class="title">Figure 4. Average of all the data</div>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="../fig/imrg/synth1patt/sv-0.svg" alt="sv 0"></span></p>
+<p>Note the blue color indicates negative values - a characteristic of most SVD numerical routines is that the first singular vector will be negative (negative weights).
+The result could be safely inverted.
+This would be equivalent to inverting the weight values.
+However, for simplicity I will keep the output vectors unaltered (as produced by the Intel MKL SVD routine).
+This means that while the singular vectors are not unique,
+because they are unit length,
+they are numerically repeatable can only take on two different values.</p>
 </div>
 <div class="paragraph">
-<p>The algorithm selects weights such that they maximizes the energy of the sum. The constraint (so that you can&#8217;t pick arbitrarily large weights) is that the vector of your weights is of unit length. Such a sum effectively gives more weight to data that has higher values and data that has higher signal to noise ratios - as the data will effectively "stack up" producing a larger sum. The result should be superior to a straight average of all the data.</p>
+<p>We then expand the problem to a two pattern system.
+We have taken the previous data set and substituted the last four months with a second pattern.
+This serves to approximate what we will see in the first case study.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/pattern2.svg" alt="pattern2">
+</div>
+<div class="title">Figure 5. Second Generation Pattern</div>
 </div>
 <div class="paragraph">
-<p>Note the blue color indicates negative values - a characteristic of most SVD numerical routines is that the first singular vector will be negative (negative weights). The result could be safely inverted. This would be equivalent to inverting the weight values. However, for simplicity I will keep the output vectors unaltered (as produced by the Intel MKL SVD routine).</p>
+<p>This will act as a synthetic secondary winter climate pattern. We want to observe how a secondary signal affects our SVD. As stated in issues O1, the pattern is arbitrary and not orthogonal to the first.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/synth2patt/precipitation-all.svg" alt="precipitation all">
+</div>
+<div class="title">Figure 6. 3 Years of simulated gridded monthly precipitation over a region, now with two patterns</div>
 </div>
 <div class="paragraph">
-<p>We then expand the problem to a two pattern system. We have taken the previous data set and substituted the last four months with a secondary pattern.</p>
+<p>However before we even come to the orthogonality issues, SV1 already looks problematic.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/synth2patt/sv-0.svg" alt="sv 0">
+</div>
+<div class="title">Figure 7. First Singular Vector (SV1)</div>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="../fig/imrg/pattern2.svg" alt="pattern2"></span></p>
+<p>The dominant signal from before is the most prominent feature, but the secondary pattern is also visible - illustrating issue O2 and O3.
+This should dispel the myth that EOF1 (or SV1) is somehow a safe basis b/c it is no affected by the orthogonality constraint.
+The orthogonality constraint naturally makes things even worse for SV2 and it is even more difficult to visually interpret.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/synth2patt/sv-1.svg" alt="sv 1">
+</div>
+<div class="title">Figure 8. Second Singular Vector (SV2)</div>
 </div>
 <div class="paragraph">
-<p>This will act as a synthetic secondary winter climate pattern. We want to observe how a secondary signal affects our final analysis.</p>
+<p>SV2 is orthogonal to SV1 due to the iterative nature of the SVD algorithm.
+It had first removed SV1 from the dataset before computing SV2.
+Hence all the remaining data was orthogonal to SV1 and therefore their linear combination (SV2) is also orthogonal.
+As a result SV2 is even more strange and unrelated to the underlying signals.
+This is highlighting issue O2 - that all singular vectors are actually representing different mixtures of all the signals.
+Therefore,
+most importantly,
+none can be directly interpreted as climate indicators (outside the simple and yet common case of only one climate system).</p>
 </div>
 <div class="paragraph">
-<div class="title">Probably need cleaner plot axis</div>
-<p><span class="image"><img src="../fig/imrg/synth2patt/all-cycle.svg" alt="all cycle"></span></p>
+<p>A detailed mathematical treatment of why all EOF vectors end up being mixtures is outside the scope of this paper.
+However,
+in short,
+this is a byproduct of how the weights (the singular values) are assigned.
+At face value,
+adding in a secondary signal seems to run counter to the goal of maximizing the energy of the sum.
+However,
+the root cause is that the maximization is done by maintaining the 2-norm of the weights at 1.0.
+The weights do not add up to 1.
+Instead this can be restated as: the weights form a "unit vector" ie. <strong>the quadrature sum</strong> of the weights is equal to <code>1.0</code>.
+The quadrature sum means that counterintuitively the sum of weights is not constant.
+All else being equal,
+spreading weights out actually makes their direct sum a higher value.
+This is most easily illustrated by looking at the logical extremes.
+If all weight were assigned to one data point and all other weights were set to zero,
+then the sum of weights would equal <code>1.0</code>.
+By contrast an even spread of weights across all data gives <code>N</code> weights of <code>1/sqrt(N)</code> and <code>N/sqrt(N) &gt; 1.0</code> for all values of <code>N</code>.
+The end result is that secondary signals always get small weights assigned to them because though they don&#8217;t sum constructively with the dominant signal,
+it does in effect increases the total sum of all the weights.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/synth2patt/sv1sv2-2scale.svg" alt="sv1sv2 2scale">
+</div>
+<div class="title">Figure 9. How SV1 and SV2 change over time</div>
 </div>
 <div class="paragraph">
-<p>Now when we perform the SVD, EOF1 (or the first singular vector) looks problematic.</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="../fig/imrg/synth2patt/sv-0.svg" alt="sv 0"></span></p>
-</div>
-<div class="paragraph">
-<p>The dominant signal from before is the most prominent feature, but the secondary pattern is also visible - illustrating issue O3. This should dispel the myth that EOF1 is somehow a safe basis b/c it is no affected by the orthogonality constraint. The orthogonality constraint naturally makes things even worse as EOF2 is even more difficult to visually interpret.</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="../fig/imrg/synth2patt/sv-1.svg" alt="sv 1"></span></p>
-</div>
-<div class="paragraph">
-<p>EOF2 has to be orthogonal to EOF1. The iterative nature of the SVD algorithm had first removed EOF1 from the dataset before computing EOF2. Hence all the remaining data was orthogonal to EOF1 and therefor their linear combination (EOF2) is also orthogonal. As a result EOF2 is even more strange and unrelated to the underlying signals. This is highlighting the reality of issue O2 - that all singular vectors are actually representing mixtures of all the signals and none can be directly interpreted as climate indicators (outside the simple and yet common case of only one climate system).</p>
-</div>
-<div class="paragraph">
-<p>A detailed mathematical treatment of why all EOF vectors end up being mixtures is outside the scope of this paper. However, in short, this is a byproduct of how the weights (the singular values) are assigned. At face value, adding in a secondary signal seems to run counter to the goal of maximizing the energy of the sum. However the maximization is done by maintaining the 2-norm of the weights at 1.0. This can be restated as: the weights form a "unit vector" or the quadrature sum of the weights is equal to <code>1.0</code>. The quadrature sum means that counterintuitively, all else being equal, spreading weights out actually makes their direct sum a higher value. This can be illutrated by looking at a logical extremes. If all weight is assigned to one data point, then its weight will equal <code>1.0</code>. By contrast an even spread of weights across all data gives <code>N</code> weights of <code>1/sqrt(N)</code> and <code>N/sqrt(N) &gt; 1.0</code> for all values of <code>N</code>. The end result is that secondary signals always get small weights assigned to them.</p>
+<p>Lastly we take a quick look at how SV1 and SV2 evolve over time. This goes to highlight issue O4. There is some cyclic pattern that seems aparent and it is easy to misinterpret this as indicative of two coupled climate processes at work. However, we a priori know here that the two climate systems are entirely decoupled. This false cycles/coupling will become even more aparent in the case studies.</p>
 </div>
 </div>
 </div>
@@ -331,32 +458,61 @@ Often the first EOF/singular-vector is used and subsequent ones are discarded. W
 <h2 id="_case_study_south_east_asian_monsoon_systems">Case Study: South East Asian monsoon systems</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We work off of a real example so that the EOF problems can be visually confirmed. This will allow us to construct a simple correction that produces patterns with a much better fidelity to those we observe in the raw data.</p>
+<p>We work off of a real example in southern Thailand so that the EOF problems can be confirmed. Once confirmed we can construct a easily interpretable correction that produces patterns with a much higher fidelity to those we observe in the raw data.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/precipitation-all.svg" alt="precipitation all">
+</div>
+<div class="title">Figure 10. Annual cycles 2011 through 2021. One year from January to December per row. The middle of the year shows consistent summer monsoon rains on the west coast. Sporadic east coast rains towards the end of the year</div>
 </div>
 <div class="paragraph">
-<p>Here we look at a Southern Thailand. The top of the Malay Pensinsula is climatologically challenging as it&#8217;s subject to two distinct monsoon systems. The summer monsoon brings moisture from the Indian Ocean and drives precipitation for most of the year, while the winter monsoon system brings moisture from the East - the South China Sea and the Gulf of Thailand. There is also a short "dry season" at the beginning of the year that is modulated by the interannual ENSO system.</p>
+<p>IMERG data allows us to observe monthly precipitation of the region at high resolution. Visually we observe that rainfall comes in two distinct patterns. The summer months have rain on the west coast, predominantly in the northern most sections. The late fall and early winter months show rain in the south eastern section. These two rain patterns correspond to two monsoon system. At a high level the pattern represent the end result of a complex interplay between the local topography and the synoptic scale atmospheric conditions. In this case the areas of most rainfall correspond to coastal high mountains upwind in their associated monsoonal systems.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/extr/etopo2022-krabi.jpg" alt="etopo2022 krabi">
+</div>
+<div class="title">Figure 11. ETOPO Global Relief Model</div>
 </div>
 <div class="paragraph">
-<div class="title">Should be modified to the strip configuration??</div>
-<p><span class="image"><img src="../fig/imrg/krabi/monthly/year-stack.svg" alt="year stack"></span></p>
+<p>While the patterns are readily apparent in the monthly averages, we would like to extract the patterns in an objective manner. We&#8217;d like to avoid manual picking "monsoon months". We also don&#8217;t want to build any threshold heuristics based on past statistics <strong>(Rainy Season of the Asian Pacific Summer Monsoon - Bin Wang)</strong>. nor do we want to assume any a priori knowledge of what is a monsoon and what atmospheric conditions are associated with it. As a first attempt to observe the climate induces rain patterns, we perform a singular value decomposition on monthly rainfall. For the subsequent analysis we use a ten year period from 2011 up till 2022 - for a total of 120 monthly snapshots.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/sv-0.svg" alt="sv 0">
+</div>
+<div class="title">Figure 12. First Singular Vector (SV1)</div>
 </div>
 <div class="paragraph">
-<p>Visually the two systems produce rainfall in two distinct patterns. The summer months have rain on the west coast, predominantly in the northern most sections. The late fall and early winter months show rain the south eastern section. The rain patterns represent a complex interplay between the local topography and the synoptic scale atmospheric configuration for large fractions of the year. In this case the areas of most rainfall correspond to coastal high mountains upwind in their associated monsoonal systems.</p>
+<p>The first singular vector gives us a shape that looks similar to the west coast precipitation associate with the summer monsoon. Often in an EOF anaylsis one would stop at this point as the result doesn&#8217;t have obvious issues. The values are all negative (blue) but the vector could be inverted to make it more directly interpretable. While we know signal mixing must be happening due to issue O2, it is not immediately apparent due to a couple of reasons. First, the summer monsoon dominates the annual rainfall totals and therefore issue O3 preserves the pattern. Second, unlike in a simple synthetic example (SUPP1) natural patterns are typically much smoother. As a result their mixtures do not make large glaring artifacts. However, a careful eye will note that there is an intensification of precipitation on the East coast which we do not see in the summer months!</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/average.svg" alt="average">
+</div>
+<div class="title">Figure 13. Average Rainfall</div>
 </div>
 <div class="paragraph">
-<p>While the patterns are readily apparent in these monthly averages, we would like to extract the patterns in an objective manner (ie. without manual selection of "monsoon months" or any heuristics tuned to this climatological system). As a first attempt to observe the climate induces rain patterns, we perform a singular value decomposition on monthly rainfall. We choose a ten year period from 2011 to 2022 - for a total of 120 monthly snapshots.</p>
+<p>In actuality the SV1 pattern looks like a slight improvement over the the annual average.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/sv-1.svg" alt="sv 1">
+</div>
+<div class="title">Figure 14. Second Singular Vector (SV2)</div>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="../fig/imrg/krabi/monthly/sv-0.svg" alt="sv 0"></span></p>
+<p>The second singular vector, orthogonal to the first, shows some very strong east west contrast and but doesn&#8217;t immediately look like any climate system. The large negative values in the north west can&#8217;t be directly interpreted as they don&#8217;t make physical sense for precipitation. Since we aren&#8217;t working off an anomaly (like in an EOF analysis) the climate patterns of precipitation should be positive. Inverting the vector&#8217;s values doesn&#8217;t solve the issue as it would just creates other negative zones.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/sv1sv2.svg" alt="sv1sv2">
+</div>
+<div class="title">Figure 15. How SV1 and SV2 change over time</div>
 </div>
 <div class="paragraph">
-<p>The first singular vector gives us something that looks quite similar to the west coast precipitation associate with the summer monsoon. Signal mixing is not as apparent as in the synthetic example b/c the summer monsoon dominates annual rainfall. Furthermore, unlike in the synthetic example patterns in nature tend to be smoother - thereby masking the underlying mixing. However a careful eye will note that there is an intensification of precipitation on the East coast which does not occur in reality</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="../fig/imrg/krabi/monthly/sv-0.svg" alt="sv 0"></span></p>
-</div>
-<div class="paragraph">
-<p>The second signular vector, orthogonal to the first, look even harder to interpret but seems to correspond to a very strong east west contrast.</p>
+<p>If we look at how SV1 and SV2 values change over time, we will see a spurious relationship between the two. Interpretting SV1 and SV2 as indicative of distinct climate phenomena may lead one to believe SV2 drives SV1</p>
 </div>
 </div>
 </div>
@@ -364,54 +520,346 @@ Often the first EOF/singular-vector is used and subsequent ones are discarded. W
 <h2 id="_isolating_correct_patterns_in_the_sv_subspace">Isolating correct patterns in the SV subspace</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The root cause of the observed problems with the singular vectors (ie. EOFs) is that both vectors represent a mixture of both climate signals. First we observe that at a high level the local climate system can be approximation as a noise dominated system of two signals. Both singular vectors provide two different mixtures of these two signals. So by virtue of there being just two degrees of freedom, a certain mixture of the two singular vectors should represent a summer pattern - meanwhile a different mixture should correspond to a winter mixture</p>
+<p>We already know a priori that the root cause of the observed problems with the singular vectors is that both vectors represent a mixture of all climate signals (O2).
+To isolate the two climate systems we need to assume two simplifying characteristics:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">A1</dt>
+<dd>
+<p>the local climate system can be approximation as a noise dominated system of two signals</p>
+</dd>
+<dt class="hdlist1">A2</dt>
+<dd>
+<p>the two climate systems by-in-large don&#8217;t undergo any mixing.
+In other words the two climates can&#8217;t coocur.</p>
+</dd>
+<dt class="hdlist1">A3</dt>
+<dd>
+<p>The climate patterns in question scale in a near-linear fashion.
+If it rains twice as much,
+then it rains twice as much across the whole climate associated precipitation region</p>
+</dd>
+</dl>
 </div>
 <div class="paragraph">
-<p>As a result we can reduce our problem space to two dimensions</p>
+<p>These are the assumptions that were baked in to the synthetic example in SUPP1.</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="../fig/imrg/krabi/monthly/sv-projs-plain.svg" alt="sv projs plain"></span></p>
+<p>In practice the characteristic A1 seems to be a soft requirement.
+For instance in the southern Thailand at the seasonal scale we expect additional Madden Julian Oscillations (MJO) and at the interannual scale we expect climate pattern effect from the the El Niño–Southern Oscillation (ENSO).
+However, at a glance neither seem to cause clear visually apparent patterns in the data.
+Treated these other climate phenomena as background noise has not introduced notable issues in the final result. The authors have no been able to find any locations with three or more visually distinct seasonal rain patterns.</p>
 </div>
 <div class="paragraph">
-<p>In other words we can replot all 120 data points along two axes. The X axis show how closely a day corresponds to the first EOF, while the Y axis shows how closely the data point corresponds to the second EOF. These two projections correspond to the first two columns of the projection matrix in the SVD.</p>
+<p>One important situation where A1 does not hold is in the trivial case of only one dominant climate system.
+Maybe the most common instance would be the one monsoon-related rainy season.
+At the seasonal scale,
+these climate systems are maybe more the norm than the exception.
+In these degenerate cases SV1 (or even the annual average) will be directly giving you a good approximation of the climate related pattern.
+We do not present a turnkey solution for distinguishing such regions,
+but typically looking at the singular values in a scree plot highlights problematic regions.
+Trying to isolate patterns in a single system region also gives characteristic climate indeces that separate out onset/withdrawal periods from the main climate phenomena.
+An example is provided in SUPP?????</p>
 </div>
 <div class="paragraph">
-<p>When observed in this subspace we make our second key observation: that the two climate systems are non-coocurring. Either atmospheric parameters are in some summer monsoon associated configuration or in a winter monsoon associated one. Since these processes happen at synoptic scales, much larger than the zone under observation, there is very little time spent "in-between". For instance the onset of the monsoon at the Southern end and Northern end of the selected region has been estimated to differ by approximately XXX days.</p>
+<p>Assuming A1 to be generally true, we can then interpret both singular vectors as largely consisting of different mixtures of the two underlying signals.
+By virtue of there being just two degrees of freedom, a certain combination of the two SVs should give back one pattern and a different combination should give us back the other pattern.
+Here in our case study that means a mixture of SV1 and SV2 should give us back the summer monsoon pattern,
+and a different mixture should give us the winter monsoon pattern.</p>
 </div>
 <div class="paragraph">
-<p>The two-state nature of the climate system means that in the 2D plane months form two clumps. Each monthy at a first approximation either look like one of two ratios of EOF1 to EOF2. To estimate these two ratios we use a procedure akin to Otsu&#8217;s method in computer vision. We subdivide the 2D subspace along all possible diagonal dichotomies and find the dichotomy which minimizes the total variance. Such a dividing line in essence ensures both halves form a tight grouping around each half&#8217;s mean</p>
+<p>To simplify the problem we can reduce our problem space to two dimensions.
+We can replot all 120 monthly rain maps on to two axis.
+The X axis will correspond to how much each month of rain corresponds to the first singular vector SV1.
+The Y axis corresponds to how much it corresponds to the second singular vector SV2.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/sv-projs-plain.svg" alt="sv projs plain">
+</div>
+<div class="title">Figure 16. SV1 SV2 data projection</div>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="../fig/imrg/krabi/monthly/sv-projs.svg" alt="sv projs"></span></p>
+<p>These two projections correspond to the first two columns of the left-singular-vector matrix in the SVD.
+The reduction to two dimensions has in effect removed the remaining noise-associated SVs.</p>
 </div>
 <div class="paragraph">
-<p>Once the optimal divisor has been selected (red dashed line), we find the centroid of each half (black dotted line). This represents our estimate of each climate-associated ratio. The centroid is calculates as the average ratio of EOF1 to EOF2 across all points in each respective half (ie. an average of the angles of each point). Each point has an estimated two dimensional error and the resulting centroids have errors of their own (see: Supplimentary: Error Analysis). While many data points cluster near the origin, indicating a low climate signal, they do not corrupt the resulting estimates. The error estimates near the origin tend to result in large angular errors (ie. EOF1/EOF2 ratios) and thereby tend to contributing very little to the centroid/pattern estimates.</p>
+<p>When observed in this subspace the effect of the second simplifying assumption A2 is apparent.
+The two climate systems are generally non-coocurring and the precipitation patterns forming two clusters.
+One cluster is dominated by summer (yellow) months while the other winter (blue/purple) months.
+This corresponds to our intuition.
+Either atmospheric parameters are in some summer monsoon associated configuration or in a winter monsoon associated one.
+Since these processes happen at synoptic scales,
+much larger than the zone under observation,
+there is very little time spent "in-between".
+For instance the onset of the monsoon at the Southern end and Northern end of the selected region has been estimated to differ by approximately XXX days(REF???).
+This stresses the need to select small regions for climate pattern extraction.</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="../fig/imrg/krabi/monthly/top-pattern.svg" alt="top pattern"></span></p>
+<p>A2 actually characterizes many natural climate systems.
+Systems just as ENSO,
+the North Atlantic dipole,
+The Southern Annular Mode and the Pacific Decadal Oscillation come in pairs.
+These are often called positive and negative phases.
+The monsoon similarly has a summer and winter phase.
+Since the phases correspond to synoptic scale atmospheric configurations they can not coocur.
+There may be short transitionary phases at the regional/mesoscale but their precipitation patterns do not necessarily correspond to a mixture of the two climate systems.
+Because the phases are relatively short,
+for the purpose of isolating patterns,
+these transitions will be interpreted as part of the noise.
+SUPP??? shows how in the extreme, such as in one climate system locations, transitions can form a false signals.</p>
 </div>
 <div class="paragraph">
-<p>We can then draw the ratio specified for each centroid. Here we first look at the top centroid. The monthy in the top half are blue/purple and correspond to the late-fall/winter months. The pattern represented by the ratio indeed corresponds to the pattern we observed in the raw data and matches our intuitive understanding of the climate configuration during the winter monsoon.</p>
+<p>The two clusters are broadly centered around two lines going through the origin.
+These clustering axes represent two ratios of the singular vectors.
+To estimate these two ratios we use a procedure akin to Otsu&#8217;s method in computer vision.
+We subdivide the 2D subspace along all possible diagonal dichotomies and find the dividing line which minimizes the total variance of both halves.
+Such a dividing line in essence ensures both halves form a tight grouping around each half&#8217;s mean</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/sv-projs.svg" alt="sv projs">
+</div>
+<div class="title">Figure 17. SV1 SV2 data projection divided</div>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="../fig/imrg/krabi/monthly/bottom-pattern.svg" alt="bottom pattern"></span></p>
+<p>Once the optimal divisor has been selected (red dashed line),
+we find the centroid of each half (black dotted line).
+This represents our best estimate of each climate-associated ratio.
+The centroid is calculates as the error weighted average of the ratios of SV1 to SV2 across all points on their associate half (see SUPP1 for how errors are estimated).</p>
 </div>
 <div class="paragraph">
-<p>Similarly the bottom half consists of summer months, and the centroid-associated ratio produces a mixture of EOF1 and EOF2 such that the resulting pattern looks like the summer monsoons we observed in the original data. Note how the previous artifacts we saw in EOF1, with spurous rains on the East coast, have completely vanished</p>
+<p>The fact that points generally lie in the direction of the centroid also suggests A3 is a safe approximation.
+If stronger monsoon months lead to a change in the shape of the climate pattern then we could see more stark off-axis changes.
+Arguably the lower summer monsoon half does show an off-axis trend.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/top-pattern.svg" alt="top pattern">
+</div>
+<div class="title">Figure 18. Top half average</div>
+</div>
+<div class="paragraph">
+<p>We can now draw the ratio specified for each centroid.
+We first look at the top centroid.
+The months in the top half are blue/purple and correspond to the late-fall/winter months.
+The pattern represented by the ratio indeed corresponds to the pattern we observed in the raw data and matches our intuitive understanding of the climate configuration during the winter monsoon.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/bottom-pattern.svg" alt="bottom pattern">
+</div>
+<div class="title">Figure 19. Bottom half average</div>
+</div>
+<div class="paragraph">
+<p>Similarly the bottom half consists of summer months,
+and the centroid-associated ratio produces a mixture of SV1 and SV2 such that the resulting pattern looks like the summer monsoons we observed in the original data.
+Note how the previous artifacts we saw in SV1,
+with spurious rains on the East coast,
+have completely vanished</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_error_analysis">Error Analysis</h2>
+<h2 id="_supp_error_analysis">SUPP: Error Analysis</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>There are generally two related sources of error in the previous method. One is the error in each points' projection on the 2D singular vector subspace. This is a two dimensional error of each point&#8217;s decomposition into EOF1 and EOF2 components. The other is the error in the final patterns, ie. the calculated centroid of each half.</p>
+<p>For the purpose of this analysis we will not be considering instrument error as this goes in to the specifics of the IMERG system and is outside the scope of the method</p>
 </div>
 <div class="paragraph">
-<p>When we projected on to EOF1 and EOF2 we implicitely work under the simplifying assumption that there are only two climate systems. The remaining singular vectors (EOF3, EOF4 etc.) form what is effectively a background noise with an expected mean of zero. However a stochastic process with an expected mean of zero will have a non-zero measured mean at each data point. This is known as the variance of the mean, and it is equal to the variance divided by the number of points. The errors in the projections occur due to the noise in the EOF1 and EOF2 regions have such a nonzero mean.</p>
+<p>The error propagation will be explained in several steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>We first will characterize the noise</p>
+</li>
+<li>
+<p>Then we will explain how it affects the projections in the SV1 SV2 subspace of FIG????</p>
+</li>
+<li>
+<p>This then will establish an error of the climate patterns themselves (FIG?? FIG??)</p>
+</li>
+<li>
+<p>After which we can estimate the error of the climate index - ie. the projections of the time points on to the climate patterns themselves.</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="_1_the_noise">1: The Noise</h3>
+<div class="paragraph">
+<p>The simplifying characteristic A1 tells us that if we remove the first two singular vectors we are left with an estimate of the noise component of the system.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/noise-all.svg" alt="noise all">
+</div>
+<div class="title">Figure 20. De-noised data (ie. data with SV1 and SV2 removed)</div>
 </div>
 <div class="paragraph">
-<p>Further complicating things, the background noise level is non-constant. Fortunately if the input data is high dimensional (ex: IMERG data is typically on the order of thousands of pixels get data point) the noise level can be estimated at each time point. Since the mean is already known (it is zero) we simply estimate the variance by looking at the variance of the data with EOF1 and EOF2 removed. However scaling the variance to get a variance of the mean is more complicated.</p>
+<p>The de-signaled data,
+as expected,
+looks like noise with no discernible climate patterns.
+This remaining noise should have an expected value of zero.
+A non-zero value would be in-effect indicating some additional climate signal,
+which would run counter to A1.</p>
+</div>
+<div class="paragraph">
+<p>The noise&#8217;s variance generally increases with an increase in monsoon signal.
+Visually we saw in FIG??? that the monsoon pattern manifests unevenly.
+Intuitively,
+we expect that when there is little signal/monsoon thing are dryer and the noise level is reduced.
+When the climate signal is strong the noise level is higher.
+At such times some patches may remain entirely dry,
+while others may have large amounts of precipitation.</p>
+</div>
+<div class="paragraph">
+<p>To observe this,
+we can re-plot the months by their power in SV1+SV2 compared to the power of the remaining SVs (SV3,SV4,SV5,..etc).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/power-sv12-vs-other.svg" alt="power sv12 vs other">
+</div>
+<div class="title">Figure 21. Signal to Noise plot</div>
+</div>
+<div class="paragraph">
+<p>Unfortunately,
+while there is a general linear relationship,
+it isn&#8217;t very robust.
+There are many outliers and a lot of variability.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_error_in_the_2d_sv1_sv2_subspace">2. Error in the 2D SV1 SV2 subspace</h3>
+<div class="paragraph">
+<p>The noise level is important because it affects our estimates of projections.
+While the expected mean of the noise is zero,
+the actual measured mean will never be exactly zero.
+The variance of the measured mean is akin to the classic standard deviation of the mean (SDOM).
+When you project your data on to a pattern (ex: SV1 or SV2),
+the mean of the noise in areas of the pattern will be folded in to the projection.
+So the noise will cause you to either overestimate or underestimate the strength of your signal.</p>
+</div>
+<div class="paragraph">
+<p>So when we took our data points and placed them on the SV1 SV2 plot (FIG????),
+we had implicitly done this projection.
+The noise&#8217;s mean at every point in time was folded into the projections and had skewed our results.
+While the size of the skew can&#8217;t be know directly,
+the magnitude can be estimated by knowing the variance of the noise.</p>
+</div>
+<div class="paragraph">
+<p>For the purpose of this analysis we treat SV1 and SV2 as both having negligible errors relative to the data.</p>
+</div>
+<div class="paragraph">
+<p>While we got the projections from the left singular vectors,
+when done manually,
+the projecting is done by taking the inner product of the data and the pattern.
+In other words we go pixel by pixel multiplying the pattern <strong>P</strong> with the data <strong>D</strong> and summing them all up:</p>
+</div>
+<div class="paragraph">
+<p>\$sum_(pxl=1)^n P_{pxl}*D_{pxl}\$</p>
+</div>
+<div class="paragraph">
+<p>The pattern pixels <strong>P</strong> have negligible errors so we treat them as constant.
+The data pixels for each time point <strong>D</strong> are some signal <strong>S</strong> with some noise <strong>N</strong></p>
+</div>
+<div class="paragraph">
+<p>\$sum_(pxl=1)^n P_{pxl}*(S_{pxl} +- N_{pxl)}\$</p>
+</div>
+<div class="paragraph">
+<p>We can separate this into the original inner product and the sum of zero mean errors:</p>
+</div>
+<div class="paragraph">
+<p>\$sum_(pxl=1)^n P_{pxl}*S_{pxl} +  sum_(pxl=1)^n 0 +- P_{pxl}*N_{pxl}\$</p>
+</div>
+<div class="paragraph">
+<p>The best estimate of <strong>S</strong> is <strong>D</strong> so the left hand side is just our original inner product.
+The error of the sum of errors is their quadrature sum.
+So the final inner product will be:</p>
+</div>
+<div class="paragraph">
+<p>\$sum_(pxl=1)^n P_{pxl}*S_{pxl} +- sqrt(sum_(pxl=1)^n (P_{pxl}*N_{pxl})^2)\$</p>
+</div>
+<div class="paragraph">
+<p>The last step is deciding on a value for <strong>N</strong>.
+One option is to use the linear relation from FIG????.
+However this presupposes a constant noise power across the whole field and that the noise level is purely a function of the signal strength.
+Fortunately since the patterns fields are large and since we have many pixels and can directly estimate the noise level at every point in time.
+If we treat each pixel as a separate random process with mean zero and unknown standard deviation then the designaled data gives us one trial.
+The absolute value of the designaled pixel is our best estimate of of the standard deviation <strong>N</strong>.
+So the error estimate is quadrature sum of the product of the designalled data and the pattern.</p>
+</div>
+<div class="paragraph">
+<p>At this step the pattern <strong>P</strong> is either SV1 or SV2 and this quadrature sum provides the X and Y error in FIG????.
+Note also that a larger pattern will make the relative noise smaller.
+TODO: DOUBLE CHECK THIS IS TRUE&gt;&gt; SHOULD BE&gt;&gt;&gt;
+TODO: Add errors to the 2D SV1SV2 plot? Or maybe it&#8217;s going to look too busy and should be a separate graph?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_error_in_climate_pattern">3. Error in climate pattern</h3>
+<div class="paragraph">
+<p>Now each data point in the SV1 SV2 plane has X and Y errors which we will call dX and dY.
+To find the ratio of SV1 and SV2 associate with each climate pattern,
+we first need to calculate the associated ratio for each data point.
+If we calculate X/Y for each point then the associate error is the sum in quadrature of the fractional uncertainties:</p>
+</div>
+<div class="paragraph">
+<p>\$X/Y +- sqrt(((dX)/X)^{2} + ((dY)/Y)^{2}\$</p>
+</div>
+<div class="paragraph">
+<p>TODO: RATIO SEEM PROBLEMATIC AS IT EXPLODES TO HUGE VALUES AS Y GOES TO ZERO. MAYBE RADIANS&gt;&gt;&gt;? MAYBE PERCENTAGE OF SV1&gt;&gt;&gt;???(X/(X+Y))</p>
+</div>
+<div class="paragraph">
+<p>When calculating the averages and variances of each half we now use these ratios with their associated errors.
+Assume the errors are independent and normally distributed,
+we can use the variances to make a weighted average and calculate a weighted variance</p>
+</div>
+<div class="paragraph">
+<p><a href="https://en.wikipedia.org/wiki/Inverse-variance_weighting" class="bare">https://en.wikipedia.org/wiki/Inverse-variance_weighting</a></p>
+</div>
+<div class="paragraph">
+<p>TODO: MAYBE ADDRESS THE INDEPENDENT/NORMAL CRITERIA..? :SS OR FIND AN ELEGANT WAY TO ACKNOWLEDGE AND SKIP IT..</p>
+</div>
+<div class="paragraph">
+<p>When the variance minimizing divider is found,
+the average will yield a ratio that corresponds to each the climate pattern.
+The associated variance will specify the error in that ratio.
+We can then use the error in the SV1 SV2 ratio to calculate average + error and average - error patterns and thereby calculate a pixel level standard deviation.
+Naturally areas with high values in SV1 and SV2 will result in higher errors.</p>
+</div>
+<div class="paragraph">
+<p>THE ERRORS HERE ARE LIKELY NOT SYMMETRIC.. NOT SURE HOW TO HANDLE</p>
+</div>
+<div class="paragraph">
+<p>TODO: A MAP OR THE ERRORS FOR SUMMER AND WINTER MONSOONS??</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_error_in_climate_index">4. Error in Climate Index</h3>
+<div class="paragraph">
+<p>The final error to be determined is the error in the final calculated climate index.
+This is the projection of each time/data point on to each climate pattern.
+Here the procedure is the same as when we projected on to SV1 and SV2.
+However, while we treated SV1 and SV2 as having no effective error,
+here we treat the climate patterns as having an error.</p>
+</div>
+<div class="paragraph">
+<p>\$sum_(pxl=1)^n P_{pxl}*D_{pxl}\$</p>
+</div>
+<div class="paragraph">
+<p>So in the previous equation both P and D now have an error associated with them.</p>
+</div>
+<div class="paragraph">
+<p>\$sum_(pxl=1)^n P_{pxl}*S_{pxl} +- N_{pxl}\$</p>
+</div>
+<div class="paragraph">
+<p>Here N is the quadrature sum of the fractional uncertainties.
+We then proceed as before doing a quadrature sum of these combined probabilities.
+This gives us the error bars on the final climate index projections.</p>
+</div>
 </div>
 </div>
 </div>
@@ -419,10 +867,17 @@ Often the first EOF/singular-vector is used and subsequent ones are discarded. W
 <h2 id="_applications_climate_patterns">Applications: Climate Patterns</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The previous steps have given us clean non-orthogonal climate patterns. These can serve as a basis for further research. First, the spatial distribution of the pattern itself can serve as a source of truth. Second, once the pattern is isolated we can look for it in future (and past) data.</p>
+<p>The previous steps have given us clean non-orthogonal climate patterns.
+These can serve as a basis for further research.
+First,
+the spatial distribution of the pattern itself can serve as a source of truth.
+Second,
+once the pattern is isolated we can look for it in future (and past) data.</p>
 </div>
 <div class="paragraph">
-<p>The pattern as a source of truth can be useful when for instance looking at changes in atmospheric paraters. However this needs to be evaluated on a case by case basis. A more direct approach would be for instance validating a climate model.</p>
+<p>The pattern as a source of truth can be useful when for instance looking at changes in atmospheric parameters.
+However, this needs to be evaluated on a case by case basis.
+A more direct approach would be for instance validating a climate model.</p>
 </div>
 <div class="paragraph">
 <p>If we are to run the identical method on ERA5 monthly precipitation for the same period</p>
@@ -434,7 +889,10 @@ Often the first EOF/singular-vector is used and subsequent ones are discarded. W
 <p>And the following summer monsoon associated pattern</p>
 </div>
 <div class="paragraph">
-<p>While the original data is at a coarser resolutions, the two patterns seem to generally correspond in this region.</p>
+<p>While the original data is at a coarser resolutions,
+the two patterns seem to generally correspond in this region of interest.
+Interestingly enough,
+noise levels are reduced .. blah blah</p>
 </div>
 </div>
 </div>
@@ -442,24 +900,40 @@ Often the first EOF/singular-vector is used and subsequent ones are discarded. W
 <h2 id="_applications_climate_indeces">Applications: Climate Indeces</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Using the pattern to look for the presence of climate at past and future times can form the bases of constructing climate indeces. Many climate indeces are built on the bases of using EOF analysis - particularly the first singular vector, EOF1. These methods typically give plausible results due to two common phenomena. First, as was noted before, most climate phenomena come in pairs. Second, often climate phenomena are close negatives of each other when viewed as anomalies from the mean. The rain patterns derived for the Thai peninsula, if normalized to be around zero, resemble negatives of each other. Similar near-negatives can be imagines for other climate phenomena, like the El Nino equatorial warm water tongue vs the La Nina subtropical heating, or the positive and negative phases of the southern annular mode, or the north atlantic dipole. This means that EOF1 (which is done on an anomaly and not raw data) for many regions may produce a pattern which gives a one dimension estimate of both climate phenomena. This however is not a property that is universaly true - and doesn&#8217;t have a clear universal scientific rational</p>
+<p>Using the pattern to look for the presence of climate at past and future times can form the bases of constructing climate indeces.
+Many climate indeces are built on the bases of using EOF analysis - particularly the first singular vector,
+EOF1.
+These methods typically give plausible results due to two common phenomena.
+First,
+as was noted before,
+most climate phenomena come in pairs.
+Second,
+often climate phenomena are close negatives of each other when viewed as anomalies from the mean.
+The rain patterns derived for the Thai peninsula,
+if normalized to be around zero,
+as a very rough level resemble negatives of each other (especially if you were to stencil out the oceans).
+Similar near-negatives can be imagined for other climate phenomena.
+For instance sea surface temperatures associated with the El Nino equatorial warm water tongue vs the La Nina subtropical heating are near negatives when viewed in small boxes around the equator (REF).
+The positive and negative phases of the southern annular mode,
+or the north atlantic dipole also look like negatives within their respective zones of influence.
+This means that EOF1 (which is done on an anomaly and not raw data),
+with a properly tuned region,
+may produce a pattern which gives a one dimension estimate of both climate phenomena.
+This however is not a property that is universally true - and doesn&#8217;t have a clear universal scientific rational.</p>
 </div>
 <div class="paragraph">
-<p>Using climate patterns provide by subspace bisection allows us to entirely avoid the serendipity of this second requirement. We treat each climate pattern separately and we will generate two independent indeces with non-comparable scalings. To build an index based on our climate data we simply need to project data on to our patterns. We use the bisecting line (red line Fig XX) to determine which pattern each data point should be projected on. The projection can either be done directly (ie. an innner product of the pattern and data) or can be done with a non orthogonal projection in the 2D singular vector subspace. We reject the nonorthogonal method because data points are conceptually attributed to one climate system or the other and don&#8217;t represent a mixture.</p>
+<p>Using climate patterns provide by subspace bisection allows us to entirely avoid the serendipity of this second requirement and allows us to look at the presence of climate in less convenient regions.
+We treat each climate pattern separately and we will generate two independent indices with non-comparable scalings.
+To build an index based on our climate data we simply need to project data on to our patterns.
+We use the bisecting line (red line Fig XX) to determine which pattern each data point should be projected on.
+The projection can either be done directly (ie. an inner product of the pattern and data) or can be done with a non orthogonal projection in the 2D singular vector subspace.
+We reject the nonorthogonal method because data points are conceptually attributed to one climate system or the other and don&#8217;t represent a mixture.</p>
 </div>
-<div class="paragraph">
-<p><span class="image"><img src="../fig/imrg/krabi/monthly/indeces.svg" alt="indeces"></span></p>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/indeces.svg" alt="indeces">
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_error_estimation">Error Estimation</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Climate patterns have been estimated, and then data reprojected and climate indeces calculate. But how confident can we be in the results? On the whole there are two sources of error. There is the error in the original pattern itself and there is an error in the estimates climate index. The first error is at the pixel level, while the second error is in the final calculated weight</p>
-</div>
-<div class="paragraph">
-<p>The error in the pattern is the error in the estimated ratio calculated for both halves of the 2D subspace</p>
+<div class="title">Figure 22. Climate Indeces</div>
 </div>
 </div>
 </div>
@@ -490,5 +964,29 @@ Often the first EOF/singular-vector is used and subsequent ones are discarded. W
 </div>
 </div>
 </div>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>
