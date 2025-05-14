@@ -243,9 +243,6 @@ An accompanying program for reproducing the analysis is provided.</p>
 <p>Centroid error plots.. once I work out for the angular error maps to a pixel error</p>
 </li>
 <li>
-<p>Plots are normalized to the highest value in-image (but that&#8217;s not indicated anywhere) i think.. should be a normalized to the global max for the rain in the region I guess.</p>
-</li>
-<li>
 <p>ERA5 plots</p>
 </li>
 <li>
@@ -511,6 +508,12 @@ it does in effect increases the total sum of all the weights.</p>
 </div>
 <div class="title">Figure 10. Annual cycles 2011 through 2021. One year from January to December per row. The middle of the year shows consistent summer monsoon rains on the west coast. Sporadic east coast rains towards the end of the year</div>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/precipitation-all-normalized.svg" alt="precipitation all normalized">
+</div>
+<div class="title">Figure 11. A normalized version (to the dataset&#8217;s global max)&#8230;&#8203; maybe better?</div>
+</div>
 <div class="paragraph">
 <p>IMERG data allows us to observe monthly precipitation of the region at high resolution. Visually we observe that rainfall comes in two distinct patterns. The summer months have rain on the west coast, predominantly in the northern most sections. The late fall and early winter months show rain in the south eastern section. These two rain patterns correspond to two monsoon system. At a high level the pattern represent the end result of a complex interplay between the local topography and the synoptic scale atmospheric conditions. In this case the areas of most rainfall correspond to coastal high mountains upwind in their associated monsoonal systems.</p>
 </div>
@@ -518,7 +521,7 @@ it does in effect increases the total sum of all the weights.</p>
 <div class="content">
 <img src="../fig/extr/etopo2022-krabi.jpg" alt="etopo2022 krabi">
 </div>
-<div class="title">Figure 11. ETOPO Global Relief Model</div>
+<div class="title">Figure 12. ETOPO Global Relief Model</div>
 </div>
 <div class="paragraph">
 <p>While the patterns are readily apparent in the monthly averages, we would like to extract the patterns in an objective manner. We&#8217;d like to avoid manual picking "monsoon months". We also don&#8217;t want to build any threshold heuristics based on past statistics <strong>(Rainy Season of the Asian Pacific Summer Monsoon - Bin Wang)</strong>. nor do we want to assume any a priori knowledge of what is a monsoon and what atmospheric conditions are associated with it. As a first attempt to observe the climate induces rain patterns, we perform a singular value decomposition on monthly rainfall. For the subsequent analysis we use a ten year period from 2011 up till 2022 - for a total of 120 monthly snapshots.</p>
@@ -527,7 +530,7 @@ it does in effect increases the total sum of all the weights.</p>
 <div class="content">
 <img src="../fig/imrg/krabi/monthly/sv-0.svg" alt="sv 0">
 </div>
-<div class="title">Figure 12. First Singular Vector (SV1)</div>
+<div class="title">Figure 13. First Singular Vector (SV1)</div>
 </div>
 <div class="paragraph">
 <p>The first singular vector gives us a shape that looks similar to the west coast precipitation associate with the summer monsoon. Often in an EOF anaylsis one would stop at this point as the result doesn&#8217;t have obvious issues. The values are all negative (blue) but the vector could be inverted to make it more directly interpretable. While we know signal mixing must be happening due to issue O2, it is not immediately apparent due to a couple of reasons. First, the summer monsoon dominates the annual rainfall totals and therefore issue O3 preserves the pattern. Second, unlike in a simple synthetic example (SUPP1) natural patterns are typically much smoother. As a result their mixtures do not make large glaring artifacts. However, a careful eye will note that there is an intensification of precipitation on the East coast which we do not see in the summer months!</p>
@@ -536,7 +539,7 @@ it does in effect increases the total sum of all the weights.</p>
 <div class="content">
 <img src="../fig/imrg/krabi/monthly/average.svg" alt="average">
 </div>
-<div class="title">Figure 13. Average Rainfall</div>
+<div class="title">Figure 14. Average Rainfall</div>
 </div>
 <div class="paragraph">
 <p>In actuality the SV1 pattern looks like a slight improvement over the the annual average.</p>
@@ -545,7 +548,7 @@ it does in effect increases the total sum of all the weights.</p>
 <div class="content">
 <img src="../fig/imrg/krabi/monthly/sv-1.svg" alt="sv 1">
 </div>
-<div class="title">Figure 14. Second Singular Vector (SV2)</div>
+<div class="title">Figure 15. Second Singular Vector (SV2)</div>
 </div>
 <div class="paragraph">
 <p>The second singular vector, orthogonal to the first, shows some very strong east west contrast and but doesn&#8217;t immediately look like any climate system. The large negative values in the north west can&#8217;t be directly interpreted as they don&#8217;t make physical sense for precipitation. Since we aren&#8217;t working off an anomaly (like in an EOF analysis) the climate patterns of precipitation should be positive. Inverting the vector&#8217;s values doesn&#8217;t solve the issue as it would just creates other negative zones.</p>
@@ -554,10 +557,10 @@ it does in effect increases the total sum of all the weights.</p>
 <div class="content">
 <img src="../fig/imrg/krabi/monthly/sv1sv2.svg" alt="sv1sv2">
 </div>
-<div class="title">Figure 15. How SV1 and SV2 change over time</div>
+<div class="title">Figure 16. How SV1 and SV2 change over time</div>
 </div>
 <div class="paragraph">
-<p>If we look at how SV1 and SV2 values change over time, we will see a spurious relationship between the two. Interpretting SV1 and SV2 as indicative of distinct climate phenomena may lead one to believe SV2 drives SV1</p>
+<p>If we look at how SV1 and SV2 values change over time, we will see a spurious relationship between the two. Interpretting SV1 and SV2 as indicative of distinct climate phenomena may lead one to believe SV2 drives SV1. If the signals are further normalized, then this pattern can be misinterpreted as a phase-lag and create a false link between climate systems (REF: MARTIME CONTINENT PAPER)</p>
 </div>
 </div>
 </div>
@@ -566,7 +569,7 @@ it does in effect increases the total sum of all the weights.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>We already know a priori that the root cause of the observed problems with the singular vectors is that both vectors represent a mixture of all climate signals (O2).
-To isolate the two climate systems we need to assume two simplifying characteristics:</p>
+To isolate the two climate systems we need to assume three simplifying characteristics:</p>
 </div>
 <div class="dlist">
 <dl>
@@ -623,7 +626,7 @@ The Y axis corresponds to how much it corresponds to the second singular vector 
 <div class="content">
 <img src="../fig/imrg/krabi/monthly/sv-projs-plain.svg" alt="sv projs plain">
 </div>
-<div class="title">Figure 16. SV1 SV2 data projection</div>
+<div class="title">Figure 17. SV1 SV2 data projection</div>
 </div>
 <div class="paragraph">
 <p>These two projections correspond to the first two columns of the left-singular-vector matrix in the SVD.
@@ -666,7 +669,7 @@ Such a dividing line in essence ensures both halves form a tight grouping around
 <div class="content">
 <img src="../fig/imrg/krabi/monthly/sv-projs.svg" alt="sv projs">
 </div>
-<div class="title">Figure 17. SV1 SV2 data projection divided</div>
+<div class="title">Figure 18. SV1 SV2 data projection divided</div>
 </div>
 <div class="paragraph">
 <p>Once the optimal divisor has been selected (red dashed line),
@@ -677,13 +680,13 @@ The centroid is calculates as the error weighted average of the ratios of SV1 to
 <div class="paragraph">
 <p>The fact that points generally lie in the direction of the centroid also suggests A3 is a safe approximation.
 If stronger monsoon months lead to a change in the shape of the climate pattern then we could see more stark off-axis changes.
-Arguably the lower summer monsoon half does show an off-axis trend.</p>
+Arguably the summer monsoon half does show an off-axis trend.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="../fig/imrg/krabi/monthly/top-pattern.svg" alt="top pattern">
 </div>
-<div class="title">Figure 18. Top half average</div>
+<div class="title">Figure 19. Top half average</div>
 </div>
 <div class="paragraph">
 <p>We can now draw the ratio specified for each centroid.
@@ -695,7 +698,7 @@ The pattern represented by the ratio indeed corresponds to the pattern we observ
 <div class="content">
 <img src="../fig/imrg/krabi/monthly/bottom-pattern.svg" alt="bottom pattern">
 </div>
-<div class="title">Figure 19. Bottom half average</div>
+<div class="title">Figure 20. Bottom half average</div>
 </div>
 <div class="paragraph">
 <p>Similarly the bottom half consists of summer months,
@@ -740,15 +743,15 @@ have completely vanished</p>
 <div class="content">
 <img src="../fig/imrg/krabi/monthly/noise-all.svg" alt="noise all">
 </div>
-<div class="title">Figure 20. De-noised data (ie. data with SV1 and SV2 removed)</div>
+<div class="title">Figure 21. De-noised data (ie. data with SV1 and SV2 removed)</div>
 </div>
 <div class="paragraph">
 <p>The de-signaled data,
 as expected,
 looks like noise with no discernible climate patterns.
 This remaining noise should have an expected value of zero.
-A non-zero value would be in-effect indicating some additional climate signal,
-which would run counter to A1.</p>
+Any non-zero value would in-effect indicate some additional climate signal,
+which would run counter to <strong>A1</strong>.</p>
 </div>
 <div class="paragraph">
 <p>The noise&#8217;s variance generally increases with an increase in monsoon signal.
@@ -767,7 +770,7 @@ we can re-plot the months by their power in SV1+SV2 compared to the power of the
 <div class="content">
 <img src="../fig/imrg/krabi/monthly/power-sv12-vs-other.svg" alt="power sv12 vs other">
 </div>
-<div class="title">Figure 21. Signal to Noise plot</div>
+<div class="title">Figure 22. Signal to Noise plot</div>
 </div>
 <div class="paragraph">
 <p>Unfortunately,
@@ -780,12 +783,13 @@ There are many outliers and a lot of variability.</p>
 <h3 id="_2_error_in_the_2d_sv1_sv2_subspace">2. Error in the 2D SV1 SV2 subspace</h3>
 <div class="paragraph">
 <p>The noise level is important because it affects our estimates of projections.
-While the expected mean of the noise is zero,
-the actual measured mean will never be exactly zero.
+While the expected value of the noise is zero,
+the actual mean will never be exactly zero.
 The variance of the measured mean is akin to the classic standard deviation of the mean (SDOM).
 When you project your data on to a pattern (ex: SV1 or SV2),
 the mean of the noise in areas of the pattern will be folded in to the projection.
-So the noise will cause you to either overestimate or underestimate the strength of your signal.</p>
+So when calculating the inner product of the pattern and measurement,
+the noise will cause you to either overestimate or underestimate the strength of your signal.</p>
 </div>
 <div class="paragraph">
 <p>So when we took our data points and placed them on the SV1 SV2 plot (FIG????),
@@ -795,16 +799,20 @@ While the size of the skew can&#8217;t be know directly,
 the magnitude can be estimated by knowing the variance of the noise.</p>
 </div>
 <div class="paragraph">
-<p>For the purpose of this analysis we treat SV1 and SV2 as both having negligible errors relative to the data.</p>
+<p>For the purpose of this analysis we treat the SV1 and SV2 patterns/vectors as both having negligible errors relative to the data.</p>
 </div>
 <div class="paragraph">
 <div class="title">TODO:</div>
-<p>IS THIS A SAFE ASSUMPTION?? DO I NEED TO ESTIMATE THE ERROR OF THE SV??? CAN BE DONE BY DIVIDING DATASET AND CALCULATING&gt;&gt; OR SOME BOOTSTRAP??]</p>
+<p>IS THIS A SAFE ASSUMPTION? DO I NEED TO ESTIMATE THE ERROR OF THE SV? CAN BE DONE BY DIVIDING DATASET AND CALCULATING.. OR SOME BOOTSTRAP?</p>
 </div>
 <div class="paragraph">
-<p>While we got the projections from the left singular vectors,
+<p>We had originally gotten the projections by looking at the left singular vectors of the SVD.
+However,
 if done explicitly,
 the projecting is done by taking the inner product of the data and the pattern.
+Note that the left singular vectors are unit length,
+While the projections are not.
+So the final errors need to be divided by the corresponding singular value to be at the same scale
 In other words we go pixel by pixel multiplying the pattern <strong>P</strong> with the data <strong>D</strong> and summing them all up:</p>
 </div>
 <div class="paragraph">
@@ -841,11 +849,14 @@ The absolute value of the designaled pixel is our best estimate of of the standa
 So the error estimate is quadrature sum of the product of the designalled data and the pattern.</p>
 </div>
 <div class="paragraph">
-<p>At this step the pattern <strong>P</strong> is either SV1 or SV2 and this quadrature sum provides the X and Y error in FIG????.
-Note also that a larger pattern will make the relative noise smaller.
-.TODO:
-- DOUBLE CHECK THIS IS TRUE&gt;&gt; SHOULD BE&gt;&gt;&gt; I THINK
-- Add errors to the 2D SV1SV2 plot? Or maybe it&#8217;s going to look too busy and should be a separate graph?</p>
+<p>At this step the pattern <strong>P</strong> is either <strong>SV1</strong> or <strong>SV2</strong>.
+The quadrature sum, after dividing by the corresponding singular value, provides the X and Y error in FIG????.
+Note also that a larger pattern will make the relative noise smaller.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/sv-projs-with-errors.svg" alt="sv projs with errors">
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -866,10 +877,10 @@ If we calculate X/Y for each point then the associate error is the sum in quadra
 <p>RATIO SEEM PROBLEMATIC AS IT EXPLODES TO HUGE VALUES AS Y GOES TO ZERO.</p>
 </li>
 <li>
-<p>MAYBE RADIANS&gt;&gt;&gt;?</p>
+<p>MAYBE RADIANS?</p>
 </li>
 <li>
-<p>MAYBE PERCENTAGE OF SV1&gt;&gt;&gt;??? (X/(X+Y))</p>
+<p>MAYBE PERCENTAGE OF SV1? (X/(X+Y))</p>
 </li>
 </ul>
 </div>
@@ -885,10 +896,10 @@ we can use the variances to make a weighted average and calculate a weighted var
 <div class="title">TODO:</div>
 <ul>
 <li>
-<p>MAYBE ADDRESS THE INDEPENDENT/NORMAL CRITERIA..?</p>
+<p>SHOULD I ADDRESS THE INDEPENDENT/NORMAL CRITERIA..?</p>
 </li>
 <li>
-<p>OR FIND AN ELEGANT WAY TO ACKNOWLEDGE AND SKIP IT..</p>
+<p>OR FIND AN ELEGANT WAY TO ACKNOWLEDGE AND SKIP IT..?</p>
 </li>
 </ul>
 </div>
@@ -900,7 +911,7 @@ We can then use the error in the SV1 SV2 ratio to calculate average + error and 
 Naturally areas with high values in SV1 and SV2 will result in higher errors.</p>
 </div>
 <div class="paragraph">
-<p>THE ERRORS HERE ARE LIKELY NOT SYMMETRIC.. NOT SURE HOW TO HANDLE</p>
+<p>THE ERRORS "BARS" ARE LIKELY NOT SYMMETRIC.. NOT SURE HOW TO HANDLE/DISPLAY</p>
 </div>
 <div class="ulist">
 <div class="title">TODO:</div>
@@ -993,12 +1004,16 @@ Second,
 often climate phenomena are close negatives of each other when viewed as anomalies from the mean.
 The rain patterns derived for the Thai peninsula,
 if normalized to be around zero,
-as a very rough level resemble negatives of each other (especially if you were to stencil out the oceans).
-Similar near-negatives can be imagined for other climate phenomena.
+as a very rough level resemble negatives of each other (especially if you were to stencil out the oceans).</p>
+</div>
+<div class="paragraph">
+<p>Similar near-negatives can be imagined for other climate phenomena.
 For instance sea surface temperatures associated with the El Nino equatorial warm water tongue vs the La Nina subtropical heating are near negatives when viewed in small boxes around the equator (REF).
 The positive and negative phases of the southern annular mode,
-or the north atlantic dipole also look like negatives within their respective zones of influence.
-This means that EOF1 (which is done on an anomaly and not raw data),
+or the north atlantic dipole also look like negatives within their respective zones of influence.</p>
+</div>
+<div class="paragraph">
+<p>This means that EOF1 (which is done on an anomaly and not raw data),
 with a properly tuned region,
 may produce a pattern which gives a one dimension estimate of both climate phenomena.
 This however is not a property that is universally true - and doesn&#8217;t have a clear universal scientific rational.</p>
@@ -1015,34 +1030,46 @@ We reject the nonorthogonal method because data points are conceptually attribut
 <div class="content">
 <img src="../fig/imrg/krabi/monthly/indeces.svg" alt="indeces">
 </div>
-<div class="title">Figure 22. Climate Indeces</div>
+<div class="title">Figure 23. Climate Indeces</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_stability_under_noise_extension_to_daily_data">Stability under noise - extension to daily data</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_comparison_to_climate_model_data">Comparison to Climate model data</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_case_study_diurnal_cycles_in_the_maritime_continent">Case Study: Diurnal cycles in the maritime continent</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_korean_peninsula">Korean Peninsula</h2>
+<h2 id="_conclusions_and_limitations">Conclusions and limitations</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Large regions are dangerous</p>
+<p>TODO</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_supp_daily_data_in_thailand_stability_under_noise">SUPP Daily data in Thailand: stability under noise</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_supp_rift_valley_non_cyclical_signals">SUPP Rift Valley: Non cyclical signals</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_supp_diurnal_cycles_maritime_continent">SUPP Diurnal cycles: Maritime continent</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_supp_korean_peninsula_large_region_vs_small_region">SUPP Korean Peninsula: Large Region vs Small Region</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_supp_sahel_mountain_marrah_method_used_in_a_one_signal_region">SUPP: Sahel Mountain (Marrah): Method used in a one signal region</h2>
+<div class="sectionbody">
+
 </div>
 </div>
 </div>

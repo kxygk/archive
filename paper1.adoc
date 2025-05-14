@@ -36,7 +36,6 @@ An accompanying program for reproducing the analysis is provided.
 - Find something better than the ratio. Maybe work in radians?
 - Updated current centroids with weighted average centroids once errors are in place
 - Centroid error plots.. once I work out for the angular error maps to a pixel error
-- Plots are normalized to the highest value in-image (but that's not indicated anywhere) i think.. should be a normalized to the global max for the rain in the region I guess.
 - ERA5 plots
 - Other case studies... Daily examples, Diurnal examples.. etc.
 
@@ -208,6 +207,9 @@ We work off of a real example in southern Thailand so that the EOF problems can 
 .Annual cycles 2011 through 2021. One year from January to December per row. The middle of the year shows consistent summer monsoon rains on the west coast. Sporadic east coast rains towards the end of the year
 image::imrg/krabi/monthly/precipitation-all.svg[]
 
+.A normalized version (to the dataset's global max)... maybe better?
+image::imrg/krabi/monthly/precipitation-all-normalized.svg[]
+
 IMERG data allows us to observe monthly precipitation of the region at high resolution. Visually we observe that rainfall comes in two distinct patterns. The summer months have rain on the west coast, predominantly in the northern most sections. The late fall and early winter months show rain in the south eastern section. These two rain patterns correspond to two monsoon system. At a high level the pattern represent the end result of a complex interplay between the local topography and the synoptic scale atmospheric conditions. In this case the areas of most rainfall correspond to coastal high mountains upwind in their associated monsoonal systems.
 
 .ETOPO Global Relief Model
@@ -233,12 +235,12 @@ The second singular vector, orthogonal to the first, shows some very strong east
 .How SV1 and SV2 change over time
 image::imrg/krabi/monthly/sv1sv2.svg[]
 
-If we look at how SV1 and SV2 values change over time, we will see a spurious relationship between the two. Interpretting SV1 and SV2 as indicative of distinct climate phenomena may lead one to believe SV2 drives SV1
+If we look at how SV1 and SV2 values change over time, we will see a spurious relationship between the two. Interpretting SV1 and SV2 as indicative of distinct climate phenomena may lead one to believe SV2 drives SV1. If the signals are further normalized, then this pattern can be misinterpreted as a phase-lag and create a false link between climate systems (REF: MARTIME CONTINENT PAPER)
 
 == Isolating correct patterns in the SV subspace
 
 We already know a priori that the root cause of the observed problems with the singular vectors is that both vectors represent a mixture of all climate signals (O2).
-To isolate the two climate systems we need to assume two simplifying characteristics:
+To isolate the two climate systems we need to assume three simplifying characteristics:
 
 A1:: the local climate system can be approximation as a noise dominated system of two signals
 
@@ -322,7 +324,7 @@ The centroid is calculates as the error weighted average of the ratios of SV1 to
 
 The fact that points generally lie in the direction of the centroid also suggests A3 is a safe approximation.
 If stronger monsoon months lead to a change in the shape of the climate pattern then we could see more stark off-axis changes.
-Arguably the lower summer monsoon half does show an off-axis trend.
+Arguably the summer monsoon half does show an off-axis trend.
 
 .Top half average
 image::imrg/krabi/monthly/top-pattern.svg[]
@@ -363,8 +365,8 @@ The de-signaled data,
 as expected,
 looks like noise with no discernible climate patterns.
 This remaining noise should have an expected value of zero.
-A non-zero value would be in-effect indicating some additional climate signal,
-which would run counter to A1.
+Any non-zero value would in-effect indicate some additional climate signal,
+which would run counter to *A1*.
 
 The noise's variance generally increases with an increase in monsoon signal.
 Visually we saw in FIG??? that the monsoon pattern manifests unevenly.
@@ -388,12 +390,13 @@ There are many outliers and a lot of variability.
 === 2. Error in the 2D SV1 SV2 subspace
 
 The noise level is important because it affects our estimates of projections.
-While the expected mean of the noise is zero,
-the actual measured mean will never be exactly zero.
+While the expected value of the noise is zero,
+the actual mean will never be exactly zero.
 The variance of the measured mean is akin to the classic standard deviation of the mean (SDOM).
 When you project your data on to a pattern (ex: SV1 or SV2),
 the mean of the noise in areas of the pattern will be folded in to the projection.
-So the noise will cause you to either overestimate or underestimate the strength of your signal.
+So when calculating the inner product of the pattern and measurement,
+the noise will cause you to either overestimate or underestimate the strength of your signal.
 
 So when we took our data points and placed them on the SV1 SV2 plot (FIG????),
 we had implicitly done this projection.
@@ -401,14 +404,18 @@ The noise's mean at every point in time was folded into the projections and had 
 While the size of the skew can't be know directly,
 the magnitude can be estimated by knowing the variance of the noise.
 
-For the purpose of this analysis we treat SV1 and SV2 as both having negligible errors relative to the data.
+For the purpose of this analysis we treat the SV1 and SV2 patterns/vectors as both having negligible errors relative to the data.
 
 .TODO:
-IS THIS A SAFE ASSUMPTION?? DO I NEED TO ESTIMATE THE ERROR OF THE SV??? CAN BE DONE BY DIVIDING DATASET AND CALCULATING>> OR SOME BOOTSTRAP??]
+IS THIS A SAFE ASSUMPTION? DO I NEED TO ESTIMATE THE ERROR OF THE SV? CAN BE DONE BY DIVIDING DATASET AND CALCULATING.. OR SOME BOOTSTRAP?
 
-While we got the projections from the left singular vectors,
+We had originally gotten the projections by looking at the left singular vectors of the SVD.
+However,
 if done explicitly,
 the projecting is done by taking the inner product of the data and the pattern.
+Note that the left singular vectors are unit length,
+While the projections are not.
+So the final errors need to be divided by the corresponding singular value to be at the same scale
 In other words we go pixel by pixel multiplying the pattern *P* with the data *D* and summing them all up:
 
 stem:[sum_(pxl=1)^n P_{pxl}*D_{pxl}]
@@ -436,11 +443,11 @@ If we treat each pixel as a separate random process with mean zero and unknown s
 The absolute value of the designaled pixel is our best estimate of of the standard deviation *N*.
 So the error estimate is quadrature sum of the product of the designalled data and the pattern.
 
-At this step the pattern *P* is either SV1 or SV2 and this quadrature sum provides the X and Y error in FIG????.
+At this step the pattern *P* is either *SV1* or *SV2*.
+The quadrature sum, after dividing by the corresponding singular value, provides the X and Y error in FIG????.
 Note also that a larger pattern will make the relative noise smaller.
-.TODO:
-- DOUBLE CHECK THIS IS TRUE>> SHOULD BE>>> I THINK
-- Add errors to the 2D SV1SV2 plot? Or maybe it's going to look too busy and should be a separate graph?
+
+image::imrg/krabi/monthly/sv-projs-with-errors.svg[]
 
 === 3. Error in climate pattern
 
@@ -453,8 +460,8 @@ stem:[X/Y +- sqrt(((dX)/X)^{2} + ((dY)/Y)^{2}]
 
 .TODO:
 - RATIO SEEM PROBLEMATIC AS IT EXPLODES TO HUGE VALUES AS Y GOES TO ZERO.
-- MAYBE RADIANS>>>?
-- MAYBE PERCENTAGE OF SV1>>>??? (X/(X+Y))
+- MAYBE RADIANS?
+- MAYBE PERCENTAGE OF SV1? (X/(X+Y))
 
 When calculating the averages and variances of each half we now use these ratios with their associated errors.
 Assume the errors are independent and normally distributed,
@@ -463,8 +470,8 @@ we can use the variances to make a weighted average and calculate a weighted var
 https://en.wikipedia.org/wiki/Inverse-variance_weighting
 
 .TODO:
-- MAYBE ADDRESS THE INDEPENDENT/NORMAL CRITERIA..?
-- OR FIND AN ELEGANT WAY TO ACKNOWLEDGE AND SKIP IT..
+- SHOULD I ADDRESS THE INDEPENDENT/NORMAL CRITERIA..?
+- OR FIND AN ELEGANT WAY TO ACKNOWLEDGE AND SKIP IT..?
 
 When the variance minimizing divider is found,
 the average will yield a ratio that corresponds to each the climate pattern.
@@ -472,7 +479,7 @@ The associated variance will specify the error in that ratio.
 We can then use the error in the SV1 SV2 ratio to calculate average + error and average - error patterns and thereby calculate a pixel level standard deviation.
 Naturally areas with high values in SV1 and SV2 will result in higher errors.
 
-THE ERRORS HERE ARE LIKELY NOT SYMMETRIC.. NOT SURE HOW TO HANDLE
+THE ERRORS "BARS" ARE LIKELY NOT SYMMETRIC.. NOT SURE HOW TO HANDLE/DISPLAY
 
 .TODO:
 - A MAP OR THE ERRORS FOR SUMMER AND WINTER MONSOONS??
@@ -538,10 +545,12 @@ often climate phenomena are close negatives of each other when viewed as anomali
 The rain patterns derived for the Thai peninsula,
 if normalized to be around zero,
 as a very rough level resemble negatives of each other (especially if you were to stencil out the oceans).
+
 Similar near-negatives can be imagined for other climate phenomena.
 For instance sea surface temperatures associated with the El Nino equatorial warm water tongue vs the La Nina subtropical heating are near negatives when viewed in small boxes around the equator (REF).
 The positive and negative phases of the southern annular mode,
 or the north atlantic dipole also look like negatives within their respective zones of influence.
+
 This means that EOF1 (which is done on an anomaly and not raw data),
 with a properly tuned region,
 may produce a pattern which gives a one dimension estimate of both climate phenomena.
@@ -557,13 +566,17 @@ We reject the nonorthogonal method because data points are conceptually attribut
 .Climate Indeces
 image::imrg/krabi/monthly/indeces.svg[]
 
+== Conclusions and limitations
 
-== Stability under noise - extension to daily data
+TODO
 
-== Comparison to Climate model data
+== SUPP Daily data in Thailand: stability under noise
 
-== Case Study: Diurnal cycles in the maritime continent
+== SUPP Rift Valley: Non cyclical signals
 
-== Korean Peninsula
+== SUPP Diurnal cycles: Maritime continent
 
-Large regions are dangerous
+== SUPP Korean Peninsula: Large Region vs Small Region
+
+== SUPP: Sahel Mountain (Marrah): Method used in a one signal region
+
