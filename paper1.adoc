@@ -32,7 +32,6 @@ An accompanying program for reproducing the analysis is provided.
 
 .TODO:
 - Angular distribution plot (histogram?). Probably for daily data would be useful
-- Error bars on the SV1 SV2 plots
 - Find something better than the ratio. Maybe work in radians?
 - Updated current centroids with weighted average centroids once errors are in place
 - Centroid error plots.. once I work out for the angular error maps to a pixel error
@@ -51,70 +50,66 @@ Arguably it still presents several distinct advantages.
 Chief among them are its generality and simplicity.
 Pattern recognition as applied in the atmospheric sciences has chiefly been used using empirical orthogonal function (EOF) analysis.
 This is typically done by doing a singular value decomposition (SVD) of some climatological parameter's anomaly from a mean.
-However results are often not meeting expectations.
+The SVD works in an iterative fashion, calculating the induced matrix norm of the dataset, removing it from the data and then repeating the process.
+For a single signal system this produces the best approximation of the underlying signal.
+However climate records often have multiple climate signals and results are often not meeting expectations.
 Often the first EOF is used and subsequent ones are discarded.
-Why are there issues,
-and how can they be addressed?
+The most critical issues affecting the resulting patterns and their interpretations are as follows:
+
+O1:: EOF patterns are orthogonal,
+climate-associated patterns are generally not.
+O2:: All EOF patterns,
+including EOF1,
+will represent a mixture of all underlying signals
+O3:: EOF1 is biased towards the strongest signal
+O4:: Changes in EOF1 and EOF2 over time often make it seem like climate phenomena have some sort of phase-lag,
+but this is in fact an artifact due to poor climate pattern separation.
+
+The reliance on the anomaly is another potential source of issues,
+especially if there no discernable mean structure to be removed.
+A mean will contain a mixture of all the regional climate patterns - in some ratio that is not know a priori.
+Removing the mean to calculate an anomaly in effect introduces a constant amount of each climate pattern to all time points.
+Meanwhile the climatological patterns actually manifesting at each time point will be vary in intensity.
+Disentangling the unknown constant factors and the varying patterns would greatly complicate the analysis,
+so to sidestep this issue we confine ourselves to the using the SVD of the original data directly.
+This means that instead of EOF1, EOF2, .. etc. we will use the singular vectors SV1 SV2 .. etc.
+
+All the aforelisted issues hold just as well for the SVD as the EOF.
 
 == Materials
 
-- SUPP1 illustrates several common issues with EOF-like analyses using synthetic data with know a-priori patterns.
+- We first illustrate the critical issues with EOF-like analyses using synthetic data and a know a-priori pattern.
 These are meant to provide a rough approximation of precipitation patterns as seen in the subsequent sections.
 Knowing the ground truth allows us to evaluate results objectively.
 
-- For the main case study we we then look at a Peninsular Southern Thailand.
+- For the main case study we then look at a Peninsular Southern Thailand.
 The top of the Malay Peninsula is climatologically challenging as it's subject to two distinct monsoon systems.
 The summer monsoon brings moisture from the Indian Ocean and drives precipitation for most of the year,
 while a much shorter winter monsoon system brings moisture from the East - the South China Sea and the Gulf of Thailand.
 There is also a short "dry season" at the beginning of the year that is modulated by the inter-annual ENSO system.
 
-- We use gridded precipitation data as provided by the IMERG Late dataset to help us demonstrate how our method yields a clear improvement in climate pattern extraction in real-world conditions.
-These are used at the monthly and daily levels.
-The Final dataset is not used b/c the rain-gauge normalization introduces stenciling artifacts (SHOW SUPPLEMENTARY FIGURE???)
+- We use gridded precipitation data as provided by the IMERG Late dataset (monthly bins) to help us demonstrate how our method yields a clear improvement in climate pattern extraction in real-world conditions.
+Modern high density/dimension mesoscale data is essential for pattern extraction.
+At large/synoptic scales climate phenomena do not take effect simultaneously across the whole region of interest.
+This causes larger fractions of the observation time having incomplete/smeared climate associated patterns.
+As a result it becomes more difficult to isolation fixed patterns and energy "leaks" into secondary modes.
+In contrast,
+small/mesoscale regions will have faster climate system onset and withdrawl.
+For instance across the observed southern Thai geogrid the monsoon onset will happen over the course of just several days. (REF)
 
-- Lastly we move to using a coarser ERA5 reanalysis dataset as a point of comparison and to highlight the potential utility of having accurate climate patterns
+- The IMERG Final dataset is not used b/c the rain-gauge normalization introduces stenciling artifacts (SHOW SUPPLEMENTARY FIGURE???)
 
-- Supplementary sections explore other regions of interest as indicated.
+.Supplementary sections explore:
+The Great Rift Valley:: A region with semi non seasonal climate signals.
+Marrah Mountains (Sudan):: A region with one climate phenomena and the breakdown in one of the EOF assumptions.
+Java Island:: Diurnal cycles with large errors and less stationary patterns
+ERA5 reanalysis precipitation:: The method as used to validate climate model output
+IMERG Final Result:: Showing artifacts caused by numerical normalization procedures
 
-== Issues with the EOF
 
-EOF analysis suffers from several issues.
-We make the following observations:
+== Synthetic illustrations of the EOF problem
 
-O1:: EOF patterns are orthogonal,
-climate-associated patterns are generally not
-O2:: All EOF patterns,
-including EOF1,
-will represent a mixture of all underlying signals
-O3:: EOF1 is biased towards the strongest signal
-O4:: Changes in EOF1 and EOF2 over time often erroneously look like they have a causal relationship.
-This typically looks like some sort of phase-lag, but is an artifact due to poor climate pattern separation.
-O5:: At synoptic scales climate signals/patterns do not have fixed shapes.
-This creates incorrect patterns and makes energy/patterns "leak" in to other singular vectors (SVs).
-
-*O1* *O2* *O3* are illustrated in SUPP1.
-*O4* Will be apparent in the first case study.
-*O5* is illustrated in SUPP???
-
-EOF is typically described as the SVD of the climatological anomaly from some mean.
-However, in all our subsequent analysis we will be directly using the SVD of the original data.
-This means that instead of EOF1, EOF2, .. etc. we will use the singular vectors SV1 SV2 .. etc.
-The reason the anomaly is not used is because in our examples there is no mean structure that needs to be removed.
-All structure is climate-driven and the mean is a mixture of all present climate patterns.
-As a result,
-removing the mean in effect introduces some constant amount of each present climate patterns in to all of our time points,
-and in some ratio that is not know a priori.
-Meanwhile the present climatological patterns will vary in intensity.
-Disentangling the two would greatly complicate the analysis.
-
-However,
-all the illustrated issues while demonstrated on the SVD will also hold equally for a anomaly-based EOF anaylsis.
-
-== SUPP1: Synthetic illustrations of the EOF problem
-
-The standard method for extracting signals from noise is based on the singular value decomposition (SVD). The method works in an iterative fashion, calculating the induced matrix norm of the dataset, removing it from the data and then repeating the process. For a single signal system this produces the best approximation of the underlying signal.
-
-To observe the result we will work off of a known pattern.
+To observe the result of the SVD we will work off of a known pattern.
 
 .Generation Pattern
 image::imrg/pattern1.svg[]
@@ -569,6 +564,9 @@ image::imrg/krabi/monthly/indeces.svg[]
 == Conclusions and limitations
 
 TODO
+
+Identifying and removing mean structure in more complex scenarios (ex: seasonal data subsets) is a potential area for future work.
+
 
 == SUPP Daily data in Thailand: stability under noise
 
