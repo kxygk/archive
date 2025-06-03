@@ -182,11 +182,11 @@ stem:[[U\Sigma\]^{T}M = V]
 
 == Projection form
 
-stem:[[[\Sigma_1,0,0,0,0\],[0,\Sigma_2,0,0,0\],[0,0,\Sigma_3,0,0\],[0,0,0,..,..\],[0,0,0,..,..\]\]^{T}[[..,pa\t\t\ern1,..\],[...,pa\t\t\ern2,.. \],[..,pa\t\t\ern3,..\]\][[[..,..,..\],[month1,month2,month3\],[..,..,..\]\] =  [[..,..,..,..\],[weights1,weights2,weights3,.. \],[..,..,..,..\]\]]]
+stem:[[[\Sigma_1,0,0,0,0\],[0,\Sigma_2,0,0,0\],[0,0,\Sigma_3,0,0\],[0,0,0,..,..\],[0,0,0,..,..\]\]^{T}[[..,pa\t\t\ern1,..\],[...,pa\t\t\ern2,.. \],[..,pa\t\t\ern3,..\]\][[[..,..,..\],[month1,month2,month3\],[..,..,..\]\] =  [[..,..,..,..\],[weights1,weights2,weights3,.. \],[..,..,..,..\]\]\]]
 
 == Weights as projections
 
-We now can see that stem:[w_1,w_2] for each point in time (the top two rows of the weight matrix) are actually simply the inner products of *pattern1* and *pattern2* with given months. In plain algebra, we select month *i* and then do an ineer product:
+We now can see that stem:[w_{1,i},w_{2,i}] for each point in time (the top two rows of the weight matrix) are actually simply the inner products of *pattern1* or *pattern2* with any given month. In plain algebra, we select month *i* and then do an inner product:
 
 stem:[w_{1,i}= sum(\Sigma_{1}p_{1,i}m_{j,i})]
 
@@ -202,7 +202,7 @@ stem:[w_{2,i}= \Sigma_{2}sum(p_{2,i}m_{j,i})]
 
 == The Projection Error
 
-What is the potential source of error in these projections? The previously mentioned noise will distort our projection. The values *m_{i,j}* don't cleanly correspond to a signal, but have some noise component which will deviate the values. So each point in the data *m_{j,i}* is some signal +/- some noise. From our previous steps we know that the pixel level standard deviation can be estimates from the point wise values (*n_{i,j}*) of the noise matrix.
+What is the potential source of error in these projections? The previously mentioned noise will distort our projection. The values stem:[*m_{i,j}*] don't cleanly correspond to a signal, but have some noise component which will deviate the values. So each point in the data stem:[*m_{i,j}*] is some signal +/- some noise. From our previous steps we know that the pixel level standard deviation can be estimates from the point wise values (stem:[*n_{i,j}*]) of the noise matrix.
 
 Assuming a normally distributed noise, we then know that the error of the sum of values is the quadrature sum of their errors
 

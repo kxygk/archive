@@ -414,7 +414,10 @@ These are what are in-effect the extracted patterns.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Or normalized:</p>
+<p>The signal is completely gone. Maybe the middle of the year (middle of the summer monsoon) looks noisier than the start and end.</p>
+</div>
+<div class="paragraph">
+<p>Normalized:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -499,7 +502,7 @@ These are what are in-effect the extracted patterns.</p>
 <h2 id="_projection_form">Projection form</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>\$[[\Sigma_1,0,0,0,0],[0,\Sigma_2,0,0,0],[0,0,\Sigma_3,0,0],[0,0,0,..,..],[0,0,0,..,..]]^{T}[[..,pa\t\t\ern1,..],[...,pa\t\t\ern2,.. ],[..,pa\t\t\ern3,..]][[[..,..,..],[month1,month2,month3],[..,..,..]] =  [[..,..,..,..],[weights1,weights2,weights3,.. ],[..,..,..,..]]\$]</p>
+<p>\$[[\Sigma_1,0,0,0,0],[0,\Sigma_2,0,0,0],[0,0,\Sigma_3,0,0],[0,0,0,..,..],[0,0,0,..,..]]^{T}[[..,pa\t\t\ern1,..],[...,pa\t\t\ern2,.. ],[..,pa\t\t\ern3,..]][[[..,..,..],[month1,month2,month3],[..,..,..]] =  [[..,..,..,..],[weights1,weights2,weights3,.. ],[..,..,..,..]]]\$</p>
 </div>
 </div>
 </div>
@@ -507,7 +510,7 @@ These are what are in-effect the extracted patterns.</p>
 <h2 id="_weights_as_projections">Weights as projections</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We now can see that \$w_1,w_2\$ for each point in time (the top two rows of the weight matrix) are actually simply the inner products of <strong>pattern1</strong> and <strong>pattern2</strong> with given months. In plain algebra, we select month <strong>i</strong> and then do an ineer product:</p>
+<p>We now can see that \$w_{1,i},w_{2,i}\$ for each point in time (the top two rows of the weight matrix) are actually simply the inner products of <strong>pattern1</strong> or <strong>pattern2</strong> with any given month. In plain algebra, we select month <strong>i</strong> and then do an inner product:</p>
 </div>
 <div class="paragraph">
 <p>\$w_{1,i}= sum(\Sigma_{1}p_{1,i}m_{j,i})\$</p>
@@ -530,7 +533,7 @@ These are what are in-effect the extracted patterns.</p>
 <h2 id="_the_projection_error">The Projection Error</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>What is the potential source of error in these projections? The previously mentioned noise will distort our projection. The values <strong>m_{i,j}</strong> don&#8217;t cleanly correspond to a signal, but have some noise component which will deviate the values. So each point in the data <strong>m_{j,i}</strong> is some signal +/- some noise. From our previous steps we know that the pixel level standard deviation can be estimates from the point wise values (<strong>n_{i,j}</strong>) of the noise matrix.</p>
+<p>What is the potential source of error in these projections? The previously mentioned noise will distort our projection. The values \$*m_{i,j}*\$ don&#8217;t cleanly correspond to a signal, but have some noise component which will deviate the values. So each point in the data \$*m_{i,j}*\$ is some signal +/- some noise. From our previous steps we know that the pixel level standard deviation can be estimates from the point wise values (\$*n_{i,j}*\$) of the noise matrix.</p>
 </div>
 <div class="paragraph">
 <p>Assuming a normally distributed noise, we then know that the error of the sum of values is the quadrature sum of their errors</p>
