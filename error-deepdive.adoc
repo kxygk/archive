@@ -1,0 +1,217 @@
+:docinfo: shared
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+= Error Deepdive
+George Kontsevich
+
+== Setup
+
+I'll be looking at Southern Thailand again.
+I'm looking at monthly rain.
+
+Here is all the rain:
+
+image::imrg/krabi/monthly/precipitation-all-normalized.svg[]
+
+I will be eventually looking at the 6th data point (first row, sixth column)
+
+image::imrg/krabi/monthly/data-file-6.svg[]
+
+== SVD
+
+(notation slightly tweaked from the canonical forms..)
+
+But first we do an SVD
+
+stem:[SVD(M) = U\SigmaV]
+
+=== M
+
+The matrix M is a matrix of all the data. Each column is one rain month.
+And each row a pixel values (ie. *m_{i,j}*)
+I just read off the pixels
+(either row by row or column by columm..
+i forget which I did..
+but it doesnt' matter)
+
+stem:[M = [[..,..,..\],[month1,month2,month3\],[..,..,..\]\]_{\n\u\m\P\i\x,\n\u\m\M\o\n\t\h\s}]
+
+The 6th column stem:[m_{*,6}] as expected looks like this:
+
+image::imrg/krabi/monthly/data-file-6.svg[]
+
+
+=== stem:[\Sigma]
+
+
+stem:[\Sigma] is a diagonal (non-square!) matrix with the singular values:
+
+stem:[\Sigma = [[\Sigma_1,0,0,0,0\],[0,\Sigma_2,0,0,0\],[0,0,\Sigma_3,0,0\],[0,0,0,..,..\],[0,0,0,..,..\]\]_{\n\u\m\P\i\x,\n\u\m\M\o\n\t\h\s}]
+
+The stem:[\Sigma] values in effect continue till it "hits a side" .. so it's the `min(*numPix*,*numMonths*)` (you end up with extrenious zero rows/cols and it's a bit messier if you dig into the details.. there is also a "compact SVD" representation)
+
+=== U
+
+*U* and *V* are confusingly known as the left and right singular vectors..
+But colloquially *U* is what we think of as the "singular vectors".
+These are what are in-effect the extracted patterns.
+
+stem:[U = [[..,..,..,..\],[pa\t\t\ern1,pa\t\t\ern2,pa\t\t\ern3,.. \],[..,..,..,..\]\]_{\n\u\m\P\i\x,\n\u\m\P\i\x}]
+
+Pattern 1 looks like:
+
+image::imrg/krabi/monthly/sv-0.svg[]
+
+Patterns 2 looks like:
+
+image::imrg/krabi/monthly/sv-1.svg[]
+
+The patterns are unit vectors. Looking at the left side of the product:
+
+stem:[U\Sigma]
+
+This is just the singular vectors scaled by their corresponding singular values (so they're no longer unit vectors..)
+
+=== V
+
+The *V* matrix is in effect a weight/mixing matrix.
+
+stem:[V = [[..,..,..,..\],[weights1,weights2,weights3,.. \],[..,..,..,..\]\]_{\n\u\m\M\o\n\t\h\s,\n\u\m\M\o\n\t\h\s}]
+
+
+Each weight vector specified how much of each pattern to include to make a given data-point. Ex:
+
+stem:[weights1 = [w_1,w_2,w_3,w_4..\]]
+
+Since the first two weights stem:[w1,w2] specify the weights for the first and second singular vectors, these are the ones we are interested in for exploring the underlying climate patterns. (These are the ones plotted in the SV12 subspace plot)
+
+== SVD: Long form..
+
+The full equation is:
+
+stem:[[[..,..,..\],[month1,month2,month3\],[..,..,..\]\] = [[..,..,..,..\],[pa\t\t\ern1,pa\t\t\ern2,pa\t\t\ern3,.. \],[..,..,..,..\]\] [[\Sigma_1,0,0,0,0\],[0,\Sigma_2,0,0,0\],[0,0,\Sigma_3,0,0\],[0,0,0,..,..\],[0,0,0,..,..\]\][[..,..,..,..\],[weights1,weights2,weights3,.. \],[..,..,..,..\]\]]
+
+== The "assumptions"
+
+.The built assumption of the method are:
+- That there are two signals and everything else is noise
+- At any one particular time you have one of the two signal and nothing else. In other words, if you have some of Signal1 you have *-0-* Signal2 (and vice versa).
+- You have enough data that Pattern1 and Pattern2 both represent accurate mixtures of these two signals
+
+So when we look at a point in time, like the 6th month, we know its a mixture of one signal and some noise. But we don't a priori know which of the two signas is present. It's just somewhere in the first two singular vectors' subspace somehow.
+
+image::imrg/krabi/monthly/data-file-6.svg[]
+
+== The noise component..
+
+We want to estimate what is the noise component at every point in time. We know:
+
+- Pattern1 and Pattern2 both are two "pure" mixtures of the two signals
+- At any time you either have one signal or the other. Meanwhile the non-occuring signal is at *-0-*
+
+So if you remove the first two patterns we can entirely remove the two signals from the data and be purely left with the noise component.
+
+== Truncated SVD:
+
+To do this we simply set stem:[\Sigma_1 = 0] and  stem:[\Sigma_2 = 0]
+
+stem:[[[..,..,..,..\],[pa\t\t\ern1,pa\t\t\ern2,pa\t\t\ern3,.. \],[..,..,..,..\]\] [[0,0,0,0,0\],[0,0,0,0,0\],[0,0,\Sigma_3,0,0\],[0,0,0,..,..\],[0,0,0,..,..\]\][[..,..,..,..\],[weights1,weights2,weights3,.. \],[..,..,..,..\]\]]
+
+In effect *pattern1* *pattern2* get knocked out. The product gives us a *noise matrix*
+
+== The Noise matrix
+
+We just multiple back our stem:[U\SigmaV] (with the truncated singular values) and get back a new set of data columns, but without the signal
+
+image::imrg/krabi/monthly/noise-all.svg[]
+
+The signal is completely gone. Maybe the middle of the year (middle of the summer monsoon) looks noisier than the start and end.
+
+Normalized:
+
+image::imrg/krabi/monthly/noise-all-normalized.svg[]
+
+(NOTE: This looks a bit faded .. The normalization looks a bit broken here.. Sorry :S If you open it in a new tab you can sort of make it out)
+
+If we look at the 6th month it looks like the following:
+
+image::imrg/krabi/monthly/noise-6file.svg[]
+
+We can visually see the monsoon signal is gone and you're just left with "texture" (ie. noise)
+
+== Pixel level noise distribution
+
+Looking at this sixth month.. June 2011. What do we know about the noise at the pixel level?
+
+We know the noise has a *mean of zero*. The signals have been removed. Any non-zero mean would be a signal in itself - but we start with the assumption that there are no more signals!
+
+What about the *standard deviation*? Each pixel, (ie. location) has some complex relationship with the climate that dictates it's variability. One pixel is different from another. And each pixel's variability will change over time - with the seasons and prevailing climate conditions
+
+If we could "rerun" June 2011 somehow N times, then we could estimate the variance for every pixel *p* using the standard equation
+
+stem:[Var(p)= 1/N \sum(n-mu)^2]
+
+Where *n* is the noise pixel value (from the noise matrix). However, since we know the mean is zero it's even simpler (we don't even need the Bessel correction of N-1)
+
+stem:[Var(p)= 1/N \sum n^2]
+
+But we can't rerun June 2011, so we only have one sample! So our N=1. Our one noise pixel is going to have to be our best estimate of the variance for the pixel for this point in time.
+
+stem:[Var(p) = n_{i,j}^2]
+
+And therefore the estimated standard deviation is simply `abs(n)`. While for any particular pixel/point this isn't a very good estimate, in aggregate, over hundreds/thousands of pixels these estimates work.
+
+Looking at the noise field it also seems to generally match our intuition. Areas that experience more climate related rain (ex: northwest coast) have higher noise pixel values. While over open water the values tend to be smaller.
+
+As for the N=1.. if some points overestimate the standard deviation, others will underestimate. Given enough pixels we hope this isn't a problem.
+
+== Singular vector projections
+
+If you want to "inspect" the SV1/SV2 associated weights we can rearrange our SVD
+
+stem:[M = U\SigmaV]
+
+stem:[\Sigma^{T}U^{T}M = \Sigma^{T}U^{T}U\SigmaV]
+
+stem:[[U\Sigma\]^{T}M = V]
+
+== Projection form
+
+stem:[[[\Sigma_1,0,0,0,0\],[0,\Sigma_2,0,0,0\],[0,0,\Sigma_3,0,0\],[0,0,0,..,..\],[0,0,0,..,..\]\]^{T}[[..,pa\t\t\ern1,..\],[...,pa\t\t\ern2,.. \],[..,pa\t\t\ern3,..\]\][[[..,..,..\],[month1,month2,month3\],[..,..,..\]\] =  [[..,..,..,..\],[weights1,weights2,weights3,.. \],[..,..,..,..\]\]]]
+
+== Weights as projections
+
+We now can see that stem:[w_1,w_2] for each point in time (the top two rows of the weight matrix) are actually simply the inner products of *pattern1* and *pattern2* with given months. In plain algebra, we select month *i* and then do an ineer product:
+
+stem:[w_{1,i}= sum(\Sigma_{1}p_{1,i}m_{j,i})]
+
+stem:[w_{2,i}= sum(\Sigma_{2}p_{2,i}m_{j,i})]
+
+
+Which simplify to:
+
+
+stem:[w_{1,i}= \Sigma_{1}sum(p_{1,i}m_{j,i})]
+
+stem:[w_{2,i}= \Sigma_{2}sum(p_{2,i}m_{j,i})]
+
+== The Projection Error
+
+What is the potential source of error in these projections? The previously mentioned noise will distort our projection. The values *m_{i,j}* don't cleanly correspond to a signal, but have some noise component which will deviate the values. So each point in the data *m_{j,i}* is some signal +/- some noise. From our previous steps we know that the pixel level standard deviation can be estimates from the point wise values (*n_{i,j}*) of the noise matrix.
+
+Assuming a normally distributed noise, we then know that the error of the sum of values is the quadrature sum of their errors
+
+If:
+
+
+stem:[w_{1,i}= \Sigma_{1}sum(p_{1,i}m_{j,i})]
+
+Then:
+
+
+stem:[\deltaw_{1,i}= sqrt(\Sigma_{1}^2sum(p_{1,i}^2n_{j,i}^2))]

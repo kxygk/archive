@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="author" content="George Kontsevich">
+<title>Error Deepdive</title>
+<style>
+@import '../web/kxygk.css';
+
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+.listingblock,pre.src {
+margin-left:  -5vw;
+margin-right: -5vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: solid;
+border-left-width: 4px;
+border-left-color: grey;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+/*.org-svg {
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}*/
+
+img {
+    display:flex;
+max-width: 100%;
+height: 100%;
+max-height: 33vh;
+vertical-align: middle;
+width: auto;
+margin: auto;
+}
+ul {
+list-style-type: circle;
+padding-left: 1.5em;
+border-left: solid;
+border-left-width: 1px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {
+    color: black;
+font-style: italic;
+    padding-top: 0.5em;
+    border-bottom: 4px solid  #aaaaaa;}
+h3 {color: black;
+border-bottom: 2px dotted  #aaaaaa;}
+b, i{
+font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+font-size: 0.8em;
+line-height: 0;
+position: relative;
+vertical-align: baseline;
+top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+.title {
+font-weight: bold;
+}
+dt {
+font-weight: bold;
+}
+td p, dd p, li p{
+    margin: 0;
+}
+ul, p{
+    margin-top: 0;
+}
+.sidebarblock{
+    background:#f3f3f2;
+}
+.float-group::before,.float-group::after{content:" ";display:table}
+.left{float:left!important}
+.right{float:right!important}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+.scrollbox{
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+.scrollbox img{
+    height:auto;
+    width:auto;
+    max-width: 70vw;
+    max-height: 60vh;
+    vertical-align: bottom;
+    scroll-snap-align: start;
+}
+video{
+    height:auto;
+    width:auto;
+    max-width: 30vw;
+    max-height: 30vh;
+}
+.content{
+    height: 100%;
+}
+.imageblock{
+    height: 100%;
+}
+.flexbox > .content{
+    display: flex;
+    justify-content: center;
+    height: 33vh;
+}
+@media (min-width:60rem) {
+.sectionbody{
+    column-count:2;
+    hyphens: auto;
+}
+@media (min-width:90rem) {
+.sectionbody{
+    column-count:3;
+}
+@media (min-width:120rem) {
+.sectionbody{
+    column-count:4;
+}
+
+</style>
+<meta name="robots" content="noindex">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="../MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Error Deepdive</h1>
+<div class="details">
+<span id="author" class="author">George Kontsevich</span><br>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_setup">Setup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>I&#8217;ll be looking at Southern Thailand again.
+I&#8217;m looking at monthly rain.</p>
+</div>
+<div class="paragraph">
+<p>Here is all the rain:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/precipitation-all-normalized.svg" alt="precipitation all normalized">
+</div>
+</div>
+<div class="paragraph">
+<p>I will be eventually looking at the 6th data point (first row, sixth column)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/data-file-6.svg" alt="data file 6">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_svd">SVD</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(notation slightly tweaked from the canonical forms..)</p>
+</div>
+<div class="paragraph">
+<p>But first we do an SVD</p>
+</div>
+<div class="paragraph">
+<p>\$SVD(M) = U\SigmaV\$</p>
+</div>
+<div class="sect2">
+<h3 id="_m">M</h3>
+<div class="paragraph">
+<p>The matrix M is a matrix of all the data. Each column is one rain month.
+And each row a pixel values (ie. <strong>m_{i,j}</strong>)
+I just read off the pixels
+(either row by row or column by columm..
+i forget which I did..
+but it doesnt' matter)</p>
+</div>
+<div class="paragraph">
+<p>\$M = [[..,..,..],[month1,month2,month3],[..,..,..]]_{\n\u\m\P\i\x,\n\u\m\M\o\n\t\h\s}\$</p>
+</div>
+<div class="paragraph">
+<p>The 6th column \$m_{*,6}\$ as expected looks like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/data-file-6.svg" alt="data file 6">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sigma">\$\Sigma\$</h3>
+<div class="paragraph">
+<p>\$\Sigma\$ is a diagonal (non-square!) matrix with the singular values:</p>
+</div>
+<div class="paragraph">
+<p>\$\Sigma = [[\Sigma_1,0,0,0,0],[0,\Sigma_2,0,0,0],[0,0,\Sigma_3,0,0],[0,0,0,..,..],[0,0,0,..,..]]_{\n\u\m\P\i\x,\n\u\m\M\o\n\t\h\s}\$</p>
+</div>
+<div class="paragraph">
+<p>The \$\Sigma\$ values in effect continue till it "hits a side" .. so it&#8217;s the <code>min(<strong>numPix</strong>,<strong>numMonths</strong>)</code> (you end up with extrenious zero rows/cols and it&#8217;s a bit messier if you dig into the details.. there is also a "compact SVD" representation)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_u">U</h3>
+<div class="paragraph">
+<p><strong>U</strong> and <strong>V</strong> are confusingly known as the left and right singular vectors..
+But colloquially <strong>U</strong> is what we think of as the "singular vectors".
+These are what are in-effect the extracted patterns.</p>
+</div>
+<div class="paragraph">
+<p>\$U = [[..,..,..,..],[pa\t\t\ern1,pa\t\t\ern2,pa\t\t\ern3,.. ],[..,..,..,..]]_{\n\u\m\P\i\x,\n\u\m\P\i\x}\$</p>
+</div>
+<div class="paragraph">
+<p>Pattern 1 looks like:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/sv-0.svg" alt="sv 0">
+</div>
+</div>
+<div class="paragraph">
+<p>Patterns 2 looks like:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/sv-1.svg" alt="sv 1">
+</div>
+</div>
+<div class="paragraph">
+<p>The patterns are unit vectors. Looking at the left side of the product:</p>
+</div>
+<div class="paragraph">
+<p>\$U\Sigma\$</p>
+</div>
+<div class="paragraph">
+<p>This is just the singular vectors scaled by their corresponding singular values (so they&#8217;re no longer unit vectors..)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_v">V</h3>
+<div class="paragraph">
+<p>The <strong>V</strong> matrix is in effect a weight/mixing matrix.</p>
+</div>
+<div class="paragraph">
+<p>\$V = [[..,..,..,..],[weights1,weights2,weights3,.. ],[..,..,..,..]]_{\n\u\m\M\o\n\t\h\s,\n\u\m\M\o\n\t\h\s}\$</p>
+</div>
+<div class="paragraph">
+<p>Each weight vector specified how much of each pattern to include to make a given data-point. Ex:</p>
+</div>
+<div class="paragraph">
+<p>\$weights1 = [w_1,w_2,w_3,w_4..]\$</p>
+</div>
+<div class="paragraph">
+<p>Since the first two weights \$w1,w2\$ specify the weights for the first and second singular vectors, these are the ones we are interested in for exploring the underlying climate patterns. (These are the ones plotted in the SV12 subspace plot)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_svd_long_form">SVD: Long form..</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The full equation is:</p>
+</div>
+<div class="paragraph">
+<p>\$[[..,..,..],[month1,month2,month3],[..,..,..]] = [[..,..,..,..],[pa\t\t\ern1,pa\t\t\ern2,pa\t\t\ern3,.. ],[..,..,..,..]] [[\Sigma_1,0,0,0,0],[0,\Sigma_2,0,0,0],[0,0,\Sigma_3,0,0],[0,0,0,..,..],[0,0,0,..,..]][[..,..,..,..],[weights1,weights2,weights3,.. ],[..,..,..,..]]\$</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_assumptions">The "assumptions"</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">The built assumption of the method are:</div>
+<ul>
+<li>
+<p>That there are two signals and everything else is noise</p>
+</li>
+<li>
+<p>At any one particular time you have one of the two signal and nothing else. In other words, if you have some of Signal1 you have <strong>-0-</strong> Signal2 (and vice versa).</p>
+</li>
+<li>
+<p>You have enough data that Pattern1 and Pattern2 both represent accurate mixtures of these two signals</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>So when we look at a point in time, like the 6th month, we know its a mixture of one signal and some noise. But we don&#8217;t a priori know which of the two signas is present. It&#8217;s just somewhere in the first two singular vectors' subspace somehow.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/data-file-6.svg" alt="data file 6">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_noise_component">The noise component..</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We want to estimate what is the noise component at every point in time. We know:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pattern1 and Pattern2 both are two "pure" mixtures of the two signals</p>
+</li>
+<li>
+<p>At any time you either have one signal or the other. Meanwhile the non-occuring signal is at <strong>-0-</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>So if you remove the first two patterns we can entirely remove the two signals from the data and be purely left with the noise component.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_truncated_svd">Truncated SVD:</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To do this we simply set \$\Sigma_1 = 0\$ and  \$\Sigma_2 = 0\$</p>
+</div>
+<div class="paragraph">
+<p>\$[[..,..,..,..],[pa\t\t\ern1,pa\t\t\ern2,pa\t\t\ern3,.. ],[..,..,..,..]] [[0,0,0,0,0],[0,0,0,0,0],[0,0,\Sigma_3,0,0],[0,0,0,..,..],[0,0,0,..,..]][[..,..,..,..],[weights1,weights2,weights3,.. ],[..,..,..,..]]\$</p>
+</div>
+<div class="paragraph">
+<p>In effect <strong>pattern1</strong> <strong>pattern2</strong> get knocked out. The product gives us a <strong>noise matrix</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_noise_matrix">The Noise matrix</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We just multiple back our \$U\SigmaV\$ (with the truncated singular values) and get back a new set of data columns, but without the signal</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/noise-all.svg" alt="noise all">
+</div>
+</div>
+<div class="paragraph">
+<p>Or normalized:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/noise-all-normalized.svg" alt="noise all normalized">
+</div>
+</div>
+<div class="paragraph">
+<p>(NOTE: This looks a bit faded .. The normalization looks a bit broken here.. Sorry :S If you open it in a new tab you can sort of make it out)</p>
+</div>
+<div class="paragraph">
+<p>If we look at the 6th month it looks like the following:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../fig/imrg/krabi/monthly/noise-6file.svg" alt="noise 6file">
+</div>
+</div>
+<div class="paragraph">
+<p>We can visually see the monsoon signal is gone and you&#8217;re just left with "texture" (ie. noise)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pixel_level_noise_distribution">Pixel level noise distribution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Looking at this sixth month.. June 2011. What do we know about the noise at the pixel level?</p>
+</div>
+<div class="paragraph">
+<p>We know the noise has a <strong>mean of zero</strong>. The signals have been removed. Any non-zero mean would be a signal in itself - but we start with the assumption that there are no more signals!</p>
+</div>
+<div class="paragraph">
+<p>What about the <strong>standard deviation</strong>? Each pixel, (ie. location) has some complex relationship with the climate that dictates it&#8217;s variability. One pixel is different from another. And each pixel&#8217;s variability will change over time - with the seasons and prevailing climate conditions</p>
+</div>
+<div class="paragraph">
+<p>If we could "rerun" June 2011 somehow N times, then we could estimate the variance for every pixel <strong>p</strong> using the standard equation</p>
+</div>
+<div class="paragraph">
+<p>\$Var(p)= 1/N \sum(n-mu)^2\$</p>
+</div>
+<div class="paragraph">
+<p>Where <strong>n</strong> is the noise pixel value (from the noise matrix). However, since we know the mean is zero it&#8217;s even simpler (we don&#8217;t even need the Bessel correction of N-1)</p>
+</div>
+<div class="paragraph">
+<p>\$Var(p)= 1/N \sum n^2\$</p>
+</div>
+<div class="paragraph">
+<p>But we can&#8217;t rerun June 2011, so we only have one sample! So our N=1. Our one noise pixel is going to have to be our best estimate of the variance for the pixel for this point in time.</p>
+</div>
+<div class="paragraph">
+<p>\$Var(p) = n_{i,j}^2\$</p>
+</div>
+<div class="paragraph">
+<p>And therefore the estimated standard deviation is simply <code>abs(n)</code>. While for any particular pixel/point this isn&#8217;t a very good estimate, in aggregate, over hundreds/thousands of pixels these estimates work.</p>
+</div>
+<div class="paragraph">
+<p>Looking at the noise field it also seems to generally match our intuition. Areas that experience more climate related rain (ex: northwest coast) have higher noise pixel values. While over open water the values tend to be smaller.</p>
+</div>
+<div class="paragraph">
+<p>As for the N=1.. if some points overestimate the standard deviation, others will underestimate. Given enough pixels we hope this isn&#8217;t a problem.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_singular_vector_projections">Singular vector projections</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you want to "inspect" the SV1/SV2 associated weights we can rearrange our SVD</p>
+</div>
+<div class="paragraph">
+<p>\$M = U\SigmaV\$</p>
+</div>
+<div class="paragraph">
+<p>\$\Sigma^{T}U^{T}M = \Sigma^{T}U^{T}U\SigmaV\$</p>
+</div>
+<div class="paragraph">
+<p>\$[U\Sigma]^{T}M = V\$</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_projection_form">Projection form</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>\$[[\Sigma_1,0,0,0,0],[0,\Sigma_2,0,0,0],[0,0,\Sigma_3,0,0],[0,0,0,..,..],[0,0,0,..,..]]^{T}[[..,pa\t\t\ern1,..],[...,pa\t\t\ern2,.. ],[..,pa\t\t\ern3,..]][[[..,..,..],[month1,month2,month3],[..,..,..]] =  [[..,..,..,..],[weights1,weights2,weights3,.. ],[..,..,..,..]]\$]</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_weights_as_projections">Weights as projections</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We now can see that \$w_1,w_2\$ for each point in time (the top two rows of the weight matrix) are actually simply the inner products of <strong>pattern1</strong> and <strong>pattern2</strong> with given months. In plain algebra, we select month <strong>i</strong> and then do an ineer product:</p>
+</div>
+<div class="paragraph">
+<p>\$w_{1,i}= sum(\Sigma_{1}p_{1,i}m_{j,i})\$</p>
+</div>
+<div class="paragraph">
+<p>\$w_{2,i}= sum(\Sigma_{2}p_{2,i}m_{j,i})\$</p>
+</div>
+<div class="paragraph">
+<p>Which simplify to:</p>
+</div>
+<div class="paragraph">
+<p>\$w_{1,i}= \Sigma_{1}sum(p_{1,i}m_{j,i})\$</p>
+</div>
+<div class="paragraph">
+<p>\$w_{2,i}= \Sigma_{2}sum(p_{2,i}m_{j,i})\$</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_projection_error">The Projection Error</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>What is the potential source of error in these projections? The previously mentioned noise will distort our projection. The values <strong>m_{i,j}</strong> don&#8217;t cleanly correspond to a signal, but have some noise component which will deviate the values. So each point in the data <strong>m_{j,i}</strong> is some signal +/- some noise. From our previous steps we know that the pixel level standard deviation can be estimates from the point wise values (<strong>n_{i,j}</strong>) of the noise matrix.</p>
+</div>
+<div class="paragraph">
+<p>Assuming a normally distributed noise, we then know that the error of the sum of values is the quadrature sum of their errors</p>
+</div>
+<div class="paragraph">
+<p>If:</p>
+</div>
+<div class="paragraph">
+<p>\$w_{1,i}= \Sigma_{1}sum(p_{1,i}m_{j,i})\$</p>
+</div>
+<div class="paragraph">
+<p>Then:</p>
+</div>
+<div class="paragraph">
+<p>\$\deltaw_{1,i}= sqrt(\Sigma_{1}^2sum(p_{1,i}^2n_{j,i}^2))\$</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
