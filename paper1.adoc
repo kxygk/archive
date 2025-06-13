@@ -31,10 +31,8 @@ An accompanying program for reproducing the analysis is provided.
 
 
 .TODO:
-- Angular distribution plot (histogram?). Probably for daily data would be useful
 - Find something better than the ratio. Maybe work in radians?
 - Updated current centroids with weighted average centroids once errors are in place
-- Centroid error plots.. once I work out for the angular error maps to a pixel error
 - ERA5 plots
 - Other case studies... Daily examples, Diurnal examples.. etc.
 
@@ -568,13 +566,136 @@ TODO
 Identifying and removing mean structure in more complex scenarios (ex: seasonal data subsets) is a potential area for future work.
 
 
-== SUPP Daily data in Thailand: stability under noise
+
+
+== SUPP Pattern separation at different time scales
+
+In our primary case study we look at precipitation totals at the pentad scale.
+This integration time, or time box size, was chosen to help illustrate the method.
+It gives nice separation in the SV12 subspace while avoiding the issue of longer time-boxes.
+
+In this section we will do a quick overview of the behavior seen with larger and smaller integration times
+
+
+=== Large time boxes
+
+We first look at the issues that arise with larger time windows by looking at the same region using monthly precpitation values.
+Monthly maps are provided directly by the IMERG
+
+TODO: IMAGE OF MONTHLY SV12
+
+What we start to see is a proportion of the higher energy (ie. further from the origin) data points lie between the two climate clusters. A large fraction of these occur during the late Fall (purple/violet) and correspond to transition points. The change from Summer Monsoon to Winter monsoon occurs rapidly in the region. The month-long time box in effect captures a certain amount of summer monsoon, indeterminate transition state, and winter monsoon. The final monthly map looks like a mixture of the two monsoon signals! This is an aliasing-type problem that runs counter to the method's built-in assumption that the climate will never coocurring.
+
+== Small time boxes
+
+We can also decrease the time box size. Decreasing the time step effectively provides us with more data points for a give period of time. The practical limit is a daily average - as any smaller time increment would need to contend with diurnal variability. Diurnal climate patterns are definitely present, but the separation of diurnal climate systems from seasonal (and potentially interannual) patterns is an area for future work and outside the scope of the current method. At the daily time-scale we may still observe transitional states, where neither climate system is established and hence neither pattern is present. However, we become less likely to capture actual mixing of mutliple climate systems in one integration time-step
+
+When we observe the SV1 SV2 subspace again, we no longer see a distinct two-cluster system. At first glance it looks like all points are a mixture of the end members.
+
+TODO: Image of daily SV12 subspace
+
+However when we do our variance minimization method and look at the two centroids we find that the resulting patterns are identical
+
+TODO: Daily patterns
+
+
+Replotting all the data's angular component - a histogram shows that in the cloud of points you are getting two peaks. Each point is just perturbed by such a large amount of noise that the previously distinct clusters are lost. Unfortunately the variability in this subspace greatly exceeds the variability estimates in our Error Analysis, which suggests there is some room for improvement.
+
+Looking at this spread one can't help but notice the wedge-like shape. These top and bottom edges of the wedge are not mixing end-member but in effect delimit an "allowed" zone of SV1 SV2 mixtures. Note how SV2 has large positive and negative values. Projections outside these zones would represent in mixtures that result in large negative zones in these SV1, SV2 component sums. Since precipitation must always be positive, the remaining noise would need to "fill in" these negative zones - which becomes increasingly unlikely as the zone becomes larger.
+
+Looking at the resulting climate index we can oberserve the monsoons at the daily scale with with effectively a lot of noise. Some days in the middle of the summer are classified as winter monsoon days and vice versa. Since we don't have a good characterization of the variability we leave providing a comprehensive methodology for interpreting misclassified days as an area for future work. Re-interpreting the data in pentads or other time slices at the climate index level could potentially provide resolve this issue, but would require some criteria of a new integration window. If you know the there is one climate transition per year (ex: summer to winter monsoon) one could potentially tailor a statistical method to detect this transition point
+
+In short, smaller time steps do not hurt the climate pattern extraction process, but may create an extremely high resolution noisy climate index that is challenging to interpret.
 
 == SUPP Rift Valley: Non cyclical signals
 
+Unlike many EOF enhancements, the methodology as currently illustrated does not make any assumptions about climate variability over time. There are no assumptions that one climate follows another or that they occur at similar times of the year/day. This allows us to look at some more unusual climate phenomena such as the rain patters of the Rift Valley in Eastern Africa
+
+TODO: All (monthly?) data
+
+Here there are two rain-associated climate systems which in Ethiopia as called the Belg and the Kiremt
+
+https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2016RG000544
+
+TODO: Read this thing..
+
+While boreal summer Kiremt rains come at a consistent time every year, Belg "short" rains as a lot less consistent and associated . However the illutrated method has no issue extracting these patterns.
+
+TODO: SV12 projs
+
+TODO: Patterns
+
+TOOO: Climate index
+
+
+== SUPP: Sahel Mountain (Marrah): Method used in a one signal region
+It must be noted that globally, most locations do not feature a bistable climate. The most common scenario is a simple one-system precipitation climate (at the seasonal scale). In these locations no tricks are necessary. The first singular vector (or first EOF) will extract the single pattern.
+
+So it is interesting to try to observe what occurs if we apply your method in these situations. As a case study we look at the Marrah mountains in southern Sudan. This massif lies at the edge of the Sahel and is subject to a single monsoon-driven rainy season. The massif's topography has some interplay with the monsoon related atmospheric configuration which drives the dominant precipitation pattern.
+
+TODO: SV12 plot
+
+First note that we no longer see a clear separation in the SV12 subspace. The data presents an even spread across the allowable wedge. The two extracted patterns no longer have a clear physical interpretations
+
+TODO: Pattern 1 &2
+
+But when we look at the resulting climate pattern we do see a consistent pattern
+
+TODO: Climate index
+
+The single pattern is being torn apart in to a monsoon signal and an onset/withdrawl pattern. Remember that one of the assumptions of the EOF  (A3) was that:
+" The climate patterns in question scale in a near-linear fashion.
+If it rains twice as much,
+then it rains twice as much across the whole climate associated precipitation region"
+
+Here we see this assumption fall apart as the weaker onset/withdrawl monsoon takes on a warped shaped as compared to the middle of the rainy season.
+This onset/withdrawl false pattern occurs regularly when the method is applied in single-system regions and is a good indicator that the method should skipped in favor of simply using the first singular vector (or first EOF1).
+
+A look at the singular values confirms also gives us a strong indication there is effectively no second climate system at the seasonal scale
+
 == SUPP Diurnal cycles: Maritime continent
+So far we have limited ourselves to seasonal climate systems. However the method may work at other time scales. Here we present a quick examination of the diurnal cycle off the coast of Java for the period (TODO Specify period):
+
+TODO: Data image
+
+Again IMERG can be used as it provides extremely high resolution data at the half hour interval
+
+TODO: SV12 plot
+
+We again get some separation ..
+
+A lot of intermediary state
+
+Very noisy input
+
+But it kinda works..
+And you can have a lot more input data
+
+Watch out for seasonal signals.
+Separation of signals at different time scales is outside the scope of the paper
+
+
 
 == SUPP Korean Peninsula: Large Region vs Small Region
 
-== SUPP: Sahel Mountain (Marrah): Method used in a one signal region
+We noted in passing that working at the mesoscale allows us to get clear climate onset/withdrawl.
+Here we present results when a region that is too large is used.
+We look at the Korean Peninsular at two different scales
 
+Things go bad
+
+
+== SUPP: Notes on IMERG
+
+For the Southern Thailand case study we selected to use the V06B Late data provided by IMERG (in GeoTIFF format). We find that other versions produce notable issues related to a "climatological adjustment" made using GPCC gauge data. This rain gauge correction was added to the "Final" version of version V06B. In version V07B the correction is incorporated in both Late and Final version. The Early version is still unaffected, however it "only has forward propagation (which basically amounts to extrapolation forward in time), while the Late has both forward and backward propagation (allowing interpolation)". See: https://gpm.nasa.gov/data/imerg FAQ Section.
+
+The adjustment creates a notable stenciling effect. The stencil seems to reflect the GPCC stencil seen in GPCC precipitation maps:
+https://climatedataguide.ucar.edu/climate-data/gpcc-global-precipitation-climatology-centre
+
+Here is an example using v7 monthly data:
+
+TODO add images
+
+V06 is provided in several different subversion. One is labeled V06B and GeoTIFF files are provided through 2022-05-07. The next next period goes through multiple version through 2024-06-02. To avoid any discontinuities in the analysis. We look at v06B data exclusively on the 2011-01-01 to 2020-12-31 (inclusive) period.
+
+To simplify the analysis and create even annual cycles we subdivide the 365 day calandar year into pentads by removing all occurances of the leap day - February 29th.
