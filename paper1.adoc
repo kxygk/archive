@@ -11,46 +11,48 @@ George Kontsevich
 
 == Abstract
 
-The interplay between recurring atmospheric processes and local topography creates regular observable climatic phenomena.
-We present a novel method for analyzing the spatial distribution of atmospheric parameters at the mesoscale which will allows for the extraction of a pair of underlying climate-associated shapes.
-The method builds on the singular value decomposition (SVD) and corrects for several deficiencies of a typical empirical orthogonal function (EOF) analysis.
-The extracted shapes act as unique fingerprints that allow one to observe climate without having to characterize it,
-without needing to understand any of its dynamics,
-and without building any heuristics or adjusting tuning parameters.
-Key to making the EOF correction is recognizing that a large fraction of climate phenomena come in non-coocurring pairs.
-Systems such as the Summer/Winter Monsoons,
-El Nino / La Nina and the positive and negative phases of many climate systems are all typically in one of two modes.
-In effect the presence of one climate state precludes the occurrence of the other.
-As a result of this bistability,
-when using the SVD to reduce the measured climate parameters to two dimensions we observe clustering around two linear combinations of the basis vectors.
-These two combinations can be found using a variance minimizing search (Otsu's method) that terminates at an optimal solution and represent a simple mixture of the first two singular vectors.
-The mixtures' associated shapes can then be used to measure the presence of the climate phenomena in the original data to build a rolling two state climate index.
-We present several examples using the IMERG precipitation dataset,
-the ERA5 precipitations model estimates and a small synthetic data example.
+The interplay of climate and topography strongly affects weather's spatial variability,
+causing large climate systems to have a recurring fingerprint on regional weather.
+If identified a priori,
+an observer of the weather may infer which climate system is active at any given time.
+Building on the singular value decomposition (SVD),
+we present a new method for estimating these climate-associated patterns.
+Mirroring the design of empirical orthogonal function (EOF) analysis,
+to ensure the method is region agnostic we eshew tuning parameters and heuristics.
+Key to the approach is recognizing that many climate phenomena come in non-coocurring pairs.
+When reduced to two dimensions by SVD,
+weather records cluster around two linear combinations of the basis vectors.
+These combinations,
+once isolated,
+form the basis of a regional two-state climate index.
+We present several examples using the IMERG precipitation dataset.
 An accompanying program for reproducing the analysis is provided.
 
 
-.TODO:
-- Find something better than the ratio. Maybe work in radians?
-- Updated current centroids with weighted average centroids once errors are in place
-- ERA5 plots
-- Other case studies... Daily examples, Diurnal examples.. etc.
-
+WORD LIMIT: 150
+WORDS: 149
 
 == Introduction
 
 Climate systems,
-such at the monsoons or El Nino/La Nina aquired their names when people native to a region note a recurring weather phenomena and ascribe it a name.
-The typical modern approach is to characterize the causes and signatures associated with a particular recurring climate system.
+such at the monsoons or El Nino/La Nina,
+acquired their names when people native to a region noted recurring weather phenomena.
+The typical modern approach is search for and then characterize repeated atmospheric configurations.
 However the original methodology,
 of pattern recognition comes naturally to the untrained eye.
 Arguably it still presents several distinct advantages.
 Chief among them are its generality and simplicity.
-Pattern recognition as applied in the atmospheric sciences has chiefly been used using empirical orthogonal function (EOF) analysis.
-This is typically done by doing a singular value decomposition (SVD) of some climatological parameter's anomaly from a mean.
-The SVD works in an iterative fashion, calculating the induced matrix norm of the dataset, removing it from the data and then repeating the process.
-For a single signal system this produces the best approximation of the underlying signal.
-However climate records often have multiple climate signals and results are often not meeting expectations.
+Pattern recognition,
+as applied in the atmospheric sciences,
+has chiefly been performed using empirical orthogonal function (EOF) analysis.
+This is done by doing a singular value decomposition (SVD) of some parameter's anomaly from a mean.
+The SVD works in an iterative fashion,
+calculating the induced matrix norm of the dataset,
+removing it from the data and then repeating the process.
+For a single signal system this produces a good approximation of the underlying signal.
+However,
+weather records often have contain multiple climate signals.
+EOF results are often not meeting expectations.
 Often the first EOF is used and subsequent ones are discarded.
 The most critical issues affecting the resulting patterns and their interpretations are as follows:
 
@@ -58,33 +60,48 @@ O1:: EOF patterns are orthogonal,
 climate-associated patterns are generally not.
 O2:: All EOF patterns,
 including EOF1,
-will represent a mixture of all underlying signals
-O3:: EOF1 is biased towards the strongest signal
+will represent mixtures of all underlying signals
+O3:: EOF1 is typically heavily biased towards the strongest signal,
+giving the impression it is correct.
 O4:: Changes in EOF1 and EOF2 over time often make it seem like climate phenomena have some sort of phase-lag,
 but this is in fact an artifact due to poor climate pattern separation.
 
-The reliance on the anomaly is another potential source of issues,
-especially if there no discernable mean structure to be removed.
-A mean will contain a mixture of all the regional climate patterns - in some ratio that is not know a priori.
-Removing the mean to calculate an anomaly in effect introduces a constant amount of each climate pattern to all time points.
-Meanwhile the climatological patterns actually manifesting at each time point will be vary in intensity.
-Disentangling the unknown constant factors and the varying patterns would greatly complicate the analysis,
-so to sidestep this issue we confine ourselves to the using the SVD of the original data directly.
+The reliance on the anomaly is another typical source of issues.
+As will become clear,
+mean structure does not typically represent any physical process.
+A mean will contain a mixture of all the regional climate patterns;
+at a ratio that is not known a priori.
+Removing the mean,
+to calculate an anomaly,
+in effect introduces some constant amount of each underlying climate signal to all your observations.
+Meanwhile,
+the climate associated patterns actually manifesting will be vary in intensity over time.
+Once operating on the anomaly,
+disentangling the unknown constant factors and the varying patterns complicates the analysis.
+To sidestep this issue,
+we confine ourselves to the using the SVD on the original data observations directly.
 This means that instead of EOF1, EOF2, .. etc. we will use the singular vectors SV1 SV2 .. etc.
 
-All the aforelisted issues hold just as well for the SVD as the EOF.
+That said,
+all the aforelisted issues (O1..4) hold just as well for the SVD as for the EOF.
 
 == Materials
 
-- We first illustrate the critical issues with EOF-like analyses using synthetic data and a know a-priori pattern.
-These are meant to provide a rough approximation of precipitation patterns as seen in the subsequent sections.
-Knowing the ground truth allows us to evaluate results objectively.
+- We first illustrate the critical issues with EOF-like analyses using synthetic data.
+Synthetic data allows us to know a-priori which climate patterns are present;
+in other words we know what we are looking for.
+We can observe issues that occur and start constructing a solution for how to resolve them.
 
-- For the main case study we then look at a Peninsular Southern Thailand.
-The top of the Malay Peninsula is climatologically challenging as it's subject to two distinct monsoon systems.
-The summer monsoon brings moisture from the Indian Ocean and drives precipitation for most of the year,
-while a much shorter winter monsoon system brings moisture from the East - the South China Sea and the Gulf of Thailand.
-There is also a short "dry season" at the beginning of the year that is modulated by the inter-annual ENSO system.
+- For the main case study we look at precipitation over Peninsular Southern Thailand.
+The top of the Malay Peninsula is climatologically challenging.
+It is subject to two distinct monsoon systems:
+The summer monsoon,
+ie. boreal summer,
+brings moisture from the Indian Ocean and drives precipitation for the larger fraction of the year,
+while a shorter winter monsoon system brings moisture from the East
+- the South China Sea and the Gulf of Thailand.
+The winter monsoon is further interrupted by a short "dry season" during the winter months.
+The dry season onset, intensity and duration varies interannually.
 
 - We use gridded precipitation data as provided by the IMERG Late dataset (monthly bins) to help us demonstrate how our method yields a clear improvement in climate pattern extraction in real-world conditions.
 Modern high density/dimension mesoscale data is essential for pattern extraction.
@@ -699,3 +716,69 @@ TODO add images
 V06 is provided in several different subversion. One is labeled V06B and GeoTIFF files are provided through 2022-05-07. The next next period goes through multiple version through 2024-06-02. To avoid any discontinuities in the analysis. We look at v06B data exclusively on the 2011-01-01 to 2020-12-31 (inclusive) period.
 
 To simplify the analysis and create even annual cycles we subdivide the 365 day calandar year into pentads by removing all occurances of the leap day - February 29th.
+
+
+
+== Long Abstract
+
+=== V1
+
+The interplay between recurring atmospheric processes and local topography creates regular observable climatic phenomena.
+We present a novel method for analyzing the spatial distribution of atmospheric parameters at the mesoscale,
+which will allows for the extraction of a pair of underlying climate-associated shapes.
+The method builds on the singular value decomposition (SVD) and corrects for several deficiencies of a typical empirical orthogonal function (EOF) analysis.
+The extracted shapes act as unique fingerprints that allow one to observe climate without having to characterize it,
+without needing to understand any of its dynamics,
+and without building any heuristics or adjusting tuning parameters.
+Key to making the EOF correction is recognizing that a large fraction of climate phenomena come in non-coocurring pairs.
+Systems such as the Summer/Winter Monsoons,
+El Nino / La Nina and the positive and negative phases of many climate systems are all typically in one of two modes.
+In effect the presence of one climate state precludes the occurrence of the other.
+As a result of this bistability,
+when using the SVD to reduce the measured climate parameters to two dimensions we observe clustering around two linear combinations of the basis vectors.
+These two combinations can be found using a variance minimizing search (Otsu's method) that terminates at an optimal solution and represent a simple mixture of the first two singular vectors.
+The mixtures' associated shapes can then be used to measure the presence of the climate phenomena in the original data to build a rolling two state climate index.
+We present several examples using the IMERG precipitation dataset,
+the ERA5 precipitations model estimates and a small synthetic data example.
+An accompanying program for reproducing the analysis is provided.
+
+
+=== V2
+
+Many climate phenomena historically aquire names by a process of pattern-matching by local observers.
+In simple terms,
+large scale climate conditions are observed to cause a higher likelyhood of some corresponding weather.
+While the naming of phenomena is useful,
+due to the inherant variability,
+local weather observation are never sufficient for inferring the current climate state.
+However,
+by observing weather across a region,
+(ie. many locales simultaneously)
+we can start to make stronger inferrence about the prevailing large scale climate conditions.
+The climate's statistically significant effect on the weather is complex and region specific.
+Without characterizing any of the dynamics,
+we can safely assume it will almost certainly be spatially irregular.
+This will be due to some complex interplay between atmospheric parameters and the local topography.
+Here we present a novel method for analyzing the spatial distribution of weather at the mesoscale.
+By looking at weather over a given region we can extract each climate's associate associate patterns.
+Then using the extracted spatial patterns we can reanalyze our weather's conformance to the pattern.
+Thus allowing us to infer the prevailing climate conditions for a given point in time.
+The method builds on the singular value decomposition (SVD).
+We remove the need for working off of an anomaly -
+as is seen in a typical empirical orthogonal function (EOF) analysis.
+More importantly,
+we find a way to resolve the EOFs orthogonality constraint.
+Key to the new approach is recognizing that many climate phenomena come in non-coocurring pairs.
+Systems such as the Summer/Winter Monsoons,
+El Nino / La Nina as well as the positive and negative phases of many other climate dipoles.
+The critical characteristic of a climate dipole is that the presence of one climate state precludes the occurrence of the other.
+As a result of this bistability,
+when the the measured climate parameters are reduced to two dimensions by SVD,
+we observe clustering around two linear combinations of the basis vectors.
+These two combinations can be isolated using a variance minimizing search (Otsu's method) that terminates at an optimal solution and represent a simple mixture of the first two singular vectors.
+The mixtures can then be used to form the basis of a two state climate index.
+We present several examples using the IMERG precipitation dataset,
+the ERA5 precipitations model estimates and a small synthetic data example.
+An accompanying program for reproducing the analysis is provided.
+
+
