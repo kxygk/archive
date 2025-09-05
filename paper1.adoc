@@ -95,24 +95,28 @@ We can observe issues that occur and start constructing a solution for how to re
 - For the main case study we look at precipitation over Peninsular Southern Thailand.
 The top of the Malay Peninsula is climatologically challenging.
 It is subject to two distinct monsoon systems:
-The summer monsoon,
-ie. boreal summer,
-brings moisture from the Indian Ocean and drives precipitation for the larger fraction of the year,
-while a shorter winter monsoon system brings moisture from the East
+The dominant monsoon system is the so-called summer monsoon
+(ie. boreal summer).
+This brings moisture from the Indian Ocean and Adamant Sea.
+The secondary system is the winter monsoon,
+which brings moisture from the East
 - the South China Sea and the Gulf of Thailand.
-The winter monsoon is further interrupted by a short "dry season" during the winter months.
-The dry season onset, intensity and duration varies interannually.
 
-- We use gridded precipitation data as provided by the IMERG Late dataset (monthly bins) to help us demonstrate how our method yields a clear improvement in climate pattern extraction in real-world conditions.
-Modern high density/dimension mesoscale data is essential for pattern extraction.
-At large/synoptic scales climate phenomena do not take effect simultaneously across the whole region of interest.
-This causes larger fractions of the observation time having incomplete/smeared climate associated patterns.
+- To help us demonstrate an improvement over the EOF,
+we stress test the method using gridded precipitation data.
+For this we use the IMERG Late dataset. (SUPP: Notes on IMERG)
+While we don't observe sensitivity with regard to time,
+for clarity daily accumulations are binned in to pentads and the leap day has been removed.
+(SUPP Pattern separation at different time scales)
+High density mesoscale data will be essential for pattern stability.
+When observing regions that are too large,
+climate phenomena cease to take effect simultaneously across the whole area of interest.
+Larger fractions of the observation time will begin to include incomplete/smeared climate associated patterns.
 As a result it becomes more difficult to isolation fixed patterns and energy "leaks" into secondary modes.
-In contrast,
-small/mesoscale regions will have faster climate system onset and withdrawl.
+On the other hand,
+small/mesoscale regions typically exhibit very faster climate system onset and withdrawal.
 For instance across the observed southern Thai geogrid the monsoon onset will happen over the course of just several days. (REF)
-
-- The IMERG Final dataset is not used b/c the rain-gauge normalization introduces stenciling artifacts (SHOW SUPPLEMENTARY FIGURE???)
+IMERG has a 0.1x0.1 degree resolution which gives ample room to select small regions of interest.
 
 .Supplementary sections explore:
 The Great Rift Valley:: A region with semi non seasonal climate signals.
@@ -122,93 +126,105 @@ ERA5 reanalysis precipitation:: The method as used to validate climate model out
 IMERG Final Result:: Showing artifacts caused by numerical normalization procedures
 
 
-== Synthetic illustrations of the EOF problem
+== Synthetic illustrations of the EOF/SVD problem
 
-To observe the result of the SVD we will work off of a known pattern.
+Using a synthetic dataset allows us to not only observe the aformentioned problems (O1..4),
+but it will also give us insight in to a possible solution.
+We start by creating two arbitrary patterns,
+representing the two states of our climate system.
+Since the pattern are arbitrary,
+they are not orthogonal to each other.
+This points us already to issue *O1*.
+These patterns are then perturbed to create synthetic "observations".
+For ease of interpretability,
+the observations are arranged to mimick monthly accumulation of a monsoonal region.
+First there are several summer-equivalent patterned observations.
+This is followed by a shorter period of winter-equivalent patterned observations.
+What is surprising is that the SVD
+(and the equivalent EOF method)
+produce two basis vectors that do look like a mixture of our original patterns.
 
-.Generation Pattern
-image::imrg/pattern1.svg[]
+FIGURE
 
-We then perturb this pattern to generate a test dataset. These will represent an idealized climate induced precipitation pattern over a region. To make the example more concrete we imagine it as 12 monthly precipitation accumulations. Each row representing a year of rain
+The SVD algorithm can be viewed as an interative algorithm,
+which builds singular vectors sequentially.
+Once a singular vector is created it is removed from the observations.
+The algorithm is then repeated on the adjusted observations to make the next singular vector.
+Removing the singular vector from the data causes the remaining data to be orthogonal,
+and hence causes the subsequent basis vector to be orthogonal.
+This goes to the root of problem *O1*
 
-.3 Years of simulated gridded monthly precipitation over a region. One grid per month, one year per row.
-image::imrg/synth1patt/precipitation-all.svg[]
+The first thing that may be of surprise is the negative values in the first singular vector (SV1).
+These values,
+colored in blue,
+are characteristic of most SVD numerical routines.
+Most such routines,
+such as the Intel MKL library used here,
+will return negative values for the first singular vector.
+However in actuality,
+as a basis vector,
+the signs could be safely inverted without changing the result.
 
-The SVD in-effect performs a linear weighted sum of these input image such that we get a nice approximation of the underlying `t` shaped pattern.
-
-.First Singular Vector (SV1)
-image::imrg/synth1patt/sv-0.svg[]
-
-The algorithm selects weights such that they maximizes the energy of the what is in-effect a weighted average. The constraint (so that you can't pick arbitrarily large weights) is that the vector of your weights is of unit length. Such a sum effectively gives more weight to data that has higher values and data that has higher signal to noise ratios - as the data will effectively "stack up" producing a larger sum. The result should be superior to a straight average of all the data, though in our experience the results are quite similar
-
-.Average of all the data
-image::imrg/synth1patt/average.svg[]
-
-Note the blue color indicates negative values - a characteristic of most SVD numerical routines is that the first singular vector will be negative (negative weights).
-The result could be safely inverted.
-This would be equivalent to inverting the weight values.
-However, for simplicity I will keep the output vectors unaltered (as produced by the Intel MKL SVD routine).
-This means that while the singular vectors are not unique,
-because they are unit length,
-they are numerically repeatable can only take on two different values.
-
-We then expand the problem to a two pattern system.
-We have taken the previous data set and substituted the last four months with a second pattern.
-This serves to approximate what we will see in the first case study.
-
-.Second Generation Pattern
-image::imrg/pattern2.svg[]
-
-This will act as a synthetic secondary winter climate pattern. We want to observe how a secondary signal affects our SVD. As stated in issues O1, the pattern is arbitrary and not orthogonal to the first.
-
-.3 Years of simulated gridded monthly precipitation over a region, now with two patterns
-image::imrg/synth2patt/precipitation-all.svg[]
-
-However before we even come to the orthogonality issues, SV1 already looks problematic.
-
-.First Singular Vector (SV1)
-image::imrg/synth2patt/sv-0.svg[]
-
-The dominant signal from before is the most prominent feature, but the secondary pattern is also visible - illustrating issue O2 and O3.
-This should dispel the myth that EOF1 (or SV1) is somehow a safe basis b/c it is no affected by the orthogonality constraint.
-The orthogonality constraint naturally makes things even worse for SV2 and it is even more difficult to visually interpret.
-
-.Second Singular Vector (SV2)
-image::imrg/synth2patt/sv-1.svg[]
-
-SV2 is orthogonal to SV1 due to the iterative nature of the SVD algorithm.
-It had first removed SV1 from the dataset before computing SV2.
-Hence all the remaining data was orthogonal to SV1 and therefore their linear combination (SV2) is also orthogonal.
-As a result SV2 is even more strange and unrelated to the underlying signals.
-This is highlighting issue O2 - that all singular vectors are actually representing different mixtures of all the signals.
-Therefore,
-most importantly,
-none can be directly interpreted as climate indicators (outside the simple and yet common case of only one climate system).
-
-A detailed mathematical treatment of why all EOF vectors end up being mixtures is outside the scope of this paper.
-However,
-in short,
-this is a byproduct of how the weights (the singular values) are assigned.
-At face value,
-adding in a secondary signal seems to run counter to the goal of maximizing the energy of the sum.
-However,
-the root cause is that the maximization is done by maintaining the 2-norm of the weights at 1.0.
-The weights do not add up to 1.
-Instead this can be restated as: the weights form a "unit vector" ie. *the quadrature sum* of the weights is equal to `1.0`.
-The quadrature sum means that counterintuitively the sum of weights is not constant.
+The next surprise is that the first singular looks very incorrect.
+It looks like a mixture of the two starting patterns.
+To understand the root of the problem we need to look at what the SVD does at each iteration.
+When building a singular vector,
+for instance when building SV1,
+the SVD is fundamentally doing a weighted average of the data.
+The weighting is said to maximizes the induced matrix norm (REF)
+In other words,
+the weights are selected such that the euclidean length
+(2-norm)
+of the resulting singular vector is maximized.
+This at face value seems to encourage observations with similar image to be added up together.
+The patterns will add up constructively and return a best estimate.
+Since the resuling vector is best interpreted as a pattern image,
+it may be easier to reinterpret this as a maximizing of the sum of the squares of all the pixels.
+The algorithmic constraint
+(so that you can not pick arbitrarily large weights)
+is that the vector of your weights must be of unit length.
+In other words,
+the sum of the squares of the weights is equal to `1.0`.
+This kind of constraint means that the direct "normal" sum of weights is not constant.
 All else being equal,
-spreading weights out actually makes their direct sum a higher value.
+spreading weights out actually makes their sum a higher value.
 This is most easily illustrated by looking at the logical extremes.
-If all weight were assigned to one data point and all other weights were set to zero,
-then the sum of weights would equal `1.0`.
-By contrast an even spread of weights across all data gives `N` weights of `1/sqrt(N)` and `N/sqrt(N) > 1.0` for all values of `N`.
-The end result is that secondary signals always get small weights assigned to them because though they don't sum constructively with the dominant signal,
-it does in effect increases the total sum of all the weights.
+If all weight were assigned to one observation
+(for instance the one with the highest value)
+and all other weights were set to zero,
+then the sum of weights would equal `1.0`
+(same as the sum of squares).
+By contrast,
+an even spread of weights across all `N` observation would give each weight the size `1/sqrt(N)`
+(here the sum of squares still equals 1.0 for any value of `N`)
+Since `N/sqrt(N) > 1.0` for all values of `N`>`1` the algorithm has a tendency to spread weights.
+So while the observations that exhibit the dominant do get higher weights,
+observations with secondary signals will get small weights assigned to them as well.
+Though they don't sum constructively with the dominant signal,
+spreading the weights does in effect increases the total sum of all the weights.
 
-.How SV1 and SV2 change over time
-image::imrg/synth2patt/sv1sv2-2scale.svg[]
+The end result is our SV1 vector ends up looking like a mixture of both underlying signals;
+highlighting our issue *O2*.
+This mixing effect seems to diminish rapidly as the difference between climate signals increases;
+which points is to issue *O3*
+The mixing ratio is not something we have any analytic insight into.
 
-Lastly we take a quick look at how SV1 and SV2 evolve over time. This goes to highlight issue O4. There is some cyclic pattern that seems aparent and it is easy to misinterpret this as indicative of two coupled climate processes at work. However, we a priori know here that the two climate systems are entirely decoupled. This false cycles/coupling will become even more aparent in the case studies.
+The next even more glaring issue is the second Singular Vector (SV2).
+SV1 is some unknown mixture of the two patterns.
+Since the algorithm works in an interative fashion,
+these mixture of patterns was removed from the observations because SV2 was constructed.
+Since the adjusted observations are now orthogonal to the first mixture,
+we in effect have no hope of reconstructing a pattern.
+However the end result interestingly enough looks like a different mixture of the two original patterns.
+
+This last observation,
+that both SVs are different mixtures of the underlying signals,
+ends up being the critical piece of information that allows us to correct for the problem.
+
+Because of this recurring signal-mixture issue,
+directly observing how SV1 and SV2 change over time is a common source of false interpretations.
+This is issues *O4*.
+We leave a more details discussion for (SUPP)
 
 == Case Study: South East Asian monsoon systems
 
