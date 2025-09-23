@@ -6,7 +6,6 @@
 :reproducible:
 :nofooter:
 
-= Paper1
 = Fixing the EOF by Climate Dipole Bifurcation
 George Kontsevich
 
@@ -14,14 +13,14 @@ George Kontsevich
 
 Large scale climate processes,
 in their interplay with topography,
-leave distinct fingerprints on the spatial distribution of regional weather.
+leave distinct fingerprints on the spatial distribution of a region's weather.
 If these spatial patterns were to be properly isolated,
 an observer of the weather would be able to infer which climate system was active at any given time.
 Building on the singular value decomposition (SVD),
 we present a method for estimating these climate-associated patterns.
 Mirroring the method of empirical orthogonal functions (EOF),
 eshewing tuning parameters and heuristics ensures an impartial method that is region agnostic.
-Key is recognizing that many dominant climate phenomena come in non-coocurring pairs.
+Key is recognizing that many climate phenomena come in non-coocurring pairs.
 When reduced to two dimensions by SVD,
 weather records align around two linear combinations based on which climate dipole phase is active.
 These combinations,
@@ -58,7 +57,7 @@ The resulting patterns,
 (EOF1 EOF2 EOF3 etc.)
 are meant to roughly represent the patterns that repeat in the weather observations.
 
-The quality of the resulting EOF patterns is generally inconsistent,
+The quality of the resulting EOF patterns is variable,
 as a result they are often viewed with a degree of skepticism;
 Notwithstanding the issues,
 they still often find use as a starting point for further quantitative analysis.
@@ -98,7 +97,7 @@ To sidestep this problem,
 we confine ourselves to the using the SVD on original observations directly.
 This means that instead of EOF1, EOF2, .. etc. we will use the singular vectors SV1 SV2 .. etc.
 
-All the aforelisted issues (O1..4) hold just as well for the SVD as for the EOF.
+All the listed issues (O1..4) hold just as well for the SVD as for the EOF.
 
 Our objectives are:
 first,
@@ -108,12 +107,12 @@ to presenting a simple method for resolving them.
 
 == Materials
 
-- We first illustrate the aformentioned issues with EOF-like analyses using synthetic data.
+- We first illustrate the aforementioned issues with EOF-like analyses using synthetic data.
 While the synthetic weather model will be extremely basic,
 it will to allow us to know a-priori which climate patterns are present.
 When we try to extract patterns,
 using the SVD,
-we can observe discrepencies with the originals we have in hand.
+we can observe discrepancies with the originals we have in hand.
 Once we see the issues that occur,
 we can identify the causes and start considering how we may resolve them.
 
@@ -151,10 +150,13 @@ Java Island:: Diurnal cycles with large errors and less stationary patterns
 ERA5 reanalysis precipitation:: The method as used to validate climate model output
 IMERG Final Result:: Showing artifacts caused by numerical normalization procedures
 
+== FIG1
+
+image:imrg/diag/synth.png[]
 
 == Synthetic illustrations of the EOF/SVD problem
 
-Using a synthetic dataset allows us to not only observe the aformentioned problems (O1 O2 O3),
+Using a synthetic dataset allows us to not only observe the aforementioned problems (O1 O2 O3),
 but it will also give us insight in to a possible solution.
 We start by creating two arbitrary patterns,
 representing the two states of our climate system.
@@ -162,7 +164,7 @@ Since the pattern were chosen at random they will not be orthogonal to each othe
 (anticipating issue *O1*).
 The patterns are then perturbed to create synthetic "observations".
 For ease of interpretability,
-the observations are arranged to mimick monthly precipitation accumulations of a monsoonal region.
+the observations are arranged to mimic monthly precipitation accumulations of a monsoonal region.
 First there are several summer-equivalent patterned observations.
 This is followed by a shorter period of winter-equivalent patterned observations.
 
@@ -199,7 +201,7 @@ Note that "removing a singular vector" means removing any component in the same 
 (such that the inner product becomes zero).
 As a result,
 all the adjusted observations end up orthogonal to that SV.
-When the next singular vector is built from these adjusted observations it too will be orthogonal.
+When the next singular vector is built from these adjusted observations it too will be orthogonal to the extracted SV.
 This is because singular vectors are constructed by a linear combination of the observations
 - so if all the adjusted observations are orthogonal,
 then so will their combination.
@@ -246,7 +248,7 @@ However,
 this mathematical interpretation does not correspond to what we see in the result.
 What we actually see is that the singular vectors have multiple patterns at once;
 seemingly counter to the maximization objective.
-The root cause is a subtly of an algorithmic constraint we have elided.
+The root cause is a subtlety of an algorithmic constraint we have elided.
 When the SVD is maximizing this weighted average of the observations the weights must have been implicitely limited somehow
 (so that the SVD can not pick arbitrarily large weights).
 The limit is that the weights must be of unit length.
@@ -267,7 +269,7 @@ and all other weights were set to zero,
 then the sum of weights would equal `1.0`
 (same as the sum of squares).
 By contrast,
-an even spread of weights across all `N` observation would give each weight the size `1/sqrt(N)`.
+an even spread of weights across all `N` observation would give each weight the value `1/sqrt(N)`.
 Here the sum of squares still equals `1.0` for all values of `N` (the constraint is satisfied).
 However,
 the direct sum is now `N/sqrt(N)`.
@@ -312,11 +314,16 @@ Hence all subsequent SV have no patterns present.
 While we don't provide a rigorous proof,
 the result comes naturally when viewing the degrees of freedom of the system.
 The original two signals provided two degrees of freedom in our observations.
-By removing the projections of two arbitrary signal-mixtures we must remove both signals from all the obervations.
+By removing the projections of two arbitrary signal-mixtures we must remove both signals from all the observations.
 
 The final result,
 the first two SVs being different mixtures of the underlying signals,
 ends up being the critical piece that will allow us to build a correction.
+
+
+== FIG2
+
+image::imrg/diag/drawing2.svg[]
 
 == Case Study: South East Asian monsoon systems
 
@@ -344,7 +351,7 @@ we first try to extract the underlying patterns by SVD.
 The first singular vector gives us a shape that looks encouraging.
 The shape at face value seems similar to the west coast precipitation associate with the summer monsoon.
 Often an EOF anaylsis would stop at this point as the result doesn't have obvious glaring issues.
-While our synethetic example showed that mixing must be happening due to issue *O2*,
+While our synthetic example showed that mixing must be happening due to issue *O2*,
 it is not immediately apparent in this image due to a couple of reasons:
 
 - First,
@@ -511,11 +518,11 @@ climate patterns,
 even when static,
 can serve as sources of truth for validating climate models and reanalysis datasets.
 Running the method on the same region with the ERA5 dataset shows a close correspondence to the IMERG patterns. **SUPP**
-Discrepencies,
+Discrepancies,
 if found,
 could be a potential avenue for further investigation.
 
-== Applications: Climate Indeces
+== Applications: Climate Indices
 
 Coming back to our original thesis.
 Maybe more importantly,
@@ -543,7 +550,7 @@ the El Nino equatorial warm water tongue vs. the La Nina subtropical heating.
 These two systems look like near negatives
 - especially when viewed though carefully tuned boxes around the equator. **REF**
 The positive and negative phases of the southern annular mode,
-or the north atlantic dipole also look like negatives within their respective zones of influence.
+or the north Atlantic dipole also look like negatives within their respective zones of influence.
 
 As a consequence,
 when working within a properly tuned region,
@@ -573,11 +580,11 @@ Hence the final climate mixtures don't function as actual basis vectors.
 Restated,
 the intensity of a climate pattern in an observation is unrelated to the other climate phase's shape.
 As a result,
-the former direct inner product method is likely preferrable.
+the former direct inner product method is likely preferable.
 
 For the projection's error bound estimation see **SUPP**.
 
-It's important to note that the two resulting climate indeces are not comparable.
+It's important to note that the two resulting climate indices are not comparable.
 Unlike a tuned EOF1 region which operates with one pattern,
 here we have two separate patterns that are being projected on.
 As a result,
@@ -723,7 +730,7 @@ once we assume a very minimal set of properties,
 the non-cooccurance of climate systems creates a special case where pattern extraction is greatly simplified.
 
 Because the method as presented has no tuning parameters or climate system specific considerations,
-the resulting patterns have the impartiality and repeatability that allow it to become a concensus result that can form the start or further research.
+the resulting patterns have the impartiality and repeatability that allow it to become a consensus result that can form the start of further research.
 
 
 
