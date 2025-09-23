@@ -152,7 +152,7 @@ IMERG Final Result:: Showing artifacts caused by numerical normalization procedu
 
 == FIG1
 
-image:imrg/diag/synth.png[]
+image:diag/fakerain.png[]
 
 == Synthetic illustrations of the EOF/SVD problem
 
@@ -323,7 +323,7 @@ ends up being the critical piece that will allow us to build a correction.
 
 == FIG2
 
-image::imrg/diag/drawing2.svg[]
+image::diag/krabins.png[]
 
 == Case Study: South East Asian monsoon systems
 
