@@ -6,7 +6,7 @@
 :reproducible:
 :nofooter:
 
-= Fixing the EOF by Climate Dipole Bifurcation
+= Fixing the Mesoscale EOF by Climate Dipole Bifurcation
 George Kontsevich
 
 == Abstract
