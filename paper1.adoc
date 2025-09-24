@@ -50,9 +50,15 @@ as applied in the atmospheric sciences and oceanography,
 has been typically done using empirical orthogonal function
 (EOF)
 analysis.
-This is typically shorthand for a singular value decomposition
+We find formulations such as
+"eigenvectors of the cross-covariance matrix between grid points"
+by North et al.
+(1982)
+harder to interpret physically.
+We will treat it instead as the singular value decomposition
 (SVD)
 of some parameter's anomaly from a mean.
+
 The resulting patterns,
 (EOF1 EOF2 EOF3 etc.)
 are meant to roughly represent the patterns that repeat in the weather observations.
@@ -291,6 +297,11 @@ which points us to issue *O3*.
 However,
 the mixing ratio is not something we have any analytic insight into,
 hence we don't explore this thread further.
+Note that this mixing is distinct from the one observed by North et al. 1982.
+This is not a product of degeneracy when singular values
+(or eigenvalues)
+are close.
+It's not a perturbation issue and something that occurs even in the adsense of noise.
 
 The next and perhaps even more glaring issue is the second Singular Vector (SV2).
 As we just determined,
@@ -733,11 +744,7 @@ Because the method as presented has no tuning parameters or climate system speci
 the resulting patterns have the impartiality and repeatability that allow it to become a consensus result that can form the start of further research.
 
 
+== References
 
-
-
-
-
-
-
+North, G. R., Bell, T. L., Cahalan, R. F., & Moeng, F. J. (1982). Sampling Errors in the Estimation of Empirical Orthogonal Functions. Monthly Weather Review, 110(7), 699-706. https://doi.org/10.1175/1520-0493(1982)110<0699:SEITEO>2.0.CO;2
 

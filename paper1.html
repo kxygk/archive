@@ -258,10 +258,17 @@ as applied in the atmospheric sciences and oceanography,
 has been typically done using empirical orthogonal function
 (EOF)
 analysis.
-This is typically shorthand for a singular value decomposition
+We find formulations such as
+"eigenvectors of the cross-covariance matrix between grid points"
+by North et al.
+(1982)
+harder to interpret physically.
+We will treat it instead as the singular value decomposition
 (SVD)
-of some parameter&#8217;s anomaly from a mean.
-The resulting patterns,
+of some parameter&#8217;s anomaly from a mean.</p>
+</div>
+<div class="paragraph">
+<p>The resulting patterns,
 (EOF1 EOF2 EOF3 etc.)
 are meant to roughly represent the patterns that repeat in the weather observations.</p>
 </div>
@@ -558,7 +565,12 @@ We observe the mixing effect diminishes rapidly as the difference between climat
 which points us to issue <strong>O3</strong>.
 However,
 the mixing ratio is not something we have any analytic insight into,
-hence we don&#8217;t explore this thread further.</p>
+hence we don&#8217;t explore this thread further.
+Note that this mixing is distinct from the one observed by North et al. 1982.
+This is not a product of degeneracy when singular values
+(or eigenvalues)
+are close.
+It&#8217;s not a perturbation issue and something that occurs even in the adsense of noise.</p>
 </div>
 <div class="paragraph">
 <p>The next and perhaps even more glaring issue is the second Singular Vector (SV2).
@@ -1091,6 +1103,14 @@ the non-cooccurance of climate systems creates a special case where pattern extr
 <div class="paragraph">
 <p>Because the method as presented has no tuning parameters or climate system specific considerations,
 the resulting patterns have the impartiality and repeatability that allow it to become a consensus result that can form the start of further research.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references">References</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>North, G. R., Bell, T. L., Cahalan, R. F., &amp; Moeng, F. J. (1982). Sampling Errors in the Estimation of Empirical Orthogonal Functions. Monthly Weather Review, 110(7), 699-706. <a href="https://doi.org/10.1175/1520-0493(1982)110&lt;0699:SEITEO&gt;2.0.CO;2" class="bare">https://doi.org/10.1175/1520-0493(1982)110&lt;0699:SEITEO&gt;2.0.CO;2</a></p>
 </div>
 </div>
 </div>
