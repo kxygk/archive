@@ -38,8 +38,9 @@ WORDS: 149
 Climate systems,
 such at the monsoons or El Nino/La Nina,
 acquired their names when people native to a region noted recurring weather phenomena.
-By constract,
+By contrast,
 a typical modern approach for identifying climate system involves searching for and then characterizing repeated atmospheric configurations.
+For instance for the monsoon see Wang and LinHo (2002).
 Nonetheless,
 when climates are poorly understood or are still not well characterized,
 the original methodology of pattern recognition comes naturally to the untrained eye.
@@ -146,6 +147,9 @@ we present daily accumulations binned to pentads
 An equivalent analysis using daily data is provided in **SUPP**
 IMERG has a 0.1x0.1 degree resolution.
 This gives ample room to select small regions of interest.
+The region used is the rectangle given by:
+North-West point N 12.4 E 97.50.
+South-East point N 5.40 E 101.0.
 As will be discussed,
 operating on small regions directly benefits pattern extraction.
 
@@ -295,13 +299,27 @@ we have tried adjusting the ratio of the two climate pattern in the synthetic da
 We observe the mixing effect diminishes rapidly as the difference between climate signals increases;
 which points us to issue *O3*.
 However,
-the mixing ratio is not something we have any analytic insight into,
-hence we don't explore this thread further.
 Note that this mixing is distinct from the one observed by North et al. 1982.
 This is not a product of degeneracy when singular values
 (or eigenvalues)
 are close.
-It's not a perturbation issue and something that occurs even in the adsense of noise.
+It's not a perturbation issue and something that occurs even in the absence of noise.
+
+Due to this mixing,
+comparing SV1 or EOF1 patterns from different sources tell us very little.
+Two common classes we see in the literature:
+First,
+comparing EOF1 patterns for different time periods,
+as seen in for instance Werb and Rudnick (2023) or Yeh et al. (2011).
+Second,
+looking at differences between ground measurement EOF1 and model output EOF1,
+as seen for instance in Yeager, S. and Danabasoglu, G. (2014).
+EOF1 mismatchs may be due to changes in climate or ocean reconfiguration.
+However,
+they can also be due to differences in mixing -
+with climate-associate patterns entirely unchanged.
+One would expect interannual systems to be especially prone to changes in mixing.
+With certain decade often preferentially favoring one climate phase.
 
 The next and perhaps even more glaring issue is the second Singular Vector (SV2).
 As we just determined,
@@ -657,7 +675,13 @@ There are broadly three categories:
  1 :: the region under observation is too large.
 For instance,
 a region's southern section may be under a monsoonal regime, while the northern section has not yet been affected.
-This causes energy to "leak" into lower power modes.
+For monsoon regions,
+delays in onset and withdrawal can be estimated using the maps made by Wang and LinHo (2002).
+From these grids we can approximately estimate that the seasonal switch overs will happen over ~1-4 pentads.
+Such switch-over patterns,
+while inevitable,
+should be minimized.
+They will cause energy to "leak" into lower power modes.
 The leakage should be apparent in the singular value scree plot.
 This issue stresses the need for high density mesoscale data,
 such as the IMERG dataset,
@@ -746,5 +770,24 @@ the resulting patterns have the impartiality and repeatability that allow it to 
 
 == References
 
+
+.Talks about close EOF vectors mix due to closes singular values
 North, G. R., Bell, T. L., Cahalan, R. F., & Moeng, F. J. (1982). Sampling Errors in the Estimation of Empirical Orthogonal Functions. Monthly Weather Review, 110(7), 699-706. https://doi.org/10.1175/1520-0493(1982)110<0699:SEITEO>2.0.CO;2
+
+.This has the grid map of the onset and withdrawls
+Wang, B., & LinHo, . (2002). Rainy Season of the Asian–Pacific Summer Monsoon. Journal of Climate, 15(4), 386-398. https://doi.org/10.1175/1520-0442(2002)015<0386:RSOTAP>2.0.CO;2
+
+.Changes in NAO EOF patterns over different periods
+Werb, B. E., & Rudnick, D. L. (2023). Remarkable changes in the dominant modes of north Pacific sea surface temperature. Geophysical Research Letters, 50, e2022GL101078. https://doi.org/10.1029/2022GL101078
+
+https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2022GL101078
+
+.Also two patterns from two periods compared
+Yeh, S., Kang, Y., Noh, Y., & Miller, A. J. (2011). The North Pacific Climate Transitions of the Winters of 1976/77 and 1988/89. Journal of Climate, 24(4), 1170-1183. https://doi.org/10.1175/2010JCLI3325.1
+
+https://journals.ametsoc.org/view/journals/clim/24/4/2010jcli3325.1.xml
+
+.Comparing EOFs as part of their analysis (maybe model vs measurement?)
+Yeager, S., & Danabasoglu, G. (2014). The Origins of Late-Twentieth-Century Variations in the Large-Scale North Atlantic Circulation. Journal of Climate, 27(9), 3222-3247. https://doi.org/10.1175/JCLI-D-13-00125.1
+https://journals.ametsoc.org/view/journals/clim/27/9/jcli-d-13-00125.1.xml
 
