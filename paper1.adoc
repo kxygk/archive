@@ -33,14 +33,34 @@ along with software for reproducing the results.
 WORD LIMIT: 150
 WORDS: 149
 
-== Introduction
+== Supplementary Sections
+
+- Notes on IMERG
+- Daily Data Thailand
+- Figure with all data from Synthetic example
+- Notes on Precipitation Data Normalization
+- Monthly Rain over Thailand
+- Single climate regions
+- Error Analysis
+- ERA5 patterns vs IMERG
+
+.Supplementary sections explore:
+The Great Rift Valley:: A region with semi non seasonal climate signals.
+Marrah Mountains (Sudan):: A region with one climate phenomena and the breakdown in one of the EOF assumptions.
+Java Island:: Diurnal cycles with large errors and less stationary patterns
+ERA5 reanalysis precipitation:: The method as used to validate climate model output
+
+=== Introduction
 
 Climate systems,
 such at the monsoons or El Nino/La Nina,
 acquired their names when people native to a region noted recurring weather phenomena.
 By contrast,
 a typical modern approach for identifying climate system involves searching for and then characterizing repeated atmospheric configurations.
-For instance for the monsoon see Wang and LinHo (2002).
+These can come in the form of heuristics based on historic data,
+such as Wang and LinHo's (2002) monsoon onset and withdrawl thresholds.
+Another common approach is to match representative regions to climate systems,
+such at Nino 3.5 and NAO Index *ADD REF*
 Nonetheless,
 when climates are poorly understood or are still not well characterized,
 the original methodology of pattern recognition comes naturally to the untrained eye.
@@ -65,9 +85,9 @@ The resulting patterns,
 are meant to roughly represent the patterns that repeat in the weather observations.
 
 The quality of the resulting EOF patterns is variable,
-as a result they are often viewed with a degree of skepticism;
+and as a result they are often viewed with a degree of skepticism.
 Notwithstanding the issues,
-they still often find use as a starting point for further quantitative analysis.
+they still find use as a starting point for further quantitative analysis.
 
 As will be explored,
 the fundamental issues affecting EOFs are:
@@ -88,43 +108,44 @@ The root cause is that,
 in the presence of multiple climate systems,
 mean structure does not typically correspond to a physically meaningful process.
 Worse yet,
-any such mean must contain a mixture of all the climate patterns that have been observed.
+any such mean must by necessity contain a mixture of all observed climate patterns.
 As a direct consequence,
 when converting raw observations to anomalies,
-one in-effect takes every observations and subtracted some static mixture of every climate signal
+one takes every observations and subtracted some static mixture of every climate signal
 (and this mixing ratio is typically unknown).
 Meanwhile,
-the original observations have one or another climate associated pattern;
+the original observations have their own unmixed climate associated patterns;
 and these patterns are non-static - varying in intensity over time.
 Operating on the anomalies means one now has to disentangle mean-derived constant patterns,
-and the patterns of the original observations.
+and the varying patterns of the original observations.
 This needlessly complicates the pattern extractions process.
 
 To sidestep this problem,
 we confine ourselves to the using the SVD on original observations directly.
 This means that instead of EOF1, EOF2, .. etc. we will use the singular vectors SV1 SV2 .. etc.
 
-All the listed issues (O1..4) hold just as well for the SVD as for the EOF.
+However,
+all listed issues (O1..4) hold just as well for the SVD as for the EOF.
 
 Our objectives are:
 first,
-to conclusively illustrate the problems with the EOF1;
+to conclusively illustrate the problems with the EOF/SVDs;
 second,
 to presenting a simple method for resolving them.
 
-== Materials
+=== Materials
 
 - We first illustrate the aforementioned issues with EOF-like analyses using synthetic data.
 While the synthetic weather model will be extremely basic,
 it will to allow us to know a-priori which climate patterns are present.
 When we try to extract patterns,
 using the SVD,
-we can observe discrepancies with the originals we have in hand.
+we can observe discrepancies with the originals we have in-hand.
 Once we see the issues that occur,
 we can identify the causes and start considering how we may resolve them.
 
 - For a case study we look at precipitation over Peninsular Southern Thailand.
-The region was chosen because of ongoing paleoclimatological work in the area. *REF*
+The region was chosen because of ongoing paleoclimatological work in the area. *ADD REF*
 The top of the Malay Peninsula is climatologically challenging.
 It is subject to two distinct monsoon systems:
 The dominant monsoon system is the so-called summer monsoon
@@ -153,18 +174,12 @@ South-East point N 5.40 E 101.0.
 As will be discussed,
 operating on small regions directly benefits pattern extraction.
 
-.Supplementary sections explore:
-The Great Rift Valley:: A region with semi non seasonal climate signals.
-Marrah Mountains (Sudan):: A region with one climate phenomena and the breakdown in one of the EOF assumptions.
-Java Island:: Diurnal cycles with large errors and less stationary patterns
-ERA5 reanalysis precipitation:: The method as used to validate climate model output
-IMERG Final Result:: Showing artifacts caused by numerical normalization procedures
 
 == FIG1
 
 image:diag/fakerain.png[]
 
-== Synthetic illustrations of the EOF/SVD problem
+=== Synthetic illustrations of the EOF/SVD problem
 
 Using a synthetic dataset allows us to not only observe the aforementioned problems (O1 O2 O3),
 but it will also give us insight in to a possible solution.
@@ -178,11 +193,13 @@ the observations are arranged to mimic monthly precipitation accumulations of a 
 First there are several summer-equivalent patterned observations.
 This is followed by a shorter period of winter-equivalent patterned observations.
 
+**SUPP** (With and image of the full data?)
+
 When we look at the first two singular vectors (SV) generated by the SVD,
 the first thing that stands out are the negative values in the first singular vector (SV1).
 These values,
 colored in blue,
-are characteristic of most SVD numerical routines. **REF** North?
+are characteristic of most SVD numerical routines. **ADD REF**
 Most such routines,
 such as the Intel MKL library used here,
 when run on purely positive observation such as rain,
@@ -201,7 +218,7 @@ For many climatologists it may come as a surprise that the first basis
 has also been affected.
 This mixing is a direct consequence of how the SVD is designed to extracts patterns.
 
-.The SVD as an iterative algorithm
+==== The SVD as an iterative algorithm
 At a high level,
 the SVD algorithm can be viewed as an iterative algorithm;
 building singular vectors one after another.
@@ -217,7 +234,7 @@ This is because singular vectors are constructed by a linear combination of the 
 then so will their combination.
 This tells us that issue *O1* is a direct result of the algorithm's design.
 
-.Singular Vector construction
+==== Singular Vector construction
 To understand why the singular vectors
 (even the first one)
 end up mixing signal
@@ -228,7 +245,7 @@ for instance when building SV1,
 the SVD is fundamentally doing a weighted average
 (ie. linear combination)
 of the data/observations.
-The weighting is said to maximizes the induced matrix norm.
+The weighting is said to maximizes the induced matrix norm. **ADD REF** (to Carl Meyer)
 In other words,
 the weights are selected such that the euclidean length
 (2-norm)
@@ -240,14 +257,14 @@ The squaring in effect drives the pattern extraction.
 A straight sum
 (the manhattan 1-norm)
 would cause the algorithm to simply add observations with the most rain
-(or whatever parameter one is using).
+(or whatever parameter one is observing).
 However,
 the squaring drives the algorithm to favor vectors that maybe have a smaller direct sum,
 as long as certain pixels have extra large values.
 This is because a large value will have an even larger squares;
 This drives up the euclidean length.
 In fact,
-it's likely typically the euclidean length is largely a function of these large values.
+it's likely the euclidean length is largely a function of these large values.
 If you want the square of the pixel-values to add up to a maximal value,
 then at face value it seems one should add-up similar images
 (ie. some repeating patterns)
@@ -257,7 +274,7 @@ even if the actually pattern area is relatively small.
 However,
 this mathematical interpretation does not correspond to what we see in the result.
 What we actually see is that the singular vectors have multiple patterns at once;
-seemingly counter to the maximization objective.
+seemingly running counter to the maximization objective.
 The root cause is a subtlety of an algorithmic constraint we have elided.
 When the SVD is maximizing this weighted average of the observations the weights must have been implicitely limited somehow
 (so that the SVD can not pick arbitrarily large weights).
@@ -292,13 +309,23 @@ while observations that exhibit the dominant pattern do get higher weights
 the observations with secondary signals will also get small weights assigned to them
 (to maximize the sum of the weights).
 
+Note,
+to keep weighting equitable,
+data should be normalized before using the SVD.
+Otherwise days with,
+for instance,
+more rain will have their associate signals artificially inflated.
+We normalize using the L-Infinity norm
+(ie. making rain on the 0-1 range based on the highest pixel value in each observation)
+For a more detailed disscussion see *SUPP*
+
 The end result is our SV1 vector ends up looking like a mixture of both underlying signals;
 highlighting our issue *O2*.
 While testing,
 we have tried adjusting the ratio of the two climate pattern in the synthetic data.
 We observe the mixing effect diminishes rapidly as the difference between climate signals increases;
 which points us to issue *O3*.
-However,
+
 Note that this mixing is distinct from the one observed by North et al. 1982.
 This is not a product of degeneracy when singular values
 (or eigenvalues)
@@ -306,7 +333,7 @@ are close.
 It's not a perturbation issue and something that occurs even in the absence of noise.
 
 Due to this mixing,
-comparing SV1 or EOF1 patterns from different sources tell us very little.
+comparing SV1 or EOF1 patterns from different sources s.
 Two common classes we see in the literature:
 First,
 comparing EOF1 patterns for different time periods,
@@ -314,9 +341,11 @@ as seen in for instance Werb and Rudnick (2023) or Yeh et al. (2011).
 Second,
 looking at differences between ground measurement EOF1 and model output EOF1,
 as seen for instance in Yeager, S. and Danabasoglu, G. (2014).
-EOF1 mismatchs may be due to changes in climate or ocean reconfiguration.
+EOF1 mismatchs may,
+as theorized,
+be due to changes in climate or ocean reconfiguration.
 However,
-they can also be due to differences in mixing -
+they can also be due to differences in this EOF1 smixing -
 with climate-associate patterns entirely unchanged.
 One would expect interannual systems to be especially prone to changes in mixing.
 With certain decade often preferentially favoring one climate phase.
@@ -333,20 +362,20 @@ all had some component of both signals.
 We can already speculate that a pure climate signal will not be extracted.
 The maximization procedure still proceeds,
 but because these adjusted observations were made orthogonal to the first mixture,
-the possible outputs are constrained.
+the realm of possible outputs is constrained.
 What is interesting is that the maximization ends up returning a different mixture of the two original patterns;
-with some negative and positive regions.
+this time with both negative and positive regions.
 
 After the second singular vector is removed,
 the remaining re-adjust observations have had all their patterns removed.
-Hence all subsequent SV have no patterns present.
+Hence,
+all subsequent SV have no patterns present at all.
 While we don't provide a rigorous proof,
 the result comes naturally when viewing the degrees of freedom of the system.
 The original two signals provided two degrees of freedom in our observations.
 By removing the projections of two arbitrary signal-mixtures we must remove both signals from all the observations.
 
-The final result,
-the first two SVs being different mixtures of the underlying signals,
+Tshe first two SVs being different mixtures of the underlying signals,
 ends up being the critical piece that will allow us to build a correction.
 
 
@@ -354,7 +383,7 @@ ends up being the critical piece that will allow us to build a correction.
 
 image::diag/krabins.png[]
 
-== Case Study: South East Asian monsoon systems
+=== Case Study: South East Asian monsoon systems
 
 We now repeat the same analysis on a real-world example in southern Thailand.
 Here we do not have a priori knowledge of the climate associate patterns.
@@ -365,7 +394,7 @@ Once confirmed,
 we can construct a easily interpretable correction.
 This will produce patterns with a much higher fidelity to those we observe in the raw data.
 
-A preliminary visual inspection of the weather shows us that there are two distinct patterns.
+A preliminary visual inspection of monthly precipitation shows us that there are two distinct patterns. *SUPP*
 The summer months have rain on the west coast,
 predominantly in the northern-most part of the region.
 The late fall and early winter months show rain in the south-eastern section.
@@ -392,22 +421,23 @@ unlike our synthetic patterns,
 natural patterns are typically smooth.
 As a result,
 their mixtures do not have large obvious artifacts.
-Here only a careful eye will note the issue.
-When looking at the first singular vector,
-we see a small intensification of precipitation on the East coast which is not apparent in summer months.
-The error in the pattern only becomes easy to detect once we have the corrected patterns for a side-by-side comparison.
+Here only a careful eye will note the issue with the EOF1 pattern.
+There is a small intensification of precipitation on the East coast -
+it does not in actuality occur in the summer months.
+This distortion is only easy to identify once we have the corrected patterns for a side-by-side comparison.
 
 The second singular vector,
 orthogonal to the first,
 shows some very strong east west contrast with both positive and negative values.
 Not only does this not look like either climate system,
 since we aren't working off an anomaly
-(like in an EOF analysis)
+(like in an EOF analysis),
+to have physical meaning,
 the climate-associated patterns of precipitation should be positive.
 Inverting the vector's values doesn't solve the issue;
 as it would just creates other negative zones.
 
-== Isolating correct patterns by SV subspace bisection
+=== Isolating correct patterns by SV subspace bisection
 
 We already know,
 from our synthetic example,
@@ -454,24 +484,23 @@ we can then interpret the first two singular vectors as each making an estimate 
 By virtue of there being just two degrees of freedom,
 a certain combination of the two SVs should give back one pattern,
 while a different combination should give us back the other one.
-In other words,
-in our case study,
-mixing SV1 and SV2 should give us back summer and winter monsoon patterns.
+In our case study,
+this will mean mixing SV1 and SV2 should give us back summer and winter monsoon patterns.
 
-.Dimension reduction
+==== Dimension reduction
 To search for the mixtures we first simplify the problem.
 We reduce our problem space to two dimensions.
 This entails replotting all our observations on to two axes;
 SV1 and SV2 forming the X and Y axis respectively.
 We could take the inner product of every observation with SV1 and SV2 and then plot.
 In reality,
-this projections are always calculate when building the singular vectors.
+these projections are calculated when building the singular vectors.
 They will correspond to the first two columns of the SVD's left-singular-vector matrix.
 
 The remaining discarded SVs
 (SV3 SV4 ..)
-can actually tell us a lot about the variability in the climate associate patterns.
-This noise-like factor can then be used to estimate the errors in the SV1/SV2 projections.
+can tell us a lot about the variability in the climate associate patterns.
+This noise-like factor can be used to estimate the errors in the SV1/SV2 projections.
 While the error analysis is technically interesting,
 it is tangential to the main thrust of the method.
 We have left it to the supplementary section. **SUP**
@@ -488,13 +517,13 @@ As we expect,
 the vector containing the summer pentads lies close to SV1.
 This corresponds to the dominant climate system.
 SV1 was "summer-like" and hence the projections of summer pentads lie close to this axis.
-By contrast the winter vector is off-axis.
+By contrast the winter vector is more off-axis.
 
 We saw in the synthetic example that the SVs were mixtures of the climates.
 Now we are seeing the inverse process;
 the ratios of SV1 and SV2 that represent the alignment vector will serve to "unmix" the singular vectors and recover the patterns.
 
-.Mixing ratio estimation
+==== Mixing ratio estimation
 To find these vectors,
 and their associated ratios,
 we use a procedure akin to Otsu's method in computer vision.
@@ -503,12 +532,17 @@ In a 2D space the number of angular dichotomies increases linearly with the numb
 This allows the problem to remain solvable as the numbers of observations increases
 (as compared to dichotomies in higher dimensions).
 We then find which of these bisecting lines minimizes the total variance of both halves; ensuring that both halves form two tight groupings.
-The specifics of the averaging and the error weighting is explained in greater detail in **SUPP**
+The variance estimation of the mixing ratios can be done directly on the 2D point field.
+However,
+results can be improved by incorporating estimated projection errors.
+These allow one to apply an inverse-variance weighting
+The error weighting is explained in greater detail in **SUPP**
 Once the optimal bisector/dichotomy has been selected
 (red dashed line),
 we get out the two climate-associated ratios
 (dashed line).
 
+.*AFTER ADDING A NORMALIZATION STEP THIS SECTION STOPS MAKING SENSE*
 The fact that observations lie along these ratio vectors strongly suggests that *A3* was a safe approximation.
 Imagining a scenario with a breakdown in *A3*,
 we would expect different climate-associated patterns between strong and weak monsoon periods
@@ -530,9 +564,11 @@ has completely vanished.
 Also notice how the positive offset is also gone.
 We now get near-zero rain over downwind ocean sectors.
 
-== Applications: Climate Patterns
+=== Applications: Climate Patterns
 
 The resulting patterns can serve as the basis for further research.
+Unlike EOF1 patterns,
+Climate bipole bisected patterns can be compared between datasets.
 
 The pattern shape,
 as described so far,
@@ -540,7 +576,7 @@ has been interpreted as a static consequence of recurrent large scale climate ph
 This simplified view may subtly break down in some scenarios.
 For instance long term reconfigurations in the climate arrangement
 (ex: wind direction)
-could be investigated by comparing subtle changed in climate patterns over different periods.
+could be investigated by comparing subtle changes in climate patterns over different periods.
 
 Furthermore,
 climate patterns,
@@ -551,7 +587,7 @@ Discrepancies,
 if found,
 could be a potential avenue for further investigation.
 
-== Applications: Climate Indices
+=== Applications: Climate Indices
 
 Coming back to our original thesis.
 Maybe more importantly,
@@ -589,18 +625,18 @@ produces a pattern which gives a workable estimate of both climate phenomena.
 However,
 this is not a property that is universally true
 - nor does it have any clear universal physical basis.
-Such EOF based indeces require validation by other heuristics.
+Such EOF based indices require validation by other heuristics.
 
 Our climate dipole bisection avoids the serendipity of these extra symmetry requirements.
 We not only don't need to characterize the climate or construct heuristics,
 but we can also look at the presence of climate dipoles in less convenient regions.
-This opens the door to potentially observe climate through many simultaneous regional patches;
+This opens the door to potentially observe climate through regional patches;
 allowing one to construct a synoptic scale understanding of climate systems.
 
-To build an actual index we simply need to project data on to our patterns.
+To build an actual index we simply need to project observations on to our patterns.
 We use the bisecting line (red line Fig 2) to determine which climate system each observation belongs to.
 The projection can either be done directly (ie. an inner product of the pattern and data) or can be done with a non orthogonal projection in the 2D singular vector subspace.
-While in our dimension-reduced 2D view observations are shown as a mixtures of SVs,
+While in our dimension-reduced 2D view observations are displayed as a mixtures of SVs,
 neither the singular vectors,
 nor the climate pattern themselves,
 represent actual physical processes that are being mixed.
@@ -620,10 +656,13 @@ As a result,
 it's important to remember that we can not make statements such as
 "This year's summer monsoon was 20% stronger than the winter monsoon".
 EOF1 based climate indices implicitly make such a comparison possible,
-but the conclusions are likely erroneous and highly dependent on your tuned region.
-When operating with two separate patterns such comparisons become explicitly not possible.
+but the conclusions are likely erroneous and highly dependent on the selected region.
+With two separate patterns such erroneous comparisons become explicitly not possible.
 
-== Conclusions and limitations
+To see a daily climate index,
+see *SUPP*.
+
+=== Conclusions and limitations
 
 Using a synthetic example,
 we started with a typical EOF-like analysis and observed the resulting issues.
@@ -636,7 +675,7 @@ we formulated a simple physically interpretable method for extracting the patter
 
 The main points of failure worth discussion center mainly around breakdowns in our simplifying assumptions:
 
-.A breakdown in assumption *A1*
+==== A breakdown in assumption *A1*
 This is caused by two scenarios:
 
 As we mentioned at the start,
@@ -667,12 +706,12 @@ While we do not present any concrete evidence,
 we do not think it has had an observable impact on the resulting patterns.
 A holistic framework for accounting for weaker tertiary signals will be an area of future work.
 
-.A breakdown in assumption *A2*
+==== A breakdown in assumption *A2*
 A certain degree of breakdown in this assumption is expected in all datasets.
 The severity needs to be assessed on a case-by-case basis.
 There are broadly three categories:
 
- 1 :: the region under observation is too large.
+1. the region under observation is too large.
 For instance,
 a region's southern section may be under a monsoonal regime, while the northern section has not yet been affected.
 For monsoon regions,
@@ -682,64 +721,77 @@ Such switch-over patterns,
 while inevitable,
 should be minimized.
 They will cause energy to "leak" into lower power modes.
-The leakage should be apparent in the singular value scree plot.
+The leakage may be apparent in the singular value scree plot.
 This issue stresses the need for high density mesoscale data,
 such as the IMERG dataset,
 and selecting regions that are as small as practical.
 A region's minimum size is dictated by two factors:
-The topography and it's ability to drive distinct patterns in each phase of the dipole.
+The regional topography's ability to drive distinct patterns in each phase of the dipole.
 The lower value between "number of observation" and "number of points/pixels" dictates the total number of singular vectors.
-This may affect the ability to segregate signal from noise. (A BIT UNCLEAR WHY.. TO THINK ABOUT MORE..)
- 2 :: the observed parameter is slow to change.
+This may affect the ability to segregate signal from noise. *A BIT UNCLEAR WHY.. TO THINK ABOUT MORE..OR REMOVE?*
+2. the observed parameter is slow to change.
 For instance,
 when looking at a monsoonal region,
 one typically sees a period of wind reversal.
 Even if this has some associate patterns in the weather,
-they will be typically hard to define.
- 3 :: The integration time for each observation is too large.
-If we perform this method on monthly precipitation averages we will often find months where both climate systems are active.
+it will be hard to clearly define.
+3. The integration time for each observation is too large.
+If we perform this method on monthly precipitation averages we will often find months where both climate systems are active. *SUPP*
 
-The third scenario will cause an observation that has a mixture of the two climate dipoles.
-The resulting observation will lie between the two climate associate vectors in the SV1/SV2 subspace.
-On the other hand,
-The first two scenarios will have transition-associated patterns of an unpredictable shape.
-Experience tells us that they too will typically lie between the two vectors.
-While this is not a mathematically constraint,
-we have not observed any system where the transition states lie outside the dipole wedge.
-We find that areas outside of the wedge often having "forbidden ratios".
+Unlike in the first two scenarios,
+the third will cause an actual mixture of the two climate dipoles.
+Affected observation lie between the two climate associate vectors in the SV1/SV2 subspace.
+This kind of mixing due to aliasing is unusual.
+For instance,
+by contrast,
+in the first two scenarios the transition-associated patterns are of an unpredictable shape.
+In most situation climate systems do not mix in an additive manner.
+
+Nonetheless,
+Experience tells us that,
+while not mathematically constrained,
+transitional observations will also typically lie between our two climate associated vectors.
+We have not observed any system where the transition states lie outside the dipole wedge.
+We find that most of the area outside of the wedge has non-physical mixing ratios.
 In the case of precipitation,
 these mixing ratios cause patterns with negative values.
-Hence even extremely noisy observations map to a limited wedge and never project outside.
+Hence these zones are "forbidden".
+Even extremely noisy observations map to a limited wedge and never project outside. **SUPP**
 
-For a simple case of we look sea surface temperature in the South China Sea in **SUPP**
+For a simple case of a breakdown in *A1* we look at sea surface temperature in the South China Sea in **SUPP**
 Here,
 as the temperature transitions slowly between seasons,
 the majority of observations are within the wedge.
 The seasonal end-points,
 where the climate-associated patterns are fixed,
-are visible but we have no objective way to extract them.
+are visible but we have no objective way to extract -
+ie. one that wouldn't consist of building some heuristic.
 
 A large enough breakdown in assumption *A2*,
 such as in the South China Sea example,
 will end up severely skewing the estimates of the ratio axis.
-When the transition states are between the two dipole states,
-the skewing will make the two derived climate patterns closer to their average.
+When,
+as is often the case,
+the transition states are between the two dipole states,
+the skewing will make the two derived climate patterns closer to the global mean.
 
 We do not present any universal turn-key way to label transitional or mixed observations.
 In most cases such observations constitute a small fraction of the total,
 and therefore have a minimal impact on the result.
 Issues can be minimized with a good estimate of the instantaneous errors.
-Transition states map poorly to the 2D subspace and these errors can be inferred from the noise/error vectors
+Transition states map poorly to the SV1/SV2 vectors.
+The poor mapping can be inferred from the noise/error estimation.
 See: **SUPP**
 On a case by case basis one may wish to build region specific heuristics.
 If one has special insight in to climate transitions
 (ex: there is some a priori knowledge that seasonal transitions happen twice a year)
 then one may try to find criteria for removing problematic observations from the SVD.
 We have not found such heuristics necessary,
-and caution they may mask other issues.
+and caution they may mask other issues. **SUPP**
 By looking at the SV1/SV2 plot,
 it seems evident that even in the ideal case,
-an adjustment of the mixing ratio would at best give an very modest improvement to the final patterns.
+an adjustment of the mixing ratio would at best give an extremely modest improvement to the final patterns -
+while introducing problematic tuning parameters.
 
 All these issues notwithstanding,
 in a climate dipole region even skewed bisection patterns provide an improvement over the EOF vectors.
@@ -748,25 +800,28 @@ and the second EOF's orthogonality constraint almost guarantees it will miss the
 Climate dipole bisection presents a clear,
 physically motivated and mathematically simple correction.
 There are many alternate methods for trying to correct the EOF.
-These are broadly called "EOF rotations",
+These are broadly called "EOF rotations", **REF**
 and typically try to use SVD rotation methods from applied mathematics on the EOF.
 Not only do they persist in using the EOF anomaly,
 but they end up using methods that were designed with a much more complex signal-mixing problem in mind.
 Signal mixing,
 also sometimes called the "cocktail problem",
 is a more common scenario in the sciences more widely.
-Hence it has taken the bulk of the attention from applied mathematicians.
-Here the SVD is used for such things are denoising.
+It has naturally taken the bulk of the attention from applied mathematicians.
+Methods such as the SVD can then be used for such things are denoising.
 Special methods like Independent Component Analysis leverage statistical properties of the signals to estimate the original "unmixed" signals.
 However,
 climate associate patterns sit in a special simpler subset of pattern extraction problems.
 As we've hopefully illustrated,
 once we assume a very minimal set of properties,
-the non-cooccurance of climate systems creates a special case where pattern extraction is greatly simplified.
+the non-cooccurance of climate dipoles creates a special case where pattern extraction is greatly simplified.
+In situations where climate system do mix,
+they do not mix in a linear/additive fashion -
+and linear methods such as EOF/SVD are not the correct tool.
+Such cooccuring systems will be the scope of future work.
 
 Because the method as presented has no tuning parameters or climate system specific considerations,
 the resulting patterns have the impartiality and repeatability that allow it to become a consensus result that can form the start of further research.
-
 
 == References
 
