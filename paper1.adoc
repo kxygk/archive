@@ -35,13 +35,13 @@ WORDS: 149
 
 == Supplementary Sections
 
-- Notes on IMERG
+- link:./paper1-imerg.html[Notes on IMERG]
 - Daily Data Thailand
 - Figure with all data from Synthetic example
-- Notes on Precipitation Data Normalization
+- link:./paper1-normalization.html[Notes on Precipitation Data Normalization]
 - Monthly Rain over Thailand
-- Single climate regions
-- Error Analysis
+- link:./paper1-singleclimate.html[Single climate regions]
+- link:./paper1-errors.html[Error Analysis]
 - ERA5 patterns vs IMERG
 
 .Supplementary sections explore:

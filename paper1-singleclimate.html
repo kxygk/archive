@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>SUPP: Single Climate Regions</title>
+<style>
+@import '../web/kxygk.css';
+
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+.listingblock,pre.src {
+margin-left:  0vw;
+margin-right: 0vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: dotted;
+border-left-width: 4px;
+border-left-color: grey;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+/*.org-svg {
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}*/
+
+img {
+    display:flex;
+max-width: 100%;
+max-height: 70vh;
+vertical-align: middle;
+margin: auto;
+}
+ul {
+list-style-type: circle;
+padding-left: 1.5em;
+border-left: solid;
+border-left-width: 1px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {
+    color: black;
+    font-style: italic;
+    padding-top: 0.5em;}
+.sect1 {border-top: 4px solid  dimgray;}
+.sect2 {border-top: 4px solid  dimgrey;}
+h3 {color: black;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-left: 0.5em;
+    border-left: 4px solid  dimgrey;
+    border-bottom: 4px solid  #aaaaaa;
+    background:  #aaaaaa;}
+h4 {border-bottom: 2px dashed  #aaaaaa;
+    }
+b, i{
+    font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+    font-size: 0.8em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+.title {
+font-weight: bold;
+}
+dt {
+font-weight: bold;
+}
+td p, dd p, li p{
+    margin: 0;
+}
+ul, p{
+    margin-top: 0;
+}
+.sidebarblock{
+    background:#f3f3f2;
+}
+.float-group::before,.float-group::after{content:" ";display:table}
+.left{float:left!important}
+.right{float:right!important}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+.scrollbox{
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+.scrollbox img{
+    height:auto;
+    width:auto;
+    max-width: 70vw;
+    max-height: 60vh;
+    vertical-align: bottom;
+    scroll-snap-align: start;
+}
+video{
+    height:auto;
+    width:auto;
+    max-width: 30vw;
+    max-height: 30vh;
+}
+.content{
+    height: 100%;
+}
+.imageblock{
+    height: 100%;
+}
+.flexbox > .content{
+    display: flex;
+    justify-content: center;
+    height: 33vh;
+}
+
+@media (max-width:60rem) {
+.listingblock,pre.src {
+    margin-left:  -5vw;
+    margin-right: -5vw;
+}}
+@media (min-width:60rem) {
+.sect2{
+    column-count:2;
+    hyphens: auto;
+}
+}
+@media (min-width:90rem) {
+.sect2{
+    column-count:3;
+}
+}
+@media (min-width:120rem) {
+.sect2s{
+    column-count:4;
+}
+}
+
+</style>
+<meta name="robots" content="noindex">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="../MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</head>
+<body class="article">
+<div id="header">
+<h1>SUPP: Single Climate Regions</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_background">Background</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Maybe the most climate region is one with a single monsoon-related rainy season.
+At the seasonal scale,
+these climate systems are may be more the norm than the exception.
+In these degenerate cases SV1 will be giving you a good approximation of the climate related pattern.
+No extra steps are needed.
+Unfortunately,
+at the moment there is no clear statistical method identifying which regions have climate dipoles.
+An ad hoc method is looking at the singular values in a scree plot.
+However,
+in some situation two climate systems regions the magnitude of the second singular vector is very small.</p>
+</div>
+<div class="paragraph">
+<p>For instance,
+in China the winter monsoon system has fractionally small amounts of precipitation associated with it.
+The rain barely registers and the screen plot looks like a single-system region.
+However we can still extract a winter associate pattern:</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_figure">Figure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="image"><img src="../fig/diag/marrah.png" alt="marrah"></span></p>
+</div>
+<div class="sect2">
+<h3 id="_marrah_plateau">Marrah Plateau</h3>
+<div class="sect3">
+<h4 id="_region">Region</h4>
+<div class="paragraph">
+<p>As a case study we look at the Marrah mountains in southern Sudan. This massif lies at the edge of the Sahel and is subject to a single monsoon-driven rainy season. The massif&#8217;s topography has some interplay with the monsoon related atmospheric configuration which drives the dominant precipitation pattern.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_svd_result">SVD Result</h4>
+<div class="paragraph">
+<p>When we apply the SVD we actually get a very reasonable SV1 vector that captures the essential shape of rain around the mountain.
+SV2 shows a strong North/South contrast.
+This is a common SV2 pattern -
+often seen when the selected region is too large.
+This tries to capture the transition shapes as the climate system starts and stops.
+Most frequently this is poleward.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_climate_bisection">Climate Bisection</h4>
+<div class="paragraph">
+<p>When we do a climate bisection,
+we first note the even spread of points in the SV1/2 subspace.
+Measurements do not align along two vectors.
+The single pattern is being torn apart in to two strange patterns.</p>
+</div>
+<div class="paragraph">
+<p>There are potentially two issues at play:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>There is a North/South delay of climate onset.</p>
+</li>
+<li>
+<p>There is a non-linearity and breakdown is assumption <strong>A3</strong></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The former we&#8217;ve introduced.
+The final index plot suggests to us that one pattern captures the onset/widthdrawl pattern,
+while the other pattern is capturing the "center" of the climate season.
+However,
+a second look notes that the onset and withdrawl happen over many pentads.
+This seems too long given the size of the region</p>
+</div>
+<div class="paragraph">
+<p>As for the latter,
+remember that one of the assumptions of the climate bisection was A3:
+" The climate patterns in question scale in a near-linear fashion.
+If it rains twice as much,
+then it rains twice as much across the whole climate associated precipitation region"
+This seems a more likely area of issues.
+When there is just one climate shape then small intensity-related changes are captured in the 2D subspace.</p>
+</div>
+<div class="paragraph">
+<p>Note that while these two shapes can be used as an approximation,
+they do not have a solid physical interpretation.
+They fundamentally are representing climate systems as mixing-signal systems,
+which they are not.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_conclusion">Conclusion</h4>
+<div class="paragraph">
+<p>It must be noted that globally,
+most locations do not feature a bistable climate.
+The most common scenario is a simple one-system precipitation climate
+(at the seasonal scale).
+In these locations no bisection tricks are necessary.
+The first singular vector (or first EOF) extract sthe single pattern.</p>
+</div>
+<div class="paragraph">
+<p>Ultimately there is no clear line between a two climate system and one where characteristic <strong>A3</strong> has broken down.
+Non linearities in climate associated patterns may cause Onset/withdrawal periods to present patterns distinct from the main climate associated period.
+Such situations need to be identified by the researcher on a case-by-case basis.</p>
+</div>
+<div class="paragraph">
+<p>As was hopefully illustrated,
+these scenarios are readily identified by inspecting the SVD and Climate Dipole Bisection result.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_extra_hainan_island_sichuan_basin">Extra: Hainan Island + Sichuan Basin</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="image"><img src="../fig/diag/hainan.png" alt="hainan"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/diag/sichuan.png" alt="sichuan"></span></p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

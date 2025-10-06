@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>SUPP: Normalization</title>
+<style>
+@import '../web/kxygk.css';
+
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+.listingblock,pre.src {
+margin-left:  0vw;
+margin-right: 0vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: dotted;
+border-left-width: 4px;
+border-left-color: grey;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+/*.org-svg {
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}*/
+
+img {
+    display:flex;
+max-width: 100%;
+max-height: 70vh;
+vertical-align: middle;
+margin: auto;
+}
+ul {
+list-style-type: circle;
+padding-left: 1.5em;
+border-left: solid;
+border-left-width: 1px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {
+    color: black;
+    font-style: italic;
+    padding-top: 0.5em;}
+.sect1 {border-top: 4px solid  dimgray;}
+.sect2 {border-top: 4px solid  dimgrey;}
+h3 {color: black;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-left: 0.5em;
+    border-left: 4px solid  dimgrey;
+    border-bottom: 4px solid  #aaaaaa;
+    background:  #aaaaaa;}
+h4 {border-bottom: 2px dashed  #aaaaaa;
+    }
+b, i{
+    font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+    font-size: 0.8em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+.title {
+font-weight: bold;
+}
+dt {
+font-weight: bold;
+}
+td p, dd p, li p{
+    margin: 0;
+}
+ul, p{
+    margin-top: 0;
+}
+.sidebarblock{
+    background:#f3f3f2;
+}
+.float-group::before,.float-group::after{content:" ";display:table}
+.left{float:left!important}
+.right{float:right!important}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+.scrollbox{
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+.scrollbox img{
+    height:auto;
+    width:auto;
+    max-width: 70vw;
+    max-height: 60vh;
+    vertical-align: bottom;
+    scroll-snap-align: start;
+}
+video{
+    height:auto;
+    width:auto;
+    max-width: 30vw;
+    max-height: 30vh;
+}
+.content{
+    height: 100%;
+}
+.imageblock{
+    height: 100%;
+}
+.flexbox > .content{
+    display: flex;
+    justify-content: center;
+    height: 33vh;
+}
+
+@media (max-width:60rem) {
+.listingblock,pre.src {
+    margin-left:  -5vw;
+    margin-right: -5vw;
+}}
+@media (min-width:60rem) {
+.sect2{
+    column-count:2;
+    hyphens: auto;
+}
+}
+@media (min-width:90rem) {
+.sect2{
+    column-count:3;
+}
+}
+@media (min-width:120rem) {
+.sect2s{
+    column-count:4;
+}
+}
+
+</style>
+<meta name="robots" content="noindex">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="../MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</head>
+<body class="article">
+<div id="header">
+<h1>SUPP: Normalization</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_hainan_pre_and_post_normalization">Hainan: Pre and Post Normalization</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="image"><img src="../fig/diag/hainan-nonorm.png" alt="hainan nonorm"></span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="image"><img src="../fig/diag/hainan.png" alt="hainan"></span></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Left</strong>: Non-normalized data <strong>Right</strong>: Normalized Data (each day remapped to the 0-1 range)</p>
+</div>
+<div class="paragraph">
+<p>When put in the SVD,
+observations that have more precipitation have higher effective weights.
+In Hainan this corresponds to the Typhoon Vincent that passed in mid July 2012.
+The rains were so large that this one data point dominated EOF1 and becomes effectively one extracted pattern.</p>
+</div>
+<div class="paragraph">
+<p>Note how precipitation in the winter months is much smaller,
+and yet after normalization constitutes a recongizable grouping and extractable pattern.</p>
+</div>
+<div class="sect2">
+<h3 id="_data_normalization">Data Normalization</h3>
+<div class="paragraph">
+<p>Before data is put in to the SVD,
+it is likely helpful to normalize the data somehow.
+However,
+the normalization procedure becomes another parameter that needs to be chosen
+In many situations,
+especially with large datasets,
+the difference may not be large.
+However,
+in some scenarios the difference is between extracting the signal and not
+In our example of working with precipitation,
+unnormalized data inherantly gives a lot of weight to data point that have a lot of precipitation.
+When constructing the singular vector,
+one is maximizing the induced matrix norm.
+To maximize the sum the algorithm will gravitate to using data points that have a lot of rain.
+In one extreme example off the coast of Hainan,
+this lead to one singular vector being dominated by a single-day typhoon event.</p>
+</div>
+<div class="paragraph">
+<p>The core idea behind normalization is that what we care about is the spatial distribution,
+or "shape",
+of the precipitation.
+The absolute values are secondary.
+We want to bring all the observation images to a similar birghtness so they can be compared side-by-side.
+This means days with very little rain will be on equal footing as days with a lot of rain.
+At first this seems problematic,
+as we would expect days with little rain to have ill-defined shapes.
+However,
+we then hope by stacking days with similar patterns,
+the alogrithm will select days with good consistent signals.
+So even if normalization boosts days with little signal,
+we hope this doesn&#8217;t negatively affect the final result</p>
+</div>
+<div class="paragraph">
+<p>However,
+normalization is unfortunately not a clearcut procedure and we have many options to choose from.
+Here we will quickly discuss the L2 L1 and L-Inifinity norms.</p>
+</div>
+<div class="sect3">
+<h4 id="_l2_norm">L2 norm,</h4>
+<div class="paragraph">
+<p>Also known as the euclidean norm,
+is maybe the intuitive first thing one would reach for.
+You can set each data point to have unit length and thereby normalize the data.
+We reject this norm b/c it increases with additive noise.
+Given a precipitation shape,
+if one were to go pixel by pixel and purturbe the values the norm would increase.
+Perturbations in the positive direction have a larger impact on the norm length than deviation in the negative direction.
+This is due to the squaring of each pixel value in the L2 norm.
+Since we want similar shapes to be at the same "brightness",
+and we do not want noisier image to have higher weights,
+we reject this norm.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_l1_norm">L1 norm</h4>
+<div class="paragraph">
+<p>Sometimes called the Manhattan norm.
+This is another natural choice.
+This is maintaining the direct sum of all the pixels to be at a set values
+(for instance 1.0).
+The likely problem with this norm is that as the rain amount decreases,
+the climate associate pattern becomes more patchy.
+In the extreme case of very dry periods this may me there are only a few pixels with precipitation.
+If one were to maintain the L1 at a fixed value,
+then these dry precipitation observations would have extremely bright patches</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_l_infinity_norm">L-Infinity norm</h4>
+<div class="paragraph">
+<p>This is the final choice that we settle on.
+This determines the norm by the length of the brightest pixel in the image.
+In essence this compresses the dynamic range of the image to the 0-1 range.
+A downside is that this norm is very susceptable to the noise in that one pixel value.
+However,
+with our dataset and in aggrigate over enough observation,
+we have not yet observed any clear issues.
+Whatever the drawbacks of the IMERG data,
+we do not observe any extreme outliers that would skew/compromise this normalization.n</p>
+</div>
+<div class="paragraph">
+<p>There are likely other norms that could be examined and we don&#8217;t see this as the final word on this topic.
+For instance,
+taking the logarithm of the data could possibly mitigate the drawbacks of the L2 norm
+(though the L1 norm issue remains).
+One could also potentially remap the values by constructing an eCDF.
+However,
+this would distort the dynamic range in a way we don&#8217;t have a good analytic insight into.</p>
+</div>
+<div class="paragraph">
+<p>More complex normalizations can likely be made if some assumptions were made about the noise
+(ex: additive, multiplicative, gaussian, gamma etc.)
+and if one had a more holistic understanding of the uneven nature of climate-associate patterns.
+For the purposes of illustration we find the L-Infinity norm gives robust results and is able to extract very subtle small patterns,
+such as the winter monsoon associated rain in Hainan (which represents a very small fraction of annual precipitation totals)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

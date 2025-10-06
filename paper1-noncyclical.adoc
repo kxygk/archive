@@ -1,0 +1,32 @@
+:docinfo: shared
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+= SUPP: Non Cyclical climate systems
+
+== Fig
+
+image:diag/rift-valley.png[]
+
+=== African Great Rift Valley
+==== Motivation
+
+To illustrate the generality of our method,
+we try it on an area which has irregular climate.
+The Great Rift Valley has two dominant rainy season with extremely sparse precipitation.
+In Ethiopia there are know as the Kermet and the Belg
+
+https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2016RG000544
+
+
+==== Result
+
+Both systems seem to be cleanly extracted.
+They correspond to the two mountain ranges that form the rim of the Great Rift.
+If we look at the raw data we see that indeed we never see rain on both mountain ranges simultaneously
+
+While boreal summer Kiremt rains come at a consistent time every year, Belg "short" rains as a lot less consistent and associated . However the illutrated method has no issue extracting these patterns.

@@ -1,0 +1,102 @@
+:docinfo: shared
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+= SUPP: Single Climate Regions
+
+== Background
+
+Maybe the most climate region is one with a single monsoon-related rainy season.
+At the seasonal scale,
+these climate systems are may be more the norm than the exception.
+In these degenerate cases SV1 will be giving you a good approximation of the climate related pattern.
+No extra steps are needed.
+Unfortunately,
+at the moment there is no clear statistical method identifying which regions have climate dipoles.
+An ad hoc method is looking at the singular values in a scree plot.
+However,
+in some situation two climate systems regions the magnitude of the second singular vector is very small.
+
+For instance,
+in China the winter monsoon system has fractionally small amounts of precipitation associated with it.
+The rain barely registers and the screen plot looks like a single-system region.
+However we can still extract a winter associate pattern:
+
+
+== Figure
+
+image:diag/marrah.png[]
+
+=== Marrah Plateau
+==== Region
+
+As a case study we look at the Marrah mountains in southern Sudan. This massif lies at the edge of the Sahel and is subject to a single monsoon-driven rainy season. The massif's topography has some interplay with the monsoon related atmospheric configuration which drives the dominant precipitation pattern.
+
+==== SVD Result
+
+When we apply the SVD we actually get a very reasonable SV1 vector that captures the essential shape of rain around the mountain.
+SV2 shows a strong North/South contrast.
+This is a common SV2 pattern -
+often seen when the selected region is too large.
+This tries to capture the transition shapes as the climate system starts and stops.
+Most frequently this is poleward.
+
+==== Climate Bisection
+
+When we do a climate bisection,
+we first note the even spread of points in the SV1/2 subspace.
+Measurements do not align along two vectors.
+The single pattern is being torn apart in to two strange patterns.
+
+There are potentially two issues at play:
+
+- There is a North/South delay of climate onset.
+- There is a non-linearity and breakdown is assumption *A3*
+
+The former we've introduced.
+The final index plot suggests to us that one pattern captures the onset/widthdrawl pattern,
+while the other pattern is capturing the "center" of the climate season.
+However,
+a second look notes that the onset and withdrawl happen over many pentads.
+This seems too long given the size of the region
+
+As for the latter,
+remember that one of the assumptions of the climate bisection was A3:
+" The climate patterns in question scale in a near-linear fashion.
+If it rains twice as much,
+then it rains twice as much across the whole climate associated precipitation region"
+This seems a more likely area of issues.
+When there is just one climate shape then small intensity-related changes are captured in the 2D subspace.
+
+Note that while these two shapes can be used as an approximation,
+they do not have a solid physical interpretation.
+They fundamentally are representing climate systems as mixing-signal systems,
+which they are not.
+
+
+==== Conclusion
+
+It must be noted that globally,
+most locations do not feature a bistable climate.
+The most common scenario is a simple one-system precipitation climate
+(at the seasonal scale).
+In these locations no bisection tricks are necessary.
+The first singular vector (or first EOF) extract sthe single pattern.
+
+Ultimately there is no clear line between a two climate system and one where characteristic *A3* has broken down.
+Non linearities in climate associated patterns may cause Onset/withdrawal periods to present patterns distinct from the main climate associated period.
+Such situations need to be identified by the researcher on a case-by-case basis.
+
+As was hopefully illustrated,
+these scenarios are readily identified by inspecting the SVD and Climate Dipole Bisection result.
+
+== Extra: Hainan Island + Sichuan Basin
+
+image:diag/hainan.png[]
+
+image:diag/sichuan.png[]
+

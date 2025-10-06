@@ -1,0 +1,38 @@
+:docinfo: shared
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+= SUPP: Notes on IMERG data
+
+== Data Versions
+
+For the Southern Thailand case study we selected to use the V06B Late data provided by IMERG (in GeoTIFF format). We find that other versions produce notable issues related to a "climatological adjustment" made using GPCC gauge data. This rain gauge correction was added to the "Final" version of version V06B. In version V07B the correction is incorporated in both Late and Final version. The Early version is still unaffected, however it "only has forward propagation (which basically amounts to extrapolation forward in time), while the Late has both forward and backward propagation (allowing interpolation)". See: https://gpm.nasa.gov/data/imerg FAQ Section.
+
+The adjustment creates a notable stenciling effect. The stencil seems to reflect the GPCC stencil seen in GPCC precipitation maps:
+https://climatedataguide.ucar.edu/climate-data/gpcc-global-precipitation-climatology-centre
+
+Here is an example using v7 monthly data:
+
+TODO add images
+
+V06 is provided in several different subversion. One is labeled V06B and GeoTIFF files are provided through 2022-05-07. The next next period goes through multiple version through 2024-06-02. To avoid any discontinuities in the analysis. We look at v06B data exclusively on the 2011-01-01 to 2020-12-31 (inclusive) period.
+
+To simplify the analysis and create even annual cycles we subdivide the 365 day calandar year into pentads by removing all occurances of the leap day - February 29th.
+
+
+== Data Anomalies
+
+Occassionally there are issues/blips in the data.
+We do not have any insight in to what are the causes.
+
+The SVD should make such issues very obvious,
+but it naturally requires the researcher to double-check the inputs and outputs.
+
+Here is an example of a bright-spot above Addis Ababa in Ethiopia
+(this spot is outside of the region observed in the Great Rift Example in *SUPP: Non Cyclical climate systems*)
+
+*FIGURE BLIP*

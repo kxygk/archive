@@ -1,0 +1,114 @@
+:docinfo: shared
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+= SUPP: Normalization
+
+== Hainan: Pre and Post Normalization
+
+
+[cols="a,a"]
+|====
+
+image:diag/hainan-nonorm.png[] | image:diag/hainan.png[]
+|====
+
+*Left*: Non-normalized data *Right*: Normalized Data (each day remapped to the 0-1 range)
+
+When put in the SVD,
+observations that have more precipitation have higher effective weights.
+In Hainan this corresponds to the Typhoon Vincent that passed in mid July 2012.
+The rains were so large that this one data point dominated EOF1 and becomes effectively one extracted pattern.
+
+Note how precipitation in the winter months is much smaller,
+and yet after normalization constitutes a recongizable grouping and extractable pattern.
+
+=== Data Normalization
+
+Before data is put in to the SVD,
+it is likely helpful to normalize the data somehow.
+However,
+the normalization procedure becomes another parameter that needs to be chosen
+In many situations,
+especially with large datasets,
+the difference may not be large.
+However,
+in some scenarios the difference is between extracting the signal and not
+In our example of working with precipitation,
+unnormalized data inherantly gives a lot of weight to data point that have a lot of precipitation.
+When constructing the singular vector,
+one is maximizing the induced matrix norm.
+To maximize the sum the algorithm will gravitate to using data points that have a lot of rain.
+In one extreme example off the coast of Hainan,
+this lead to one singular vector being dominated by a single-day typhoon event.
+
+The core idea behind normalization is that what we care about is the spatial distribution,
+or "shape",
+of the precipitation.
+The absolute values are secondary.
+We want to bring all the observation images to a similar birghtness so they can be compared side-by-side.
+This means days with very little rain will be on equal footing as days with a lot of rain.
+At first this seems problematic,
+as we would expect days with little rain to have ill-defined shapes.
+However,
+we then hope by stacking days with similar patterns,
+the alogrithm will select days with good consistent signals.
+So even if normalization boosts days with little signal,
+we hope this doesn't negatively affect the final result
+
+However,
+normalization is unfortunately not a clearcut procedure and we have many options to choose from.
+Here we will quickly discuss the L2 L1 and L-Inifinity norms.
+
+==== L2 norm,
+Also known as the euclidean norm,
+is maybe the intuitive first thing one would reach for.
+You can set each data point to have unit length and thereby normalize the data.
+We reject this norm b/c it increases with additive noise.
+Given a precipitation shape,
+if one were to go pixel by pixel and purturbe the values the norm would increase.
+Perturbations in the positive direction have a larger impact on the norm length than deviation in the negative direction.
+This is due to the squaring of each pixel value in the L2 norm.
+Since we want similar shapes to be at the same "brightness",
+and we do not want noisier image to have higher weights,
+we reject this norm.
+
+==== L1 norm
+Sometimes called the Manhattan norm.
+This is another natural choice.
+This is maintaining the direct sum of all the pixels to be at a set values
+(for instance 1.0).
+The likely problem with this norm is that as the rain amount decreases,
+the climate associate pattern becomes more patchy.
+In the extreme case of very dry periods this may me there are only a few pixels with precipitation.
+If one were to maintain the L1 at a fixed value,
+then these dry precipitation observations would have extremely bright patches
+
+==== L-Infinity norm
+This is the final choice that we settle on.
+This determines the norm by the length of the brightest pixel in the image.
+In essence this compresses the dynamic range of the image to the 0-1 range.
+A downside is that this norm is very susceptable to the noise in that one pixel value.
+However,
+with our dataset and in aggrigate over enough observation,
+we have not yet observed any clear issues.
+Whatever the drawbacks of the IMERG data,
+we do not observe any extreme outliers that would skew/compromise this normalization.n
+
+There are likely other norms that could be examined and we don't see this as the final word on this topic.
+For instance,
+taking the logarithm of the data could possibly mitigate the drawbacks of the L2 norm
+(though the L1 norm issue remains).
+One could also potentially remap the values by constructing an eCDF.
+However,
+this would distort the dynamic range in a way we don't have a good analytic insight into.
+
+More complex normalizations can likely be made if some assumptions were made about the noise
+(ex: additive, multiplicative, gaussian, gamma etc.)
+and if one had a more holistic understanding of the uneven nature of climate-associate patterns.
+For the purposes of illustration we find the L-Infinity norm gives robust results and is able to extract very subtle small patterns,
+such as the winter monsoon associated rain in Hainan (which represents a very small fraction of annual precipitation totals)
