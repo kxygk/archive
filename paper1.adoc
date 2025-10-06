@@ -31,7 +31,7 @@ along with software for reproducing the results.
 
 
 WORD LIMIT: 150
-WORDS: 149
+WORDS: 150
 
 == Supplementary Sections
 
@@ -43,12 +43,6 @@ WORDS: 149
 - link:./paper1-singleclimate.html[Single climate regions]
 - link:./paper1-errors.html[Error Analysis]
 - ERA5 patterns vs IMERG
-
-.Supplementary sections explore:
-The Great Rift Valley:: A region with semi non seasonal climate signals.
-Marrah Mountains (Sudan):: A region with one climate phenomena and the breakdown in one of the EOF assumptions.
-Java Island:: Diurnal cycles with large errors and less stationary patterns
-ERA5 reanalysis precipitation:: The method as used to validate climate model output
 
 === Introduction
 
