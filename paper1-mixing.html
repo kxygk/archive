@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>SUPP: Signal mixing in Singular Vectors</title>
+<style>
+@import '../web/kxygk.css';
+
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+.listingblock,pre.src {
+margin-left:  0vw;
+margin-right: 0vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: dotted;
+border-left-width: 4px;
+border-left-color: grey;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+/*.org-svg {
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}*/
+
+img {
+    display:flex;
+max-width: 100%;
+max-height: 70vh;
+vertical-align: middle;
+margin: auto;
+}
+ul {
+list-style-type: circle;
+padding-left: 1.5em;
+border-left: solid;
+border-left-width: 1px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {
+    color: black;
+    font-style: italic;
+    padding-top: 0.5em;}
+.sect1 {border-top: 4px solid  dimgray;}
+.sect2 {border-top: 4px solid  dimgrey;}
+h3 {color: black;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-left: 0.5em;
+    border-left: 4px solid  dimgrey;
+    border-bottom: 4px solid  #aaaaaa;
+    background:  #aaaaaa;}
+h4 {border-bottom: 2px dashed  #aaaaaa;
+    }
+b, i{
+    font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+    font-size: 0.8em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+.title {
+font-weight: bold;
+}
+dt {
+font-weight: bold;
+}
+td p, dd p, li p{
+    margin: 0;
+}
+ul, p{
+    margin-top: 0;
+}
+.sidebarblock{
+    background:#f3f3f2;
+}
+.float-group::before,.float-group::after{content:" ";display:table}
+.left{float:left!important}
+.right{float:right!important}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+.scrollbox{
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+.scrollbox img{
+    height:auto;
+    width:auto;
+    max-width: 70vw;
+    max-height: 60vh;
+    vertical-align: bottom;
+    scroll-snap-align: start;
+}
+video{
+    height:auto;
+    width:auto;
+    max-width: 30vw;
+    max-height: 30vh;
+}
+.content{
+    height: 100%;
+}
+.imageblock{
+    height: 100%;
+}
+.flexbox > .content{
+    display: flex;
+    justify-content: center;
+    height: 33vh;
+}
+
+@media (max-width:60rem) {
+.listingblock,pre.src {
+    margin-left:  -5vw;
+    margin-right: -5vw;
+}}
+@media (min-width:60rem) {
+.sect2{
+    column-count:2;
+    hyphens: auto;
+}
+}
+@media (min-width:90rem) {
+.sect2{
+    column-count:3;
+}
+}
+@media (min-width:120rem) {
+.sect2s{
+    column-count:4;
+}
+}
+
+</style>
+<meta name="robots" content="noindex">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="../MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</head>
+<body class="article">
+<div id="header">
+<h1>SUPP: Signal mixing in Singular Vectors</h1>
+</div>
+<div id="content">
+<div class="sect2">
+<h3 id="_introduction">Introduction</h3>
+<div class="paragraph">
+<p>Our objective will be to understand why EOF vectors mix the underlying signals.
+To understand what the EOF vectors represent we will need to start from a good baseline.</p>
+</div>
+<div class="paragraph">
+<p>In in North et al. (1982), the EOF is described as:
+the "eigenvectors of the cross-covariance matrix between grid points".
+This EOF formulation is the canonical form seen in EOF literature.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s unfortunately very difficult to reason about.
+If you have your observations arranged as the columns of some matrix A
+"AA^T" is the crosscovariance matrix.
+The eigenvector
+(AA^Tx = lambda x)
+is the vector that goes through scaled by the largest constant value.
+On a high level,
+it makes sense that if you feed in a vector of correlated pixels,
+then it also stacks the high values of covariances.
+However,
+there is the additional constraint that the output vector must be the scaled input.
+This formulation is quite challenging to reason about.
+We don&#8217;t know how to make the logical leap to mixing here.</p>
+</div>
+<div class="paragraph">
+<p>Instead we will use an alternate,
+mathematically equivalent,
+formulation:
+<strong>The EOF vectors are the singular vectors of the matrix of the anomalies.</strong></p>
+</div>
+<div class="paragraph">
+<p>Since anomalies are already mixtures of all the climate signals,
+it&#8217;s actually hard to observe this mixing when looking at EOF vectors.
+So we again advise using the normalized observations.
+(See the Supplementary section on Normalization)
+This is the same as we do in the synthetic examples as well as the case study.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_a_breakdown_of_the_svd">A breakdown of the SVD</h3>
+<div class="sect3">
+<h4 id="_building_the_svd_though_a_recursive_block_algorithm">Building the SVD though a recursive block algorithm</h4>
+<div class="paragraph">
+<p>The algorithm described is explained in detail in
+Carl Meyer&#8217;s "<em>Matrix Analysis and Applied Linear Algebra</em>" First Edition, page 411</p>
+</div>
+<div class="paragraph">
+<p>At a high level,
+one way to construct the singular value decomposition is though an recursive block matrix algorithm.
+This in effect builds singular vectors one after another.
+Instead of restating the algorithm,
+we just provide a high level description.
+Once each singular vector is constructed it is removed from the observations.
+These new adjusted observations are then used to make the subsequent SV.
+Note that "removing a singular vector" means removing any component in the same direction
+(such that the inner product becomes zero).
+As a result,
+all the adjusted observations end up orthogonal to that SV.
+When the next singular vector is built from these adjusted observations it too will be orthogonal to the extracted SV.
+This is because singular vectors are constructed by a linear combination of the observations
+- so if all the adjusted observations are orthogonal,
+then so will their combination.
+Issue <strong>O1</strong> is a direct and unavoidable consequence of the algorithm&#8217;s design.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_singular_vector_construction">Singular Vector construction</h4>
+<div class="paragraph">
+<p>To understand why the singular vectors
+(even the first one)
+end up mixing signal
+(issue <strong>O2</strong>)
+we need to understand what the SVD does at each iteration.
+We will focus on the first singular vector,
+but the logic holds for the remaining vectors as well.
+When building a singular vector,
+for instance when building SV1,
+the SVD is fundamentally doing a weighted average
+(ie. linear combination)
+of the data/observations.</p>
+</div>
+<div class="paragraph">
+<p>\$[["|","|",..],
+       [x_1,x_2,..],
+       ["|","|",..]]
+       [[w_1],[w_2],[..]]
+       =
+       [["|"],[a],["|"]]
+       \$</p>
+</div>
+<div class="paragraph">
+<p>or:</p>
+</div>
+<div class="paragraph">
+<p>\$w_1
+      [["|"],
+       [x_1],
+       ["|"]]
+       +
+      w_2
+      [["|"],
+       [x_1],
+       ["|"]]
+       +
+       ...
+       =
+       [["|"],[a],["|"]]
+       \$</p>
+</div>
+<div class="paragraph">
+<p>If it&#8217;s steam:[a] is the solution with the largest length,
+then it is the <em>singular vector</em> (scaled by the <em>singular value</em>).
+ie. the largest value for \$aa^T\$ (the 2-norm or euclidean norm)</p>
+</div>
+<div class="paragraph">
+<p>When looking at the singular vectors as pattern images
+(as illustrated),
+this is effectively maximizing the sum of the squares of all the pixels.</p>
+</div>
+<div class="paragraph">
+<p>\$a_{1}^2+a_{2}^2+..\$</p>
+</div>
+<div class="paragraph">
+<p>The squaring is what in effect drives the pattern extraction.
+Imagining an alternate algorithm,
+where,
+instead of maximing the sum of squares,
+we maximized the direct sum
+(the manhattan 1-norm)</p>
+</div>
+<div class="paragraph">
+<p>\$a_{1} + a_{2}+..\$</p>
+</div>
+<div class="paragraph">
+<p>To get the largest value,
+one would selects weights \$w_i}\$ that corresponded to observations with the most rain.</p>
+</div>
+<div class="paragraph">
+<p>However,
+the squaring drives the algorithm to "want" pixels with extremely large values
+(b/c their squares will be huge).
+So even if the direct sum is smaller,
+as long as certain pixels have extra large values then the sum of squares will be larger -
+ie. driving up the euclidean length.
+In fact,
+it&#8217;s likely the euclidean length is largely a function of these large values.
+Consequently
+it seems one should add-up images with similar images/patterns so that they "add up".
+Even if the pattern area is relatively small,
+the stacking up will give you some extreme pixel values -
+and hence the larger euclidean norm.</p>
+</div>
+<div class="paragraph">
+<p>However,
+this mathematical interpretation does not correspond to what we see in the result!
+What we actually see is that the singular vectors have multiple patterns at once;
+seemingly running counter to the maximization objective.</p>
+</div>
+<div class="paragraph">
+<p>An additional question still unanswered is:
+Even assuming the sum of squares gives higher values to sums with large pixel values ..
+why does the SVD end up stacking several observations?
+and why do we not simply select the single observations with the largest pixel values?</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_weight_distribution">Weight distribution</h4>
+<div class="paragraph">
+<p>The root cause is a subtlety of an algorithmic constraint we have elided.
+When the SVD is maximizing this weighted average of the observations the weights must have been implicitely limited
+(so that the SVD can not pick arbitrarily large weights).
+The limit is that the weights must be of unit length.</p>
+</div>
+<div class="paragraph">
+<p>\$||w|| = 1.0\$</p>
+</div>
+<div class="paragraph">
+<p>In other words,
+the sum of the squares of all the weights must equal to <code>1.0</code>.</p>
+</div>
+<div class="paragraph">
+<p>\$w_1^2 + w_2^2 + w_3^2 + .. = 1.0\$</p>
+</div>
+<div class="paragraph">
+<p>As previously,
+the squaring makes a subtle but important difference
+(here breaking the pattern extraction instead of enabling it).</p>
+</div>
+<div class="paragraph">
+<p>As before,
+while the sum of squares is a constant <code>1.0</code>,
+the direct "normal" sum of weights is not constant.</p>
+</div>
+<div class="paragraph">
+<p>If the weights were constrained under a manhattan norm (direct sum) to <code>1.0</code></p>
+</div>
+<div class="paragraph">
+<p>\$w_1 + w_2 + w_3 + .. = 1.0\$</p>
+</div>
+<div class="paragraph">
+<p>then we may in-fact want to select the single observation with the highest value!
+Averaging with other observations would likely dilute your brightest values</p>
+</div>
+<div class="paragraph">
+<p>What happens is that,
+all else being equal,
+spreading weights out actually makes their sum a higher value.
+This is most easily illustrated by looking at the logical extremes.
+If all weight was assigned to just one observation
+(for instance the one with the most total rain)
+and all other weights were set to zero,
+then the sum of weights would equal <code>1.0</code>
+(same as the sum of squares).</p>
+</div>
+<div class="paragraph">
+<div class="title">weight vector length</div>
+<p>\$1.0^2 + 0.0^2 + 0.0^2 + .. = 1.0\$</p>
+</div>
+<div class="paragraph">
+<div class="title">sum of weights</div>
+<p>\$1.0 + 0.0 + 0.0 + .. = 1.0\$</p>
+</div>
+<div class="paragraph">
+<p>\$w_1^2 + w_2^2 + w_3^2 + .. = 1.0\$</p>
+</div>
+<div class="paragraph">
+<p>By contrast,
+an even spread of weights across all <code>N</code> observation would give each weight the value <code>1/sqrt(N)</code>.
+Here the sum of squares still equals <code>1.0</code> for all values of <code>N</code> (the constraint is satisfied).
+However,
+the direct sum is now <code>N/sqrt(N)</code>.</p>
+</div>
+<div class="paragraph">
+<div class="title">weight vector length</div>
+<p>\$(1/sqrt(N))^2 + (1/sqrt(N))^2 + (1/sqrt(N))^2 + .. = 1.0\$</p>
+</div>
+<div class="paragraph">
+<div class="title">sum of weights</div>
+<p>\$1/sqrt(N) + 1/sqrt(N) + 1/sqrt(N) + .. = N/sqrt(N) = sqrt(N)\$</p>
+</div>
+<div class="paragraph">
+<p>Since \$sqrt(N) &gt; 1.0\$ for all values of \$N&gt;1\$,
+this tells us that the algorithm will have a tendency to spread weights,
+to increase the weight-factors and thereby increase the euclidean length of the sum.
+The factor is significant
+(ex: 100 observations gives you a 10x increase).</p>
+</div>
+<div class="paragraph">
+<p>The end result is a bit surprising and can be explored using example:</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_behavior_though_examples">Behavior though examples</h3>
+<div class="paragraph">
+<p>We explore examples by running different scenarios through a SVD routine.
+All example are 5 observations of 3 pixels.
+The first pattern is [1,0,0].
+The second pattern will be [0,0,1]</p>
+</div>
+<div class="paragraph">
+<p>We try different variations</p>
+</div>
+<div class="paragraph">
+<p>The results are presented as (singular value) times (singular vector)</p>
+</div>
+<div class="paragraph">
+<p>\$"SingularValue" dot{} [["|"],
+                        ["SingularVector"],
+                        ["|"]]\$</p>
+</div>
+<div class="sect3">
+<h4 id="_one_pattern_repeating">One pattern .. repeating</h4>
+<div class="paragraph">
+<p>For instance assigning all weights to the first observation:</p>
+</div>
+<div class="paragraph">
+<p>\$[[1.0,  1.0,  1.0,  0.0,  0.0],
+       [0.0,  0.0,  0.0,  0.0,  0.0],
+       [0.0,  0.0,  0.0,  0.0,  0.0]]
+       [[1.0],
+        [0.0],
+        [0.0],
+        [0.0],
+        [0.0]]
+        =
+        1.0
+       [[1.0],
+        [0.0],
+        [0.0]]
+        \$</p>
+</div>
+<div class="paragraph">
+<p>And now spreading weights across all similar observations:</p>
+</div>
+<div class="paragraph">
+<p>\$[[1.0,  1.0,  1.0,  0.0,  0.0],
+       [0.0,  0.0,  0.0,  0.0,  0.0],
+       [0.0,  0.0,  0.0,  0.0,  0.0]]
+       [[1/sqrt(3)],
+        [1/sqrt(3)],
+        [1/sqrt(3)],
+        [0.0],
+        [0.0]]
+        =
+        sqrt(3)
+       [[1.0],
+        [0.0],
+        [0.0]]
+        \$</p>
+</div>
+<div class="paragraph">
+<p>\$sqrt(3) = 1.73..\$</p>
+</div>
+<div class="paragraph">
+<p>As we expect,
+spreading the weight gives a larger resulting vector.</p>
+</div>
+<div class="paragraph">
+<p>I am changing the notation to being singular</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_a_single_observation_doesnt_swamp_the_result">A single observation doesn&#8217;t swamp the result</h4>
+<div class="paragraph">
+<p>Bumping the first vector to be larger than the others:</p>
+</div>
+<div class="paragraph">
+<p>\$[[1.1,  1.0,  1.0,  0.0,  0.0],
+       [0.0,  0.0,  0.0,  0.0,  0.0],
+       [0.0,  0.0,  0.0,  0.0,  0.0]]
+       [[0.61],
+        [0.56],
+        [0.56],
+        [0.0],
+        [0.0]]
+        =
+        1.79
+       [[1.0],
+        [0.0],
+        [0.0]]
+        \$</p>
+</div>
+<div class="paragraph">
+<p>The first vector gets a higher weight,
+but the equivalent weaker signals are also getting weight values</p>
+</div>
+<div class="paragraph">
+<p>This does highlight that to keep weighting equitable,
+data should be normalized before using the SVD.
+Otherwise days with,
+for instance,
+more rain will have their associate signals artificially inflated.
+We normalize using the L-Infinity norm
+(ie. making rain on the 0-1 range based on the highest pixel value in each observation)
+For a more detailed disscussion see <strong>SUPP</strong></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_an_orthogonal_pattern_doesnt_change_the_result">An orthogonal pattern doesn&#8217;t change the result</h4>
+<div class="paragraph">
+<p>Next we if we check with an orthogonal pattern present,
+the result is identical</p>
+</div>
+<div class="paragraph">
+<p>\$[[1.0,  1.0,  1.0,  0.0,  0.0],
+       [0.0,  0.0,  0.0,  0.0,  0.0],
+       [0.0,  0.0,  0.0,  1.0,  1.0]]
+       [[1/sqrt(3)],
+        [1/sqrt(3)],
+        [1/sqrt(3)],
+        [0.0],
+        [0.0]]
+        =
+        sqrt(3)
+       [[1.0],
+        [0.0],
+        [0.0]]
+        \$</p>
+</div>
+<div class="paragraph">
+<p>Spreading the weights to secondary patterns is not advantageous</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_nonorthogonal_patterns_lead_to_weights_spreading_and_pattern_mixture">Nonorthogonal patterns lead to weights spreading and pattern mixture</h4>
+<div class="paragraph">
+<p>However if the patterns overlap,
+then the weighting spreads and the patterns are mixed in the final result</p>
+</div>
+<div class="paragraph">
+<p>\$[[1.0,  1.0,  1.0,  0.0,  0.0],
+       [0.3,  0.3,  0.3,  0.3,  0.3],
+       [0.0,  0.0,  0.0,  1.0,  1.0]]
+       [[0.57],
+        [0.57],
+        [0.57],
+        [0.14],
+        [0.14]]
+        = 1.82
+       [[0.93],
+        [0.32],
+        [0.15]]
+        \$</p>
+</div>
+<div class="paragraph">
+<p>Note how <em>[0.93 0.32 0.15]</em> is a mixture of the two patterns!
+Just like our non-orthogonal climate systems</p>
+</div>
+<div class="paragraph">
+<p>One can argue that the system is in effect trying to make the middle pixel add up to the largest value
+(thereby increasing the sum of squares euclidean distance).
+However,
+the mixing still occurs
+(though greatly diminished)
+when the overlap value is small</p>
+</div>
+<div class="paragraph">
+<p>\$[[1.0,  1.0,  1.0,  0.0,  0.0],
+       [0.15,  0.15,  0.15,  0.15,  0.15],
+       [0.0,  0.0,  0.0,  1.0,  1.0]]
+       [[0.58],
+        [0.58],
+        [0.58],
+        [0.04],
+        [0.04]]
+        = 1.75
+       [[0.99],
+        [0.15],
+        [0.04]]
+        \$</p>
+</div>
+<div class="paragraph">
+<p>This all goes to illustrates our issue <strong>O2</strong>.
+While testing,
+we have tried adjusting the ratio of the two climate pattern in the synthetic data.
+We observe the mixing effect diminishes rapidly as the difference between climate signals increases;
+which points us to issue <strong>O3</strong>.</p>
+</div>
+<div class="paragraph">
+<p>When looking at precipitation we should expect there will be regions affected by both dipole phases.
+Such regions in effect trigger the mixing of EOF1.
+The region of overlap can be small,
+and the overlap strength does not have to be very large since it occurs in many observations.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_notes_on_north_et_al_1982">Notes on North et al. 1982</h4>
+<div class="paragraph">
+<p>Note that this mixing is distinct from the one observed by North et al. 1982.
+This is not a product of degeneracy when singular values
+(or eigenvalues)
+are close.
+It&#8217;s not a perturbation issue and something that occurs even in the absence of noise.
+These examples have no noise and the patterns are identical</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

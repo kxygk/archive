@@ -1,0 +1,397 @@
+:docinfo: shared
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+= SUPP: Signal mixing in Singular Vectors
+
+=== Introduction
+
+Our objective will be to understand why EOF vectors mix the underlying signals.
+To understand what the EOF vectors represent we will need to start from a good baseline.
+
+In in North et al. (1982), the EOF is described as:
+the "eigenvectors of the cross-covariance matrix between grid points".
+This EOF formulation is the canonical form seen in EOF literature.
+
+It's unfortunately very difficult to reason about.
+If you have your observations arranged as the columns of some matrix A
+"AA^T" is the crosscovariance matrix.
+The eigenvector
+(AA^Tx = lambda x)
+is the vector that goes through scaled by the largest constant value.
+On a high level,
+it makes sense that if you feed in a vector of correlated pixels,
+then it also stacks the high values of covariances.
+However,
+there is the additional constraint that the output vector must be the scaled input.
+This formulation is quite challenging to reason about.
+We don't know how to make the logical leap to mixing here.
+
+Instead we will use an alternate,
+mathematically equivalent,
+formulation:
+*The EOF vectors are the singular vectors of the matrix of the anomalies.*
+
+Since anomalies are already mixtures of all the climate signals,
+it's actually hard to observe this mixing when looking at EOF vectors.
+So we again advise using the normalized observations.
+(See the Supplementary section on Normalization)
+This is the same as we do in the synthetic examples as well as the case study.
+
+=== A breakdown of the SVD
+
+==== Building the SVD though a recursive block algorithm
+The algorithm described is explained in detail in
+Carl Meyer's "_Matrix Analysis and Applied Linear Algebra_" First Edition, page 411
+
+At a high level,
+one way to construct the singular value decomposition is though an recursive block matrix algorithm.
+This in effect builds singular vectors one after another.
+Instead of restating the algorithm,
+we just provide a high level description.
+Once each singular vector is constructed it is removed from the observations.
+These new adjusted observations are then used to make the subsequent SV.
+Note that "removing a singular vector" means removing any component in the same direction
+(such that the inner product becomes zero).
+As a result,
+all the adjusted observations end up orthogonal to that SV.
+When the next singular vector is built from these adjusted observations it too will be orthogonal to the extracted SV.
+This is because singular vectors are constructed by a linear combination of the observations
+- so if all the adjusted observations are orthogonal,
+then so will their combination.
+Issue *O1* is a direct and unavoidable consequence of the algorithm's design.
+
+==== Singular Vector construction
+To understand why the singular vectors
+(even the first one)
+end up mixing signal
+(issue *O2*)
+we need to understand what the SVD does at each iteration.
+We will focus on the first singular vector,
+but the logic holds for the remaining vectors as well.
+When building a singular vector,
+for instance when building SV1,
+the SVD is fundamentally doing a weighted average
+(ie. linear combination)
+of the data/observations.
+
+stem:[[["|","|",..\],
+       [x_1,x_2,..\],
+       ["|","|",..\]\]
+       [[w_1\],[w_2\],[..\]\]
+       =
+       [["|"\],[a\],["|"\]\]
+       ]
+
+or:
+
+stem:[w_1
+      [["|"\],
+       [x_1\],
+       ["|"\]\]
+       +
+      w_2
+      [["|"\],
+       [x_1\],
+       ["|"\]\]
+       +
+       ...
+       =
+       [["|"\],[a\],["|"\]\]
+       ]
+
+If it's steam:[a] is the solution with the largest length,
+then it is the _singular vector_ (scaled by the _singular value_).
+ie. the largest value for stem:[aa^T] (the 2-norm or euclidean norm)
+
+
+When looking at the singular vectors as pattern images
+(as illustrated),
+this is effectively maximizing the sum of the squares of all the pixels.
+
+stem:[a_{1}^2+a_{2}^2+..]
+
+The squaring is what in effect drives the pattern extraction.
+Imagining an alternate algorithm,
+where,
+instead of maximing the sum of squares,
+we maximized the direct sum
+(the manhattan 1-norm)
+
+stem:[a_{1} + a_{2}+..]
+
+To get the largest value,
+one would selects weights stem:[w_i}] that corresponded to observations with the most rain.
+
+However,
+the squaring drives the algorithm to "want" pixels with extremely large values
+(b/c their squares will be huge).
+So even if the direct sum is smaller,
+as long as certain pixels have extra large values then the sum of squares will be larger -
+ie. driving up the euclidean length.
+In fact,
+it's likely the euclidean length is largely a function of these large values.
+Consequently
+it seems one should add-up images with similar images/patterns so that they "add up".
+Even if the pattern area is relatively small,
+the stacking up will give you some extreme pixel values -
+and hence the larger euclidean norm.
+
+However,
+this mathematical interpretation does not correspond to what we see in the result!
+What we actually see is that the singular vectors have multiple patterns at once;
+seemingly running counter to the maximization objective.
+
+An additional question still unanswered is:
+Even assuming the sum of squares gives higher values to sums with large pixel values ..
+why does the SVD end up stacking several observations?
+and why do we not simply select the single observations with the largest pixel values?
+
+==== Weight distribution
+
+The root cause is a subtlety of an algorithmic constraint we have elided.
+When the SVD is maximizing this weighted average of the observations the weights must have been implicitely limited
+(so that the SVD can not pick arbitrarily large weights).
+The limit is that the weights must be of unit length.
+
+stem:[||w|| = 1.0]
+
+In other words,
+the sum of the squares of all the weights must equal to `1.0`.
+
+stem:[w_1^2 + w_2^2 + w_3^2 + .. = 1.0]
+
+As previously,
+the squaring makes a subtle but important difference
+(here breaking the pattern extraction instead of enabling it).
+
+As before,
+while the sum of squares is a constant `1.0`,
+the direct "normal" sum of weights is not constant.
+
+If the weights were constrained under a manhattan norm (direct sum) to `1.0`
+
+stem:[w_1 + w_2 + w_3 + .. = 1.0]
+
+then we may in-fact want to select the single observation with the highest value!
+Averaging with other observations would likely dilute your brightest values
+
+What happens is that,
+all else being equal,
+spreading weights out actually makes their sum a higher value.
+This is most easily illustrated by looking at the logical extremes.
+If all weight was assigned to just one observation
+(for instance the one with the most total rain)
+and all other weights were set to zero,
+then the sum of weights would equal `1.0`
+(same as the sum of squares).
+
+.weight vector length
+stem:[1.0^2 + 0.0^2 + 0.0^2 + .. = 1.0]
+
+.sum of weights
+stem:[1.0 + 0.0 + 0.0 + .. = 1.0]
+
+stem:[w_1^2 + w_2^2 + w_3^2 + .. = 1.0]
+
+By contrast,
+an even spread of weights across all `N` observation would give each weight the value `1/sqrt(N)`.
+Here the sum of squares still equals `1.0` for all values of `N` (the constraint is satisfied).
+However,
+the direct sum is now `N/sqrt(N)`.
+
+.weight vector length
+stem:[(1/sqrt(N))^2 + (1/sqrt(N))^2 + (1/sqrt(N))^2 + .. = 1.0]
+
+.sum of weights
+stem:[1/sqrt(N) + 1/sqrt(N) + 1/sqrt(N) + .. = N/sqrt(N) = sqrt(N)]
+
+
+Since stem:[sqrt(N) > 1.0] for all values of stem:[N>1],
+this tells us that the algorithm will have a tendency to spread weights,
+to increase the weight-factors and thereby increase the euclidean length of the sum.
+The factor is significant
+(ex: 100 observations gives you a 10x increase).
+
+The end result is a bit surprising and can be explored using example:
+
+=== Behavior though examples
+
+We explore examples by running different scenarios through a SVD routine.
+All example are 5 observations of 3 pixels.
+The first pattern is [1,0,0].
+The second pattern will be [0,0,1]
+
+We try different variations
+
+The results are presented as (singular value) times (singular vector)
+
+stem:["SingularValue" dot{} [["|"\],
+                        ["SingularVector"\],
+                        ["|"\]\]]
+
+==== One pattern .. repeating
+
+For instance assigning all weights to the first observation:
+
+stem:[[[1.0,  1.0,  1.0,  0.0,  0.0\],
+       [0.0,  0.0,  0.0,  0.0,  0.0\],
+       [0.0,  0.0,  0.0,  0.0,  0.0\]\]
+       [[1.0\],
+        [0.0\],
+        [0.0\],
+        [0.0\],
+        [0.0\]\]
+        =
+        1.0
+       [[1.0\],
+        [0.0\],
+        [0.0\]\]
+        ]
+
+And now spreading weights across all similar observations:
+
+stem:[[[1.0,  1.0,  1.0,  0.0,  0.0\],
+       [0.0,  0.0,  0.0,  0.0,  0.0\],
+       [0.0,  0.0,  0.0,  0.0,  0.0\]\]
+       [[1/sqrt(3)\],
+        [1/sqrt(3)\],
+        [1/sqrt(3)\],
+        [0.0\],
+        [0.0\]\]
+        =
+        sqrt(3)
+       [[1.0\],
+        [0.0\],
+        [0.0\]\]
+        ]
+
+stem:[sqrt(3) = 1.73..]
+
+As we expect,
+spreading the weight gives a larger resulting vector.
+
+I am changing the notation to being singular
+
+==== A single observation doesn't swamp the result
+
+Bumping the first vector to be larger than the others:
+
+stem:[[[1.1,  1.0,  1.0,  0.0,  0.0\],
+       [0.0,  0.0,  0.0,  0.0,  0.0\],
+       [0.0,  0.0,  0.0,  0.0,  0.0\]\]
+       [[0.61\],
+        [0.56\],
+        [0.56\],
+        [0.0\],
+        [0.0\]\]
+        =
+        1.79
+       [[1.0\],
+        [0.0\],
+        [0.0\]\]
+        ]
+
+The first vector gets a higher weight,
+but the equivalent weaker signals are also getting weight values
+
+This does highlight that to keep weighting equitable,
+data should be normalized before using the SVD.
+Otherwise days with,
+for instance,
+more rain will have their associate signals artificially inflated.
+We normalize using the L-Infinity norm
+(ie. making rain on the 0-1 range based on the highest pixel value in each observation)
+For a more detailed disscussion see *SUPP*
+
+==== An orthogonal pattern doesn't change the result
+
+Next we if we check with an orthogonal pattern present,
+the result is identical
+
+
+stem:[[[1.0,  1.0,  1.0,  0.0,  0.0\],
+       [0.0,  0.0,  0.0,  0.0,  0.0\],
+       [0.0,  0.0,  0.0,  1.0,  1.0\]\]
+       [[1/sqrt(3)\],
+        [1/sqrt(3)\],
+        [1/sqrt(3)\],
+        [0.0\],
+        [0.0\]\]
+        =
+        sqrt(3)
+       [[1.0\],
+        [0.0\],
+        [0.0\]\]
+        ]
+
+
+
+Spreading the weights to secondary patterns is not advantageous
+
+==== Nonorthogonal patterns lead to weights spreading and pattern mixture
+
+However if the patterns overlap,
+then the weighting spreads and the patterns are mixed in the final result
+
+stem:[[[1.0,  1.0,  1.0,  0.0,  0.0\],
+       [0.3,  0.3,  0.3,  0.3,  0.3\],
+       [0.0,  0.0,  0.0,  1.0,  1.0\]\]
+       [[0.57\],
+        [0.57\],
+        [0.57\],
+        [0.14\],
+        [0.14\]\]
+        = 1.82
+       [[0.93\],
+        [0.32\],
+        [0.15\]\]
+        ]
+
+Note how _[0.93 0.32 0.15]_ is a mixture of the two patterns!
+Just like our non-orthogonal climate systems
+
+One can argue that the system is in effect trying to make the middle pixel add up to the largest value
+(thereby increasing the sum of squares euclidean distance).
+However,
+the mixing still occurs
+(though greatly diminished)
+when the overlap value is small
+
+stem:[[[1.0,  1.0,  1.0,  0.0,  0.0\],
+       [0.15,  0.15,  0.15,  0.15,  0.15\],
+       [0.0,  0.0,  0.0,  1.0,  1.0\]\]
+       [[0.58\],
+        [0.58\],
+        [0.58\],
+        [0.04\],
+        [0.04\]\]
+        = 1.75
+       [[0.99\],
+        [0.15\],
+        [0.04\]\]
+        ]
+
+
+This all goes to illustrates our issue *O2*.
+While testing,
+we have tried adjusting the ratio of the two climate pattern in the synthetic data.
+We observe the mixing effect diminishes rapidly as the difference between climate signals increases;
+which points us to issue *O3*.
+
+When looking at precipitation we should expect there will be regions affected by both dipole phases.
+Such regions in effect trigger the mixing of EOF1.
+The region of overlap can be small,
+and the overlap strength does not have to be very large since it occurs in many observations.
+
+==== Notes on North et al. 1982
+Note that this mixing is distinct from the one observed by North et al. 1982.
+This is not a product of degeneracy when singular values
+(or eigenvalues)
+are close.
+It's not a perturbation issue and something that occurs even in the absence of noise.
+These examples have no noise and the patterns are identical
