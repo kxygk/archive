@@ -1,0 +1,14 @@
+:docinfo: shared
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+= SUPP: Full Synthetic Dataset
+
+== Full Synthetic
+
+.This is the full set of synthetic observations used to make Figure 1. Data is arranged as 12 synthetic months per row, with 3 rows/years in total. Each row/year is split in to 8 summer-like patterns and 4 winter-like patterns.
+image:imrg/synth2patt/precipitation-all.svg[]

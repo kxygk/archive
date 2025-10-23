@@ -1,0 +1,235 @@
+:docinfo: shared
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+= SUPP: Breadowns in CDB Assumptions
+
+== Intro
+
+The main points of failure worth discussion center mainly around breakdowns in our simplifying assumptions.
+Some degree of breakdown in each assumption will always be present.
+
+==== A breakdown in assumption *A1*
+This is caused by two types of regional climate configuration:
+
+As we mentioned at the start,
+the most common climate configuration is the single climate pattern -
+that is then forceably bisected.
+An example of such a scenario is explored further in
+
+link:./paper1-singleclimate.html[SUPP Single Climate Region].
+
+
+The other scenario of concern is the presence of tertiary climate systems.
+We have not yet been able to identify any non-cooccurring tertiary systems
+(ie. a climate tripole).
+We do however find climate systems that take effect in parallel to the main dipole.
+However,
+even after searching,
+we have found it difficult to find regions where such tertiary systems are very clearly visible.
+While we naturally encourage evaluating each region on a case by case basis,
+such systems have a tendency to be significantly weaker than the dominant dipole.
+For instance,
+in southern Thailand,
+there is both the short-period MJO system as well as the interannual ENSO.
+Both are not easy to spot in the raw observation.
+Nonetheless,
+such tertiary systems are know to us a priori,
+and we can be confident they will be skewing the climate patterns somehow.
+Through a careful look at the daily precipitation climate index,
+we do manage to detect the MJO as a intermittent index reversal.
+See **SUPP**
+The affected observations likely constitute a small minority of the data.
+From the perspective of the climate bisection method,
+skewed patterns map poorly to the SV1 SV2 subspace.
+Using the extended error bounds these skewed observations show up as "high noise",
+thereby having little weight in the final averaging.
+While we do not present any concrete evidence,
+we surmise it has a negligible impact on the resulting SVs and final patterns.
+
+A holistic framework for accounting for tertiary signals will be an area of future work.
+
+==== A breakdown in assumption *A3*
+
+Imagining a scenario with a breakdown in *A3*,
+we would expect different climate-associated patterns between strong and weak monsoon periods.
+Climate systems are rarely truely linear,
+and our analysis of single-climate regions suggests that this does occur to some extent.
+See **SUPP**
+However,
+the fact that observations lie mostly along the ratio vectors strongly suggests that *A3* is a safe approximation.
+Climate intensity derived skewing,
+just like tertiary system derived skewing,
+is effectively treated as noise during reduction to the 2D SV subspace.
+Again,
+error bound estimation can give highly skewed outliers lower weight -
+improving results.
+We can get a sense for the extent of intensity based skewing by denormalize observations before projecting on to SV1 and SV2. *MAYBE I SHOULD ALWAYS DENORMALIZE ONCE I'VE GOTTEN MY SV1/SV2?*
+One would expect the climate grouping to drift off-axis based on the distance to the origin
+(the distance to the origin being a metric of climate intensity).
+Arguably in our case study the summer monsoon half does show a small off-axis trend.
+**SUPP.. or just denormalize everywhere so I don't need to make a special figures**
+
+==== A breakdown in assumption *A2*
+When climate dipoles don't cleanly separate it is typically for the following three reasons:
+
+.the observed parameter is slow to change.
+For instance,
+when looking at a monsoonal region,
+one typically sees a period of wind reversal.
+Here a pattern will be hard to define.
+The observations made during switch-over can be of any shape,
+and there is no mathematical constraint.
+However,
+working with real data we find that,
+when projected on to the SV1 SV2 subspace,
+these observation have always mapped to the region between the two climate pattern mixtures
+(ie "in the wedge").
+"Switch-over" observation are inevitable in any dataset,
+however in the case of extremely slow parameters,
+they can start to form a significant fraction of the observations.
+This is a very typical for parameters such as sea surface temperature.
+
+.the region under observation is too large.
+For instance,
+a region's southern section may be under a monsoonal regime,
+while the northern section has not yet been affected.
+For the Asian monsoon region,
+delays in onset and withdrawal can be estimated using the maps made by Wang and LinHo (2002).
+From these grids we can approximately estimate that the seasonal switch overs in southern Thailand will happen over ~1-4 pentads.
+While we should always expect some switch-over observations -
+in large regions we still start to generate a different class of singular vector.
+
+The SVs are effectively describing observations as the sum of static patterns.
+To describe dynamic systems,
+such as a propagating wave,
+the decomposition typically degenerates to sums of phase-offset stationary waves.
+Such decompositions are useful.
+They're often explicitly used to characterize wave-like climate systems -
+such as the MJO. **Ask Prof Zeng for REF**
+However,
+such stationary waves are not patterns that are physically meaningful in isolation.
+Fundamentally a wave pattern doesn't have a positive or negative end point.
+Such patterns can typically be phase shifted while preserving their ability to describe the wave propagation.
+Fortunately at a small enough scale
+(fraction of the wavelength)
+wave-like structures look once again like dipoles.
+As the wave crest and trough goes through the region,
+we once again have positive, negative and transition states.
+This issue stresses the need for high density mesoscale data,
+such as the IMERG dataset.
+They allow us to select regions that are as small as practical.
+A region's minimum size is dictated by two factors:
+The regional topography's ability to drive distinct patterns in each phase of the dipole.
+The lower value between "number of observation" and "number of points/pixels" dictates the total number of singular vectors.
+This may affect the ability to segregate signal from noise. *A BIT UNCLEAR WHY.. TO THINK ABOUT MORE..OR REMOVE?*
+Note that the case study was not tuned to a minimal region size -
+as our objective was to illustrate climate pattern extraction.
+
+.the temporal resolution is too coarse.
+If we perform the dimension reduction on monthly precipitation averages we will often find months where both climate systems are active. *SUPP*
+
+In the first two scenarios transition-associated patterns are of an unpredictable shape.
+However,
+in this third scenario,
+as an artifact of integration time,
+signals are being actually added together.
+This is a bit unusual,
+as we do not expect different climate dipoles phases to combine linearly.
+The integration-time driven mixing is not indicative of any underlying physical process.
+Nonetheless,
+looking at the SV1/SV2 subspace,
+affected observations will consistently lie between the two climate vectors.
+
+For a simple case of a breakdown in *A2* we look at sea surface temperature in the South China Sea in **SUPP**.
+In such cases,
+a large enough breakdown ends up severely skewing the estimates of the ratio axis
+(typically towards the mean of the two patterns)
+
+[*Maybe remove this paragraph..? Or maybe it's important*]
+We do not present any universal turn-key way to label transitional or mixed observations.
+In many cases such observations constitute a small fraction of the total,
+and therefore have a minimal impact on the final patterns.
+Issues can be minimized with a good estimate of the error bounds.
+Transition states map poorly to the SV1/SV2 vectors.
+See: **SUPP**
+On a case by case basis one may wish to build region specific heuristics.
+If one has special insight in to climate transitions
+(ex: there is some a priori knowledge that seasonal transitions happen twice a year)
+then one may try to find criteria for removing problematic observations from the SVD.
+We have not found such heuristics necessary,
+and caution they may mask other issues.
+(See the MJO signal in **SUPP**)
+By looking at the SV1/SV2 plot,
+it seems evident that even in the ideal case,
+any adjustment of the mixing ratio would at best give an extremely modest improvement to the final patterns -
+while introducing problematic tuning parameters.
+
+All these issues notwithstanding,
+even in the presence of severe skewing,
+climate dipole bisection provides a clear improvement over raw EOF vectors.
+The EOF basis is guaranteed to be an incorrect mixture,
+and the second EOF's orthogonality constraint almost guarantees it will miss the mark.
+Climate dipole bisection presents a clear,
+physically motivated and mathematically simple correction.
+There are many alternate methods for trying to correct the EOF.
+These are broadly called "EOF rotations", **REF**
+and typically try to use SVD rotation methods from applied mathematics on the EOF.
+Not only do they persist in being built around the anomaly
+(as opposed to raw observations),
+but they end up apply methods that have a much more complicated problem in mind;
+where signals from different sources are cooccurring in a background of noise.
+In the broader signal processing realm,
+methods such as the SVD can then be used for such things are denoising.
+Special methods like Independent Component Analysis leverage statistical properties of the signals to estimate the original "unmixed" signals.
+However,
+climate associate patterns sit in a special simpler subset of pattern extraction problems.
+As we've hopefully illustrated,
+once we assume a very minimal set of properties,
+the non-cooccurance of climate dipoles creates a special case where pattern extraction is greatly simplified.
+When observing a large phenomena over a small region,
+rotations of the EOFs to form a corrected/rotated basis is no longer physically motivated.
+Since dipole phases can not undergo mixing there no underlying physical basis to estimate.
+**SUPP** *Climate Dipole Bisection as a EOF Rotator*.
+In situations where climate system do mix,
+they do not mix in a linear/additive fashion like electrical signals.
+Hence linear methods such as EOF/SVD should not be used in isolation.
+Such cooccuring systems will be the scope of future work.
+
+Because the method as presented has no tuning parameters or climate system specific considerations,
+the resulting patterns have the impartiality and repeatability that allow it to become a consensus result that can form the start of further research.
+
+== References
+
+.PNAS paper about Klang Cave
+Tan, L., Shen, C.-C., Löwemark, L., Chawchai, S., Edwards, R. L., Cai, Y., Breitenbach, S. F. M., Cheng, H., Chou, Y.-C., Duerrast, H., Partin, J. W., Cai, W., Chabangborn, A., Gao, Y., Kwiecien, O., Wu, C.-C., Shi, Z., Hsu, H.-H., & Wohlfarth, B. (2019). Rainfall variations in central Indo-Pacific over the past 2,700 y. Proceedings of the National Academy of Sciences, 116(35), 17201–17206. https://doi.org/10.1073/pnas.1903167116
+
+.Talks about close EOF vectors mix due to closes singular values
+North, G. R., Bell, T. L., Cahalan, R. F., & Moeng, F. J. (1982). Sampling Errors in the Estimation of Empirical Orthogonal Functions. Monthly Weather Review, 110(7), 699-706. https://doi.org/10.1175/1520-0493(1982)110<0699:SEITEO>2.0.CO;2
+
+.Otsu's Method
+Otsu, N. (1979) A Threshold Selection Method from Gray-Level Histograms. IEEE Transactions on Systems, Man, and Cybernetics, vol. 9, no. 1, pp. 62-66. https://doi.org/10.1109/TSMC.1979.4310076
+
+.Nino 3.4
+Trenberth, K. E. (1997). The Definition of El Niño. Bulletin of the American Meteorological Society, 78(12), 2771-2778. https://doi.org/10.1175/1520-0477(1997)078<2771:TDOENO>2.0.CO;2
+
+.This has the grid map of the onset and withdrawls
+Wang, B., & LinHo, . (2002). Rainy Season of the Asian–Pacific Summer Monsoon. Journal of Climate, 15(4), 386-398. https://doi.org/10.1175/1520-0442(2002)015<0386:RSOTAP>2.0.CO;2
+
+.Changes in NAO EOF patterns over different periods
+Werb, B. E., & Rudnick, D. L. (2023). Remarkable changes in the dominant modes of north Pacific sea surface temperature. Geophysical Research Letters, 50, e2022GL101078. https://doi.org/10.1029/2022GL101078
+
+https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2022GL101078
+
+.Also two patterns from two periods compared
+Yeh, S., Kang, Y., Noh, Y., & Miller, A. J. (2011). The North Pacific Climate Transitions of the Winters of 1976/77 and 1988/89. Journal of Climate, 24(4), 1170-1183. https://doi.org/10.1175/2010JCLI3325.1
+
+https://journals.ametsoc.org/view/journals/clim/24/4/2010jcli3325.1.xml
+
+.Comparing EOFs as part of their analysis (maybe model vs measurement?)
+Yeager, S., & Danabasoglu, G. (2014). The Origins of Late-Twentieth-Century Variations in the Large-Scale North Atlantic Circulation. Journal of Climate, 27(9), 3222-3247. https://doi.org/10.1175/JCLI-D-13-00125.1
+https://journals.ametsoc.org/view/journals/clim/27/9/jcli-d-13-00125.1.xml

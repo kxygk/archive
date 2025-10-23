@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>SUPP: Breadowns in CDB Assumptions</title>
+<style>
+@import '../web/kxygk.css';
+
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+.listingblock,pre.src {
+margin-left:  0vw;
+margin-right: 0vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: dotted;
+border-left-width: 4px;
+border-left-color: grey;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+/*.org-svg {
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}*/
+
+img {
+    display:flex;
+max-width: 100%;
+max-height: 70vh;
+vertical-align: middle;
+margin: auto;
+}
+ul {
+list-style-type: circle;
+padding-left: 1.5em;
+border-left: solid;
+border-left-width: 1px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {
+    color: black;
+    font-style: italic;
+    padding-top: 0.5em;}
+.sect1 {border-top: 4px solid  dimgray;}
+.sect2 {border-top: 4px solid  dimgrey;}
+h3 {color: black;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-left: 0.5em;
+    border-left: 4px solid  dimgrey;
+    border-bottom: 4px solid  #aaaaaa;
+    background:  #aaaaaa;}
+h4 {border-bottom: 2px dashed  #aaaaaa;
+    }
+b, i{
+    font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+    font-size: 0.8em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+.title {
+font-weight: bold;
+}
+dt {
+font-weight: bold;
+}
+td p, dd p, li p{
+    margin: 0;
+}
+ul, p{
+    margin-top: 0;
+}
+.sidebarblock{
+    background:#f3f3f2;
+}
+.float-group::before,.float-group::after{content:" ";display:table}
+.left{float:left!important}
+.right{float:right!important}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+.scrollbox{
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+.scrollbox img{
+    height:auto;
+    width:auto;
+    max-width: 70vw;
+    max-height: 60vh;
+    vertical-align: bottom;
+    scroll-snap-align: start;
+}
+video{
+    height:auto;
+    width:auto;
+    max-width: 30vw;
+    max-height: 30vh;
+}
+.content{
+    height: 100%;
+}
+.imageblock{
+    height: 100%;
+}
+.flexbox > .content{
+    display: flex;
+    justify-content: center;
+    height: 33vh;
+}
+
+@media (max-width:60rem) {
+.listingblock,pre.src {
+    margin-left:  -5vw;
+    margin-right: -5vw;
+}}
+@media (min-width:60rem) {
+.sect2{
+    column-count:2;
+    hyphens: auto;
+}
+}
+@media (min-width:90rem) {
+.sect2{
+    column-count:3;
+}
+}
+@media (min-width:120rem) {
+.sect2s{
+    column-count:4;
+}
+}
+
+</style>
+<meta name="robots" content="noindex">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="../MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</head>
+<body class="article">
+<div id="header">
+<h1>SUPP: Breadowns in CDB Assumptions</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_intro">Intro</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The main points of failure worth discussion center mainly around breakdowns in our simplifying assumptions.
+Some degree of breakdown in each assumption will always be present.</p>
+</div>
+<div class="sect3">
+<h4 id="_a_breakdown_in_assumption_a1">A breakdown in assumption <strong>A1</strong></h4>
+<div class="paragraph">
+<p>This is caused by two types of regional climate configuration:</p>
+</div>
+<div class="paragraph">
+<p>As we mentioned at the start,
+the most common climate configuration is the single climate pattern -
+that is then forceably bisected.
+An example of such a scenario is explored further in</p>
+</div>
+<div class="paragraph">
+<p><a href="./paper1-singleclimate.html">SUPP Single Climate Region</a>.</p>
+</div>
+<div class="paragraph">
+<p>The other scenario of concern is the presence of tertiary climate systems.
+We have not yet been able to identify any non-cooccurring tertiary systems
+(ie. a climate tripole).
+We do however find climate systems that take effect in parallel to the main dipole.
+However,
+even after searching,
+we have found it difficult to find regions where such tertiary systems are very clearly visible.
+While we naturally encourage evaluating each region on a case by case basis,
+such systems have a tendency to be significantly weaker than the dominant dipole.
+For instance,
+in southern Thailand,
+there is both the short-period MJO system as well as the interannual ENSO.
+Both are not easy to spot in the raw observation.
+Nonetheless,
+such tertiary systems are know to us a priori,
+and we can be confident they will be skewing the climate patterns somehow.
+Through a careful look at the daily precipitation climate index,
+we do manage to detect the MJO as a intermittent index reversal.
+See <strong>SUPP</strong>
+The affected observations likely constitute a small minority of the data.
+From the perspective of the climate bisection method,
+skewed patterns map poorly to the SV1 SV2 subspace.
+Using the extended error bounds these skewed observations show up as "high noise",
+thereby having little weight in the final averaging.
+While we do not present any concrete evidence,
+we surmise it has a negligible impact on the resulting SVs and final patterns.</p>
+</div>
+<div class="paragraph">
+<p>A holistic framework for accounting for tertiary signals will be an area of future work.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_a_breakdown_in_assumption_a3">A breakdown in assumption <strong>A3</strong></h4>
+<div class="paragraph">
+<p>Imagining a scenario with a breakdown in <strong>A3</strong>,
+we would expect different climate-associated patterns between strong and weak monsoon periods.
+Climate systems are rarely truely linear,
+and our analysis of single-climate regions suggests that this does occur to some extent.
+See <strong>SUPP</strong>
+However,
+the fact that observations lie mostly along the ratio vectors strongly suggests that <strong>A3</strong> is a safe approximation.
+Climate intensity derived skewing,
+just like tertiary system derived skewing,
+is effectively treated as noise during reduction to the 2D SV subspace.
+Again,
+error bound estimation can give highly skewed outliers lower weight -
+improving results.
+We can get a sense for the extent of intensity based skewing by denormalize observations before projecting on to SV1 and SV2. <strong>MAYBE I SHOULD ALWAYS DENORMALIZE ONCE I&#8217;VE GOTTEN MY SV1/SV2?</strong>
+One would expect the climate grouping to drift off-axis based on the distance to the origin
+(the distance to the origin being a metric of climate intensity).
+Arguably in our case study the summer monsoon half does show a small off-axis trend.
+<strong>SUPP.. or just denormalize everywhere so I don&#8217;t need to make a special figures</strong></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_a_breakdown_in_assumption_a2">A breakdown in assumption <strong>A2</strong></h4>
+<div class="paragraph">
+<p>When climate dipoles don&#8217;t cleanly separate it is typically for the following three reasons:</p>
+</div>
+<div class="paragraph">
+<div class="title">the observed parameter is slow to change.</div>
+<p>For instance,
+when looking at a monsoonal region,
+one typically sees a period of wind reversal.
+Here a pattern will be hard to define.
+The observations made during switch-over can be of any shape,
+and there is no mathematical constraint.
+However,
+working with real data we find that,
+when projected on to the SV1 SV2 subspace,
+these observation have always mapped to the region between the two climate pattern mixtures
+(ie "in the wedge").
+"Switch-over" observation are inevitable in any dataset,
+however in the case of extremely slow parameters,
+they can start to form a significant fraction of the observations.
+This is a very typical for parameters such as sea surface temperature.</p>
+</div>
+<div class="paragraph">
+<div class="title">the region under observation is too large.</div>
+<p>For instance,
+a region&#8217;s southern section may be under a monsoonal regime,
+while the northern section has not yet been affected.
+For the Asian monsoon region,
+delays in onset and withdrawal can be estimated using the maps made by Wang and LinHo (2002).
+From these grids we can approximately estimate that the seasonal switch overs in southern Thailand will happen over ~1-4 pentads.
+While we should always expect some switch-over observations -
+in large regions we still start to generate a different class of singular vector.</p>
+</div>
+<div class="paragraph">
+<p>The SVs are effectively describing observations as the sum of static patterns.
+To describe dynamic systems,
+such as a propagating wave,
+the decomposition typically degenerates to sums of phase-offset stationary waves.
+Such decompositions are useful.
+They&#8217;re often explicitly used to characterize wave-like climate systems -
+such as the MJO. <strong>Ask Prof Zeng for REF</strong>
+However,
+such stationary waves are not patterns that are physically meaningful in isolation.
+Fundamentally a wave pattern doesn&#8217;t have a positive or negative end point.
+Such patterns can typically be phase shifted while preserving their ability to describe the wave propagation.
+Fortunately at a small enough scale
+(fraction of the wavelength)
+wave-like structures look once again like dipoles.
+As the wave crest and trough goes through the region,
+we once again have positive, negative and transition states.
+This issue stresses the need for high density mesoscale data,
+such as the IMERG dataset.
+They allow us to select regions that are as small as practical.
+A region&#8217;s minimum size is dictated by two factors:
+The regional topography&#8217;s ability to drive distinct patterns in each phase of the dipole.
+The lower value between "number of observation" and "number of points/pixels" dictates the total number of singular vectors.
+This may affect the ability to segregate signal from noise. <strong>A BIT UNCLEAR WHY.. TO THINK ABOUT MORE..OR REMOVE?</strong>
+Note that the case study was not tuned to a minimal region size -
+as our objective was to illustrate climate pattern extraction.</p>
+</div>
+<div class="paragraph">
+<div class="title">the temporal resolution is too coarse.</div>
+<p>If we perform the dimension reduction on monthly precipitation averages we will often find months where both climate systems are active. <strong>SUPP</strong></p>
+</div>
+<div class="paragraph">
+<p>In the first two scenarios transition-associated patterns are of an unpredictable shape.
+However,
+in this third scenario,
+as an artifact of integration time,
+signals are being actually added together.
+This is a bit unusual,
+as we do not expect different climate dipoles phases to combine linearly.
+The integration-time driven mixing is not indicative of any underlying physical process.
+Nonetheless,
+looking at the SV1/SV2 subspace,
+affected observations will consistently lie between the two climate vectors.</p>
+</div>
+<div class="paragraph">
+<p>For a simple case of a breakdown in <strong>A2</strong> we look at sea surface temperature in the South China Sea in <strong>SUPP</strong>.
+In such cases,
+a large enough breakdown ends up severely skewing the estimates of the ratio axis
+(typically towards the mean of the two patterns)</p>
+</div>
+<div class="paragraph">
+<p>[<strong>Maybe remove this paragraph..? Or maybe it&#8217;s important</strong>]
+We do not present any universal turn-key way to label transitional or mixed observations.
+In many cases such observations constitute a small fraction of the total,
+and therefore have a minimal impact on the final patterns.
+Issues can be minimized with a good estimate of the error bounds.
+Transition states map poorly to the SV1/SV2 vectors.
+See: <strong>SUPP</strong>
+On a case by case basis one may wish to build region specific heuristics.
+If one has special insight in to climate transitions
+(ex: there is some a priori knowledge that seasonal transitions happen twice a year)
+then one may try to find criteria for removing problematic observations from the SVD.
+We have not found such heuristics necessary,
+and caution they may mask other issues.
+(See the MJO signal in <strong>SUPP</strong>)
+By looking at the SV1/SV2 plot,
+it seems evident that even in the ideal case,
+any adjustment of the mixing ratio would at best give an extremely modest improvement to the final patterns -
+while introducing problematic tuning parameters.</p>
+</div>
+<div class="paragraph">
+<p>All these issues notwithstanding,
+even in the presence of severe skewing,
+climate dipole bisection provides a clear improvement over raw EOF vectors.
+The EOF basis is guaranteed to be an incorrect mixture,
+and the second EOF&#8217;s orthogonality constraint almost guarantees it will miss the mark.
+Climate dipole bisection presents a clear,
+physically motivated and mathematically simple correction.
+There are many alternate methods for trying to correct the EOF.
+These are broadly called "EOF rotations", <strong>REF</strong>
+and typically try to use SVD rotation methods from applied mathematics on the EOF.
+Not only do they persist in being built around the anomaly
+(as opposed to raw observations),
+but they end up apply methods that have a much more complicated problem in mind;
+where signals from different sources are cooccurring in a background of noise.
+In the broader signal processing realm,
+methods such as the SVD can then be used for such things are denoising.
+Special methods like Independent Component Analysis leverage statistical properties of the signals to estimate the original "unmixed" signals.
+However,
+climate associate patterns sit in a special simpler subset of pattern extraction problems.
+As we&#8217;ve hopefully illustrated,
+once we assume a very minimal set of properties,
+the non-cooccurance of climate dipoles creates a special case where pattern extraction is greatly simplified.
+When observing a large phenomena over a small region,
+rotations of the EOFs to form a corrected/rotated basis is no longer physically motivated.
+Since dipole phases can not undergo mixing there no underlying physical basis to estimate.
+<strong>SUPP</strong> <strong>Climate Dipole Bisection as a EOF Rotator</strong>.
+In situations where climate system do mix,
+they do not mix in a linear/additive fashion like electrical signals.
+Hence linear methods such as EOF/SVD should not be used in isolation.
+Such cooccuring systems will be the scope of future work.</p>
+</div>
+<div class="paragraph">
+<p>Because the method as presented has no tuning parameters or climate system specific considerations,
+the resulting patterns have the impartiality and repeatability that allow it to become a consensus result that can form the start of further research.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references">References</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">PNAS paper about Klang Cave</div>
+<p>Tan, L., Shen, C.-C., Löwemark, L., Chawchai, S., Edwards, R. L., Cai, Y., Breitenbach, S. F. M., Cheng, H., Chou, Y.-C., Duerrast, H., Partin, J. W., Cai, W., Chabangborn, A., Gao, Y., Kwiecien, O., Wu, C.-C., Shi, Z., Hsu, H.-H., &amp; Wohlfarth, B. (2019). Rainfall variations in central Indo-Pacific over the past 2,700 y. Proceedings of the National Academy of Sciences, 116(35), 17201–17206. <a href="https://doi.org/10.1073/pnas.1903167116" class="bare">https://doi.org/10.1073/pnas.1903167116</a></p>
+</div>
+<div class="paragraph">
+<div class="title">Talks about close EOF vectors mix due to closes singular values</div>
+<p>North, G. R., Bell, T. L., Cahalan, R. F., &amp; Moeng, F. J. (1982). Sampling Errors in the Estimation of Empirical Orthogonal Functions. Monthly Weather Review, 110(7), 699-706. <a href="https://doi.org/10.1175/1520-0493(1982)110&lt;0699:SEITEO&gt;2.0.CO;2" class="bare">https://doi.org/10.1175/1520-0493(1982)110&lt;0699:SEITEO&gt;2.0.CO;2</a></p>
+</div>
+<div class="paragraph">
+<div class="title">Otsu&#8217;s Method</div>
+<p>Otsu, N. (1979) A Threshold Selection Method from Gray-Level Histograms. IEEE Transactions on Systems, Man, and Cybernetics, vol. 9, no. 1, pp. 62-66. <a href="https://doi.org/10.1109/TSMC.1979.4310076" class="bare">https://doi.org/10.1109/TSMC.1979.4310076</a></p>
+</div>
+<div class="paragraph">
+<div class="title">Nino 3.4</div>
+<p>Trenberth, K. E. (1997). The Definition of El Niño. Bulletin of the American Meteorological Society, 78(12), 2771-2778. <a href="https://doi.org/10.1175/1520-0477(1997)078&lt;2771:TDOENO&gt;2.0.CO;2" class="bare">https://doi.org/10.1175/1520-0477(1997)078&lt;2771:TDOENO&gt;2.0.CO;2</a></p>
+</div>
+<div class="paragraph">
+<div class="title">This has the grid map of the onset and withdrawls</div>
+<p>Wang, B., &amp; LinHo, . (2002). Rainy Season of the Asian–Pacific Summer Monsoon. Journal of Climate, 15(4), 386-398. <a href="https://doi.org/10.1175/1520-0442(2002)015&lt;0386:RSOTAP&gt;2.0.CO;2" class="bare">https://doi.org/10.1175/1520-0442(2002)015&lt;0386:RSOTAP&gt;2.0.CO;2</a></p>
+</div>
+<div class="paragraph">
+<div class="title">Changes in NAO EOF patterns over different periods</div>
+<p>Werb, B. E., &amp; Rudnick, D. L. (2023). Remarkable changes in the dominant modes of north Pacific sea surface temperature. Geophysical Research Letters, 50, e2022GL101078. <a href="https://doi.org/10.1029/2022GL101078" class="bare">https://doi.org/10.1029/2022GL101078</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2022GL101078" class="bare">https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2022GL101078</a></p>
+</div>
+<div class="paragraph">
+<div class="title">Also two patterns from two periods compared</div>
+<p>Yeh, S., Kang, Y., Noh, Y., &amp; Miller, A. J. (2011). The North Pacific Climate Transitions of the Winters of 1976/77 and 1988/89. Journal of Climate, 24(4), 1170-1183. <a href="https://doi.org/10.1175/2010JCLI3325.1" class="bare">https://doi.org/10.1175/2010JCLI3325.1</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://journals.ametsoc.org/view/journals/clim/24/4/2010jcli3325.1.xml" class="bare">https://journals.ametsoc.org/view/journals/clim/24/4/2010jcli3325.1.xml</a></p>
+</div>
+<div class="paragraph">
+<div class="title">Comparing EOFs as part of their analysis (maybe model vs measurement?)</div>
+<p>Yeager, S., &amp; Danabasoglu, G. (2014). The Origins of Late-Twentieth-Century Variations in the Large-Scale North Atlantic Circulation. Journal of Climate, 27(9), 3222-3247. <a href="https://doi.org/10.1175/JCLI-D-13-00125.1" class="bare">https://doi.org/10.1175/JCLI-D-13-00125.1</a>
+<a href="https://journals.ametsoc.org/view/journals/clim/27/9/jcli-d-13-00125.1.xml" class="bare">https://journals.ametsoc.org/view/journals/clim/27/9/jcli-d-13-00125.1.xml</a></p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

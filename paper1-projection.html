@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>SUPP: CDB as EOF Rotation and Projections</title>
+<style>
+@import '../web/kxygk.css';
+
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+.listingblock,pre.src {
+margin-left:  0vw;
+margin-right: 0vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: dotted;
+border-left-width: 4px;
+border-left-color: grey;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+/*.org-svg {
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}*/
+
+img {
+    display:flex;
+max-width: 100%;
+max-height: 70vh;
+vertical-align: middle;
+margin: auto;
+}
+ul {
+list-style-type: circle;
+padding-left: 1.5em;
+border-left: solid;
+border-left-width: 1px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {
+    color: black;
+    font-style: italic;
+    padding-top: 0.5em;}
+.sect1 {border-top: 4px solid  dimgray;}
+.sect2 {border-top: 4px solid  dimgrey;}
+h3 {color: black;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-left: 0.5em;
+    border-left: 4px solid  dimgrey;
+    border-bottom: 4px solid  #aaaaaa;
+    background:  #aaaaaa;}
+h4 {border-bottom: 2px dashed  #aaaaaa;
+    }
+b, i{
+    font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+    font-size: 0.8em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+.title {
+font-weight: bold;
+}
+dt {
+font-weight: bold;
+}
+td p, dd p, li p{
+    margin: 0;
+}
+ul, p{
+    margin-top: 0;
+}
+.sidebarblock{
+    background:#f3f3f2;
+}
+.float-group::before,.float-group::after{content:" ";display:table}
+.left{float:left!important}
+.right{float:right!important}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+.scrollbox{
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+.scrollbox img{
+    height:auto;
+    width:auto;
+    max-width: 70vw;
+    max-height: 60vh;
+    vertical-align: bottom;
+    scroll-snap-align: start;
+}
+video{
+    height:auto;
+    width:auto;
+    max-width: 30vw;
+    max-height: 30vh;
+}
+.content{
+    height: 100%;
+}
+.imageblock{
+    height: 100%;
+}
+.flexbox > .content{
+    display: flex;
+    justify-content: center;
+    height: 33vh;
+}
+
+@media (max-width:60rem) {
+.listingblock,pre.src {
+    margin-left:  -5vw;
+    margin-right: -5vw;
+}}
+@media (min-width:60rem) {
+.sect2{
+    column-count:2;
+    hyphens: auto;
+}
+}
+@media (min-width:90rem) {
+.sect2{
+    column-count:3;
+}
+}
+@media (min-width:120rem) {
+.sect2s{
+    column-count:4;
+}
+}
+
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>SUPP: CDB as EOF Rotation and Projections</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>At a high level the following discussion is in large part semantic.
+However,
+it will have some real implications for how we project observations on a climate patterns</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_fig_climate_dipole_bisection_example">FIG Climate Dipole Bisection Example</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="image"><img src="../fig/imrg/errors/new-sv-projs-full.svg" alt="new sv projs full"></span></p>
+</div>
+<div class="sect2">
+<h3 id="_rotated_eofs">Rotated EOFs</h3>
+<div class="paragraph">
+<p>It&#8217;s naturally to see Climate Dipole Bisection as another EOF rotation method.
+While this formulation is not entirely incorrect,
+it is a bit of a dangerous way to think of the final result.
+As we will illustrate,
+observations in such a rotated basis do no convey any information.</p>
+</div>
+<div class="paragraph">
+<p>The first issue is maybe more conceptual:
+We have not really rotated EOF1 and EOF2 to a particular positions.
+You can think of EOF1 as being moved to the top quadrant and EOF2 to the bottom quadrant,
+but this is neither a two step process,
+nor is one quadrant more important than the other.</p>
+</div>
+<div class="paragraph">
+<p>The larger issue is that,
+while we are finding estimate of patterns in this subspace,
+physically these patterns represent non-mixing elements.</p>
+</div>
+<div class="paragraph">
+<p>SV1 and SV2 represent some estimates of particular mixtures of the underlying patterns.
+Noisy observations map to yet mixtures of these SV1 and SV2 vectors.
+In other words,
+we have mixtures of mixtures.
+From these we are making an estimate of the original patterns.</p>
+</div>
+<div class="paragraph">
+<p>The conceptual leap is that,
+once you have estimated patterns,
+it is not meaningful to re-express observations as mixtures of climate patterns.
+We could remap the observations to an nonorthogonal 2D space,
+with the two patterns as the basis vectors,
+but this would not be a useful basis.
+In fact it would be actively depicting something non-physical.
+We know that based on assumption <strong>A2</strong> the underlying patterns can not mix.
+Ex: summer and winter monsoons have no physical way to manifest at the same time
+(exception in the edge case of integration times that are too long).
+Furthermore,
+looking in such a nonorthogonal subspace,
+some observations go so far as to imply the presence of negative climate pattern!</p>
+</div>
+<div class="paragraph">
+<p>Since the rotated basis does not make physical sense, what are we left to do?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_projections">Projections</h3>
+<div class="paragraph">
+<p>The solution ties in to the problem of projection.
+This is the step that transforms our observations to a climate index.</p>
+</div>
+<div class="sect3">
+<h4 id="_nonorthogonal">Nonorthogonal</h4>
+<div class="paragraph">
+<p>Normally,
+when one has an nonorthogonal basis,
+one should do a nonorthogonal projections.
+Graphically,
+they can either be done in the original SV1 SV2 subspace,
+or one could build a 2D plot with the patterns as the basis vectors.
+But as we just discussed,
+this just doesn&#8217;t make a lot of physical sense and we think this is an incorrect formulation.
+Nonorthogonal projecting would indirectly imply there is a "dipole basis" -
+but assumption <strong>A2</strong> implies nothing can lie off-axis in such a basis.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_orthogonal">Orthogonal</h4>
+<div class="paragraph">
+<p>The solution is to use the SV1 SV2,
+ie. this original reduce EOF basis,
+purely for pattern estimation and classification.
+In other words,
+the SV1 SV2 subspace helps you estimated the SV1 SV2 mixtures that reconstruct the climate patterns.
+It also gives you the dichotomy (red dashed line) which classifies your observations in to two dipole states.</p>
+</div>
+<div class="paragraph">
+<p>Once we have the estimated patterns and the classification we can discard this subspace entirely.
+To calculate the correspondence of an observation to a pattern we simply do a normal projection/inner-product.</p>
+</div>
+<div class="paragraph">
+<p>Since the SV3,4,5 subspaces should be mean-zero noise components,
+such a projection should be equivalent to doing an orthogonal
+(shortest distance)
+projection in the SV1 SV2 subspace.
+Measurements at this point lie along one pattern axis or the other,
+and any off-axis shifts are simply due to noise.</p>
+</div>
+<div class="paragraph">
+<p>So what we do not want to do is redraw the observations in a 2D subspace with climate A on the X axis and climate B on the Y axis.</p>
+</div>
+<div class="paragraph">
+<p>In effect what we do not want is a Rotated SV basis.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

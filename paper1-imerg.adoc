@@ -8,6 +8,19 @@
 
 = SUPP: Notes on IMERG data
 
+== Introduction
+
+IMERG has a 0.1x0.1 degree resolution.
+This gives ample room to select small regions of interest.
+The region used is the rectangle given by:
+North-West point N 12.4 E 97.50.
+South-East point N 5.40 E 101.0.
+As will be discussed,
+operating on small regions directly benefits pattern extraction.
+The final region size was not tuned and was selected for illustrative purposes.
+
+
+
 == Data Versions
 
 For the Southern Thailand case study we selected to use the V06B Late data provided by IMERG (in GeoTIFF format). We find that other versions produce notable issues related to a "climatological adjustment" made using GPCC gauge data. This rain gauge correction was added to the "Final" version of version V06B. In version V07B the correction is incorporated in both Late and Final version. The Early version is still unaffected, however it "only has forward propagation (which basically amounts to extrapolation forward in time), while the Late has both forward and backward propagation (allowing interpolation)". See: https://gpm.nasa.gov/data/imerg FAQ Section.

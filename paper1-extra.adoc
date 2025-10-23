@@ -1,23 +1,102 @@
+:docinfo: shared
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
 
-====
-While some complex land-air interactions are occuring,
-an observer does not need to understand them to visually identify the climates in question.
-The patterns are evident without any understanding of the physical mechanisms behind them.
-This suggests that we should be able to estimate climate-associated patterns without understanding them.
-The motivation for this is severalfold.
-For one,
-such a method would present an objective,
-climate-agnostic,
-first step in observing climate systems.
-We would entirely avoid needing to characterize the climate system in question;
-obviating the need for heuristics or thresholding systems based on past statistics
-**(Rainy Season of the Asian Pacific Summer Monsoon - Bin Wang)**.
-Furthermore,
-we should be able to leverage more data and get higher fidelity than typical conservative methods,
-such as JJA or DJF means.
-Aspirationally,
-we may in theory be able to explore new climate processes that have not yet been identified/characterized.
-====
+
+
+
+=== Applications: Climate Indices
+
+Coming back to our original thesis.
+Maybe more importantly,
+these patterns allow us to objectively estimate the presence of climate in past and future observation.
+Many modern climate indices are built on the EOF
+- particularly using the first singular vector,
+EOF1. **REF**
+These indices are also typically built over climate dipoles,
+with the index having both positive and negative phases.
+However,
+it is only because of careful tuning that one EOF vector is able to describe both phases.
+Climate phenomena,
+when viewed as anomalies from a mean,
+have a tendency to form near-mirror images.
+If one climate phase causes the wind to blow East to West,
+then most likely its negative phase blows West to East.
+In our case study,
+if rain patterns were normalized to a mean and you stenciled out the ocean,
+the monsoons would very roughly resemble negatives of each other -
+with an east/west north/south symmetry.
+
+Similar near-negatives can be imagined for other climate phenomena.
+For instance sea surface temperatures associated with ENSO;
+the El Nino equatorial warm water tongue vs. the La Nina subtropical heating.
+These two systems look like near negatives
+- especially when viewed though carefully tuned boxes around the equator. **REF**
+The positive and negative phases of the north Atlantic dipole also look like negatives within a szones of influence.
+
+As a consequence,
+when working within a properly tuned region,
+one may find EOF1
+(which is done on an anomaly and not raw data)
+produces a pattern which gives a workable estimate of both climate phenomena.
+However,
+this is not a property that is universally true
+- nor does it have any clear universal physical basis.
+Such EOF based indices require validation by other heuristics.
+
+Our climate dipole bisection avoids the serendipity of these extra symmetry requirements.
+We not only don't need to characterize the climate or construct heuristics,
+but we can also look at the presence of climate dipoles in less convenient regions.
+This opens the door to potentially observe climate through regional patches;
+allowing one to construct a synoptic scale understanding of climate systems.
+
+To build an actual index we simply need to project observations on to our patterns.
+We use the bisecting line (red line Fig 2) to determine which climate system each observation belongs to.
+The projection can either be done directly (ie. an inner product of the pattern and data) or can be done with a non orthogonal projection in the 2D singular vector subspace.
+While in our dimension-reduced 2D view observations are displayed as a mixtures of SVs,
+neither the singular vectors,
+nor the climate pattern themselves,
+represent actual physical processes that are being mixed.
+The variability in the plot is only attributable to noise before the dimension reduction.
+Hence the final climate mixtures don't function as actual basis vectors.
+Restated,
+the intensity of a climate pattern in an observation is unrelated to the other climate phase's shape.
+As a result,
+the former direct inner product method is likely preferable.
+
+For the projection's error bound estimation see **SUPP**.
+
+It's important to note that the two resulting climate indices are not comparable.
+Unlike a tuned EOF1 region which operates with one pattern,
+here we have two separate patterns that are being projected on.
+As a result,
+it's important to remember that we can not make statements such as
+"This year's summer monsoon was 20% stronger than the winter monsoon".
+EOF1 based climate indices implicitly make such a comparison possible,
+but the conclusions are likely erroneous and highly dependent on the selected region.
+With two separate patterns such erroneous comparisons become explicitly not possible.
+
+To see a daily climate index,
+see *SUPP*.
+
+
+== *A3* Breakdown
+
+The fact that observations lie along these ratio vectors strongly suggests that *A3* was a safe approximation.
+Imagining a scenario with a breakdown in *A3*,
+we would expect different climate-associated patterns between strong and weak monsoon periods
+(the monsoon strength is indicated by the distance from the origin).
+In such a scenario it would be very unlikely a static SV1 SV2 ratio could adequately describe both patterns.
+The ratio would change in a consistent way based on the climate strength.
+Looking at the SV1/SV2 plot of such a region,
+one would expect the climate grouping to drift off-axis as observations were further from the origin.
+Arguably in our case study the summer monsoon half does show a small off-axis trend.
+
+
 
 
 
@@ -223,66 +302,7 @@ Looking at the resulting climate index we can oberserve the monsoons at the dail
 
 In short, smaller time steps do not hurt the climate pattern extraction process, but may create an extremely high resolution noisy climate index that is challenging to interpret.
 
-== SUPP Rift Valley: Non cyclical signals
 
-Unlike many EOF enhancements, the methodology as currently illustrated does not make any assumptions about climate variability over time. There are no assumptions that one climate follows another or that they occur at similar times of the year/day. This allows us to look at some more unusual climate phenomena such as the rain patters of the Rift Valley in Eastern Africa
-
-TODO: All (monthly?) data
-
-Here there are two rain-associated climate systems which in Ethiopia as called the Belg and the Kiremt
-
-https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/2016RG000544
-
-TODO: Read this thing..
-
-While boreal summer Kiremt rains come at a consistent time every year, Belg "short" rains as a lot less consistent and associated . However the illutrated method has no issue extracting these patterns.
-
-TODO: SV12 projs
-
-TODO: Patterns
-
-TOOO: Climate index
-
-
-== SUPP: Sahel Mountain (Marrah): Method used in a one signal region
-Maybe the most common instance would be the one monsoon-related rainy season.
-At the seasonal scale,
-these climate systems are may be more the norm than the exception.
-In these degenerate cases SV1 will be giving you a good approximation of the climate related pattern.
-No extra steps are needed.
-Unfortunately,
-at the moment there is no clear statistical method identifying which regions have climate dipoles.
-An ad hoc method is looking at the singular values in a scree plot.
-However,
-there is no clear line between a two climate system and one where characteristic *A3* have broken down.
-Non linearities in climate associated patterns may cause Onset/withdrawal periods to present patterns distinct from the main climate associated period.
-For an example of this phenomena see the Marrah Plateau in **SUPP**
-Such situations need to be identified by the researcher on a case-by-case basis.
-
-
-It must be noted that globally, most locations do not feature a bistable climate. The most common scenario is a simple one-system precipitation climate (at the seasonal scale). In these locations no tricks are necessary. The first singular vector (or first EOF) will extract the single pattern.
-
-So it is interesting to try to observe what occurs if we apply your method in these situations. As a case study we look at the Marrah mountains in southern Sudan. This massif lies at the edge of the Sahel and is subject to a single monsoon-driven rainy season. The massif's topography has some interplay with the monsoon related atmospheric configuration which drives the dominant precipitation pattern.
-
-TODO: SV12 plot
-
-First note that we no longer see a clear separation in the SV12 subspace. The data presents an even spread across the allowable wedge. The two extracted patterns no longer have a clear physical interpretations
-
-TODO: Pattern 1 &2
-
-But when we look at the resulting climate pattern we do see a consistent pattern
-
-TODO: Climate index
-
-The single pattern is being torn apart in to a monsoon signal and an onset/withdrawl pattern. Remember that one of the assumptions of the EOF  (A3) was that:
-" The climate patterns in question scale in a near-linear fashion.
-If it rains twice as much,
-then it rains twice as much across the whole climate associated precipitation region"
-
-Here we see this assumption fall apart as the weaker onset/withdrawl monsoon takes on a warped shaped as compared to the middle of the rainy season.
-This onset/withdrawl false pattern occurs regularly when the method is applied in single-system regions and is a good indicator that the method should skipped in favor of simply using the first singular vector (or first EOF1).
-
-A look at the singular values confirms also gives us a strong indication there is effectively no second climate system at the seasonal scale
 
 == SUPP Diurnal cycles: Maritime continent
 So far we have limited ourselves to seasonal climate systems. However the method may work at other time scales. Here we present a quick examination of the diurnal cycle off the coast of Java for the period (TODO Specify period):
@@ -314,85 +334,5 @@ Here we present results when a region that is too large is used.
 We look at the Korean Peninsular at two different scales
 
 Things go bad
-
-
-== SUPP: Notes on IMERG
-
-For the Southern Thailand case study we selected to use the V06B Late data provided by IMERG (in GeoTIFF format). We find that other versions produce notable issues related to a "climatological adjustment" made using GPCC gauge data. This rain gauge correction was added to the "Final" version of version V06B. In version V07B the correction is incorporated in both Late and Final version. The Early version is still unaffected, however it "only has forward propagation (which basically amounts to extrapolation forward in time), while the Late has both forward and backward propagation (allowing interpolation)". See: https://gpm.nasa.gov/data/imerg FAQ Section.
-
-The adjustment creates a notable stenciling effect. The stencil seems to reflect the GPCC stencil seen in GPCC precipitation maps:
-https://climatedataguide.ucar.edu/climate-data/gpcc-global-precipitation-climatology-centre
-
-Here is an example using v7 monthly data:
-
-TODO add images
-
-V06 is provided in several different subversion. One is labeled V06B and GeoTIFF files are provided through 2022-05-07. The next next period goes through multiple version through 2024-06-02. To avoid any discontinuities in the analysis. We look at v06B data exclusively on the 2011-01-01 to 2020-12-31 (inclusive) period.
-
-To simplify the analysis and create even annual cycles we subdivide the 365 day calandar year into pentads by removing all occurances of the leap day - February 29th.
-
-
-
-== Long Abstract
-
-=== V1
-
-The interplay between recurring atmospheric processes and local topography creates regular observable climatic phenomena.
-We present a novel method for analyzing the spatial distribution of atmospheric parameters at the mesoscale,
-which will allows for the extraction of a pair of underlying climate-associated shapes.
-The method builds on the singular value decomposition (SVD) and corrects for several deficiencies of a typical empirical orthogonal function (EOF) analysis.
-The extracted shapes act as unique fingerprints that allow one to observe climate without having to characterize it,
-without needing to understand any of its dynamics,
-and without building any heuristics or adjusting tuning parameters.
-Key to making the EOF correction is recognizing that a large fraction of climate phenomena come in non-coocurring pairs.
-Systems such as the Summer/Winter Monsoons,
-El Nino / La Nina and the positive and negative phases of many climate systems are all typically in one of two modes.
-In effect the presence of one climate state precludes the occurrence of the other.
-As a result of this bistability,
-when using the SVD to reduce the measured climate parameters to two dimensions we observe clustering around two linear combinations of the basis vectors.
-These two combinations can be found using a variance minimizing search (Otsu's method) that terminates at an optimal solution and represent a simple mixture of the first two singular vectors.
-The mixtures' associated shapes can then be used to measure the presence of the climate phenomena in the original data to build a rolling two state climate index.
-We present several examples using the IMERG precipitation dataset,
-the ERA5 precipitations model estimates and a small synthetic data example.
-An accompanying program for reproducing the analysis is provided.
-
-
-=== V2
-
-Many climate phenomena historically aquire names by a process of pattern-matching by local observers.
-In simple terms,
-large scale climate conditions are observed to cause a higher likelyhood of some corresponding weather.
-While the naming of phenomena is useful,
-due to the inherant variability,
-local weather observation are never sufficient for inferring the current climate state.
-However,
-by observing weather across a region,
-(ie. many locales simultaneously)
-we can start to make stronger inferrence about the prevailing large scale climate conditions.
-The climate's statistically significant effect on the weather is complex and region specific.
-Without characterizing any of the dynamics,
-we can safely assume it will almost certainly be spatially irregular.
-This will be due to some complex interplay between atmospheric parameters and the local topography.
-Here we present a novel method for analyzing the spatial distribution of weather at the mesoscale.
-By looking at weather over a given region we can extract each climate's associate associate patterns.
-Then using the extracted spatial patterns we can reanalyze our weather's conformance to the pattern.
-Thus allowing us to infer the prevailing climate conditions for a given point in time.
-The method builds on the singular value decomposition (SVD).
-We remove the need for working off of an anomaly -
-as is seen in a typical empirical orthogonal function (EOF) analysis.
-More importantly,
-we find a way to resolve the EOFs orthogonality constraint.
-Key to the new approach is recognizing that many climate phenomena come in non-coocurring pairs.
-Systems such as the Summer/Winter Monsoons,
-El Nino / La Nina as well as the positive and negative phases of many other climate dipoles.
-The critical characteristic of a climate dipole is that the presence of one climate state precludes the occurrence of the other.
-As a result of this bistability,
-when the the measured climate parameters are reduced to two dimensions by SVD,
-we observe clustering around two linear combinations of the basis vectors.
-These two combinations can be isolated using a variance minimizing search (Otsu's method) that terminates at an optimal solution and represent a simple mixture of the first two singular vectors.
-The mixtures can then be used to form the basis of a two state climate index.
-We present several examples using the IMERG precipitation dataset,
-the ERA5 precipitations model estimates and a small synthetic data example.
-An accompanying program for reproducing the analysis is provided.
 
 

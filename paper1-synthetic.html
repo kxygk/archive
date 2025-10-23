@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>SUPP: Notes on IMERG data</title>
+<title>SUPP: Full Synthetic Dataset</title>
 <style>
 @import '../web/kxygk.css';
 
@@ -210,65 +210,15 @@ MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
 </head>
 <body class="article">
 <div id="header">
-<h1>SUPP: Notes on IMERG data</h1>
+<h1>SUPP: Full Synthetic Dataset</h1>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_introduction">Introduction</h2>
+<h2 id="_full_synthetic">Full Synthetic</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>IMERG has a 0.1x0.1 degree resolution.
-This gives ample room to select small regions of interest.
-The region used is the rectangle given by:
-North-West point N 12.4 E 97.50.
-South-East point N 5.40 E 101.0.
-As will be discussed,
-operating on small regions directly benefits pattern extraction.
-The final region size was not tuned and was selected for illustrative purposes.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_data_versions">Data Versions</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>For the Southern Thailand case study we selected to use the V06B Late data provided by IMERG (in GeoTIFF format). We find that other versions produce notable issues related to a "climatological adjustment" made using GPCC gauge data. This rain gauge correction was added to the "Final" version of version V06B. In version V07B the correction is incorporated in both Late and Final version. The Early version is still unaffected, however it "only has forward propagation (which basically amounts to extrapolation forward in time), while the Late has both forward and backward propagation (allowing interpolation)". See: <a href="https://gpm.nasa.gov/data/imerg" class="bare">https://gpm.nasa.gov/data/imerg</a> FAQ Section.</p>
-</div>
-<div class="paragraph">
-<p>The adjustment creates a notable stenciling effect. The stencil seems to reflect the GPCC stencil seen in GPCC precipitation maps:
-<a href="https://climatedataguide.ucar.edu/climate-data/gpcc-global-precipitation-climatology-centre" class="bare">https://climatedataguide.ucar.edu/climate-data/gpcc-global-precipitation-climatology-centre</a></p>
-</div>
-<div class="paragraph">
-<p>Here is an example using v7 monthly data:</p>
-</div>
-<div class="paragraph">
-<p>TODO add images</p>
-</div>
-<div class="paragraph">
-<p>V06 is provided in several different subversion. One is labeled V06B and GeoTIFF files are provided through 2022-05-07. The next next period goes through multiple version through 2024-06-02. To avoid any discontinuities in the analysis. We look at v06B data exclusively on the 2011-01-01 to 2020-12-31 (inclusive) period.</p>
-</div>
-<div class="paragraph">
-<p>To simplify the analysis and create even annual cycles we subdivide the 365 day calandar year into pentads by removing all occurances of the leap day - February 29th.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_data_anomalies">Data Anomalies</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Occassionally there are issues/blips in the data.
-We do not have any insight in to what are the causes.</p>
-</div>
-<div class="paragraph">
-<p>The SVD should make such issues very obvious,
-but it naturally requires the researcher to double-check the inputs and outputs.</p>
-</div>
-<div class="paragraph">
-<p>Here is an example of a bright-spot above Addis Ababa in Ethiopia
-(this spot is outside of the region observed in the Great Rift Example in <strong>SUPP: Non Cyclical climate systems</strong>)</p>
-</div>
-<div class="paragraph">
-<p><strong>FIGURE BLIP</strong></p>
+<div class="title">This is the full set of synthetic observations used to make Figure 1. Data is arranged as 12 synthetic months per row, with 3 rows/years in total. Each row/year is split in to 8 summer-like patterns and 4 winter-like patterns.</div>
+<p><span class="image"><img src="../fig/imrg/synth2patt/precipitation-all.svg" alt="precipitation all"></span></p>
 </div>
 </div>
 </div>
