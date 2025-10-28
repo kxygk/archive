@@ -663,7 +663,7 @@ This describes not only the winter and summer monsoons,
 but also interannual systems such as El Nino/La Nina.
 There are many more such systems,
 such as the Indian Ocean Dipole,
-the Madden Julian Oscillations,
+the Madden Julian Oscillations (MJO),
 the Southern Annular Mode,
 the North Atlantic Oscillation as well as many others.
 The key characteristics they all share is that at the regional scale these are in either in a positive,
@@ -874,10 +874,10 @@ see <strong>SUPP</strong>.</p>
 <div class="paragraph">
 <p>Using a synthetic example,
 we started with a typical EOF-like analysis and observed the resulting issues.
-We reformulate the EOF which allowed us to skip the anomaly calculation,
+We reformulated the EOF which allowed us to skip the anomaly calculation,
 leaving us with an SVD of normalized observations.
 On visual inspection,
-we see that the singular vectors are preserving climate patterns in a mixed state.
+we saw that the singular vectors were preserving climate patterns in a mixed state.
 Then,
 through a set of simplifying assumptions,
 we formulated a simple physically interpretable method for finding how to combine the singular vectors to extract the original patterns back out.</p>
@@ -886,7 +886,7 @@ we formulated a simple physically interpretable method for finding how to combin
 <p>The main points of failure can be framed as breakdowns in our simplifying assumptions.
 Some degree of breakdown in each assumption
 (A1 A2 A3)
-is always be present.</p>
+is always present.</p>
 </div>
 <div class="paragraph">
 <p>An extensive discussion of the different failure modes is left to a supplementary section:
@@ -913,15 +913,15 @@ we continue to see large,
 continent scale,
 regions analyzed all at once.
 This presents numerical challenges,
-since the SVD effectively describing observations as sums of static patterns.
-Dynamic processes,
+since the SVD in effect describes observations as sums of static patterns.
+A dynamic process,
 such a wave/front crossing the observed region,
 present a numerical complication as it does not manifest as a single extractable pattern.
 In such scenarios the decomposition typically degenerates waves to sums of phase-offset stationary sigmoids.
 Though in cases such as the MJO,
 such modes form a central part of how the climate system is defined and observed,
 in many situations they are difficult to interpret as they intermix with static patterns.
-Fortunately this issue can often be mitigrated because at a small enough scales
+Fortunately this issue can often be mitigated because at a small enough scales
 (fraction of the wavelength)
 wave-like structures will often look like dipoles.
 As the wave crest and trough goes through the region,
@@ -947,13 +947,13 @@ as our objective was to illustrate climate pattern extraction.</p>
 </div>
 <div class="paragraph">
 <p>The second issue we would like to address is that of coocurrant tertiary climate systems.
-Other systems will naturally coincide with the dipole under observation.
 (We have not yet been able to identify any non-cooccurring tertiary systems ie. a climate tripole).
+Other systems will naturally coincide with the dipole under observation.
 However,
 even after searching,
 we have found it difficult to identify regions where such tertiary systems are very clearly visible.
 We surmise that such systems have a tendency to be significantly weaker than the dominant dipole.
-For a concrete example is suffices to look at our case study in southern Thailand.
+For a concrete example it suffices to look at our case study in Southern Thailand.
 Here we know a priori that there is both a short-period MJO system as well an the interannual ENSO signal.
 However,
 both are not easy to spot in the raw observation.
@@ -961,21 +961,18 @@ Nonetheless,
 we can with confidence say that must be skewing the climate patterns somehow -
 even if only by a little.
 Through a careful look at the daily precipitation climate index,
-we do manage to detect the MJO as a intermittent index reversal.
+we do manage to detect the MJO as an intermittent index reversal.
 See <strong>SUPP</strong>
 The affected/skewed observations likely constitute a small minority of the data.
 From the perspective of the climate bisection method,
 highly skewed patterns will often map poorly to the SV1 SV2 subspace.
-If we estimated error bounds,
-we will expect such skewed observations to high estimates,
-and thereby having little weight in the final averaging.</p>
-</div>
-<div class="paragraph">
-<p><a href="./paper1-erroranalysis.html">SUPP Error Analysis</a></p>
+If one uses estimated error bounds to calculate angular averages
+(as described in <a href="./paper1-erroranalysis.html">SUPP Error Analysis</a>)
+then skewed observations influence the final averages a lot less.</p>
 </div>
 <div class="paragraph">
 <p>While we do not present any concrete evidence,
-we surmise these systems has a negligible impact on the resulting SVs -
+we surmise these systems have a negligible impact on the resulting SVs -
 and by extension the final patterns.
 However,
 a holistic framework for accounting for tertiary signals will be an area of future work.</p>
@@ -997,35 +994,46 @@ These are broadly called "EOF rotations" (Richman 1986),
 and this class of methods typically try to bring SVD rotation methods from applied mathematics and apply them to the EOF.
 Not only do they persist in being built around the anomaly
 (as opposed to raw observations),
-but they end up apply methods that have their origin in solving what are fundamentally much more complicated problems;
-These are scenarios where signals from different sources are cooccurring in a background of noise.
+but they end up applying methods that have their origin in solving what are fundamentally much more complicated problems;
+these are scenarios where signals from different sources are cooccurring in a background of noise.
 Such systems are common in the fields of electrical engineering,
 acoustics and elsewhere.
-There the SVD allows things such as denoising and compression,
+In those domains,
+the SVD allows things such as denoising and compression,
 and rotations allow one to construct more favorable basis vectors.
 Independent Component Analysis is alternate approach to construct a minimal basis.
-It leverage statistical properties of the signals to estimate the original "unmixed" signals,
+It leverages statistical properties of the signals to estimate the original "unmixed" signals,
 with very compelling results when applied to climate systems.
 However,
-as we&#8217;ve hopefully illustrated,
+as we&#8217;ve illustrated,
 climate associate patterns,
 when observed over small regions,
 sit in a simpler subset of the broader realm of pattern extraction problems.
-Once we assume a very minimal set of properties,
+Once we assume a small set of properties,
 the non-cooccurance of climate dipoles creates a special case where pattern extraction is greatly simplified.
 Furthermore,
-rotations of the EOFs to form a corrected/rotated basis no longer holds physical meaning.
-Since dipole phases can not undergo mixing there no actual underlying physical basis to estimate.
-Projections of observations in to such a non-orthogonal subspace gives a deceptively incorrect understand of the climate system,
-and likely will contain no actual interpretable information.
+under these assumption,
+framing the solution as a rotations of the EOFs
+(to form a "corrected" basis)
+becomes problematic.
+Since the two dipole phases cannot undergo mixing,
+such a basis is effectively degenerate.
+Under our assumptions,
+lying anywhere off-axis in such non-orthogonal basis does not correspond to any climatological process.
+Hence projecting observations in to such a non-orthogonal subspace presents a deceptive representation of the climate system.
 <a href="./paper1-projection.html">SUPP CDB as EOF Rotation and Projections</a>.
 Furthermore,
-even in situations where climate system do mix or coocur
+even in situations where there is a breakdown in the assumptions,
+and climate system do mix or coocur
 (such as tertiary climate systems),
-unlike acoustic or electrical signal,
-many parameters such as precipitation are unlikely to mix in a linear/additive fashion.
-In such scenarios linear methods such as EOF/SVD are not sufficient in isolation.
-Such cooccuring systems will be the scope of future work.</p>
+such basis vectors are still likely to be problematic.
+Unlike acoustic or electrical signal,
+many climate parameters such as precipitation are unlikely to mix in a linear/additive fashion.
+When such scenarios need to be addressed,
+linear methods such as EOF/SVD,
+as well as climate dipole bisection,
+are not sufficient in isolation.
+Such cooccuring mixing systems will be the scope of future work.</p>
 </div>
 <div class="paragraph">
 <p>Because the method as presented has no tuning parameters or climate system specific considerations,
