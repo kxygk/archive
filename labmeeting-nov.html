@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>For Lab Meeting - Nov</title>
+<style>
+@import '../web/kxygk.css';
+
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+.listingblock,pre.src {
+margin-left:  0vw;
+margin-right: 0vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: dotted;
+border-left-width: 4px;
+border-left-color: grey;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+/*.org-svg {
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}*/
+
+img {
+    display:flex;
+max-width: 100%;
+max-height: 70vh;
+vertical-align: middle;
+margin: auto;
+}
+ul {
+list-style-type: circle;
+padding-left: 1.5em;
+border-left: solid;
+border-left-width: 1px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {
+    color: black;
+    font-style: italic;
+    padding-top: 0.5em;}
+.sect1 {border-top: 4px solid  dimgray;}
+.sect2 {border-top: 4px solid  dimgrey;}
+h3 {color: black;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-left: 0.5em;
+    border-left: 4px solid  dimgrey;
+    border-bottom: 4px solid  #aaaaaa;
+    background:  #aaaaaa;}
+h4 {border-bottom: 2px dashed  #aaaaaa;
+    }
+b, i{
+    font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+    font-size: 0.8em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+.title {
+font-weight: bold;
+}
+dt {
+font-weight: bold;
+}
+td p, dd p, li p{
+    margin: 0;
+}
+ul, p{
+    margin-top: 0;
+}
+.sidebarblock{
+    background:#f3f3f2;
+}
+.float-group::before,.float-group::after{content:" ";display:table}
+.left{float:left!important}
+.right{float:right!important}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+.scrollbox{
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+.scrollbox img{
+    height:auto;
+    width:auto;
+    max-width: 70vw;
+    max-height: 60vh;
+    vertical-align: bottom;
+    scroll-snap-align: start;
+}
+video{
+    height:auto;
+    width:auto;
+    max-width: 30vw;
+    max-height: 30vh;
+}
+.content{
+    height: 100%;
+}
+.imageblock{
+    height: 100%;
+}
+.flexbox > .content{
+    display: flex;
+    justify-content: center;
+    height: 33vh;
+}
+
+@media (max-width:60rem) {
+.listingblock,pre.src {
+    margin-left:  -5vw;
+    margin-right: -5vw;
+}}
+@media (min-width:60rem) {
+.sect2{
+    column-count:2;
+    hyphens: auto;
+}
+}
+@media (min-width:90rem) {
+.sect2{
+    column-count:3;
+}
+}
+@media (min-width:120rem) {
+.sect2s{
+    column-count:4;
+}
+}
+
+</style>
+<meta name="robots" content="noindex">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="../MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</head>
+<body class="article">
+<div id="header">
+<h1>For Lab Meeting - Nov</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_different_time_horizons">Different time horizons</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="image"><img src="../fig/diag/krabins.png" alt="krabins"></span></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><span class="image"><img src="../fig/diag/krabi-monthly.png" alt="krabi monthly"></span></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abstract">Abstract</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Large scale climate processes,
+in their interplay with topography,
+leave distinct fingerprints on the spatial patterns of a region&#8217;s weather.
+If these patterns are isolated,
+an observer of the weather is able to infer which climate system is active at any given time.
+Building on the singular value decomposition (SVD),
+we present a method for estimating climate-associated patterns.
+Mirroring the method of empirical orthogonal functions (EOF),
+the region agnostic method eschews tuning parameters and heuristics,
+ensuring impartiality.
+Key is recognizing that many climate phenomena form non-cooccurring dipoles.
+Reduced to two dimensions by SVD,
+weather records align around two dipole-associated linear combinations.
+These combinations,
+once isolated,
+form the basis of regional two-state climate indices.
+Unlike EOFs,
+adjusted patterns can be compared across datasets and time periods.
+We present an example using the IMERG precipitation dataset,
+along with software for reproducing the results.</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+:docinfo: shared
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+= For Lab Meeting - Nov
+
+== Different time horizons
+
+
+[cols="a,a"]
+|====
+
+image:diag/krabins.png[] | image:diag/krabi-monthly.png[]
+|====
+
+
+== Abstract
+
+Large scale climate processes,
+in their interplay with topography,
+leave distinct fingerprints on the spatial patterns of a region's weather.
+If these patterns are isolated,
+an observer of the weather is able to infer which climate system is active at any given time.
+Building on the singular value decomposition (SVD),
+we present a method for estimating climate-associated patterns.
+Mirroring the method of empirical orthogonal functions (EOF),
+the region agnostic method eschews tuning parameters and heuristics,
+ensuring impartiality.
+Key is recognizing that many climate phenomena form non-cooccurring dipoles.
+Reduced to two dimensions by SVD,
+weather records align around two dipole-associated linear combinations.
+These combinations,
+once isolated,
+form the basis of regional two-state climate indices.
+Unlike EOFs,
+adjusted patterns can be compared across datasets and time periods.
+We present an example using the IMERG precipitation dataset,
+along with software for reproducing the results.
