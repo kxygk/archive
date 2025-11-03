@@ -141,6 +141,13 @@ we will present climate dipole bisection as a method to estimate the underlying 
 
 image:diag/fakerain.png[]
 
+_(a) The two starting patterns from which observations are generated_
+_(b) A sample of some of the generated observations_
+_(c) The singular vectors (SV1 and SV2 displayed above)_
+_(d) (e) (f) See Figure 2_
+_(g) Evolution of SV1 and SV2 over time_
+_(h) The singular values, showing each SV's percentage of the total power_
+
 === Synthetic illustrations of the EOF/SVD problem
 
 Using a synthetic dataset allows us to not only observe the aforementioned problems
@@ -232,6 +239,14 @@ ends up being the critical piece that will allow us to build a correction.
 == FIG2
 
 image::diag/krabins.png[]
+
+_(a) A topographic map of Southern Thailand showing the primary drivers of spatial variability_
+_(b) A sample of some of the IMERG observations_
+_(c) The singular vectors (SV1 and SV2 displayed above)_
+_(d) Observations as projected on to SV1 SV2 (X and Y axis respectively)_
+_(e) The climate patterns as extracted by climate dipole bisection (black dotted lines in previous plot)_
+_(f) The climate dipole index.
+_(g) (h) See Figure 1
 
 === Case Study: South East Asian monsoon systems
 
