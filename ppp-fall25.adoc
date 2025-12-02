@@ -192,7 +192,7 @@ Maybe only large rains penetrate the cave?
 
 Large rains have a wider spread
 
-== Compared to Actual Speleothem (Over 30mm of Rain)
+=== Compared to Actual Speleothem (Over 30mm of Rain)
 
 [cols="1,1"]
 |====
@@ -222,13 +222,13 @@ image:plot/rain-vs-d18O.svg[]
 
 image:plot/monsoon-vs-d18O.svg[]
 
-== Regional climate as the driver of extreme events
+=== Regional climate as the driver of extreme d18O values
 
 image:plot/monsoon-d18O.svg[]
 
 Extreme "light rain" occurs during strong regional winter monsoon conditions
 
-=== Regional climate as the driver of extreme events
+=== Regional climate as the driver of extreme d18O values
 
 image:plot/rain-monsoon-double.svg[]
 
@@ -243,10 +243,67 @@ image:plot/rain-monsoon-double.svg[]
 |Mixing happens between:
 
 - Summer Monsoon rains
+
 - Extreme Winter monsoons rains
 
 |====
 
 == Potential Mechanism
 
-image:extr/windy-winter.jpg[]
+
+[cols="1,1"]
+|====
+|image:extr/etopo2022-krabi.jpg[]
+Eastern Mountains create a natural barrier that pump out moisture before it reaches Krabi
+|image:extr/windy-winter.jpg[]
+Winter configuration
+|====
+
+
+== Potential Mechanism
+
+
+[cols="1,1"]
+|====
+|image:extr/etopo2022-krabi.jpg[]
+Eastern Mountains create a natural barrier that pump out moisture before it reaches Krabi
+|image:imrg/krabi/monthly/top-pattern.svg[]
+Winter configuration
+|====
+
+
+== Potential Mechanism
+
+
+[cols="1,1"]
+|====
+|image:extr/etopo2022-krabi.jpg[]
+|
+
+- Topography creates a threshold system where only large winter monsoon fronts reach the western shore
+
+- Mountains induce early precipitation of winter moisture
+
+- Travel time over the continent gives more rain out time
+
+- "Other" light rain near Krabi is due to local moisture from Phang Nga Bay
+
+- Phang Nga Bay moisture is blown away during winter monsoons and doesn't mix with Winter monsoon derived rain
+|====
+
+== The end - Thank you for your time :)
+
+[cols="1,1"]
+|====
+|image:extr/etopo2022-krabi.jpg[]
+|
+by George Kontsevich
+
+email: kxygk@aliyun.com
+
+Looking for work in the coming year.
+Please let me know if you are aware of any opportunities!
+
+Former professional programmer (C++/C/Java/R/Python etc.).
+Can do data crunching or write you some custom data processing pipelines/GUIs
+
