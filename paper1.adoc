@@ -417,7 +417,7 @@ we use a procedure akin to Otsu's method -
 from computer vision
 (Otsu 1979).
 We first subdivide the 2D subspace along all possible dichotomies.
-We then find which bisecting line minimizes the total variance of both halves;
+We then find which bisecting line which maximizes the inter class variance;
 ensuring that both halves form two tight groupings.
 Since each observation corresponds to a mixture of SV1 and SV2,
 the variance reduction is in fact done in angular space.
