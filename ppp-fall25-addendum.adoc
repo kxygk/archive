@@ -1,0 +1,58 @@
+:docinfo: shared
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+
+= Addendum to PPP
+
+by George Kontsevich
+
+I originally displayed a histogram of the d18O isotope.
+This takes all the daily d18O measurements and distributes them in to bins
+
+.Note plots were adjusted a bit for clarity - but show the same data
+image:plot/hist-d18O.svg[]
+
+I indicated that I feel the winter isotopes have some extreme values.
+However,
+this isn't extremely obvious by looking at the histogram
+
+I also filter to only look at days where the rains were over 30 mm
+
+image:plot/hist-d18O-over30.svg[]
+
+Here the result looks a bit more convincing
+
+== Weighting the bins by rain amount
+
+After the meeting it occurred to me that it would be sensible to instead of estimating a probability density function for "what will be the isotope on a given day" - that instead I can weight measurements by the rain amount.
+
+Now the histogram is showing "given a random drop of rain water in the course of the year, what is the probability distribution of a drop of water"
+
+image:plot/hist-amount-weighted-d18O.svg[]
+
+Now it's looking much more bimodal!
+
+== Weighted the bins by index
+
+You can also weight the bins by fraction of the annual monsoon index total. This is a bit less physically interpretable..
+But what we find is that the isotope is more strongly associated with how much winter monsoon is happening regionally.
+So you may have a strong winter monsoon period, but it just so happens it just so happens it doesn't really rain out a ton at the airport. This smaller amount of rain will still have the signature of "strong winter monsoon" and be very negative
+
+image:plot/hist-index-weighted-d18O.svg[]
+
+This looks even better, though note the Y axis is stretched so the improvement is a bit exaggerated.
+
+== Looking only at big rains - over 30mm
+
+You can still filter to only look at big rains, but it seems less necessary
+
+.By Rain Amount
+image:plot/hist-amount-weighted-d18O-over30.svg[]
+
+.By Monsoon Index intensity
+image:plot/hist-index-weighted-d18O-over30.svg[]

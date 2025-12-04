@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>Addendum to PPP</title>
+<style>
+@import '../web/kxygk.css';
+
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+.listingblock,pre.src {
+margin-left:  0vw;
+margin-right: 0vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: dotted;
+border-left-width: 4px;
+border-left-color: grey;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+/*.org-svg {
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}*/
+
+img {
+    display:flex;
+max-width: 100%;
+max-height: 70vh;
+vertical-align: middle;
+margin: auto;
+}
+ul {
+list-style-type: circle;
+padding-left: 1.5em;
+border-left: solid;
+border-left-width: 1px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {
+    color: black;
+    font-style: italic;
+    padding-top: 0.5em;}
+.sect1 {border-top: 4px solid  dimgray;}
+.sect2 {border-top: 4px solid  dimgrey;}
+h3 {color: black;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-left: 0.5em;
+    border-left: 4px solid  dimgrey;
+    border-bottom: 4px solid  #aaaaaa;
+    background:  #aaaaaa;}
+h4 {border-bottom: 2px dashed  #aaaaaa;
+    }
+b, i{
+    font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+    font-size: 0.8em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+.title {
+font-weight: bold;
+}
+dt {
+font-weight: bold;
+}
+td p, dd p, li p{
+    margin: 0;
+}
+ul, p{
+    margin-top: 0;
+}
+.sidebarblock{
+    background:#f3f3f2;
+}
+.float-group::before,.float-group::after{content:" ";display:table}
+.left{float:left!important}
+.right{float:right!important}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+.scrollbox{
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+.scrollbox img{
+    height:auto;
+    width:auto;
+    max-width: 70vw;
+    max-height: 60vh;
+    vertical-align: bottom;
+    scroll-snap-align: start;
+}
+video{
+    height:auto;
+    width:auto;
+    max-width: 30vw;
+    max-height: 30vh;
+}
+.content{
+    height: 100%;
+}
+.imageblock{
+    height: 100%;
+}
+.flexbox > .content{
+    display: flex;
+    justify-content: center;
+    height: 33vh;
+}
+
+@media (max-width:60rem) {
+.listingblock,pre.src {
+    margin-left:  -5vw;
+    margin-right: -5vw;
+}}
+@media (min-width:60rem) {
+.sect2{
+    column-count:2;
+    hyphens: auto;
+}
+}
+@media (min-width:90rem) {
+.sect2{
+    column-count:3;
+}
+}
+@media (min-width:120rem) {
+.sect2s{
+    column-count:4;
+}
+}
+
+</style>
+<meta name="robots" content="noindex">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="../MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Addendum to PPP</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>by George Kontsevich</p>
+</div>
+<div class="paragraph">
+<p>I originally displayed a histogram of the d18O isotope.
+This takes all the daily d18O measurements and distributes them in to bins</p>
+</div>
+<div class="paragraph">
+<div class="title">Note plots were adjusted a bit for clarity - but show the same data</div>
+<p><span class="image"><img src="../fig/plot/hist-d18O.svg" alt="hist d18O"></span></p>
+</div>
+<div class="paragraph">
+<p>I indicated that I feel the winter isotopes have some extreme values.
+However,
+this isn&#8217;t extremely obvious by looking at the histogram</p>
+</div>
+<div class="paragraph">
+<p>I also filter to only look at days where the rains were over 30 mm</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/plot/hist-d18O-over30.svg" alt="hist d18O over30"></span></p>
+</div>
+<div class="paragraph">
+<p>Here the result looks a bit more convincing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_weighting_the_bins_by_rain_amount">Weighting the bins by rain amount</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After the meeting it occurred to me that it would be sensible to instead of estimating a probability density function for "what will be the isotope on a given day" - that instead I can weight measurements by the rain amount.</p>
+</div>
+<div class="paragraph">
+<p>Now the histogram is showing "given a random drop of rain water in the course of the year, what is the probability distribution of a drop of water"</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/plot/hist-amount-weighted-d18O.svg" alt="hist amount weighted d18O"></span></p>
+</div>
+<div class="paragraph">
+<p>Now it&#8217;s looking much more bimodal!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_weighted_the_bins_by_index">Weighted the bins by index</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can also weight the bins by fraction of the annual monsoon index total. This is a bit less physically interpretable..
+But what we find is that the isotope is more strongly associated with how much winter monsoon is happening regionally.
+So you may have a strong winter monsoon period, but it just so happens it just so happens it doesn&#8217;t really rain out a ton at the airport. This smaller amount of rain will still have the signature of "strong winter monsoon" and be very negative</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/plot/hist-index-weighted-d18O.svg" alt="hist index weighted d18O"></span></p>
+</div>
+<div class="paragraph">
+<p>This looks even better, though note the Y axis is stretched so the improvement is a bit exaggerated.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_looking_only_at_big_rains_over_30mm">Looking only at big rains - over 30mm</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can still filter to only look at big rains, but it seems less necessary</p>
+</div>
+<div class="paragraph">
+<div class="title">By Rain Amount</div>
+<p><span class="image"><img src="../fig/plot/hist-amount-weighted-d18O-over30.svg" alt="hist amount weighted d18O over30"></span></p>
+</div>
+<div class="paragraph">
+<div class="title">By Monsoon Index intensity</div>
+<p><span class="image"><img src="../fig/plot/hist-index-weighted-d18O-over30.svg" alt="hist index weighted d18O over30"></span></p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
