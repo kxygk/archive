@@ -1,0 +1,51 @@
+:docinfo: shared
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+= SUPP: South China Sea SST
+
+== Data
+
+Sea Surface Temp Data
+
+Source:
+https://psl.noaa.gov/data/gridded/data.noaa.oisst.v2.highres.html
+
+Data labeled `Sea Surface Temperature 	Monthly Mean	Surface	Monthly` was selected.. Monthly sea surface temperature starting from January 1982. 5 years are examined.
+
+The selected region is
+
+.North West Corner: 
+North 25.0 East 105.5
+
+.South East Corner:
+North 0.0 East118.0
+	
+== Figure
+
+image:diag/scs.png[]
+
+Color map adjusted in the `Top Pattern` / `Bottom Pattern` to accentuate the dynamic range. Blue is Cold and Red is Hot
+
+== SST as an observational parameter
+
+Here we can look at Sea Surface temperature as an observational parameter and see how Climate Dipole Bisection works in this scenario.
+
+The final patterns correspond to our understanding of the monsoon driven upwelling in the region. In the summer there is upwelling of deep water off the coast of Vietnam and the Northeast coast of Hainan. In the winter there is coastal upwelling from Southern China
+
+== Issues/Observations
+
+- Sea Surface Temperature (SST) is a parameter that is very amenable to the anomaly formulation. Sea surface temperature is more naturally thought of as varying relative to some imagined baseline and not relative to the freezing point of water. This is why SV1 is accounting for most of the energy of the system, as it captures this positive offset. Finding some baseline to work off of will be the real of future work
+
+- The temperature transitions are very long and take a not-insignificant amount of the total observation time. Many observations lie "in between" the the dipole states. However, the end points are still clear and well-selected by the error weighted averages. The end points of the vertical line show two grouping with a higher density of observations (top yellow/orange and bottom blue/green). The method seems to overcome the multitude of transition states, but it may be sensible to construct some heuristic to eliminate these observations.
+
+- Unlike precipitation, which can undergo large rapid variations in intensity, SST is relatively stable. The month to month variations in temperature once you in a summer monsoon regime are not typically going to be huge. There is less "lumpyness" or effective noise at each measurement. Angular errors are only notable during transitions where the shape is poorly defined. 
+
+
+image:diag/scs-with-angular-errors.png[]
+
+Same figure as above, but with angular error bars. The angular errors are only large enough to be visible on observations near the X-axis. This further reinforces that they do not correspond to a mixture of the two dipole states.
