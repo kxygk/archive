@@ -6,7 +6,7 @@
 :reproducible:
 :nofooter:
 
-= SUPP: Notes on IMERG data
+= SUPP: Notes on IMERG
 
 == Introduction
 
@@ -19,23 +19,23 @@ As will be discussed,
 operating on small regions directly benefits pattern extraction.
 The final region size was not tuned and was selected for illustrative purposes.
 
-
-
 == Data Versions
 
-For the Southern Thailand case study we selected to use the V06B Late data provided by IMERG (in GeoTIFF format). We find that other versions produce notable issues related to a "climatological adjustment" made using GPCC gauge data. This rain gauge correction was added to the "Final" version of version V06B. In version V07B the correction is incorporated in both Late and Final version. The Early version is still unaffected, however it "only has forward propagation (which basically amounts to extrapolation forward in time), while the Late has both forward and backward propagation (allowing interpolation)". See: https://gpm.nasa.gov/data/imerg FAQ Section.
+For the Southern Thailand case study we selected to use the V06B Late data provided by IMERG (in GeoTIFF format). We find that other versions produce notable issues related to a "climatological adjustment" made using GPCC gauge data. This rain gauge correction was added to the "Final" version of version V06B. In version V07B the correction is incorporated in both Late and Final versions. The Early version is still unaffected, however it "only has forward propagation (which basically amounts to extrapolation forward in time), while the Late has both forward and backward propagation (allowing interpolation)". See: https://gpm.nasa.gov/data/imerg FAQ Section.
 
-The adjustment creates a notable stenciling effect. The stencil seems to reflect the GPCC stencil seen in GPCC precipitation maps:
+The GPCC adjustment creates a notable stenciling effect. The stencil seems to reflect the GPCC stencil seen in GPCC precipitation maps:
 https://climatedataguide.ucar.edu/climate-data/gpcc-global-precipitation-climatology-centre
 
-Here is an example using v7 monthly data:
+[cols="a,a"]
+|====
+| image:diag/krabi-monthly.png[] | image:diag/krabi-monthly-v7.png[]
+|====
 
-TODO add images
+*Left*: Monthly V06B - except for one month (see below) *Right*: Monthly V07B - coasts display a stencil/mask pattern
 
-V06 is provided in several different subversion. One is labeled V06B and GeoTIFF files are provided through 2022-05-07. The next next period goes through multiple version through 2024-06-02. To avoid any discontinuities in the analysis. We look at v06B data exclusively on the 2011-01-01 to 2020-12-31 (inclusive) period.
+V06 is provided in several different subversions. One is labeled V06B and GeoTIFF files are provided through 2022-05-07. The next period goes through multiple version through 2024-06-02. To avoid any discontinuities in the analysis. We look at v06B data exclusively on the 2011-01-01 to 2020-12-31 (inclusive) period - except for one single month.  `3B-MO-L.GIS.IMERG.20140601.V06B` was missing and was replaced with `3B-MO-L.GIS.IMERG.20140601.V07B`
 
-To simplify the analysis and create even annual cycles we subdivide the 365 day calandar year into pentads by removing all occurances of the leap day - February 29th.
-
+When working with pentads: To simplify the analysis and create even annual cycles we subdivide the 365 day calendar year into pentads by removing all occurrences of the leap day - February 29th.
 
 == Data Anomalies
 
@@ -45,7 +45,6 @@ We do not have any insight in to what are the causes.
 The SVD should make such issues very obvious,
 but it naturally requires the researcher to double-check the inputs and outputs.
 
-Here is an example of a bright-spot above Addis Ababa in Ethiopia
-(this spot is outside of the region observed in the Great Rift Example in *SUPP: Non Cyclical climate systems*)
+Here is an example of a bright spot above Addis Ababa in Ethiopia
 
-*FIGURE BLIP*
+image:diag/imerg-blip.png[]

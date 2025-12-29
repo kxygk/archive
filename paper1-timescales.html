@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.20">
+<title>SUPP: CDB at Different Timescales</title>
+<style>
+@import '../web/kxygk.css';
+
+html {
+margin: 0;
+overflow-x: hidden;
+}
+body {
+margin-left: 0px;
+margin-right: 0px;
+margin-left: 5vw;
+margin-right: 5vw;}
+#table-of-contents {display: none} /* disable for now.. till I have a better plan */
+.listingblock,pre.src {
+margin-left:  0vw;
+margin-right: 0vw;
+font-family: monospace;
+font-size: 100%;
+background: #FFFFEE;
+overflow: auto;
+position: static;
+border-top: 1px solid  #e5e5d6;
+border-bottom: 1px solid  #e5e5d6;
+}
+pre.src-org {
+color: red;
+background: #FFFFFF;
+}
+blockquote {
+width: 100%;
+padding-left: 0.5em;
+border-left: dotted;
+border-left-width: 4px;
+border-left-color: grey;
+background-color: #eefaf6; /*#f1ffee;*/
+margin: 0;
+.org-center {
+text-align: center;}
+}
+svg { /* newer inline SVGs */
+width: 100vw;
+overflow: hidden;
+height: auto;
+margin-left: -5vw;
+margin-right: 0;
+}
+/*.org-svg {
+width: 100vw;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}*/
+
+img {
+    display:flex;
+max-width: 100%;
+max-height: 70vh;
+vertical-align: middle;
+margin: auto;
+}
+ul {
+list-style-type: circle;
+padding-left: 1.5em;
+border-left: solid;
+border-left-width: 1px;
+border-left-color: grey;}
+h1 {color: #596060;}
+h2 {
+    color: black;
+    font-style: italic;
+    padding-top: 0.5em;}
+.sect1 {border-top: 4px solid  dimgray;}
+.sect2 {border-top: 4px solid  dimgrey;}
+h3 {color: black;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-left: 0.5em;
+    border-left: 4px solid  dimgrey;
+    border-bottom: 4px solid  #aaaaaa;
+    background:  #aaaaaa;}
+h4 {border-bottom: 2px dashed  #aaaaaa;
+    }
+b, i{
+    font-family: serif ;}
+sup { /* fixes line spacing issues due to superscripts */
+    font-size: 0.8em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    top: -0.5em;
+}
+sub { /* if these are missing then lines with subscripts take up more space */
+font-size: 0.8em;
+line-height: 0;
+}
+.title {
+font-weight: bold;
+}
+dt {
+font-weight: bold;
+}
+td p, dd p, li p{
+    margin: 0;
+}
+ul, p{
+    margin-top: 0;
+}
+.sidebarblock{
+    background:#f3f3f2;
+}
+.float-group::before,.float-group::after{content:" ";display:table}
+.left{float:left!important}
+.right{float:right!important}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+.scrollbox{
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+.scrollbox img{
+    height:auto;
+    width:auto;
+    max-width: 70vw;
+    max-height: 60vh;
+    vertical-align: bottom;
+    scroll-snap-align: start;
+}
+video{
+    height:auto;
+    width:auto;
+    max-width: 30vw;
+    max-height: 30vh;
+}
+.content{
+    height: 100%;
+}
+.imageblock{
+    height: 100%;
+}
+.flexbox > .content{
+    display: flex;
+    justify-content: center;
+    height: 33vh;
+}
+
+@media (max-width:60rem) {
+.listingblock,pre.src {
+    margin-left:  -5vw;
+    margin-right: -5vw;
+}}
+@media (min-width:60rem) {
+.sect2{
+    column-count:2;
+    hyphens: auto;
+}
+}
+@media (min-width:90rem) {
+.sect2{
+    column-count:3;
+}
+}
+@media (min-width:120rem) {
+.sect2s{
+    column-count:4;
+}
+}
+
+</style>
+<meta name="robots" content="noindex">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="../MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</head>
+<body class="article">
+<div id="header">
+<h1>SUPP: CDB at Different Timescales</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In extensive testing, the method has not been found sensitive to the observations' time window size. Nonetheless there are some considerations to keep in mind. We will reexamine the Southern Thailand region using monthly, pentad and daily time scales</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_original_case_study">Original Case Study</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="image"><img src="../fig/diag/krabi-monthly.png" alt="krabi monthly"></span></p>
+</div>
+<div class="paragraph">
+<p>This is the result presented in the original case study. The monthly time step was selected because the climate patterns can be identified by-eye in the original observations (subplot "b"). The intention is to allow the reader to convince themselves that the final patterns are representative of the regional climate dipole. Data was aggregated in to months by IMERG (the monthly aggregates are available on the IMERG FTP server on the first of every month). While providing a compelling visual story, the main issue with this view is that monthly time bins are too large. The bins cause "transition months" where both monsoon systems are present, making some months appear as a mixture of both climate systems (the green and purple "in between" observations). It appears as if both climate system cooccur during these months, when in reality this does not happen. A typically transition month is one or two weeks of the summer monsoon followed by one or two weeks of the winter monsoon (or vice versa in the Spring).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2_year_view">2 Year View</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For visual clarity, the case study is reexamined using just the first 2 years of the data.</p>
+</div>
+<div class="sect2">
+<h3 id="_months">Months</h3>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/diag/krabi-2year-monthly.png" alt="krabi 2year monthly"></span></p>
+</div>
+<div class="paragraph">
+<p>The 2 year window makes the monthly SV1/SV2 plane very sparse, as there are now only 24 points to work with. Perhaps surprisingly, bisection still seems to extract clear climate patterns. However, there are not enough data points to clearly distinguish the transitional observations/months we saw in the original full 10 year case study.</p>
+</div>
+<div class="paragraph">
+<p>The blue point near the origin corresponds to the second month. It has been surprisingly misclassified as a summer month. Weak/noisy observations near the origin have a tendency to misclassify as they are very sensitive to noise/perturbation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pentads">Pentads</h3>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/diag/krabi-2year-pentad.png" alt="krabi 2year pentad"></span></p>
+</div>
+<div class="paragraph">
+<p>Looking at the pentad scale, climate patterns are no longer clearly visible in the raw observations (subplot "b"). As compared to the monthly result, here the SVD has generated an inverted SV2 (subplot "c"). Notwithstanding the poor pattern visibility, numerically observation still classify very well (subplot "d"), providing a very compelling separation of the two climate systems. There is a distinct angular gap between the two groupings and Otsu&#8217;s method has selected this for the angular classifier (red line). The SV2 flip has caused "Top" "Bottom" patterns (and indices) to reversed position - as compared to the monthly case. Such a sign flip is common and has no detrimental effects. The extracted patterns are nearly identical to the monthly view, but the final index provides a much more interesting higher resolution insight in to the climate systems.</p>
+</div>
+<div class="paragraph">
+<p>The other thing to notice is that there are several not-insignificant misclassifications of summer pentads - which will be discussed shortly.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_days">Days</h3>
+<div class="paragraph">
+<p><span class="image"><img src="../fig/diag/krabi-2year-daily.png" alt="krabi 2year daily"></span></p>
+</div>
+<div class="paragraph">
+<p>At the daily scale raw observations are similarly indistinct, with no visible seasonality. Singular vectors are visually indistinguishable from those found with pentads. Similarly the final extracted patterns, bisection/classifier and averages all correspond closely to those found in the pentad case. However, the projections on to the SV1/SV2 plane has become a lot more chaotic as observation-level noise makes the dipole harder to distinguish. One would be forgiven to misconstrue the climate system (and our observations) as mixtures of the wedge&#8217;s two angular "end-members". While a visually compelling interpretation, it would not correspond to any physical process.</p>
+</div>
+<div class="paragraph">
+<p>Notwithstanding the noise, the summer (yellow) observations are generally at the top and the winter (blue) observations are generally at the bottom. A distinct exception to this is the peppering of yellow points in the winter half. Correspondingly, in the final climate index there is a distinct intermittent winter-monsoon signal/index during the summer. These index reversals happen at regular intervals and are almost certainly caused by MJO induces reversals in wind direction - inducing a winter-like pattern  during the summer. For reasons that are so far unclear, the converse (summer patterns in the winter) seems to occur at a much lower frequency.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s important to stress here that while the summer MJO reversal does look more like the winter monsoon, this correspondence is incidental. It&#8217;s expected that MJO-associated patterns, as well as other patterns due to tertiary climate systems, have distinct shapes of their own.</p>
+</div>
+<div class="paragraph">
+<p>A more comprehensive handling of such tertiary systems will be the scope of future work.</p>
+</div>
+<div class="paragraph">
+<p>From the perspective of the dominant monsoon-related climate dipole it&#8217;s important to only note that such reversals constitute a small fraction of the total observations and that they likely do not substantially skew the SV1/SV2 dipole subplane. This is further suggested by the fact that SV1 and SV2 are substantially the same between daily and pentad levels. Where at the pentad level these patterns have been mostly averaged out. As a result, their poor mapping to the monsoon-dipole-dominated subplane should lead to larger angular errors
+<a href="./paper1-erroranalysis.html">(SUPP Error Analysis)</a>)
+and should allows the dipole averages to not be severely distorted by such tertiary systems.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

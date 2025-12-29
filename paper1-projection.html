@@ -201,7 +201,7 @@ it will have some real implications for how we project observations on a climate
 <h2 id="_fig_climate_dipole_bisection_example">FIG Climate Dipole Bisection Example</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image"><img src="../fig/imrg/errors/new-sv-projs-full.svg" alt="new sv projs full"></span></p>
+<p><span class="image"><img src="../fig/imrg/errors/summary-with-errors.png" alt="summary with errors"></span></p>
 </div>
 <div class="sect2">
 <h3 id="_rotated_eofs">Rotated EOFs</h3>
@@ -214,37 +214,20 @@ observations in such a rotated basis do no convey any information.</p>
 </div>
 <div class="paragraph">
 <p>The first issue is maybe more conceptual:
-We have not really rotated EOF1 and EOF2 to a particular positions.
-You can think of EOF1 as being moved to the top quadrant and EOF2 to the bottom quadrant,
-but this is neither a two step process,
-nor is one quadrant more important than the other.</p>
+We have not really rotated EOF1 and EOF2 to a particular positions. You can think of EOF1 as being moved to the top quadrant and EOF2 to the bottom quadrant (or vice versa), but this is neither a two step process, nor is one quadrant more important than the other.</p>
 </div>
 <div class="paragraph">
-<p>The larger issue is that,
-while we are finding estimate of patterns in this subspace,
-physically these patterns represent non-mixing elements.</p>
+<p>The larger issue is that, while we are finding estimates of patterns in this subspace, physically these patterns represent non-mixing elements. SV1 and SV2 represent some estimates of particular mixtures of the underlying patterns. Noisy observations map to mixtures of these SV1 and SV2 vectors. In other words, when reduced to the SV1/SV2 subspace observations are represented as mixtures of mixtures. From these we are making an estimate of the original patterns.</p>
 </div>
 <div class="paragraph">
-<p>SV1 and SV2 represent some estimates of particular mixtures of the underlying patterns.
-Noisy observations map to yet mixtures of these SV1 and SV2 vectors.
-In other words,
-we have mixtures of mixtures.
-From these we are making an estimate of the original patterns.</p>
+<p>The conceptual leap is that, once you have estimated patterns, it is not meaningful to re-express observations as mixtures of climate patterns. We could remap the observations to an nonorthogonal 2D space, with the two patterns as the basis vectors, but this would not be a useful basis. In fact it would be actively depicting something non-physical. We know that based on assumption <strong>A2</strong> the underlying patterns can not mix.</p>
 </div>
 <div class="paragraph">
-<p>The conceptual leap is that,
-once you have estimated patterns,
-it is not meaningful to re-express observations as mixtures of climate patterns.
-We could remap the observations to an nonorthogonal 2D space,
-with the two patterns as the basis vectors,
-but this would not be a useful basis.
-In fact it would be actively depicting something non-physical.
-We know that based on assumption <strong>A2</strong> the underlying patterns can not mix.
-Ex: summer and winter monsoons have no physical way to manifest at the same time
-(exception in the edge case of integration times that are too long).
-Furthermore,
-looking in such a nonorthogonal subspace,
-some observations go so far as to imply the presence of negative climate pattern!</p>
+<p>Ex: summer and winter monsoons have no physical way to manifest at the same time
+(exception in the edge case of integration times that are too long).</p>
+</div>
+<div class="paragraph">
+<p>Furthermore, looking in such a nonorthogonal subspace, some observations will go so far as to imply the presence of negative climate pattern!</p>
 </div>
 <div class="paragraph">
 <p>Since the rotated basis does not make physical sense, what are we left to do?</p>
@@ -282,19 +265,13 @@ the SV1 SV2 subspace helps you estimated the SV1 SV2 mixtures that reconstruct t
 It also gives you the dichotomy (red dashed line) which classifies your observations in to two dipole states.</p>
 </div>
 <div class="paragraph">
-<p>Once we have the estimated patterns and the classification we can discard this subspace entirely.
-To calculate the correspondence of an observation to a pattern we simply do a normal projection/inner-product.</p>
+<p>Once we have the estimated patterns and the classification we discard this subspace entirely. To calculate the correspondence of an observation to a pattern we simply do a normal projection/inner-product.</p>
 </div>
 <div class="paragraph">
-<p>Since the SV3,4,5 subspaces should be mean-zero noise components,
-such a projection should be equivalent to doing an orthogonal
-(shortest distance)
-projection in the SV1 SV2 subspace.
-Measurements at this point lie along one pattern axis or the other,
-and any off-axis shifts are simply due to noise.</p>
+<p>Since the SV3,4,5 subspaces should be mean-zero noise components, such a projection should be equivalent to doing an orthogonal (shortest distance) projection in the SV1 SV2 subspace. Measurements at this point lie along one pattern axis or the other, and any off-axis shifts are simply due to noise.</p>
 </div>
 <div class="paragraph">
-<p>So what we do not want to do is redraw the observations in a 2D subspace with climate A on the X axis and climate B on the Y axis.</p>
+<p>What we do not want to do is redraw the observations in a 2D subspace with climate A on the X axis and climate B on the Y axis.</p>
 </div>
 <div class="paragraph">
 <p>In effect what we do not want is a Rotated SV basis.</p>

@@ -9,306 +9,148 @@
 
 === Introduction
 
-Because many climate systems have positive/negative phases,
-the climate patterns related to each phase can not undergo mixing.
-To start observing the underlying patterns,
-we select a region + time-span such that these pairs are the dominant climate systems.
-We can then project "weather" on to their SV1/2 subspace.
-SV1/2 will capture the majority of these two climate signals.
-As a result,
-the weather data will form two separate clusters in this subspace;
-landing in to one or the other clump based on which phase is active.
+Because many climate systems have positive/negative phases, the climate patterns related to each phase can not undergo mixing. To start observing the underlying patterns, we select a region + time-span such that these pairs are the dominant climate systems. We can then project "weather" on to their SV1/2 subspace. SV1/2 will capture the majority of these two climate signals. As a result, the weather data will form two separate clusters in this subspace; landing in to one or the other clump based on which phase is active.
 
-This is the crux of the method
+(the short version of the crux of the climate dipole bisection method)
 
 image:imrg/errors/sv-projs-2d.svg[]
 
-I am using 2 years of rain patterns,
-split in to pentads,
-with the leap day removed.
-(not the full dataset because it's going to get noisy!)
-
-However,
-this isn't the end of it!
-because the clump needs to be "extracted"
-
-Each of the two clumps corresponds to a fixed mixture of SV1 and SV2.
-The two climate mixing ratio are represented by two vectors in the SV1/2 space.
-In theory,
-each weather snapshot should live along one these two climate vectors.
-
-If tertiary climate phenomena are weak,
-then the vectors' associated SV1/2 ratio should give a robust approximations of the two original climate phase shapes.
+Two years of rain patterns, split in to pentads, with the leap day removed, will now be used to explore errors. The region is the same as the Thailand case study (monthly). Pentads have higher error but better separation in the SV1/SV2 subspace. A more limited dataset make a more challenging problem when it comes to pattern extraction. The benefit of proper error estimates will be more apparent. In addition, the dataset is limited in size because the plots are going to get to get busy.
 
 To get the climate vectors:
- - I need to somehow divide the subspace such that I separate the two clumps
- - I then need to find the vector each clump is located on.
+
+ - The subspace needs to be divided such that the two clumps are separated.
+ - The vector each clump is located on needs to be isolated.
 
 === Initial method
 
-What I have shown before:
- - I separate the point field in to two halves
- - I average the [x,y] coordinates of each half and find two central points
- - Each center point's [x,y] coordinate forms a ratio;
- which corresponds to the SV1 SV2 ratio of its associated climate pattern.
- - I try every possible way to divide the point field.
- I then select the one that minimizes the total variance
- (using the deviations/distance between each point and their respective half's center point)
+At a high level the method:
 
+ - Separates the point field in to two halves
+ - Average the angles of all the observations on each half to find two central angles.
+ - Every possible dividing line is tried. The one with the highest interclass variance is selected as the "correct" dividing line. This is Otsu's method:
+ https://en.wikipedia.org/wiki/Otsu's_method
+ 
 image:imrg/errors/sv-projs-2d-split.svg[]
+
+The result of the simple Otsu maximization search.
 
 === Issues
 
-Assuming the pattern doesn't change much based on the intensity of the climate pattern..
-The climate phase that varies more in strength will come out having a high variance.
-Hence,
-the dividing line will bias to moving point to the low-variance pattern.
-
-Furthermore,
-the many low-signal days near the origin will move your centerpoint towards the origin.
-This will make all deviations of high signal days higher
+Some issues with this approach are readily apparent. All pentads are given the same effective weight. If the pentad has very little rain, or if the pentad is representing some transition state between climate phases, its angle folds in to the averages just as much as a "clean" strong pattern. Patterns that poorly match SV1 and SV2 and therefore lie near the origin also disproportionately affect the averages
 
 
-The distance to the origin is not directly relevant to what we are looking for.
-The climate pattern is represented by a SV1 SV2 ratio,
-so at face value,
-the only relevant part is each point's SV1 SV2 ratio.
-
-Yet,
-it feels like the points that lie near the origin should somehow count less,
-because you have less climate going on and so it should give you less information.
-
-=== Path to a Solution
-
-The points near the origin are more sensitive to noise.
-Noise causes deviations from the original climate vector,
-which as a result causes larger changes in the SV1/SV2 ratio.
-
-Because the SV1/SV2 ratio goes to infinity as S2 goes to zero,
-this makes it an awkward formulation.
-Instead I will work with angles.
-
-These also have the advantage that they are easy to average.
+What is needed is some metric of how "goodness" of a measurement. The SV1/SV2 subplane was generated from the whole dataset and it's assumed the patterns are well constrained to this subspace. At a high level, if an observation lies far off of this plane, this it's likely not a good estimator of the climate pattern
 
 ==== Estimating the noise
 
-The pixel level noise is crudely estimated using the remaining SV3,4,5... vectors.
-Looking each point's projection,
-(inner product of a weather pattern and the SV1 and SV2 vectors)
-we can then estimate how the pixel level errors propagate to the projection.
+In aggregate this can be viewed as a signal + noise system. The noise effectively deviates the observations' projections on to the SV1/SV2 subplane. At the pixel level (of each observation) the noise can be crudely estimated using the remaining SV3,4,5... vectors. These remaining SVs represent the pixel level deviation from the climate pattern. While the pixel level statistical distributions are not known, the standard deviation can be estimated from this single value. Looking each observation's projection, (inner product of a weather pattern and the SV1 and SV2 vectors) we can then estimate how the pixel level errors propagate to the inner products. Since at each pixel the standard deviation is estimated from one deviation-from-the-mean, it is a poor estimate. Pixels can have different distributions in space and time. However since there are a large amount of pixels in each observation, in aggregate they provide a decent estimate of the deviation. This is likely a biased estimator since deviations are not from the true climate mean, but an estimated mean (which is closer)
 
-The inner product is a sum of products,
-so the error can be estimated using a quadrature sum.
+To see how pixel level errors propagate to the projections on to SV1 and SV2 one simply need to decompose the inner product. Inner products are a sum of products of pixels. The SV1 and SV2 patterns are treated as constants because they have much smaller errors as compared to the observations. Hence the inner product is a scaled sum of random variables, and can be estimated using a quadrature sum.
 
 image:imrg/errors/sv-projs-nocorr.svg[]
 
-The resulting errors are tiny.
-(you probably need to zoom in to see them)
-They don't explain the spread of we are seeing in each clump.
-So there is some problem..
+However, the quadrature sum of the SV3,4,5,.. component of observations results in miniscule errors. (you probably need to zoom in to see them in the figure above) They don't serve to explain the spread seen in each clump, indicating that there is more noise than estimated.
 
 ==== Likely Issue
 
-The likely root cause is the quadrature sum.
-It assumes that the pixel level noise is uncorrelated.
-However,
-this is likely not true.
-As a result,
-this is causing a large underestimate in the deviation of the projection estimates.
-In actuality the rain noise manifests as clumps and holes in the pattern.
-The pixels in each clump/hole are highly correlated.
+The likely root cause is the quadrature sum. Errors add in quadrature when you are adding uncorrelated processes. Ie. it assumes that the pixels' noise is uncorrelated. However, this is likely not true. Neighboring pixels are generally highly correlated (ex: a large cloud or storm front). As a result, this is causing a large underestimate in the deviation of the projection estimates. The precipitation's "noise" visually manifest as clumps and holes in the expected climate pattern. The pixels in each clump/hole can be thought of as highly correlated.
 
 === Solution
 
-I don't have a method to estimate the level of correlation.
-The correlation is neither spatially constant,
-(the clumps/holes move around)
-nor constant in time
-(ie. the noise may be more clumpy during certain times of year)
+We are unable to find a simple method to estimate the level of correlation. The correlation is neither spatially constant, (the clumps/holes move around) nor constant in time (ie. the noise may be more clumpy during certain times of year). Given these constraints we know of no way to estimate the instantaneous projection-noise directly. However, estimating an upper bound is still possible by assuming 100% correlation between all pixels. This is in effective an upper limit on how much the pixel level noise can shift the projections. Numerically this emulates the scenario where all the deviations go in in the same direction at once. In other words to the whole climate pattern being covered by a hole or clump. It is not physically sensible, b/c it becomes in such a scenario the SV3,4,.. deviations will be from  a highly skewed estimated mean and the pixel level noise would not be representative of the noise level (this reinforced the biased estimator issues). However it nonetheless provides a mathematical upper limit to work with.
 
-Maybe I can estimate the correlation somehow in my noise snapshot,
-but I don't know how.
-So estimating the noise now because impossible.
-However,
-I can instead estimate an upper bound on how bad the noise could get.
-An effective upper limit to how much the noise can shift my projection.
-I assume 100% correlation between all pixels;
-in other words the scenario that all deviations goes in in the same direction at once.
-This is equivalent to the whole climate pattern being covered by a hole or clump.
-It is not physically sensible,
-b/c it becomes indistinguishable from the climate signal.
-But it provides a mathematical upper limit
-
-The quadrature sum assumed the deviations may not be constructive.
-Now we assume they are constructive,
-and we carry out a simply sum all the deviations.
+The quadrature sum assumed the deviations were uncorrelated. Assuming they are correlated the errors needs to simply be summed. In our case it will be the sum all the deviations (the SV3,4,5.. component).
 
 image:imrg/errors/sv-projs-corr.svg[]
 
-The result now gives a result that overestimates the variability (error bars = 1-sigma),
-but is much closer to a useful value.
-We can already envision a climate vector going through the error bars on each side.
-
-*Note how the points lying further from the origin exhibit higher errors!*
+The result now gives a result that overestimates the variability (error bars = 1-sigma), but is much closer to a useful value. We can already envision a climate vector going through the error bars on each side. As we expect the point that fall "in the middle" between the two climate regimes has very large errors b/c they represent poorly mapped transition states. Points lying further from the origin also exhibit higher errors.
 
 ==== Angular Error
 
-Each point has an error in the SV1 projection,
-as well as an error in SV2 projection.
-The two errors form an error ellipse
-
-The error ellipse has a radius orthogonal to the point vector.
-(the line to the origin)
-Based on this radius we can construct an upper bound on the angular error of each point
+Each observation has an error in the SV1 projection, as well as an error in SV2 projection.
+The two errors form an error ellipse. The error ellipse has a radius orthogonal to the observation's projection-vector (the line to the origin). Based on this radius we can construct an upper bound on the angular error of each observation.
 
 image:imrg/errors/sv-projs-corr-ortho.svg[]
 
-The angular errors are indicated in degrees with small numbers in each data point
-(might require zooming in)
-Mousing over the point will bring up a tooltip with the last field `:err-angle`,
-also in degrees
-
-*Note how the angular errors increase as you get closer to the origin*
+Note how although the projection errors increase as you go further from the origin, the angular errors increase as you get closer to the origin.
 
 ==== Climate pattern ratios
 
-We now have points and the upper limit of their noise-induced angular errors.
-As before,
-we again split the field and calculate averages.
-However,
-now we are doing a weighted average of each point's angle,
-weighted by the inverse square of its angular error.
+We now have points and the upper limit of their noise-induced angular errors. As before, the field is split and angular averages are calculated using Otsu's method. However, using the new angular errors, a weighted average of each observation's angle can be made. The weighting is by the inverse square of its angular error.
 
 image:imrg/errors/sv-projs-corr-ortho-split.svg[]
 
+Points in between the climate dipoles and points closer to the origin are now effectively counting less.
+
 Ref: https://seismo.berkeley.edu/~kirchner/Toolkits/Toolkit_12.pdf
-(This is very useful resource:
-has further information on calculating the error of the resulting mean.
-It also explains how the error differs when you do a weighted average that's not error-base. ex: amount weighted averaging)
+(This is very useful resource: has further information on calculating the error of the resulting mean.It also explains how the error differs when you do a weighted average that's not error-based. ex: amount weighted averaging)
 
 ==== Climate indices
 
-Now that we have our climate basis vectors,
-we finally have to evaluate each points magnitude along its respective axis.
+Now that we have our climate basis vectors, we finally have to evaluate each observations' magnitude along its respective axis. Normally, when we have two non-orthogonal basis vectors, we would expect to do a non-orthogonal projection to get new basis values. However, in our case we know that the two climate systems are non-cooccurring. The off-climate-axis shift is not caused by the presence of the other climate basis, but by noise in the original (higher dimensional) map.
 
-Normally, when we have two non-orthogonal basis vectors,
-we would expect to do a non-orthogonal projection to get new basis values.
+This is discussed in more detail in 
+link:./paper1-projection.html[SUPP CDB as EOF Rotation and Projections].
 
-However,
-in our case we know that the two climate systems are non-cooccurring.
-The off-climate-axis shift is not caused by the presence of the other climate basis,
-but by noise in the original (higher dimensional) map.
-To me here it seems more sensible to do an orthogonal projection.
-ie. finding the nearest point on the basis vector
-(this point maybe should be fleshed out more?
-Maybe I should reproject the full weather map on to the climate basis vector?
-Would that give me a different value?)
-
-The error now is the radius of the error ellipse that is parallel to the respective basis vector
+The index error now is observation's radius of the error ellipse that is parallel to its respective basis vector.
 
 image:imrg/errors/sv-projs-corr-proj-err.svg[]
 
-Here the top climate pattern's parallel error components are colored in green,
-while the bottom equivalents are in blue
+Here the top climate pattern's parallel error components are colored in green, while the bottom equivalents are in blue. The orthogonal projections form the final climate index. While the parallel ellipse radii form the error bars:
 
-The orthogonal projections form the final climate index.
-While the parallel ellipse radii form the error bars:
-
-RESULT
+image:imrg/errors/new-indeces-errors.svg[]
 
 === Performance assessment
 
-To wrap things up,
-we evaluate the new climate basis compared to the previous once
+To wrap things up, the new climate basis is compared to the previous once
 
 .OLD vs NEW
 [cols="a,a"]
 |====
-image:imrg/errors/sv-projs-2d-split.svg[] | image:imrg/errors/sv-projs-corr-split.svg[]
+| image:imrg/errors/sv-projs-2d-split.svg[] | image:imrg/errors/sv-projs-corr-split.svg[]
 |====
-
-With the full dataset it looks more like this
-.OLD vs NEW
-[cols="a,a"]
-|====
-image:imrg/errors/old-sv-projs-full.svg[] | image:imrg/errors/new-sv-projs-full.svg[]
-|====
-
-
-The basis vectors have a stronger separation.
-The result look subjectively more correct.
-They look more centered on the higher energy portion of each cluster,
-less deflected by the near-origin points.
-The winter/bottom axis in particular looks much better
+	
+The basis vectors have a stronger separation. The result look subjectively more correct. They look more centered on the higher energy portion of each cluster, less deflected by the near-origin points.
 
 Looking at the actual resulting climate patterns:
 
 .OLD vs NEW
 |====
-image:imrg/errors/old-top-pattern.svg[] | image:imrg/errors/new-top-pattern.svg[]
+| image:imrg/errors/old-top-pattern.svg[] | image:imrg/errors/new-top-pattern.svg[]
 |====
 
 .OLD vs NEW
 [cols="a,a"]
 |====
-image:imrg/errors/old-bottom-pattern.svg[] | image:imrg/errors/new-bottom-pattern.svg[]
+| image:imrg/errors/old-bottom-pattern.svg[] | image:imrg/errors/new-bottom-pattern.svg[]
 |====
 
-For the full data-set the shift is a bit different
+The new patterns also look a bit more correct, with stronger East/West contrast. Looking at regions over open water in regions opposite to moisture sources, they exhibit less signal and form a stronger contrast to the primary rain-regions.
 
-.OLD vs NEW
-|====
-image:imrg/errors/old-top-pattern-full.svg[] | image:imrg/errors/new-top-pattern-full.svg[]
-|====
-
-.OLD vs NEW
-[cols="a,a"]
-|====
-image:imrg/errors/old-bottom-pattern-full.svg[] | image:imrg/errors/new-bottom-pattern-full.svg[]
-|====
-
-
-
-The new patterns also look a bit more correct,
-with strongest East/West contrast.
-Looking at regions over open water in regions opposite to moisture sources,
-they exhibit less signal and form a stronger contrast to the primary rain-regions.
-
-The final climate index:
+The final climate indeces:
 
 .OLD vs NEW
 image:imrg/errors/old-indeces.svg[]
 
 image:imrg/errors/new-indeces.svg[]
 
-The shifts here are nearly imperceptible,
-however we now have a climate index with error bars.
+Note that the colors have inverted from the original monthly analysis as SV2 has inverted when looking at 2-year pentads (this doesn't noticeably affect the extracted patterns). The error weighting correction shifts the indices nearly imperceptibly. However, more importantly the climate index now has error bars of sorts.
 
 image:imrg/errors/new-indeces-errors.svg[]
 
 === Limitations
 
-The method implicitly assumes normal symmetric errors.
-This is problematic in a couple of related ways:
-- The SV1/2 plane has all the points along a wedge.
-Regions outside of the wedge result in mixtures with negative rain region.
-While positive noise can "fill" the negative region,
-it quickly become highly improbable.
-- The rain noise no hard limit in the positive direction,
-but it has a hard cut-off in the negative.
-The noise can not be larger than the climate signal,
-otherwise you would end up with a negative rain pixel.
+While the method does help produce better results, it adds additional assumptions on top of the ones made by the climate dipole bisection method.. The method implicitly assumes normal symmetric errors. This is problematic in a couple of related ways:
 
-We don't actually establish errors on our values,
-but an overestimated upper bound.
-It's a bit unclear how to use this in the final result.
-I guess you could build a worst-case confidence interval,
-but it's with a lot of qualification
+- The SV1/2 plane has all the observations along a wedge. The primary reason is that regions far outside of the wedge result in mixtures of SV1/SV2 that have negative rain. While noise can effectively push observations in to regions with negative SV1/SV2 combinations, it quickly become a highly improbable outcome. Hence, noise in the SV1/SV2 subspace is likely non-gaussian.
+- The pixel level rain noise has no hard limit in the positive direction. However because you can not have less than 0 millimeters of rain, there is a hard cut-off in the negative direction. The noise is non-gaussian at the pixel level. The central limit theorem likely saves us here, but this not well characterized. 
+- Errors in SV1/SV2 are assumed to be extremely small as compared to the error in the observations. If one is working with an extremely small dataset this may not be a safe assumption.
+- There is the persistent issue of the "noise component" (SV3,4,5,...) being biased. Observations by their nature can no be re-run, so the deviations are our best estimate of the pixel level noise..
 
-Looking at the original SV1/2 field with error ellipses,
-it may make sense to look at ellipses that overlap with the dividing line.
-They maybe should be labelled as "unknown" or potentially misclassified.
-However,
-removing them entirely would likely artificially skew the angular average outward.
-That doesn't seem ideal.
-I've skipped this entirely b/c it feels like a rabbit hole..
+Finally, the final result is not providing true errors on our indices or angles. The level of correlation is not estimated in any way and we are in actuality giving a overestimated upper bound. While these are simply treated as true error estimates in the inverse square weighting, there may be room for improvement here. The final "error bars" on the index provide a worst-case confidence interval and require qualifications if used (hence they are left out of the synthetic example and the case study).
+
+Looking at the original SV1/2 field with error ellipses, it may make sense to look at ellipses that overlap with the dividing line. They maybe should be labeled as "unknown" or potentially misclassified.
+However, removing them entirely would likely artificially skew the angular average "outward", which seems like it would bias the averages. A better solution is another good avenue for future research.
+
+image:imrg/errors/summary-with-errors.png[]

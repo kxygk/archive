@@ -30,7 +30,7 @@ generally end up representing mixtures of all the underlying signals.
 O3:: EOF1 will often be heavily biased towards the dominant climate signal.
 This often makes the result look correct and masks the mixing.
 
-The text is broadly organized into two sections. The first illustrates these serious inherent issues using a simple synthetic dataset. The hope is EOF users are left with a clear mental framework for assessing their results. In the second part we present a simple procedure built on top of the defects of EOF (leveraging our new insight) which extracts corrected patterns. Real-world effectiveness is demonstrated using the "IMERG Late V6" gridded precipitation dataset. 
+The text is broadly organized into two sections. The first illustrates these serious inherent issues using a simple synthetic dataset. The hope is EOF users are left with a clear mental framework for assessing their results. In the second part we present a simple procedure built on top of the defects of EOF (leveraging our new insight) which extracts corrected patterns. Real-world effectiveness is demonstrated using the "IMERG Late V06B" gridded precipitation dataset. 
 link:./paper1-imerg.html[See: SUPP Notes on IMERG].
 The region of Southern Thailand was chosen due to ongoing paleoclimatological work (Tan et al. 2019, Chawchai et al. 2021).
 
@@ -81,11 +81,13 @@ The resulting singular vectors immediately look problematic (Figure 1 - c). As w
 If one were to instead work with anomalies in a classical EOF setup, since the mean has a mixture of both patterns, both the anomalies and the resulting EOF1/2 images would also be expected to have both patterns. One would need to add back in the mean to confirm the pattern had not been properly isolated. While the singular vectors of the anomalies (ie. EOF1 EOF2 ..) may look reasonable, they are not very interpretable in isolation.
 
 However, when working with raw observations, the pattern mixing is directly visible and perhaps unexpected. For many climatologists it may come as a surprise that the first singular vector (equivalent to EOF1) has also been affected, as it's seen as the "safe" mode. This mixing is a direct consequence of how the SVD is designed to extract patterns. (a detailed discussion of the causes is left to:
-link:./paper1-mixing.html[SUPP SVD Mixing]).
+link:./paper1-mixing.html[SUPP Signal mixing in Singular Vectors]).
 When working with real data, where exact patterns are not known a priori, it will not be possible to directly estimate the degree of mixing. However, by adjusting parameters in our synthetic setting we find mixing is generally a function of:
 - The degree of overlap between the two patterns
 - The ratio of the occurrence of the two climate patterns
 This highlights the general instability of the patterns. It's important to note that the climate ratio is particularly prone to change based on which time span is observed. This severely limits the utility of the EOF. Systems that are not cleanly periodic, such as interannual systems (ex: ENSO), have EOF modes that are particularly sensitive to the selected observation time window. When comparing EOF1 patterns from different time periods, one isn't able to safely attribute differences to changes in the underlying patterns. Change in climate ratio can produce results that are visually indistinguishable.
+
+Note that this mixing is distinct from the one observed by North et al. (1982). This is not a product of degeneracy when singular values (or eigenvalues) are close. It’s not a perturbation issue and something that occurs even in the absence of noise.
 
 The second SV deserves a special mention. The orthogonality condition of the singular vectors means SV2 is orthogonal to SV1. What is worth observing is that, even under this constraint, the SVD produces a different mixture of the two original patterns. This time the resulting mixed pattern contains both negative (blue) and positive (red) regions.
 
@@ -96,7 +98,7 @@ end up being the critical piece that will allow us to unmix the EOF and build a 
 
 == FIG2
 
-image::diag/krabins.png[]
+image::diag/krabi-monthly.png[]
 
 _(a) A topographic map of Southern Thailand showing the primary drivers of spatial variability_
 _(b) A sample of some of the IMERG observations_
@@ -143,7 +145,7 @@ Assuming *A1* to be generally true, and building on the intuition we developed i
 
 ==== Dimension reduction
 
-To search for the correct SV combinations, we first reinterpret our observations. We reduce the problem space to two dimensions by projecting our observations onto the SV1/SV2 plane. This can be done either by an inner product of every observation with SV1 and SV2, or by extracting the first two columns of the SVD's left-singular-vector matrix. The former yields a denormalized result, while the latter one is normalized. The choice here does not affect the final corrected patterns, but it will rescale the final climate index.
+To search for the correct SV combinations, we first reinterpret our observations. We reduce the problem space to two dimensions by projecting our observations onto the SV1/SV2 plane. This can be done either by an inner product of every observation with SV1 and SV2, or by extracting the first two columns of the SVD's left-singular-vector matrix. The former yields a denormalized result, while the latter one is normalized. The choice here does not affect the final corrected patterns, but it will rescale the final climate index. The former is used in all figures, causing the distance-to-origin to be a proxy for "climate intensity"
 
 The discarded SVs (SV3, SV4, ..) serve to describe the non-signal/noise component of our observations. They can be used to estimate an upper bound on the errors in the SV1/SV2 projections. These error bounds can then be used to help refine our final pattern estimates. However, since it is tangential to the main thrust behind climate dipole bisection we leave this to a supplementary section.
 
@@ -186,7 +188,7 @@ link:./paper1-projection.html[SUPP CDB as EOF Rotation and Projections].
 
 The final projection's error bound can be estimated with the previously mentioned projection errors. See:
 link:./paper1-erroranalysis.html[SUPP Error Analysis].
-If the observations were denormalized then the index with trend with regional precipitation volume. If normalized observations are projected then they will indirectly reflect the amount of "noise", with lower values indicated a poorer pattern match. Denormalized or not, it's important to note that the two resulting climate indices are not comparable. Unlike a tuned EOF1 region, which operates with one pattern, here we have two separate patterns that are being projected on. As a result, one cannot make statements such as "this year's summer monsoon was 20% stronger than the winter monsoon". EOF1-based climate indices implicitly make such comparisons possible, even though they are likely erroneous and highly dependent on the selected region. With two separate patterns such inter-phase comparisons become explicitly not possible.
+If the observations were denormalized then the index will trend with regional precipitation volume. If normalized observations are projected then they will indirectly reflect the amount of "noise", with lower values indicated a poorer pattern match. Denormalized or not, it's important to note that the two resulting climate indices are not comparable. Unlike a tuned EOF1 region, which operates with one pattern, here we have two separate patterns that are being projected on. As a result, one cannot make statements such as "this year's summer monsoon was 20% stronger than the winter monsoon". EOF1-based climate indices implicitly make such comparisons possible, even though they are likely erroneous and highly dependent on the selected region. With two separate patterns such inter-phase comparisons become explicitly not possible.
 
 To see a daily climate index,
 see *SUPP*.

@@ -213,44 +213,11 @@ MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
 <h1>SUPP: Signal mixing in Singular Vectors</h1>
 </div>
 <div id="content">
-<div class="sect2">
-<h3 id="_introduction">Introduction</h3>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>Our objective will be to understand why EOF vectors mix the underlying signals.
-To understand what the EOF vectors represent we will need to start from a good baseline.</p>
+<p>Our objective will be to understand why EOF modes and SVs mix the underlying signals. Just as was illustrated before, the SVD of the normalized observations is the easier formulations to reason about.</p>
 </div>
-<div class="paragraph">
-<p>In in North et al. (1982), the EOF is described as:
-the "eigenvectors of the cross-covariance matrix between grid points".
-This EOF formulation is the canonical form seen in EOF literature.</p>
-</div>
-<div class="paragraph">
-<p>It&#8217;s unfortunately very difficult to reason about.
-If you have your observations arranged as the columns of some matrix A
-"AA^T" is the crosscovariance matrix.
-The eigenvector
-(AA^Tx = lambda x)
-is the vector that goes through scaled by the largest constant value.
-On a high level,
-it makes sense that if you feed in a vector of correlated pixels,
-then it also stacks the high values of covariances.
-However,
-there is the additional constraint that the output vector must be the scaled input.
-This formulation is quite challenging to reason about.
-We don&#8217;t know how to make the logical leap to mixing here.</p>
-</div>
-<div class="paragraph">
-<p>Instead we will use an alternate,
-mathematically equivalent,
-formulation:
-<strong>The EOF vectors are the singular vectors of the matrix of the anomalies.</strong></p>
-</div>
-<div class="paragraph">
-<p>Since anomalies are already mixtures of all the climate signals,
-it&#8217;s actually hard to observe this mixing when looking at EOF vectors.
-So we again advise using the normalized observations.
-(See the Supplementary section on Normalization)
-This is the same as we do in the synthetic examples as well as the case study.</p>
 </div>
 </div>
 <div class="sect2">
@@ -262,39 +229,23 @@ This is the same as we do in the synthetic examples as well as the case study.</
 Carl Meyer&#8217;s "<em>Matrix Analysis and Applied Linear Algebra</em>" First Edition, page 411</p>
 </div>
 <div class="paragraph">
-<p>At a high level,
-one way to construct the singular value decomposition is though an recursive block matrix algorithm.
-This in effect builds singular vectors one after another.
-Instead of restating the algorithm,
-we just provide a high level description.
-Once each singular vector is constructed it is removed from the observations.
-These new adjusted observations are then used to make the subsequent SV.
-Note that "removing a singular vector" means removing any component in the same direction
-(such that the inner product becomes zero).
-As a result,
-all the adjusted observations end up orthogonal to that SV.
-When the next singular vector is built from these adjusted observations it too will be orthogonal to the extracted SV.
-This is because singular vectors are constructed by a linear combination of the observations
-- so if all the adjusted observations are orthogonal,
-then so will their combination.
+<p>At a high level, one way to construct the Singular Value Decomposition is though an recursive block matrix algorithm. This in effect builds singular vectors one after another. Instead of restating the algorithm, we just provide a high level description.</p>
+</div>
+<div class="paragraph">
+<p>Once each singular vector is constructed it is removed from the observations. This removal makes the  new adjusted observations orthogonal to that singular vectors. The adjusted observations are then used to make the subsequent SV. Note that "removing a singular vector" means removing any component in the same direction (such that the inner product becomes zero).
+Since the next singular vector is built adjusted observations it too will be orthogonal to the previous SV.
+( This is because singular vectors are constructed by a linear combination of the observations. If all the adjusted observations are orthogonal, then so will their combinations.
+)
 Issue <strong>O1</strong> is a direct and unavoidable consequence of the algorithm&#8217;s design.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_singular_vector_construction">Singular Vector construction</h4>
 <div class="paragraph">
-<p>To understand why the singular vectors
-(even the first one)
-end up mixing signal
-(issue <strong>O2</strong>)
-we need to understand what the SVD does at each iteration.
-We will focus on the first singular vector,
-but the logic holds for the remaining vectors as well.
-When building a singular vector,
-for instance when building SV1,
-the SVD is fundamentally doing a weighted average
-(ie. linear combination)
-of the data/observations.</p>
+<p>To understand why the singular vectors (even the first one) end up mixing signal (issue <strong>O2</strong>) we need to understand what the SVD does at each iteration when building a SV. We will focus on the first singular vector, but the logic holds for the remaining vectors as well.</p>
+</div>
+<div class="paragraph">
+<p>When building a singular vector, for instance when building SV1, the SVD is fundamentally doing a weighted average (ie. linear combination) of the data/observations.</p>
 </div>
 <div class="paragraph">
 <p>\$[["|","|",..],
@@ -325,88 +276,59 @@ of the data/observations.</p>
        \$</p>
 </div>
 <div class="paragraph">
-<p>If it&#8217;s steam:[a] is the solution with the largest length,
-then it is the <em>singular vector</em> (scaled by the <em>singular value</em>).
-ie. the largest value for \$aa^T\$ (the 2-norm or euclidean norm)</p>
+<p>The algorithm adjusts the weights \$w_i\$ such that the output vector \$a\$ has the largest length possible length. ie. the largest value for \$aa^T\$ (the 2-norm or euclidean norm). Technically here there should be a squared root, but it is skipped as it doesn&#8217;t affect the maximization.</p>
 </div>
 <div class="paragraph">
-<p>When looking at the singular vectors as pattern images
-(as illustrated),
-this is effectively maximizing the sum of the squares of all the pixels.</p>
+<p>The result \$a\$ is the <em>singular vector</em> scaled by the <em>singular value</em></p>
+</div>
+<div class="paragraph">
+<p>When looking at the singular vectors \$a\$ as pattern images (as illustrated), their squared length \$aa^T\$ is effectively the sum of the squares of all the pixels.</p>
 </div>
 <div class="paragraph">
 <p>\$a_{1}^2+a_{2}^2+..\$</p>
 </div>
 <div class="paragraph">
-<p>The squaring is what in effect drives the pattern extraction.
-Imagining an alternate algorithm,
-where,
-instead of maximing the sum of squares,
-we maximized the direct sum
-(the manhattan 1-norm)</p>
+<p>Maximizing this squared length is one of two aspects that effectively drives the pattern extraction. Imagining an alternate algorithm, where, instead of maximing the sum of squares, we maximized the direct sum (the manhattan 1-norm)</p>
 </div>
 <div class="paragraph">
 <p>\$a_{1} + a_{2}+..\$</p>
 </div>
 <div class="paragraph">
 <p>To get the largest value,
-one would selects weights \$w_i}\$ that corresponded to observations with the most rain.</p>
+one would selects weights \$w_i\$ that corresponded to observations with the most rain. This would ensure the sum had the largest cumulative pixel values.</p>
 </div>
 <div class="paragraph">
-<p>However,
-the squaring drives the algorithm to "want" pixels with extremely large values
-(b/c their squares will be huge).
-So even if the direct sum is smaller,
-as long as certain pixels have extra large values then the sum of squares will be larger -
-ie. driving up the euclidean length.
-In fact,
-it&#8217;s likely the euclidean length is largely a function of these large values.
-Consequently
-it seems one should add-up images with similar images/patterns so that they "add up".
-Even if the pattern area is relatively small,
-the stacking up will give you some extreme pixel values -
-and hence the larger euclidean norm.</p>
+<p>However, the squaring drives the algorithm to prefer images that have pixels with extremely large values (b/c their squares will be even larger). Even if the direct sum is smaller, as long as certain pixels have extra large values then the sum of squares will be larger - ie. driving up the euclidean length. In fact, it&#8217;s likely the euclidean length is largely a function of these large values. Consequently, instead of adding up images with the most rain, one should add-up images with similar images/patterns so that they "add up". Even if the repeated pattern area is relatively small, the stacking up will give you some extreme pixel values - and hence the larger euclidean norm.</p>
 </div>
 <div class="paragraph">
-<p>However,
-this mathematical interpretation does not correspond to what we see in the result!
-What we actually see is that the singular vectors have multiple patterns at once;
-seemingly running counter to the maximization objective.</p>
+<p>However, this mathematical interpretation does not correspond to what we see in the result! What we actually see is that the singular vectors have multiple patterns at once; seemingly running counter to the maximization objective.</p>
 </div>
 <div class="paragraph">
-<p>An additional question still unanswered is:
-Even assuming the sum of squares gives higher values to sums with large pixel values ..
-why does the SVD end up stacking several observations?
-and why do we not simply select the single observations with the largest pixel values?</p>
+<p>An additional question still unanswered is: The sum of squares gives longer lengths to images with large individual pixel values, but why does the SVD end up stacking several observations? Why does the algorithm  not select a single observations with the largest pixel values?</p>
+</div>
+<div class="paragraph">
+<p>The second aspect driving pattern extraction is the mechanism behind how weights are distributed among the \$w_i\$ terms.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_weight_distribution">Weight distribution</h4>
 <div class="paragraph">
-<p>The root cause is a subtlety of an algorithmic constraint we have elided.
-When the SVD is maximizing this weighted average of the observations the weights must have been implicitely limited
-(so that the SVD can not pick arbitrarily large weights).
-The limit is that the weights must be of unit length.</p>
+<p>The root cause is a subtlety of an algorithmic constraint we have elided. When the SVD is maximizing this weighted average of the observations the weights must have been implicitly limited (so that the SVD can not pick arbitrarily large weights). The limit is that the weights must be of unit length.</p>
 </div>
 <div class="paragraph">
 <p>\$||w|| = 1.0\$</p>
 </div>
 <div class="paragraph">
-<p>In other words,
-the sum of the squares of all the weights must equal to <code>1.0</code>.</p>
+<p>In other words, the sum of the squares of all the weights must equal to <code>1.0</code>.</p>
 </div>
 <div class="paragraph">
 <p>\$w_1^2 + w_2^2 + w_3^2 + .. = 1.0\$</p>
 </div>
 <div class="paragraph">
-<p>As previously,
-the squaring makes a subtle but important difference
-(here breaking the pattern extraction instead of enabling it).</p>
+<p>As previously, the squaring makes a subtle but important difference.</p>
 </div>
 <div class="paragraph">
-<p>As before,
-while the sum of squares is a constant <code>1.0</code>,
-the direct "normal" sum of weights is not constant.</p>
+<p>As before, while the sum of squares is a constant <code>1.0</code>, the direct "normal" sum of weights is not constant.</p>
 </div>
 <div class="paragraph">
 <p>If the weights were constrained under a manhattan norm (direct sum) to <code>1.0</code></p>
@@ -415,19 +337,10 @@ the direct "normal" sum of weights is not constant.</p>
 <p>\$w_1 + w_2 + w_3 + .. = 1.0\$</p>
 </div>
 <div class="paragraph">
-<p>then we may in-fact want to select the single observation with the highest value!
-Averaging with other observations would likely dilute your brightest values</p>
+<p>then we may in-fact want to select the single observation with the highest pixel values (making a stem[w_i = 0] except for one \$w_j = 1.0\$. Averaging with other observations would likely dilute your brightest values.</p>
 </div>
 <div class="paragraph">
-<p>What happens is that,
-all else being equal,
-spreading weights out actually makes their sum a higher value.
-This is most easily illustrated by looking at the logical extremes.
-If all weight was assigned to just one observation
-(for instance the one with the most total rain)
-and all other weights were set to zero,
-then the sum of weights would equal <code>1.0</code>
-(same as the sum of squares).</p>
+<p>However, with the euclidean norm of 1.0, what happens is that spreading weights out actually makes their sum a higher value. This is most easily illustrated by looking at the logical extremes. If all weight was assigned to just one observation (for instance the one with the most total rain) and all other weights were set to zero, then the sum of weights would equal <code>1.0</code> (same as the sum of squares).</p>
 </div>
 <div class="paragraph">
 <div class="title">weight vector length</div>
@@ -441,11 +354,8 @@ then the sum of weights would equal <code>1.0</code>
 <p>\$w_1^2 + w_2^2 + w_3^2 + .. = 1.0\$</p>
 </div>
 <div class="paragraph">
-<p>By contrast,
-an even spread of weights across all <code>N</code> observation would give each weight the value <code>1/sqrt(N)</code>.
-Here the sum of squares still equals <code>1.0</code> for all values of <code>N</code> (the constraint is satisfied).
-However,
-the direct sum is now <code>N/sqrt(N)</code>.</p>
+<p>By contrast, an even spread of weights across all <code>N</code> observation would give each weight the value <code>1/sqrt(N)</code>. Here the sum of squares still equals <code>1.0</code> for all values of <code>N</code> (the constraint is satisfied).
+However, the direct sum is now <code>N/sqrt(N)</code>.</p>
 </div>
 <div class="paragraph">
 <div class="title">weight vector length</div>
@@ -456,24 +366,17 @@ the direct sum is now <code>N/sqrt(N)</code>.</p>
 <p>\$1/sqrt(N) + 1/sqrt(N) + 1/sqrt(N) + .. = N/sqrt(N) = sqrt(N)\$</p>
 </div>
 <div class="paragraph">
-<p>Since \$sqrt(N) &gt; 1.0\$ for all values of \$N&gt;1\$,
-this tells us that the algorithm will have a tendency to spread weights,
-to increase the weight-factors and thereby increase the euclidean length of the sum.
-The factor is significant
-(ex: 100 observations gives you a 10x increase).</p>
+<p>Since \$sqrt(N) &gt; 1.0\$ for all values of \$N&gt;1\$, this tells us that the algorithm will have a tendency to spread weights, to increase the weight-factors and thereby increase the euclidean length of the sum. The factor is significant (ex: 100 observations gives you a 10x increase).</p>
 </div>
 <div class="paragraph">
-<p>The end result is a bit surprising and can be explored using example:</p>
+<p>The end result is a bit surprising and can be explored using an example:</p>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_behavior_though_examples">Behavior though examples</h3>
 <div class="paragraph">
-<p>We explore examples by running different scenarios through a SVD routine.
-All example are 5 observations of 3 pixels.
-The first pattern is [1,0,0].
-The second pattern will be [0,0,1]</p>
+<p>We explore examples by running different scenarios through a SVD routine. All example are 5 observations of 3 pixels. The first pattern is [1,0,0]. The second pattern will be [0,0,1]</p>
 </div>
 <div class="paragraph">
 <p>We try different variations</p>
@@ -533,9 +436,6 @@ The second pattern will be [0,0,1]</p>
 <p>As we expect,
 spreading the weight gives a larger resulting vector.</p>
 </div>
-<div class="paragraph">
-<p>I am changing the notation to being singular</p>
-</div>
 </div>
 <div class="sect3">
 <h4 id="_a_single_observation_doesnt_swamp_the_result">A single observation doesn&#8217;t swamp the result</h4>
@@ -570,7 +470,8 @@ for instance,
 more rain will have their associate signals artificially inflated.
 We normalize using the L-Infinity norm
 (ie. making rain on the 0-1 range based on the highest pixel value in each observation)
-For a more detailed disscussion see <strong>SUPP</strong></p>
+For a more detailed discussion see
+<a href="./paper1-normalization.html">SUPP Notes on Precipitation Data Normalization)</a></p>
 </div>
 </div>
 <div class="sect3">
@@ -664,12 +565,7 @@ and the overlap strength does not have to be very large since it occurs in many 
 <div class="sect3">
 <h4 id="_notes_on_north_et_al_1982">Notes on North et al. 1982</h4>
 <div class="paragraph">
-<p>Note that this mixing is distinct from the one observed by North et al. 1982.
-This is not a product of degeneracy when singular values
-(or eigenvalues)
-are close.
-It&#8217;s not a perturbation issue and something that occurs even in the absence of noise.
-These examples have no noise and the patterns are identical</p>
+<p>Note how these examples have no noise and the patterns are identical. It&#8217;s not a perturbation issue and something that occurs even in the absence of noise. This highlights how this mixing is distinct from the one observed by North et al. 1982. This is not a product of degeneracy when singular values (or eigenvalues) are close.</p>
 </div>
 </div>
 </div>
