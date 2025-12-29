@@ -7,7 +7,11 @@
 :nofooter:
 
 = Fixing the Mesoscale EOF by Climate Dipole Bisection
-George Kontsevich
+George Kontsevich [1], Kai-Chih Tseng [2], Ludvig Löwemark [1]
+
+- [1] Department of Geosciences, National Taiwan University, Taipei, Taiwan
+- [2] Department of Atmospheric Sciences, National Taiwan University, Taipei, Taiwan
+
 
 == Abstract
 
@@ -242,7 +246,7 @@ http://kxygk.github.io/imergination
 Hannachi, A. (2021). Patterns Identification and Data Mining in Weather and Climate. In Springer Atmospheric Sciences. Springer International Publishing. https://doi.org/10.1007/978-3-030-67073-3 
 
 .ICA as EOF Rotation
- Hannachi, A., S. Unkel, N. T. Trendafilov, and I. T. Jolliffe, 2009: Independent Component Analysis of Climate Data: A New Look at EOF Rotation. J. Climate, 22, 2797–2812, https://doi.org/10.1175/2008JCLI2571.1. 
+Hannachi, A., S. Unkel, N. T. Trendafilov, and I. T. Jolliffe, 2009: Independent Component Analysis of Climate Data: A New Look at EOF Rotation. J. Climate, 22, 2797–2812, https://doi.org/10.1175/2008JCLI2571.1.
  
 .Quaternary Science Reviews paper about Klang Cave
 Chawchai, S., Tan, L., Löwemark, L., Wang, H.-C., Yu, T.-L., Chung, Y.-C., Mii, H.-S., Liu, G., Blaauw, M., Gong, S.-Y., Wohlfarth, B., & Shen, C.-C. (2021). Hydroclimate variability of central Indo-Pacific region during the Holocene. Quaternary Science Reviews, Volume 253, 106779. https://doi.org/10.1016/j.quascirev.2020.106779
