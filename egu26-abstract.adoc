@@ -1,16 +1,24 @@
-= Daily rainfall d18O suggests Southern Thailand speleothem d18O records controlled by extreme winter monsoon events
+:docinfo: shared
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+
+= Daily rainfall δ^18^O suggests Southern Thailand speleothem ^18^O records controlled by extreme winter monsoon events
 
 For speleothems found in the Asian Monsoon region,
-variability in oxygen isotopes (d18O) over time is often taken as an indicator of changes in monsoon intensity.
-In regions affected by both the summer and winter monsoons the picture is expected to be more complex,
-as each system may have its own mechanism for driving changes in rain d18O.
-To try to tease out the possible drivers behind changes in d18O,
-preexisting speleothem records in a region of Southern Thailand are compared to over a decade of daily rainfall d18O measurements.
+variability in oxygen isotopes (^18^O) over time is often taken as an indicator of changes in monsoon intensity.
+In regions affected by both the summer and winter monsoons the picture is more complex,
+as each system may have its own mechanism for driving changes in rain ^18^O.
+To try to tease out the possible drivers behind changes in ^18^O,
+published speleothem records from a region of Southern Thailand are compared to over a decade of daily rainfall ^18^O measurements.
 When comparing winter and summer monsoon isotope averages,
 the seasonal difference is found to be too small to explain the changes seen in speleothems over the past several thousand years.
 This suggests a simple change in monsoon ratio is unlikely to be a direct driver.
 However,
 there is a strong indication that periodic intense winter monsoon pulses show a distinct isotopic signature.
 This signature is sufficient to explain past variability,
-and by extension suggests that speleothem d18O records from the locality mostly reflect changes in the winter monsoon system.
-We explore possible mechanisms driving these 18O-light pulses and what they suggest about the past climate configuration in the region.
+and by extension suggests that speleothem ^18^O records from the locality mostly reflect changes in the winter monsoon system.
+We explore possible mechanisms driving these ^18^O-light pulses and what they suggest about the past climate configuration in the region.
