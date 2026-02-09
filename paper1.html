@@ -38,7 +38,7 @@ background: #FFFFFF;
 blockquote {
 width: 100%;
 padding-left: 0.5em;
-border-left: solid;
+border-left: dotted;
 border-left-width: 4px;
 border-left-color: grey;
 background-color: #eefaf6; /*#f1ffee;*/
@@ -63,10 +63,8 @@ margin-right: auto;
 img {
     display:flex;
 max-width: 100%;
-height: 100%;
-max-height: 33vh;
+max-height: 70vh;
 vertical-align: middle;
-width: auto;
 margin: auto;
 }
 ul {
@@ -78,19 +76,27 @@ border-left-color: grey;}
 h1 {color: #596060;}
 h2 {
     color: black;
-font-style: italic;
-    padding-top: 0.5em;
-    border-bottom: 4px solid  #aaaaaa;}
+    font-style: italic;
+    padding-top: 0.5em;}
+.sect1 {border-top: 4px solid  dimgray;}
+.sect2 {border-top: 4px solid  dimgrey;}
 h3 {color: black;
-border-bottom: 2px dotted  #aaaaaa;}
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-left: 0.5em;
+    border-left: 4px solid  dimgrey;
+    border-bottom: 4px solid  #aaaaaa;
+    background:  #aaaaaa;}
+h4 {border-bottom: 2px dashed  #aaaaaa;
+    }
 b, i{
-font-family: serif ;}
+    font-family: serif ;}
 sup { /* fixes line spacing issues due to superscripts */
-font-size: 0.8em;
-line-height: 0;
-position: relative;
-vertical-align: baseline;
-top: -0.5em;
+    font-size: 0.8em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    top: -0.5em;
 }
 sub { /* if these are missing then lines with subscripts take up more space */
 font-size: 0.8em;
@@ -160,18 +166,18 @@ video{
     margin-right: -5vw;
 }}
 @media (min-width:60rem) {
-.sectionbody{
+.sect2{
     column-count:2;
     hyphens: auto;
 }
 }
 @media (min-width:90rem) {
-.sectionbody{
+.sect2{
     column-count:3;
 }
 }
 @media (min-width:120rem) {
-.sectionbody{
+.sect2s{
     column-count:4;
 }
 }
@@ -421,7 +427,7 @@ then it rains twice as much at each pixel/observation-point.</p>
 <div class="sect3">
 <h4 id="_dimension_reduction">Dimension reduction</h4>
 <div class="paragraph">
-<p>To search for the correct SV combinations, we first reinterpret our observations. We reduce the problem space to two dimensions by projecting our observations onto the SV1/SV2 plane. This can be done either by an inner product of every observation with SV1 and SV2, or by extracting the first two columns of the SVD&#8217;s left-singular-vector matrix. The former yields a denormalized result, while the latter one is normalized. The choice here does not affect the final corrected patterns, but it will rescale the final climate index. The former is used in all figures, causing the distance-to-origin to be a proxy for "climate intensity".</p>
+<p>To search for the correct SV combinations, we first reinterpret our observations. We reduce the problem space to two dimensions by projecting our observations onto the SV1/SV2 plane. This can be done either by an inner product of every observation with SV1 and SV2, or by extracting the first two columns of the SVD&#8217;s left-singular-vector matrix. The former yields a denormalized result, while the latter one is normalized. The choice here does not affect the final corrected patterns, but it will rescale the final climate index. The former is used in all figures, causing the distance-to-origin to be related to precipitation volume and a general proxy for "climate intensity".</p>
 </div>
 <div class="paragraph">
 <p>The discarded SVs (SV3, SV4, ..) serve to describe the non-signal/noise component of our observations. They can be used to estimate an upper bound on the errors in the SV1/SV2 projections. These error bounds can then be used to help refine our final pattern estimates. However, since it is tangential to the main thrust behind climate dipole bisection we leave this to a supplementary section.</p>
