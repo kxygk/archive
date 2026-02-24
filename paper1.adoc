@@ -35,10 +35,10 @@ generally end up representing mixtures of all the underlying climate systems.
 O3:: EOF1 will often be heavily biased towards the dominant climate signal.
 This often makes the result look correct and masks the mixing.
 
-The text is broadly organized into three sections. The first is a short revisiting of the EOF formulation, along with a small proposed adjustment. We then illustrate these serious inherent issues with the EOF using a simple synthetic dataset. The hope is to raise caution for EOF users when it comes to the interpretation of their results. Finally, we present a simple procedure built on top of the defects of EOF (leveraging our new insight) which will extract corrected patterns. Real-world effectiveness is demonstrated using the "IMERG Late V06B" gridded precipitation dataset.
+The text is broadly organized into three sections. The first is a short revisiting of the EOF formulation, along with a small proposed adjustment. We then illustrate these serious inherent issues with the EOF using a simple synthetic dataset. The hope is to raise caution for EOF users when it comes to the interpretation of their results. Finally, we present a simple procedure built on top of the defects of EOF (leveraging our new insight) which will extract corrected patterns. Real-world effectiveness is demonstrated using the "IMERG Late V06B" gridded precipitation dataset (Huffman et al., 2019). See:
 link:./paper1-imerg.html[See: SUPP Notes on IMERG].
 The region of Southern Thailand was chosen due to ongoing paleoclimatological work (Tan et al. 2019, Chawchai et al. 2021).
-The region size has no been tuned, and was selected for illustritive purposes.
+The region size has no been tuned, and was selected for illustrative purposes.
 
 The proposed procedure is built on top of a small set of simplifying assumptions. These allow pattern extraction, in the case of climate specifically, to be mathematically simplified. Unlike most existing methods which try to improve on the EOF, (collectively known as EOF rotators) the simplifying assumptions will entirely avoid the construction of a new basis. These alternate methods are explored briefly in the Discussion.
 
@@ -261,6 +261,10 @@ Trenberth, K. E. (1997). The Definition of El Niño. Bulletin of the American Me
 
 .This has the grid map of the onset and withdrawls
 Wang, B., & LinHo, . (2002). Rainy Season of the Asian–Pacific Summer Monsoon. Journal of Climate, 15(4), 386-398. https://doi.org/10.1175/1520-0442(2002)015<0386:RSOTAP>2.0.CO;2
+
+.IMERG
+Huffman, G. J., Stocker, E. F., Bolvin, D. T., Nelkin, E. J., & Tan, J. (2019). GPM IMERG Final Run Monthly Precipitation L3 1 month 0.1 degree x 0.1 degree V06 [Data set]. NASA Goddard Earth Sciences Data and Information Services Center (GES DISC). https://doi.org/10.5067/GPM/IMERG/3B-MONTH/06
+
 
 .Changes in NAO EOF patterns over different periods
 Werb, B. E., & Rudnick, D. L. (2023). Remarkable changes in the dominant modes of north Pacific sea surface temperature. Geophysical Research Letters, 50, e2022GL101078. https://doi.org/10.1029/2022GL101078
