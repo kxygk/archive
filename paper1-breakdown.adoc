@@ -6,7 +6,7 @@
 :reproducible:
 :nofooter:
 
-= SUPP: Breadowns in CDB Assumptions
+= SUPP: Breakdowns in CDB Assumptions
 
 == Intro
 
