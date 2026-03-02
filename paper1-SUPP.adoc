@@ -1,0 +1,57 @@
+= Supporting Information for: Fixing the Mesoscale EOF by Climate Dipole Bisection
+George Kontsevich <kxygk@aliyun.com>
+:toc: macro
+:toc-title: Table of Contents
+:toclevels: 2
+:sectnums:
+:sectnumlevels: 2
+:docinfo: shared
+:imagesdir: ../fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+:figure-caption: Figure S
+
+== Table of Contents
+* <<_supp_notes_on_imerg, SUPP: Notes on IMERG>>
+* <<_supp_notes_on_precipitation_data_normalization, SUPP: Notes on Precipitation Data Normalization>>
+* <<_supp_full_synthetic_dataset, SUPP: Full Synthetic Dataset>>
+* <<_supp_signal_mixing_in_singular_vectors, SUPP: Signal mixing in Singular Vectors>>
+* <<_supp_cdb_at_different_timescales, SUPP: CDB at Different Timescales>>
+* <<_supp_single_climate_regions, SUPP: Single Climate Regions>>
+* <<_supp_breakdowns_in_cdb_assumptions, SUPP: Breakdowns in CDB Assumptions>>
+* <<_supp_error_analysis, SUPP: Error Analysis>>
+* <<_supp_cdb_as_eof_rotation_and_projections, SUPP: CDB as EOF Rotation and Projections>>
+* <<_supp_south_china_sea_sst, SUPP: South China Sea SST>>
+
+<<<
+include::paper1-imerg.adoc[]
+
+<<<
+include::paper1-normalization.adoc[]
+
+<<<
+include::paper1-synthetic.adoc[]
+
+<<<
+include::paper1-mixing.adoc[]
+
+<<<
+include::paper1-timescales.adoc[]
+
+<<<
+include::paper1-singleclimate.adoc[]
+
+<<<
+include::paper1-breakdown.adoc[]
+
+<<<
+include::paper1-erroranalysis.adoc[]
+
+<<<
+include::paper1-projection.adoc[]
+
+<<<
+include::paper1-sst.adoc[]
