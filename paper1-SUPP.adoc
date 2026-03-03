@@ -13,6 +13,8 @@ George Kontsevich <kxygk@aliyun.com>
 :reproducible:
 :nofooter:
 :figure-caption: Figure S
+:figure-number:
+:listing-caption:
 
 == Table of Contents
 * <<_supp_notes_on_imerg, SUPP: Notes on IMERG>>
