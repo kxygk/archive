@@ -11,6 +11,8 @@
 == Hainan: Pre and Post Normalization
 
 
+[caption="Figure S{counter:figure-number}: "]
+.Effect of Normalization
 [cols="a,a"]
 |====
 | image:diag/hainan-nonorm.png[] | image:diag/hainan.png[]
@@ -18,25 +20,34 @@
 
 *Left*: Non-normalized data *Right*: Normalized Data (each day remapped to the 0-1 range)
 
-If non-normalized observations are put in to the SVD, observations that have more precipitation have higher effective weights. In Hainan this corresponds to the Typhoon Vincent that passed in mid July 2012. The rains were so large that this one data point dominated EOF1 and becomes effectively one extracted pattern.
+If non-normalized observations are put in to the SVD,
+observations that have more precipitation have higher effective weights.
+Looking at a 2 year period in Hainan,
+this corresponds to the Typhoon Vincent that passed in mid July 2012.
+The rains were so large that this one data point dominated EOF1,
+effectively becomeing one extracted pattern.
 
-Note how precipitation in the winter months is much smaller, and yet after normalization constitutes a recognizably grouping and extractable pattern. The winter monsoon systems is dominated by dry continental winds. Hence the amount of precipitation is generally much lower.
+Note how precipitation in winter months is much smaller,
+and yet after normalization constitutes a recognizably grouping and extractable pattern.
+The winter monsoon systems is dominated by dry continental winds.
+Hence the amount of precipitation is generally much lower.
+This "coastal effect" offshore rain is characteristic of seasonal rain in many regions.
 
 === Data Normalization
 
-Before data is put in to the SVD, it is likely helpful to normalize the data somehow. However, the normalization procedure becomes another parameter that needs to be chosen. In many situations, ( ex: large datasets ), the difference in the extracted patterns may not be very large. 
+Before data is put in to the SVD, it is likely helpful to normalize the data somehow. However, the normalization procedure becomes another parameter that needs to be chosen. However, in many situations, ( ex: large datasets ), the observed difference in the final extracted patterns may not be very large.
 
-In our example of working with precipitation, non-normalized data inherently gives a lot of weight to data point that have a lot of precipitation. When constructing the singular vector, one is maximizing the induced matrix norm - which is a kind of weighted sum. When maximizing this weighted sum the algorithm will gravitate to using data points that have a lot of rain. In the extreme example of the coast of Hainan (shown above), this leads to the first singular vector being dominated by a single-day typhoon event.
+In our example of working with precipitation, non-normalized data inherently gives a lot of weight to data point that have a lot of precipitation. When constructing the singular vector, one is maximizing the induced matrix norm - which is a kind of weighted sum. When maximizing this weighted sum the algorithm will gravitate to using data points that have a lot of rain. In the extreme example of Hainan (shown above), this leads to the first singular vector being dominated by a single-day typhoon event.
 
 The core principle behind normalization is that when looking at our observations we in effect do not care about the magnitude of the signal. What we care about is the spatial distribution, or "shape", of the precipitation. If all the observations can be brought to a similar brightness then they can be compared without bias.
 
-The downstream effect is that days/months with very little rain will be on equal footing as days/months with a lot of rain. Intuitively this seems problematic, as  days with little rain would be expected to have ill-defined shapes. However, the system is self correcting to some extent. By stacking days with similar patterns, the algorithm will hopefully select days with good consistent signals. So even if normalization boosts days with little signal, this does not overtly negatively affect the final result
+The downstream effect is that days/months with very little rain will be on equal footing as days/months with a lot of rain. Intuitively this seems problematic, as  days with little rain would be expected to have ill-defined shapes. However, the system is self correcting to some extent. By stacking days with similar patterns, the algorithm will hopefully select days with good consistent signals. So even if normalization effectively boosts days with little signal, this should not negatively affect the final result.
 
 Normalization is unfortunately not a clearcut procedure and we have many options to choose from. Here we will quickly discuss the L2 L1 and L-Inifinity norms.
 
 ==== L2 norm
 
-The L2 norm, also known as the "euclidean norm", is maybe the intuitive first thing one would reach for. You can set each data point to have unit length and thereby normalize the data. We reject this norm b/c it increases with additive noise. Given a precipitation shape, if one were to go pixel by pixel and perturb the values the norm would increase. This is because perturbations in the positive direction have a larger impact on the norm length than deviation in the negative direction (due to the squaring of each pixel value in the L2 norm) Since we want similar shapes to be at similar "brightness", and we do not want noisier image to have different weights, we reject this norm.
+The L2 norm, also known as the "euclidean norm", is maybe the intuitive first thing one would reach for. You can set each data point to have unit length and thereby normalize the data. We reject this norm b/c the norm length increases with additive noise. Given a precipitation shape, if one were to go pixel by pixel and perturb the values the norm would increase. This is because perturbations in the positive direction have a larger impact on the norm length than deviation in the negative direction (due to the squaring of each pixel value in the L2 norm) Since we want similar shapes to be at similar "brightness", and we do not want noisier image to have different weights, we reject this norm.
 
 ==== L1 norm
 
@@ -44,7 +55,7 @@ The L1 norm, sometimes called the "Manhattan norm", is another natural choice. U
 
 ==== L-Infinity norm
 
-The L-Infinity norm is the final choice that we settle on. This determines the norm by the length of the brightest pixel in the image. In essence this compresses the dynamic range of the image to the 0-1 range. A downside is that this norm is very susceptible to the noise in that one pixel value. Similar to the L2 norm, high noise over an even signal can lead to a "dimming" of the image. However, with our dataset and in aggregate over enough observation, we have not yet observed any clear issues. Whatever the drawbacks of the IMERG data, we do not observe any extreme outliers that would skew/compromise this normalization.
+The L-Infinity norm is the final choice that we settle on. This determines the norm by the length of the brightest pixel in the image. In essence this compresses the dynamic range of the image to the 0-1 range. A downside is that this norm is very susceptible to the noise in that one highest pixel value. Similar to the L2 norm, high noise over an even signal can lead to a "dimming" of the image. However, with our dataset and in aggregate over enough observation, we have not yet observed any clear issues. Whatever the drawbacks of the IMERG data, we do not observe any extreme outliers that would skew/compromise this normalization.
 
 There are likely other norms that could be examined and we don't see this as the final word on this topic. For instance, taking the logarithm of the data could possibly mitigate the drawbacks of the L2 norm (though the L1 norm issue remains). One could also potentially remap the values by constructing an eCDF. However, this would distort the dynamic range in a way we don't have a good analytic insight into.
 

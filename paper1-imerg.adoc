@@ -2,7 +2,6 @@
 :imagesdir: ../fig/
 :!webfonts:
 :stylesheet: ../web/adoc.css
-:table-caption!:
 :reproducible:
 :nofooter:
 
@@ -11,29 +10,44 @@
 == Introduction
 
 IMERG has a 0.1x0.1 degree resolution.
-This gives ample room to select small regions of interest.
-The region used is the rectangle given by:
-North-West point N 12.4 E 97.50.
-South-East point N 5.40 E 101.0.
-As will be discussed,
-operating on small regions directly benefits pattern extraction.
-The final region size was not tuned and was selected for illustrative purposes.
+In the case of many climate systems,
+this gives ample room to select small regions of interest
+(as operating on small regions directly benefits pattern extraction).
+The region used in our Southern Thailand case study is the rectangle given by:
+
+- North-West point N 12.4 E 97.50.
+- South-East point N 5.40 E 101.0.
+
+The final region size was not tuned and was selected purely for illustrative purposes.
+Likely a smaller region would have fewer north/south onset/withdrawl transitional observations.
+One would just need to maintain the climate pattern contrast;
+ie. between the northwest summer rain and the southeast winter rain.
 
 == Data Versions
 
-For the Southern Thailand case study we selected to use the V06B Late data provided by IMERG (in GeoTIFF format). We find that other versions produce notable issues related to a "climatological adjustment" made using GPCC gauge data. This rain gauge correction was added to the "Final" version of version V06B. In version V07B the correction is incorporated in both Late and Final versions. The Early version is still unaffected, however it "only has forward propagation (which basically amounts to extrapolation forward in time), while the Late has both forward and backward propagation (allowing interpolation)". See: https://gpm.nasa.gov/data/imerg FAQ Section.
+V06B Late data provided by IMERG (in GeoTIFF format) is used For the Southern Thailand case study. Other versions produce notable issues related to "climatological adjustments" based on GPCC gauge data. Such a rain gauge correction was added to the "Final" version V06B. In version V07B the correction is incorporated in both Late and Final versions. The Early version remains unaffected, but was not selected. It "only has forward propagation (which basically amounts to extrapolation forward in time), while the Late has both forward and backward propagation (allowing interpolation)". See: https://gpm.nasa.gov/data/imerg FAQ Section.
 
 The GPCC adjustment creates a notable stenciling effect. The stencil seems to reflect the GPCC stencil seen in GPCC precipitation maps:
 https://climatedataguide.ucar.edu/climate-data/gpcc-global-precipitation-climatology-centre
 
-[cols="a,a"]
+[caption="Figure S{counter:figure-number}: "]
+.Monthly comparison of IMERG v6 and v7 for Krabi region
+[cols="a,a",frame=none, grid=none]
 |====
 | image:diag/krabi-monthly.png[] | image:diag/krabi-monthly-v7.png[]
 |====
 
 *Left*: Monthly V06B - except for one month (see below) *Right*: Monthly V07B - coasts display a stencil/mask pattern
 
-V06 is provided in several different subversions. One is labeled V06B and GeoTIFF files are provided through 2022-05-07. The next period goes through multiple version through 2024-06-02. To avoid any discontinuities in the analysis. We look at v06B data exclusively on the 2011-01-01 to 2020-12-31 (inclusive) period - except for one single month.  `3B-MO-L.GIS.IMERG.20140601.V06B` was missing and was replaced with `3B-MO-L.GIS.IMERG.20140601.V07B`
+Note that in addition to the stencil,
+the results look smoothened with less sharp features.
+This seems to suggest there may be some issue with the gauge correction,
+as the sharp features found in the uncorrected data seem like the result of natural phenomena
+(ex: orographic effect on the northwest mountain belt).
+
+V06 is provided in several different subversions. One is labeled V06B and GeoTIFF files are provided through 2022-05-07. The next period goes through multiple version through 2024-06-02. To avoid any discontinuities in the analysis. We look at v06B data exclusively over the 2011-01-01 to 2020-12-31 (inclusive) period.
+
+The sole exception is one single month.  `3B-MO-L.GIS.IMERG.20140601.V06B` was inexplicably missing and was replaced manually with `3B-MO-L.GIS.IMERG.20140601.V07B`.
 
 When working with pentads: To simplify the analysis and create even annual cycles we subdivide the 365 day calendar year into pentads by removing all occurrences of the leap day - February 29th.
 
@@ -47,4 +61,5 @@ but it naturally requires the researcher to double-check the inputs and outputs.
 
 Here is an example of a bright spot above Addis Ababa in Ethiopia
 
-image:diag/imerg-blip.png[]
+.Example of an IMERG data blip (over the city of Addis Ababa)
+image::diag/imerg-blip.png[]

@@ -10,18 +10,19 @@
 
 == Background
 
-Maybe the most common climate region is one with a single monsoon-related rainy season. At the seasonal scale, these climate systems are may be more the norm than the exception. In these degenerate cases SV1 will be giving you a good approximation of the climate related pattern. No extra steps are needed. Unfortunately, at the moment there is no clear statistical method for identifying which regions have climate dipoles. An ad hoc method is looking at the singular values in a scree plot. However, in some two climate systems regions the magnitude of the second singular vector is simply very small.
+Maybe the most common climate region is one with a single monsoon-related rainy season. At the seasonal scale, these climate systems are likely more the norm than the exception. In these degenerate cases SV1 will be giving you a good approximation of the climate related pattern. No extra steps are needed. Unfortunately, at the moment there is no clear statistical method for identifying which regions have climate dipoles. An ad hoc method is looking at the singular values in a scree plot. However, in some two climate systems regions the magnitude of the second singular vector is simply very small.
 
 For instance, in China the winter monsoon system has fractionally small amounts of precipitation associated with it. The rain barely registers and the screen plot looks like a single-system region. However, we can still extract a winter associate pattern:
 
 == Figure
 
-image:diag/marrah.png[]
+.Marrah Plateau - Single Monsoon region (non-dipole)
+image::diag/marrah.png[]
 
 === Marrah Plateau
 ==== Region
 
-For a small case study we look at the Marrah mountains in southern Sudan. This massif lies at the edge of the Sahel and is subject to a single monsoon-driven rainy season. The massif's topography has some interplay with the monsoon related atmospheric configuration which drives the dominant precipitation pattern. As a result of the topography, this region is prone to heavy rains, flooding and landslides.
+For a small case study we look at the Marrah mountains in southern Sudan. This massif lies at the edge of the Sahel and is subject to a single monsoon-driven rainy season. The massif's topography has some interplay with the monsoon which drives the dominant precipitation pattern. As a result of the topography, this region is prone to heavy rains, flooding and landslides.
 
 ==== SVD Result
 
@@ -57,11 +58,4 @@ It must be noted that globally, most locations do not feature a bistable climate
 
 Ultimately there is no clear line between a two climate system and one where characteristic *A3* has broken down. Non linearities in climate associated patterns may cause Onset/withdrawal periods to present patterns distinct from the main climate associated period. Such situations need to be identified by the researcher on a case-by-case basis.
 
-As was hopefully illustrated, these scenarios are readily identifiable by inspecting the SVD and Climate Dipole Bisection result.
-
-== Extra: Hainan Island + Sichuan Basin
-
-image:diag/hainan.png[]
-
-image:diag/sichuan.png[]
-
+As was hopefully illustrated, these scenarios are readily identifiable by inspecting the SVD and Climate Dipole Bisection results.

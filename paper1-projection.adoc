@@ -12,7 +12,11 @@ However,
 it will have some real implications for how we project observations on a climate patterns
 
 == FIG Climate Dipole Bisection Example
-image:imrg/errors/summary-with-errors.png[]
+
+.Climate Dipole Bisection with Error bounds displayed
+image::imrg/errors/summary-with-errors.png[]
+
+(see SUPP: Error Analysis)
 
 === Rotated EOFs
 
@@ -32,7 +36,7 @@ The conceptual leap is that, once you have estimated patterns, it is not meaning
 Ex: summer and winter monsoons have no physical way to manifest at the same time
 (exception in the edge case of integration times that are too long).
 
-Furthermore, looking in such a nonorthogonal subspace, some observations will go so far as to imply the presence of negative climate pattern!
+Furthermore, looking in such a nonorthogonal subspace, some observations will go so far as to imply the presence of negative climate patterns!
 
 Since the rotated basis does not make physical sense, what are we left to do?
 

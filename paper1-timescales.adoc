@@ -14,7 +14,8 @@ In extensive testing, the method has not been found sensitive to the observation
 
 == Original Case Study
 
-image:diag/krabi-monthly.png[]
+.Duplicate of Figure 1
+image::diag/krabi-monthly.png[]
 
 This is the result presented in the original case study. The monthly time step was selected because the climate patterns can be identified by-eye in the original observations (subplot "b"). The intention is to allow the reader to convince themselves that the final patterns are representative of the regional climate dipole. Data was aggregated in to months by IMERG (the monthly aggregates are available on the IMERG FTP server on the first of every month). While providing a compelling visual story, the main issue with this view is that monthly time bins are too large. The bins cause "transition months" where both monsoon systems are present, making some months appear as a mixture of both climate systems (the green and purple "in between" observations). It appears as if both climate system cooccur during these months, when in reality this does not happen. A typically transition month is one or two weeks of the summer monsoon followed by one or two weeks of the winter monsoon (or vice versa in the Spring).
 
@@ -24,15 +25,15 @@ For visual clarity, the case study is reexamined using just the first 2 years of
 
 === Months
 
-image:diag/krabi-2year-monthly.png[]
+.Two Years - Monthly
+image::diag/krabi-2year-monthly.png[]
 
-The 2 year window makes the monthly SV1/SV2 plane very sparse, as there are now only 24 points to work with. Perhaps surprisingly, bisection still seems to extract clear climate patterns. However, there are not enough data points to clearly distinguish the transitional observations/months we saw in the original full 10 year case study. 
-
-The blue point near the origin corresponds to the second month. It has been surprisingly misclassified as a summer month. Weak/noisy observations near the origin have a tendency to misclassify as they are very sensitive to noise/perturbation.
+The 2 year window makes the monthly SV1/SV2 plane very sparse, as there are now only 24 points/observations to work with. Perhaps surprisingly, bisection still seems to extract clear climate patterns. However, there are not enough data points to clearly distinguish the transitional observations/months we saw in the original full 10 year case study.
 
 === Pentads
 
-image:diag/krabi-2year-pentad.png[]
+.Two Years - Pentads
+image::diag/krabi-2year-pentad.png[]
 
 Looking at the pentad scale, climate patterns are no longer clearly visible in the raw observations (subplot "b"). As compared to the monthly result, here the SVD has generated an inverted SV2 (subplot "c"). Notwithstanding the poor pattern visibility, numerically observation still classify very well (subplot "d"), providing a very compelling separation of the two climate systems. There is a distinct angular gap between the two groupings and Otsu's method has selected this for the angular classifier (red line). The SV2 flip has caused "Top" "Bottom" patterns (and indices) to reversed position - as compared to the monthly case. Such a sign flip is common and has no detrimental effects. The extracted patterns are nearly identical to the monthly view, but the final index provides a much more interesting higher resolution insight in to the climate systems.
 
@@ -40,11 +41,12 @@ The other thing to notice is that there are several not-insignificant misclassif
 
 === Days
 
-image:diag/krabi-2year-daily.png[]
+.Two Years - Daily
+image::diag/krabi-2year-daily.png[]
 
-At the daily scale raw observations are similarly indistinct, with no visible seasonality. Singular vectors are visually indistinguishable from those found with pentads. Similarly the final extracted patterns, bisection/classifier and averages all correspond closely to those found in the pentad case. However, the projections on to the SV1/SV2 plane has become a lot more chaotic as observation-level noise makes the dipole harder to distinguish. One would be forgiven to misconstrue the climate system (and our observations) as mixtures of the wedge's two angular "end-members". While a visually compelling interpretation, it would not correspond to any physical process.
+At the daily scale raw observations (subplot "b") are again indistinct, with no visible seasonality. However, the first two singular vectors are visually indistinguishable from those found in the previous pentad case. Similarly the final extracted patterns, bisection/classifier and averages all correspond closely to those found previously. However, the projections on to the SV1/SV2 plane has become a lot more chaotic as observation-level noise has made the dipole harder to distinguish. One would be forgiven to misconstrue the climate system (and our observations) as mixtures of the wedge's two angular "end-members". While a visually compelling interpretation, it would not correspond to any physical process.
 
-Notwithstanding the noise, the summer (yellow) observations are generally at the top and the winter (blue) observations are generally at the bottom. A distinct exception to this is the peppering of yellow points in the winter half. Correspondingly, in the final climate index there is a distinct intermittent winter-monsoon signal/index during the summer. These index reversals happen at regular intervals and are almost certainly caused by MJO induces reversals in wind direction - inducing a winter-like pattern  during the summer. For reasons that are so far unclear, the converse (summer patterns in the winter) seems to occur at a much lower frequency.
+Notwithstanding the noise, the summer (yellow) observations are generally at the top and the winter (blue) observations are generally at the bottom. A distinct exception to this is the peppering of yellow points in the winter half. Correspondingly, in the final climate index there is a distinct intermittent winter-monsoon signal/index during the two summer periods. These index reversals happen at regular intervals and are almost certainly caused by MJO induces reversals in wind direction - creating a temporary winter-like pattern  during the summer. For reasons that are so far unclear, the converse (summer patterns in the winter) seems to occur at a much lower frequency.
 
 It's important to stress here that while the summer MJO reversal does look more like the winter monsoon, this correspondence is incidental. It's expected that MJO-associated patterns, as well as other patterns due to tertiary climate systems, have distinct shapes of their own. 
 

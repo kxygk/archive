@@ -10,5 +10,6 @@
 
 == Full Synthetic
 
-.This is the full set of synthetic observations used to make Figure 1. Data is arranged as 12 synthetic months per row, with 3 rows/years in total. Each row/year is split in to 8 summer-like patterns and 4 winter-like patterns.
-image:imrg/synth2patt/precipitation-all.svg[]
+.Full Synthetic Dataset
+image::imrg/synth2patt/precipitation-all.svg[]
+This is the full set of synthetic observations used to make *Figure 1*. Data is arranged as 12 synthetic months per row, with 3 rows/years in total. Each row/year is split in to 8 summer-like patterns and 4 winter-like patterns.

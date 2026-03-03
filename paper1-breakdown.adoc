@@ -19,8 +19,7 @@ Some degree of breakdown in each assumption will always be present and should be
 This is caused by two types of regional climate configuration:
 
 As we mentioned,
-the most common climate configuration is the single climate pattern (such as a region with one monsoon associate rainy season) that is then forcibly bisected. An example of such a scenario is explored further in
-link:./paper1-singleclimate.html[SUPP Single Climate Region].
+the most common climate configuration is the single climate pattern (such as a region with one monsoon associate rainy season) that is then forcibly bisected. An example of such a scenario is explored further in SUPP Single Climate Region.
 
 The other scenario of concern is the presence of tertiary climate systems.
 We have not yet been able to identify any non-cooccurring tertiary systems
@@ -41,8 +40,7 @@ and we can be confident they will in some way be skewing the climate patterns.
 Through a careful look at the daily precipitation climate index,
 we do manage to detect the MJO as a intermittent index reversal.
 Indicating that while a weak signal,
-it can on occasion overwhelm the monsoon signal (
-link:/paper1-timescales.html[SUPP CDB at Different Timescales] ).
+it can on occasion overwhelm the monsoon signal (SUPP CDB at Different Timescales).
 The affected observations likely constitute a small minority of the data.
 From the perspective of the climate bisection method,
 skewed patterns map poorly to the SV1 SV2 subspace.
@@ -61,8 +59,7 @@ for instance,
  expect different climate-associated patterns between strong and weak summer monsoon periods.
 Climate systems are never truly linear,
 and our analysis of single-climate regions suggests that this non-linearity is detectable to some extent.
-See: 
-link:./paper1-singleclimate.html[SUPP Single Climate Region].
+See: SUPP Single Climate Region.
 However,
 the fact that observations lie mostly along the ratio vectors strongly suggests that *A3* is a safe approximation.
 Climate intensity derived skewing,
@@ -79,8 +76,10 @@ One would expect the climate grouping to drift off-axis based on the distance to
 (the distance to the origin being a metric of climate intensity).
 Arguably in our case study the summer monsoon half does show a small off-axis trend.
 
-.the cluster of yellow/summer observations are not aligned with respect to the origin
-image:diag/krabi-monthly.png[]
+.Duplicate Figure 1
+image::diag/krabi-monthly.png[]
+
+*Note*: The cluster of yellow/summer observations are not aligned with respect to the origin
 
 From the perspective of climate dipole bisection,
 intensity-based changes in pattern-shape will likely has a negligible effect on classification and index generation. 
@@ -108,12 +107,11 @@ these observation have always mapped to the region between the two climate patte
 "Switch-over" observation are inevitable in any dataset,
 however in the case of extremely slow parameters,
 they can start to form a significant fraction of the observations.
-This is a very typical for parameters such as sea surface temperature. See: 
-link:./paper1-sst.html[SUPP South China Sea SST].
+This is a very typical for parameters such as sea surface temperature. See: SUPP South China Sea SST.
 
 .the region under observation is too large.
 For instance,
-a region's southern/norther section may be under a monsoonal regime,
+a region's southern/northern section may be under a monsoonal regime,
 while the northern/southern section has not yet been affected.
 For the Asian monsoon region,
 delays in onset and withdrawal can be estimated using Wang and LinHo's (2002) helpful maps.
@@ -152,8 +150,8 @@ Note that the case study was not tuned to a minimal region size -
 as our objective was to illustrate climate pattern extraction.
 
 .the temporal resolution is too coarse.
-When we perform the dimension reduction on monthly precipitation averages we often find months where both climate systems are active. 
-link:./paper1-timescales.html[SUPP CDB at Different Timescales].
+When we perform the dimension reduction on monthly precipitation averages we often find months where both climate systems are active.
+(SUPP CDB at Different Timescales)
 
 In the first two scenarios above, 
 transition-associated patterns are of an unpredictable shape.
@@ -168,7 +166,7 @@ but is an artifact of what is essentially instrument resolution.
 Our case study,
 when observed at the pentad scale,
 no longer exhibits this mixing.
-link:./paper1-timescales.html[SUPP CDB at Different Timescales].
+(SUPP CDB at Different Timescales)
 
 This issue stresses the need for high temporal resolution data,
 again highlighting the utility of the IMERG dataset.
@@ -179,8 +177,7 @@ If one has special insight in to climate transitions
 then one may try to find criteria for removing problematic observations from the SVD.
 We have not found such heuristics necessary,
 and caution they may mask other issues.
-(See the MJO signal in 
-link:./paper1-timescales.html[SUPP CDB at Different Timescales]).
+(See the MJO signal in SUPP CDB at Different Timescales).
 By looking at the SV1/SV2 subspace,
 it seems evident that even in the ideal case,
 any adjustment of the mixing ratio would at best give an extremely modest improvement to the final patterns -
