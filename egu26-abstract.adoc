@@ -8,6 +8,20 @@
 
 = Daily rainfall δ^18^O suggests Southern Thailand speleothem ^18^O records controlled by extreme winter monsoon events
 
+George Kontsevich ^1^
+Helmut Duerrast ^2^
+Mao-Chang Liang ^3^
+Akkaneewut Chabangborn ^4^
+Sakonvan Chawchai ^4^
+Annapureddy Phanindra Reddy ^1^
+Harsh Oza ^1^
+Ludvig Löwemark ^1^
+
+1. Department of Geosciences, National Taiwan University, No 1. Sec. 4 Roosevelt Road, P.O. Box 13-318, 106 Taipei, Taiwan
+2. Department of Physics, Faculty of Science, Prince of Songkla University, Kanjanavanich Road 15, HatYai, 90112, Thailand
+3. Research Center for Environmental Changes, Academia Sinica, 128, Sec. 2, Academia Road, Nankang, Taipei 11529, Taiwan
+4. Department of Geology, Faculty of Science, Chulalongkorn University, Phayathai Rd., Bangkok, 10330, Thailand
+
 For speleothems found in the Asian Monsoon region,
 variability in oxygen isotopes (^18^O) over time is often taken as an indicator of changes in monsoon intensity.
 In regions affected by both the summer and winter monsoons the picture is more complex,
