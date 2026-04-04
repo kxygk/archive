@@ -502,7 +502,7 @@ Reveal.initialize({
   // Enable the slide overview mode
   overview: true,
   // Disables the default reveal.js slide layout so that you can use custom CSS layout
-  disableLayout: true,
+  disableLayout: false,
   // Vertical centering of slides
   center: false,
   // Enables touch navigation on devices with touch input
@@ -601,8 +601,8 @@ Reveal.initialize({
   // The "normal" size of the presentation, aspect ratio will be preserved
   // when the presentation is scaled to fit different resolutions. Can be
   // specified using percentage units.
-  width: 960,
-  height: 700,
+  width: 1280,
+  height: 720,
 
   // Factor of the display size that should remain empty around the content
   margin: 0.1,
@@ -678,11 +678,11 @@ function toArray(o) {
 }
 
 Reveal.addEventListener('slidechanged', function () {
-  layoutSlideContents(960, 700)
+  layoutSlideContents(1280, 720)
 });
 Reveal.addEventListener('ready', function () {
-  layoutSlideContents(960, 700)
+  layoutSlideContents(1280, 720)
 });
 Reveal.addEventListener('resize', function () {
-  layoutSlideContents(960, 700)
+  layoutSlideContents(1280, 720)
 });</script></body></html>

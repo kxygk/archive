@@ -5,7 +5,9 @@
 :revealjs_center: false
 :revealjs_controls: false
 :revealjs_progress: false
-:revealjs_disablelayout: true
+:revealjs_disablelayout: false
+:revealjs_width: 1280
+:revealjs_height: 720
 :!webfonts:
 
 :imagesdir: ../fig/
@@ -297,6 +299,7 @@ Winter configuration
 |====
 |image:extr/etopo2022-krabi.jpg[]
 |
+
 by George Kontsevich
 
 email: kxygk@aliyun.com
@@ -307,3 +310,4 @@ Please let me know if you are aware of any opportunities!
 Former professional programmer (C++/C/Java/R/Python etc.).
 Can do data crunching or write you some custom data processing pipelines/GUIs
 
+|====
