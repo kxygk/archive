@@ -1,0 +1,249 @@
+:revealjs_customtheme: ../web/reveal-white.css
+:revealjs_slideNumber: h
+:revealjs_transition: none
+:revealjs_hash: true
+:revealjs_center: false
+:revealjs_controls: false
+:revealjs_progress: false
+:revealjs_disablelayout: false
+:revealjs_width: 1280
+:revealjs_height: 720
+:!webfonts:
+
+:imagesdir: ../fig/
+:svg-type: inline
+
+= Climate pattern extraction from principal components by leveraging bistability
+
+by George Kontsevich
+
+Department of Geosciences, National Taiwan University (Taipei)
+
+*Advisor*: Prof. Ludvig Löwemark
+
+Special thanks to Prof. Kai-Chih Tseng (Department of Atmospheric Sciences)
+
+
+== Case Study Region
+
+[cols="1,1"]
+|====
+|image:maps/krabi/worldmap-highlight.png[]
+|image:maps/krabi/two-seas-monsoon.svg[]
+|====
+
+== Monthly Rains (12 months per row) IMERG
+
+image:imrg/krabi/monthly/precipitation-all-wide.svg[]
+
+== Rains come in two patterns
+
+[cols="1,1,1"]
+|====
+|image:imrg/krabi/monthly/observation-16.svg[]
+|image:imrg/krabi/monthly/precipitation-all.svg[]
+|image:imrg/krabi/monthly/observation-11.svg[]
+|====
+
+== Patterns are products of Climate + Topography
+
+
+[cols="1,1,1"]
+|====
+|image:imrg/krabi/monthly/observation-16.svg[]
+|image:maps/krabi/topo.svg[]
+|image:imrg/krabi/monthly/observation-11.svg[]
+|====
+
+== How to extract patterns "hands free"?
+
+[cols="1,1,1"]
+|====
+|image:imrg/krabi/monthly/observation-16.svg[]
+|image:imrg/krabi/monthly/precipitation-all.svg[]
+|image:imrg/krabi/monthly/observation-11.svg[]
+|====
+
+== Classical Approach: PCA - is it working?
+
+[cols="1,1,1"]
+|====
+|image:imrg/krabi/monthly/precipitation-all.svg[]
+|image:imrg/krabi/monthly/sv-0.svg[]
+|image:imrg/krabi/monthly/sv-1.svg[]
+|====
+
+=== The PCs exhibit strange behaviors
+
+[cols="1,1,1"]
+|====
+.2+|image:imrg/krabi/monthly/precipitation-all.svg[]
+2+|image:imrg/krabi/monthly/sv1sv2.svg[]
+|image:imrg/krabi/monthly/sv-0.svg[]
+|image:imrg/krabi/monthly/sv-1.svg[]
+|====
+
+== Testing PCA - Generate Two Random Patterns
+
+[cols="1,1"]
+|====
+|image:imrg/pattern1.svg[]
+|image:imrg/pattern2.svg[]
+|====
+A "Summer" and a "Winter" pattern
+
+== Testing PCA - Generate Fake Rain
+
+image:imrg/synth2patt/precipitation-all.svg[]
+
+== Testing PCA - Generate Fake Rain
+
+[cols="1,1,1"]
+|====
+|image:imrg/synth2patt/precipitation-all.svg[]
+|image:imrg/pattern1.svg[]
+|image:imrg/pattern2.svg[]
+|====
+
+
+== Testing PCA - PCs
+
+[cols="1,1,1"]
+|====
+|image:imrg/synth2patt/precipitation-all.svg[]
+|image:imrg/synth2patt/sv-0.svg[]
+|image:imrg/synth2patt/sv-1.svg[]
+|====
+
+=== The PCs also exhibit strange behaviors
+
+[cols="1,1,1"]
+|====
+.2+|image:imrg/synth2patt/precipitation-all.svg[]
+2+|image:imrg/synth2patt/sv1sv2.svg[]
+|image:imrg/synth2patt/sv-0.svg[]
+|image:imrg/synth2patt/sv-1.svg[]
+|====
+
+== A 2D PC1/PC2 subspace projection reveals structure
+
+[cols="1,1"]
+|====
+|image:imrg/synth2patt/precipitation-all.svg[]
+|image:imrg/synth2patt/prebisect/sv-projs-display-flat.svg[]
+|====
+
+
+== 2 State Systems are Common!
+
+image:extr/2-state-systems-flat.svg[]
+
+== Unmixing the mixtures
+
+[cols="1,1,1"]
+|====
+|image:imrg/synth2patt/prebisect/sv-projs-display-flat.svg[]
+|image:imrg/synth2patt/sv-0.svg[]
+|image:imrg/synth2patt/sv-1.svg[]
+|====
+
+
+== Unmixing the mixtures
+
+[cols="1,1,1"]
+|====
+|image:imrg/synth2patt/sv-projs-display-flat.svg[]
+|image:imrg/synth2patt/top-pattern.svg[]
+|image:imrg/synth2patt/bottom-pattern.svg[]
+|====
+
+== Back to Thailand
+
+[cols="1,1,1"]
+|====
+|image:imrg/krabi/monthly/precipitation-all.svg[]
+|image:imrg/krabi/monthly/sv-0.svg[]
+|image:imrg/krabi/monthly/sv-1.svg[]
+|====
+
+== Back to Thailand - 2D Subspace View
+
+[cols="1,1"]
+|====
+|image:imrg/krabi/monthly/precipitation-all.svg[]
+|image:imrg/krabi/monthly/prebisect/sv-projs-display-flat.svg[]
+|====
+
+== Back to Thailand - Pattern Recovery
+
+[cols="1,1,1"]
+|====
+|image:imrg/krabi/monthly/top-pattern.svg[]
+|image:imrg/krabi/monthly/bottom-pattern.svg[]
+|image:imrg/krabi/monthly/sv-projs-display-flat.svg[]
+|====
+
+=== Back to Thailand - Monthly Index
+
+[cols="1,1,1"]
+|====
+2+|image:imrg/krabi/monthly/indeces.svg[]
+.2+|image:imrg/krabi/monthly/sv-projs-display-flat.svg[]
+
+|image:imrg/krabi/monthly/top-pattern.svg[]
+|image:imrg/krabi/monthly/bottom-pattern.svg[]
+|====
+
+== Back to Thailand - Pentads
+
+[cols="1,1,1"]
+|====
+|image:imrg/krabi/pentads/top-pattern.svg[]
+|image:imrg/krabi/pentads/bottom-pattern.svg[]
+|image:imrg/krabi/pentads/sv-projs-display-flat.svg[]
+|====
+
+=== Back to Thailand - Pentad Index
+
+[cols="1,1,1"]
+|====
+2+|image:imrg/krabi/pentads/indeces.svg[]
+.2+|image:imrg/krabi/pentads/sv-projs-display-flat.svg[]
+
+|image:imrg/krabi/pentads/top-pattern.svg[]
+|image:imrg/krabi/pentads/bottom-pattern.svg[]
+|====
+
+== Back to Thailand - Daily
+
+[cols="1,1,1"]
+|====
+|image:imrg/krabi/daily/top-pattern.svg[]
+|image:imrg/krabi/daily/bottom-pattern.svg[]
+|image:imrg/krabi/daily/sv-projs-display-flat.svg[]
+|====
+
+=== Back to Thailand - Daily Index
+
+[cols="1,1,1"]
+|====
+2+|image:imrg/krabi/daily/indeces.svg[]
+.2+|image:imrg/krabi/daily/sv-projs-display-flat.svg[]
+
+|image:imrg/krabi/daily/top-pattern.svg[]
+|image:imrg/krabi/daily/bottom-pattern.svg[]
+|====
+
+
+== The end - Thank you for your time :)
+
+[cols="1,1"]
+|====
+|image:extr/etopo2022-krabi.jpg[]
+|
+
+by George Kontsevich
+
+email: kxygk@aliyun.com
+
+|====
